@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragmentos/head :: head" th:remove="tag"/>
+<title>Bolsa Trabajo</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+
+<body>
+<div class="site-wrapper">
+    <header class="header header-menu-fullw">
+
+        <div th:include="fragmentos/menu :: menu" th:remove="tag"></div>
+
+    </header>
+
+
+    <div class="main" id="app" role="main">
+
+        <div th:include="fragmentos/heading :: heading('Editar Certificacion')"></div>
+
+        <section class="page-content">
+            <div class="container">
+                <div class="box">
+                    <h3> Datos</h3>
+                    <form action="#"
+                          th:object="${certification}"
+                          method="POST"
+                          class="form-horizontal" role="form" v-on:submit.prevent="onSubmit">
+                        <div class="form-group">
+                            <label> Codigo*</label>
+                            <label th:if="${#fields.hasErrors('certificationCode')}" th:errors="*{certificationCode}"
+                                   class="validation-message"></label>
+                            <input type="text" th:field="*{certificationCode}" name="certificationCode" th:value="${certification.certificationCode}"
+                                   placeholder="Codigo" v-model="certificationCode" class="form-control" />
+                        </div>
+
+                        <div class="form-group">
+                            <label> Titulo*</label>
+                            <label th:if="${#fields.hasErrors('certificationTitle')}" th:errors="*{certificationTitle}"
+                                   class="validation-message"></label>
+                            <input type="text" th:field="*{certificationTitle}" name="certificationTitle"  th:value="${certification.certificationTitle}"
+                                   placeholder="Titulo" v-model="certificationTitle" class="form-control" />
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <button type="submit" class="btn btn-primary btn-block">Actualizar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <div th:include="fragmentos/footer :: footer"></div>
+    </div>
+</div>
+
+
+<div th:include="fragmentos/scripts :: scripts"></div>
+<script th:inline="javascript">
+
+    let code = [[${certification.certificationCode}]];
+    let title = [[${certification.certificationTitle}]];
+    new Vue({
+        el: "#app",
+        data: {
+            certificationCode: code,
+            certificationTitle: title,
+        },
+        methods: {
+            onSubmit: function(){
+                axios.put("/certifications/"+code, this.$data)
+                    .then(function(){
+                        alert("success");
+                        window.location.href = "/cat/certificaciones/";
+                    })
+                    .catch()
+            }
+        }
+    })
+
+</script>
+</body>
+</html>

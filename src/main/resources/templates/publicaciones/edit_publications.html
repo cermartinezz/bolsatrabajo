@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:v-on="http://www.w3.org/1999/xhtml">
+
+<head th:include="fragmentos/head :: head" th:remove="tag"/>
+<title>Bolsa Trabajo</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+
+<body>
+<div class="site-wrapper">
+    <header class="header header-menu-fullw">
+
+        <div th:include="fragmentos/menu :: menu" th:remove="tag"></div>
+
+    </header>
+
+
+    <div class="main" id="app" role="main">
+
+        <div th:include="fragmentos/heading :: heading('Editar Publicacion')"></div>
+
+        <section class="page-content">
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <form action="#"
+                          th:object="${publication}"
+                          method="POST"
+                          class="form-horizontal" role="form" v-on:submit.prevent="onSubmit">
+
+                            <fieldset class="fieldset-book_title">
+                                <label for="book_title">Título</label>
+                                <div class="field">
+                                    <input type="text"  class="form-control" v-model="titulo"
+                                           name="book_title" id="book_title" placeholder="Paper Data Analytics" th:value="${publication.titulo}"/>
+                                </div>
+                            </fieldset>
+
+                            <fieldset class="fieldset-book_code">
+                                <label for="book_code">Código</label>
+                                <div class="field">
+                                    <input type="text"  class="form-control" v-model="codigo"
+                                           name="book_code" id="book_code" placeholder="PAD111" th:value="${publication.codigo}"/>
+                                </div>
+                            </fieldset>
+
+                            <fieldset class="fieldset-editorial">
+                                <label for="editorial">Editorial</label>
+                                <div class="field select-style">
+                                    <select name="editorial" id="editorial" class="form-control"  v-model="editorial">
+                                        <option value="Editorial1">Editorial 1</option>
+                                        <option value="Editorial2">Editorial 2</option>
+                                    </select>
+                                </div>
+                            </fieldset>
+
+                            <div class="spacer"></div>
+
+                            <h5>Selecciona el tipo de publicación</h5>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="radio radio__custom radio__style1">
+                                        <label>
+                                            <input type="radio" name="optionsRadios1" id="optRadio11" value="option1" checked>
+                                            <span>Libro</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="radio radio__custom radio__style1">
+                                        <label>
+                                            <input type="radio" name="optionsRadios1" id="optRadio11" value="option1">
+                                            <span>Publicación Científica</span>
+                                        </label>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="spacer"></div>
+                            <p>
+                                <input type="submit" name="submit_publication" class="btn btn-primary" value="Actualizar &rarr;" />
+                            </p>
+                    </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div th:include="fragmentos/footer :: footer"></div>
+    </div>
+</div>
+
+
+<div th:include="fragmentos/scripts :: scripts"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.0/axios.js"></script>
+<script src="https://unpkg.com/vue"></script>
+<script th:inline="javascript">
+
+    let code = [[${publication.codigo}]];
+    let title = [[${publication.titulo}]];
+    let editorial = [[${publication.editorial}]];
+    let tipo = [[${publication.tipo}]];
+
+    new Vue({
+        el: "#app",
+        data: {
+            codigo: code,
+            titulo: title,
+            editorial: editorial,
+        },
+        methods: {
+            onSubmit: function(){
+                axios.put("/publications/"+code, this.$data)
+                    .then(function(){
+                        alert("success");
+                        window.location.href = "/postulant/profile";
+                    })
+                    .catch()
+            }
+        }
+    })
+
+</script>
+</body>
+</html>

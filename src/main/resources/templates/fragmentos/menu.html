@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+
+    <div th:fragment="menu">
+
+        <div class="header-main">
+
+            <div class="container">
+                <!-- Logo -->
+                <div class="logo">
+                    <!--<a href="index.html"><img src="images/logo.png" alt="Handyman"></a>-->
+                     <h1><a href="../"><span>Handy</span>Man</a></h1>
+                </div>
+                <!-- Logo / End -->
+
+                <button type="button" class="navbar-toggle">
+                    <i class="fa fa-bars"></i>
+                </button>
+
+                <!-- Navigation -->
+                <nav class="nav-main">
+                    <div class="nav-main-inner">
+                        <ul data-breakpoint="992" class="flexnav">
+                            <li class="active"><a href="../">Inicio</a></li>
+                            <li><a href="#">Postulante</a>
+                                <ul>
+                                    <li><a href="../postulant/profile.html">Mi Perfil</a></li>
+                                    <li><a href="#">Mis Aplicaciones</a></li>
+                                    <li><a href="#">Editar Perfil</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#">Oportunidades</a>
+                                <ul>
+                                    <li><a href="#">Empleos</a></li>
+                                    <li><a href="#">No sé que más</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#">Empresa</a>
+                                <ul>
+                                    <li><a href="#">Perfil</a></li>
+                                    <li><a href="#">Publicar Empleo</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#">Administración</a>
+                                <ul>
+                                    <li><a href="#">Usuarios</a></li>
+                                    <li><a href="#">Roles</a></li>
+                                    <li><a href="#">Permisos</a></li>
+                                    <li><a href="#">Menús</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+                <!-- Navigation / End -->
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

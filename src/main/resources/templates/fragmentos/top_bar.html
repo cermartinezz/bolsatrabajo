@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+
+    <div th:fragment="top_bar(username)">
+        <!-- Header Top Bar -->
+        <div class="header-top">
+            <div class="container">
+                <div class="header-top-right">
+                    <button class="btn btn-sm btn-default menu-link menu-link__tertiary">
+                        <i class="fa fa-user"></i>
+                    </button>
+                    <div class="menu-container" th:if="${user.getPrincipal().equals('anonymousUser')}">
+                        <ul class="header-top-nav header-top-nav__tertiary">
+                            <li><a href="../registro"><i class="fa fa-user-plus"></i> Register</a></li>
+                            <li><a th:href="@{/logout}"><i class="fa fa-sign-in"></i> Login</a></li>
+                        </ul>
+                    </div>
+                    <div class="menu-container" th:if="${!user.getPrincipal().equals('anonymousUser')}">
+                        <ul class="header-top-nav header-top-nav__tertiary">
+                            <li><a href="#" th:text="${'Hola: '} + ${user.getName()}"></a></li>
+                            <li><a th:href="@{/logout}"><i class="fa fa-sign-out"></i> Logout</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- Header Top Bar / End -->
+    </div>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragmentos/head :: head" th:remove="tag">
+    <title>Registro</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+</head>
+<body>
+<div class="site-wrapper" id="app">
+    <header class="header header-menu-fullw">
+
+        <div th:include="fragmentos/menu :: menu" th:remove="tag"></div>
+
+    </header>
+
+
+    <div class="main" role="main">
+
+        <div th:include="fragmentos/heading :: heading('Registro')"></div>
+
+        <!-- Page Content -->
+        <section class="page-content">
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="box">
+                            <h3>Usuario</h3>
+                            <h4>Como usuario tu puedes: </h4>
+                            <label>Crear tu perfil</label>
+                            <p>Debes completar tu perfil y prestar especial atención a los campos del registro,
+                                ya que las empresas e instituciones se basarán en estos a la hora de elegir a un candidato.
+                                Por lo que es importante sea lo más completo posible.</p>
+
+                            <label>Aplicar a puestos de trabajo</label>
+                            <p>De acuerdo a tu perfil, puedes aplicar y buscar el empleo que buscas.</p>
+
+                            <a href="registrar/postulante" class="btn btn-danger">Registrarse</a>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="box">
+                            <h3>Empresa</h3>
+                            <h4>Como empresa puede: </h4>
+                            <label>Publicar empleos</label>
+                            <p>Podrá publicar oportunidades vacantes de empleo en su empresa, y,
+                                si así lo desea hacer ésta publicación como un proyecto específico dentro de su organización.</p>
+
+                            <a href="#" class="btn btn-danger">Registrarse</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+        <!-- Page Content / End -->
+
+
+        <div th:include="fragmentos/footer :: footer"></div>
+    </div>
+</div>
+
+
+<div th:include="fragmentos/scripts :: scripts" ></div>
+
+</body>
+</html>

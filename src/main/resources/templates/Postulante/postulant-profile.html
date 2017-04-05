@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragmentos/head :: head" th:remove="tag"/>
+<title>Perfil Postulante</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+
+<body>
+
+<div class="site-wrapper">
+    <header class="header header-menu-fullw">
+
+        <div th:include="fragmentos/menu :: menu" th:remove="tag"></div>
+
+    </header>
+
+    <!-- Main -->
+    <div class="main" role="main">
+
+        <!-- Page Heading -->
+        <section class="page-heading">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1>Perfil Postulante</h1>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Page Heading / End -->
+
+        <!-- Page Content -->
+        <section class="page-content">
+            <div class="container">
+
+                <div class="row">
+                    <div class="content col-md-12">
+
+                        <div class="box mb-30">
+                            <div class="job-profile-info">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <figure class="alignnone">
+                                            <img src="images/samples/team-member-1-lg.jpg" alt="">
+                                        </figure>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <h2 class="name" th:text="${username}"></h2>
+                                        <i class="tagline">Trabajo o Estudio (Cargo o Profesion)</i>
+                                        <ul class="meta">
+                                            <li>Institución</li>
+                                        </ul>
+
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="icon-box">
+                                            <a href="#">
+                                                <div class="icon">
+                                                    <i class="fa fa-pencil"></i>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="spacer-lg"></div>
+
+                                <h4>Description</h4>
+                                <p>I am an individual with several years of experience in my line of work. CFC is a trustworthy company with a strong work ethic and excellent communications skills providing our customers with quality workmanship.</p>
+
+                                <p>Some of our previous projects include door preparation, installation, casings around doors and windows, baseboard and shoe molding and hardware installation. We also do custom projects such as wall paneling from applied molding to recessed or raised panels, custom closet organizers, on-site custom cabinetry and fireplace mantels.</p>
+
+                                <ul class="job_listings">
+                                    <div class="spacer-lg"></div>
+
+                                    <h4>Educación</h4>
+                                    <li class="job_listing">
+                                        <a href="#">
+                                            <div class="job_img">
+                                                <img src="images/samples/person1.jpg" alt="" class="company_logo">
+                                            </div>
+                                            <div class="position">
+                                                <h4>Universidad</h4>
+
+                                            </div>
+                                            <div class="rating">
+                                                <div class="rating-stars">
+
+                                                </div>
+                                                <div class="reviews-num"></div>
+                                            </div>
+                                            <ul class="meta">
+                                                <li class="job-type">Carrera</li>
+                                                <li class="date">Fecha
+                                                </li>
+                                            </ul>
+                                        </a>
+                                    </li>
+                                    <li class="job_listing">
+                                        <a href="#">
+                                            <div class="job_img">
+                                                <img src="images/samples/person1.jpg" alt="" class="company_logo">
+                                            </div>
+                                            <div class="position">
+                                                <h4>Otro lado</h4>
+
+                                            </div>
+                                            <div class="rating">
+                                                <div class="rating-stars">
+
+                                                </div>
+                                                <div class="reviews-num"></div>
+                                            </div>
+                                            <ul class="meta">
+                                                <li class="job-type">Carrera</li>
+                                                <li class="date">Fecha
+                                                </li>
+                                            </ul>
+                                        </a>
+                                    </li>
+                                </ul>
+
+                                <ul class="job_listings">
+                                    <div class="spacer-lg"></div>
+
+                                    <div class="row">
+                                        <div class="col-md-9">
+                                            <h4>Certificaciones</h4>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <a href="../cat/certificaciones" class="btn btn-sm btn-info">Ver detalle</a>
+                                            <a href="../cat/certificaciones/crear" class="btn btn-sm btn-success">Agregar</a>
+                                        </div>
+                                    </div>
+                                    <li class="job_listing">
+                                        <a href="#">
+                                            <div class="job_img">
+                                                <img src="images/samples/person1.jpg" alt="" class="company_logo">
+                                            </div>
+                                            <div class="position">
+                                                <h4>Certificación1</h4>
+
+                                            </div>
+                                            <div class="rating">
+                                                <div class="rating-stars">
+
+                                                </div>
+                                                <div class="reviews-num"></div>
+                                            </div>
+                                            <ul class="meta">
+                                                <li class="job-type">Código</li>
+                                                <li class="date">Fecha
+                                                </li>
+                                            </ul>
+                                        </a>
+                                    </li>
+                                </ul>
+
+                                <ul class="job_listings">
+                                    <div class="spacer-lg"></div>
+
+                                    <h4>Idiomas</h4>
+                                    <li class="job_listing">
+                                        <a href="#">
+                                            <div class="job_img">
+                                                <img src="images/samples/person1.jpg" alt="" class="company_logo">
+                                            </div>
+                                            <div class="position">
+                                                <h4>Chino Mandarín</h4>
+                                            </div>
+                                            <div class="rating">
+                                                <div class="rating-stars">
+                                                </div>
+                                                <div class="reviews-num">Nivel 50%</div>
+                                            </div>
+
+                                        </a>
+                                    </li>
+                                </ul>
+
+                                <ul class="job_listings">
+                                    <div class="spacer-lg"></div>
+                                    <div class="row">
+                                        <div class="col-md-9">
+                                            <h4>Libros</h4>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <a href="../publicaciones" class="btn btn-sm btn-info">Ver detalle</a>
+                                            <a href="../publicacion/crear" class="btn btn-sm btn-success">Agregar</a>
+                                        </div>
+                                    </div>
+                                    <li class="job_listing">
+                                        <a href="#">
+                                            <div class="job_img">
+                                                <img src="images/samples/person1.jpg" alt="" class="company_logo">
+                                            </div>
+                                            <div class="position">
+                                                <h4>Librito1</h4>
+                                            </div>
+                                            <div class="rating">
+                                                <div class="rating-stars">
+                                                </div>
+                                                <div class="reviews-num"></div>
+                                            </div>
+                                            <ul class="meta">
+                                                <li class="job-type">Código</li>
+                                                <li class="date">Fecha
+                                                </li>
+                                            </ul>
+
+                                        </a>
+                                    </li>
+                                </ul>
+
+                                <ul class="job_listings">
+                                    <div class="spacer-lg"></div>
+
+                                    <div class="col-md-6">
+                                        <li class="job_listing">
+
+                                            <h4>Habilidades</h4>
+                                            <ul>
+                                                <li>Comer</li>
+                                                <li>Dormir</li>
+                                                <li>Hablar</li>
+                                                <li>Procastinar</li>
+                                            </ul>
+                                        </li>
+                                    </div>
+
+                                </ul>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <!-- Page Content / End -->
+
+        <div th:include="fragmentos/footer :: footer"></div>
+
+    </div>
+    <!-- Main / End -->
+</div>
+
+<div th:include="fragmentos/scripts :: scripts" ></div>
+
+</body>
+</html>

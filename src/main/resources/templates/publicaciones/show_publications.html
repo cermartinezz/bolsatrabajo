@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragmentos/head :: head" th:remove="tag"/>
+<title>Bolsa Trabajo</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+
+<body>
+<div class="site-wrapper" id="app">
+    <header class="header header-menu-fullw">
+
+        <div th:include="fragmentos/menu :: menu" th:remove="tag"></div>
+
+    </header>
+
+
+    <div class="main" role="main">
+
+        <div th:include="fragmentos/heading :: heading('Publicaciones / Libros')"></div>
+
+        <section class="page-content">
+            <div class="container">
+
+                <div class="table-responsive">
+                    <table class="job-manager-jobs table table-bordered table-stripe">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Codigo</th>
+                            <th>Titulo</th>
+                            <th>Editorial</th>
+                            <th>Acciones</th>
+                        </tr>
+                        </thead>
+                        <tr v-for="publication in publications">
+                            <td >{{ publication.id }}</td>
+                            <td >{{ publication.codigo }}</td>
+                            <td >{{ publication.titulo }}</td>
+                            <td >{{ publication.editorial }}</td>
+                            <td>
+                                <div class="row">
+                                    <div class="span12 centered-text">
+                                        <a href="/" th:href="@{/}" class="btn btn-success inline">Editar</a>
+                                        <a href="/" th:href="@{/}" class="btn btn-primary inline">Eliminar</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <div th:include="fragmentos/footer :: footer"></div>
+    </div>
+</div>
+
+
+<div th:include="fragmentos/scripts :: scripts"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.0/axios.js"></script>
+<script src="https://unpkg.com/vue"></script>
+<script th:inline="javascript">
+
+    new Vue({
+        el: "#app",
+        data: {
+            publications: []
+        },
+        mounted(){
+            axios.get("/publications")
+                .then(response => this.publications = response.data)
+        }
+    })
+
+</script>
+</body>
+</html>
