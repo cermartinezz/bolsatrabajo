@@ -5,7 +5,10 @@ import com.bolsaTrabajo.repositories.InstitutionRepository;
 import com.bolsaTrabajo.service.InstitutionService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+
 public class InstitutionServiceImpl implements InstitutionService {
+
 
     @Autowired
     private InstitutionRepository institutionRepository;
@@ -18,5 +21,15 @@ public class InstitutionServiceImpl implements InstitutionService {
     @Override
     public Institution findInstitutionByCode(String code) {
         return institutionRepository.findByInstitutionCode(code);
+    }
+
+    @Override
+    public List<Institution> getAllInstitutions() {
+        return institutionRepository.findAll();
+    }
+
+    @Override
+    public void update(Institution currentInstitution) {
+        this.save(currentInstitution);
     }
 }

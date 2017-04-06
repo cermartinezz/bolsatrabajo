@@ -1,10 +1,7 @@
 package com.bolsaTrabajo.configuration;
 
 import com.bolsaTrabajo.service.*;
-import com.bolsaTrabajo.service.implementations.PostulantServiceImpl;
-import com.bolsaTrabajo.service.implementations.RoleServiceImpl;
-import com.bolsaTrabajo.service.implementations.SecurityServiceImpl;
-import com.bolsaTrabajo.service.implementations.UserServiceImpl;
+import com.bolsaTrabajo.service.implementations.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -42,6 +39,8 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     public SecurityService securityService(){
         return new SecurityServiceImpl();
     }
+
+    @Bean InstitutionService institutionService() { return  new InstitutionServiceImpl(); }
 
 
     @Bean
