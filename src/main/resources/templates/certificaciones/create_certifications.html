@@ -73,7 +73,7 @@
         methods: {
             onSubmit: function(){
                 axios.post("/certifications", this.$data)
-                    .then(response = alert("success"))
+                    .then(response => {window.location.href = "/cat/certificaciones/"})
                     .catch(error => {
                         console.log(error.response);
                     })
