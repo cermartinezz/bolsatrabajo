@@ -20,4 +20,8 @@ public class HomeController {
         return "registrar/menu";
     }
 
+    @RequestMapping("/admin/menu")
+    public String adminMenu(){
+        return "admin/menu_admin";
+    }
 }

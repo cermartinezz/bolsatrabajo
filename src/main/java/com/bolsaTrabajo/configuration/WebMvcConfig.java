@@ -50,4 +50,9 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     public SkillService skillService(){
         return new SkillService();
     }
+
+    @Bean
+    public SkillCategoryService skillCategoryService(){
+        return new SkillCategoryService();
+    }
 }
