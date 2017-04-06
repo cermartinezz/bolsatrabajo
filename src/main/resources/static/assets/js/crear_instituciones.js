@@ -16,6 +16,9 @@ new Vue({
                     this.success = true;
                     this.message = "La institucion fue creada con exito";
                     this.error=false;
+                    this.institutionCode = "";
+                    this.institutionName = "";
+                    this.institutionType = "";
                 })
                 .catch(error => {
                     this.message = "";

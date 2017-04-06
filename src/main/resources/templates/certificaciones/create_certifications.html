@@ -20,7 +20,8 @@
 
         <section class="page-content">
             <div class="container">
-                <div class="box">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
                     <h3>Datos</h3>
                     <span th:utext="${successMessage}"></span>
                     <form th:object="${certification}"
@@ -38,15 +39,17 @@
                             <label> Titulo*</label>
                             <label th:if="${#fields.hasErrors('certificationTitle')}" th:errors="*{certificationTitle}"
                                    class="validation-message"></label>
-                            <input type="text" th:field="*{certificationTitle}" name="certificationTitle" v-model="certificationTitle" placeholder="Titulo" class="form-control" />
+                            <input type="text" th:field="*{certificationTitle}" name="certificationTitle" v-model="certificationTitle" placeholder="Titulo" class="form-control" required/>
                         </div>
 
                         <div class="form-group">
                             <div class="col-sm-9">
-                                <button type="submit" class="btn btn-primary btn-block">Agregar</button>
+                                <button type="submit" class="btn btn-primary">Agregar</button>
                             </div>
                         </div>
                     </form>
+
+                    </div>
                 </div>
             </div>
         </section>
@@ -70,7 +73,7 @@
         methods: {
             onSubmit: function(){
                 axios.post("/certifications", this.$data)
-                    .then(response = alert("success"))
+                    .then(response => {window.location.href = "/cat/certificaciones/"})
                     .catch(error => {
                         console.log(error.response);
                     })

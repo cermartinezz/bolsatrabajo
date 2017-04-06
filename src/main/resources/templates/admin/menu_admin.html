@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragmentos/head :: head" th:remove="tag"/>
+<title>Bolsa Trabajo</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+
+<body>
+<div class="site-wrapper">
+    <header class="header header-menu-fullw">
+
+
+        <div th:include="fragmentos/menu :: menu" th:remove="tag"></div>
+
+    </header>
+
+
+    <div class="main" role="main">
+
+        <div th:include="fragmentos/heading :: heading('Menu Administracion')"></div>
+
+
+        <!-- Page Content -->
+        <section class="page-content">
+            <div class="container">
+
+                <div class="title-bordered">
+                    <h2>Categorias disponibles<small>Escoger la sección a adminsitrar</small></h2>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="icon-box">
+                            <div class="icon">
+                                <i class="fa fa-certificate"></i>
+                            </div>
+
+                            <div class="icon-box-body">
+                                <a href="../cat/certificaciones">	<h4>Certificaciones</h4> </a>
+                                <p>Administrar las certificaciones que estarán disponibles dentro del sistema.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="icon-box">
+                            <div class="icon">
+                                <i class="fa fa-lightbulb-o"></i>
+                            </div>
+                            <div class="icon-box-body">
+                                <a href="../habilidades"><h4>Habilidades</h4></a>
+                                <p>Administrar las habilidades que estarán disponibles dentro del sistema.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="icon-box">
+                            <div class="icon">
+                                <i class="fa fa-building-o"></i>
+                            </div>
+                            <div class="icon-box-body">
+                                <a><h4>Instituciones</h4></a>
+                                <p>Administrar el catálogo de las instituciones disponibles dentro del sitio.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+        <!-- Page Content / End -->
+
+
+
+        <div th:include="fragmentos/footer :: footer"></div>
+    </div>
+</div>
+
+
+<div th:include="fragmentos/scripts :: scripts" ></div>
+</body>
+</html>

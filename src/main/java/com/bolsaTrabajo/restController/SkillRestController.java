@@ -1,6 +1,8 @@
 package com.bolsaTrabajo.restController;
 
 import com.bolsaTrabajo.model.Skill;
+import com.bolsaTrabajo.model.SkillCategory;
+import com.bolsaTrabajo.service.SkillCategoryService;
 import com.bolsaTrabajo.service.SkillService;
 import com.bolsaTrabajo.util.CustomErrorType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by mvip on 04-05-17.
  */
@@ -23,7 +28,37 @@ public class SkillRestController {
     @Autowired
     public SkillService skillService;
 
-    @RequestMapping(method = RequestMethod.POST)
+    @Autowired
+    public SkillCategoryService skillCategoryService;
+
+
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<List<Skill>> getAllSkills() {
+        List<Skill> skills = skillService.getAllSkills();
+
+        return new ResponseEntity<List<Skill>>(skills, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/create", method = RequestMethod.GET)
+    public ResponseEntity<List<SkillCategory>> getAllCategories() {
+        List<SkillCategory> skillsCat = skillCategoryService.getAllSkillsCategory();
+
+        return new ResponseEntity<List<SkillCategory>>(skillsCat, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/names", method = RequestMethod.GET)
+    public ResponseEntity<List<String>> getAllCategoriesByName() {
+        List<SkillCategory> skillsCat = skillCategoryService.getAllSkillsCategory();
+
+        List<String> names = new ArrayList<>();
+        for (SkillCategory cat: skillsCat)
+        {
+            names.add(cat.getTitulo());
+        }
+        return new ResponseEntity<List<String>>(names, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/create",method = RequestMethod.POST)
     public ResponseEntity<?> create(@RequestBody Skill skill, UriComponentsBuilder ucBuilder){
 
         Skill sk = skillService.findSkillByCodigo(skill.getCodigo());

@@ -25,8 +25,8 @@
                     <div class="row">
                         <div class="col-md-6 col-md-offset-3">
                             <div class="box">
-                                <span v-if="success">{{message}}</span>
-                                <span v-if="error">{{message}}</span>
+                                <p v-if="success"><span class="alert alert-info ">{{message}}</span></p>
+                                <p v-if="error"><span class="alert alert-danger">{{message}}</span></p>
                                 <form autocomplete="off"
                                       th:object="${institution}" method="post" class="form-horizontal" v-on:submit.prevent="onSubmit"
                                       role="form">
