@@ -1,5 +1,6 @@
 package com.bolsaTrabajo.controller;
 
+import com.bolsaTrabajo.util.Auth;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,7 +13,7 @@ public class PostulantController {
 
     @RequestMapping("/postulant/profile")
     public String postulantProfile(Model model){
-        model.addAttribute("username","Mario Vides");
+        model.addAttribute("username", Auth.auth().getName());
         return "Postulante/postulant-profile";
     }
 
