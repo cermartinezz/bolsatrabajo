@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -43,6 +44,18 @@ public class SkillRestController {
         List<SkillCategory> skillsCat = skillCategoryService.getAllSkillsCategory();
 
         return new ResponseEntity<List<SkillCategory>>(skillsCat, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/names", method = RequestMethod.GET)
+    public ResponseEntity<List<String>> getAllCategoriesByName() {
+        List<SkillCategory> skillsCat = skillCategoryService.getAllSkillsCategory();
+
+        List<String> names = new ArrayList<>();
+        for (SkillCategory cat: skillsCat)
+        {
+            names.add(cat.getTitulo());
+        }
+        return new ResponseEntity<List<String>>(names, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/create",method = RequestMethod.POST)
