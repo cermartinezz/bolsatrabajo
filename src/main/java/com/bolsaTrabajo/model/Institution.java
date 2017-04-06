@@ -3,7 +3,9 @@ package com.bolsaTrabajo.model;
 import com.bolsaTrabajo.util.InstitutionType;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name="institution")
@@ -12,6 +14,8 @@ public class Institution implements Serializable{
     private String institutionCode;
     private String institutionName;
     private InstitutionType institutionType;
+    @NotNull
+    private List<AcademicExperience> experiencia;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -46,5 +50,15 @@ public class Institution implements Serializable{
 
     public void setInstitutionType(InstitutionType institutionType) {
         this.institutionType = institutionType;
+    }
+
+
+    @OneToMany(mappedBy = "institution",cascade = CascadeType.ALL)
+    public List<AcademicExperience> getExperiencia() {
+        return experiencia;
+    }
+
+    public void setExperiencia(List<AcademicExperience> experiencia) {
+        this.experiencia = experiencia;
     }
 }
