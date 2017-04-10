@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="head">
+
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <!-- default header name is X-CSRF-TOKEN -->
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
-
-
     <link rel="stylesheet" type="text/css" href="../static/assets/css/template.css" th:href="@{/assets/css/template.css}">
     <link rel="stylesheet" href="../static/assets/css/fonts/awesome/css/font-awesome.css" th:href="@{/assets/css/fonts/awesome/css/font-awesome.css}">
     <link rel="stylesheet" href="../static/assets/css/fonts/entypo/css/entypo.css" th:href="@{/assets/css/fonts/entypo/css/entypo.css}">
-    <script src="../static/vendor/modernizr.js" th:src="@{/vendor/modernizr.js}"></script>
+    <script src="../static/assets/vendor/modernizr.js" th:src="@{/assets/vendor/modernizr.js}"></script>
 
 </head>
 <body>

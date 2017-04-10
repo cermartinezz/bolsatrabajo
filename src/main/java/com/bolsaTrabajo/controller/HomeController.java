@@ -12,6 +12,7 @@ public class HomeController {
     public String home(ModelMap modelMap){
 
         modelMap.addAttribute("user", Auth.auth());
+
         return "home";
     }
 

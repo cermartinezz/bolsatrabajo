@@ -20,35 +20,52 @@
 
         <section class="page-content">
             <div class="container">
-                <div class="row">
-                    <div class="col-md-8 col-md-offset-2">
-                    <h3>Datos</h3>
-                    <span th:utext="${successMessage}"></span>
-                    <form th:object="${certification}"
-                          method="POST"
-                          class="form-horizontal" role="form" v-on:submit.prevent="onSubmit">
+                <div class="box">
+                    <div class="row">
+                        <div class="col-md-8 col-md-offset-2">
+                            <h3>Datos</h3>
+                            <span th:utext="${successMessage}"></span>
+                            <form th:object="${certification}"
+                                  method="POST"
+                                  class="form-horizontal" role="form" v-on:submit.prevent="onSubmit">
 
-                        <div class="form-group">
-                            <label> Codigo*</label>
-                            <label th:if="${#fields.hasErrors('certificationCode')}" th:errors="*{certificationCode}"
-                                   class="validation-message"></label>
-                            <input type="text" th:field="*{certificationCode}" name="certificationCode" v-model="certificationCode" placeholder="Codigo" class="form-control" />
+                                <input type="hidden"
+                                       th:name="${_csrf.parameterName}"
+                                       th:value="${_csrf.token}" />
+
+                                <div class="form-group" v-bind:class="{'help-block with-errors': listErrors.has('certificationCode') }">
+                                    <label> Codigo*</label>
+                                    <label th:if="${#fields.hasErrors('certificationCode')}" th:errors="*{certificationCode}"
+                                           class="validation-message"></label>
+                                    <input type="text" th:field="*{certificationCode}" name="certificationCode" v-model="certificationCode" placeholder="Codigo" class="form-control" />
+                                    <div class="help-block with-errors" v-if="listErrors.has('certificationCode')" v-text="listErrors.get('certificationCode')"></div>
+                                </div>
+
+                                <div class="form-group" v-bind:class="{'help-block with-errors': listErrors.has('certificationTitle') }">
+                                    <label> Titulo*</label>
+                                    <label th:if="${#fields.hasErrors('certificationTitle')}" th:errors="*{certificationTitle}"
+                                           class="validation-message"></label>
+                                    <input type="text" th:field="*{certificationTitle}" name="certificationTitle" v-model="certificationTitle" placeholder="Titulo" class="form-control" />
+                                    <div class="help-block with-errors" v-if="listErrors.has('certificationTitle')" v-text="listErrors.get('certificationTitle')"></div>
+
+                                </div>
+
+                                <div class="form-group" th:object="${institution}">
+                                    <label> Institucion responsable*</label>
+                                    <select class="form-control" id="institution" v-model.number="institution" type="number" name="institution" required>
+                                        <option disabled value="">Seleccione institucion</option>
+                                        <option th:each="institution : ${institutions}"
+                                                th:value="${institution.id}"
+                                                th:text="${institution.institutionName}"></option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary">Agregar</button>
+                                </div>
+                            </form>
+
                         </div>
-
-                        <div class="form-group">
-                            <label> Titulo*</label>
-                            <label th:if="${#fields.hasErrors('certificationTitle')}" th:errors="*{certificationTitle}"
-                                   class="validation-message"></label>
-                            <input type="text" th:field="*{certificationTitle}" name="certificationTitle" v-model="certificationTitle" placeholder="Titulo" class="form-control" required/>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-sm-9">
-                                <button type="submit" class="btn btn-primary">Agregar</button>
-                            </div>
-                        </div>
-                    </form>
-
                     </div>
                 </div>
             </div>
@@ -62,20 +79,55 @@
 <div th:include="fragmentos/scripts :: scripts"></div>
 <script th:inline="javascript">
 
-    let code = "";
-    let title = "";
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+
+    axios.defaults.headers.common['X-CSRF-TOKEN'] = token;
+
+    class Errors{
+        constructor (){
+            this.errors = {};
+        }
+        record(listErrors){
+            this.errors = listErrors;
+        }
+        get(field){
+            if(this.errors[0]){
+                var data = $.grep(this.errors,function(obj){
+                return obj.field === field;
+                });
+                if(data.length!==0){
+                    return data[0].defaultMessage
+                }
+            }
+        }
+        has(field){
+            if(this.errors[0]){
+                var data = $.grep(this.errors,function(obj){
+                    return obj.field === field;
+                });
+
+                return (data.length !== 0)
+
+            }
+        }
+    }
     new Vue({
         el: "#app",
         data: {
-            certificationCode: code,
-            certificationTitle: title,
+            certificationCode: "",
+            certificationTitle: "",
+            institution: "",
+            listErrors: new Errors()
         },
         methods: {
             onSubmit: function(){
-                axios.post("/certifications", this.$data)
-                    .then(response => {window.location.href = "/cat/certificaciones/"})
+                axios.post("/api/certificaciones", this.$data)
+                    .then(response => {
+                        console.log(response);
+                    })
                     .catch(error => {
-                        console.log(error.response);
+                        this.listErrors.record(error.response.data.errors);
                     })
             }
         }

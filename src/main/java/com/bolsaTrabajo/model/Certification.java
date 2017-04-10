@@ -9,23 +9,27 @@ import java.io.Serializable;
 @Table(name="certifications")
 public class Certification implements Serializable{
 
-    private int certificationId;
+    private int id;
     private String certificationCode;
     private String certificationTitle;
+    private Institution institution;
+
+    public Certification() {
+        super();
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="certification_id")
+    @Column(name = "certification_id")
     public int getCertificationId() {
-        return certificationId;
+        return id;
     }
 
     public void setCertificationId(int certificationId) {
-        this.certificationId = certificationId;
+        this.id = certificationId;
     }
 
     @Column(name="certification_code")
-    @NotEmpty(message = "*Ingrese un codigo")
     public String getCertificationCode() {
         return certificationCode;
     }
@@ -35,7 +39,6 @@ public class Certification implements Serializable{
     }
 
     @Column(name="certification_title")
-    @NotEmpty(message = "*Ingrese un Titulo")
     public String getCertificationTitle() {
         return certificationTitle;
     }
@@ -44,12 +47,23 @@ public class Certification implements Serializable{
         this.certificationTitle = certificationTitle;
     }
 
+    @ManyToOne
+    @JoinColumn(name = "institution_id")
+    public Institution getInstitution() {
+        return institution;
+    }
+
+    public void setInstitution(Institution institution) {
+        this.institution = institution;
+    }
+
     @Override
     public String toString() {
         return "Certification{" +
-                "certificationId=" + certificationId +
+                "certificationId=" + id +
                 ", certificationCode='" + certificationCode + '\'' +
                 ", certificationTitle='" + certificationTitle + '\'' +
+                ", institution=" + institution +
                 '}';
     }
 }

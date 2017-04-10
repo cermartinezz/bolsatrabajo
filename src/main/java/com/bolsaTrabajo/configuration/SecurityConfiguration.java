@@ -25,13 +25,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
-            .antMatchers("/","/registro","/registrar/**").permitAll()
-            .anyRequest().authenticated()
-            .and().csrf().disable()
-            .formLogin()
-            .loginPage("/login").permitAll().defaultSuccessUrl("/")
+                .antMatchers("/","/registro","/registrar/**").permitAll()
+                .anyRequest().authenticated()
             .and()
-            .logout().permitAll();
+            .formLogin()
+                .loginPage("/login").permitAll()
+            .and()
+                .logout().permitAll();
     }
 
     @Autowired

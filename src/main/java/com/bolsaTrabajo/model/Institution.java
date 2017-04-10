@@ -4,22 +4,33 @@ import com.bolsaTrabajo.util.InstitutionType;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name="institution")
-public class Institution implements Serializable{
-    private Long id;
+public class Institution {
+    private int id;
     private String institutionCode;
     private String institutionName;
     private InstitutionType institutionType;
+    private Set<Certification> certifications;
+
+    public Institution() {
+        super();
+    }
+
+    public Institution(int id) {
+        this.id = id;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -46,5 +57,24 @@ public class Institution implements Serializable{
 
     public void setInstitutionType(InstitutionType institutionType) {
         this.institutionType = institutionType;
+    }
+
+    @OneToMany(mappedBy = "institution", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    public Set<Certification> getCertifications() {
+        return certifications;
+    }
+
+    public void setCertifications(Set<Certification> certifications) {
+        this.certifications = certifications;
+    }
+
+    @Override
+    public String toString() {
+        return "Institution{" +
+                "id=" + id +
+                ", institutionCode='" + institutionCode + '\'' +
+                ", institutionName='" + institutionName + '\'' +
+                ", institutionType=" + institutionType +
+                '}';
     }
 }

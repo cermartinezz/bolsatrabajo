@@ -53,7 +53,6 @@ public class RegistrarController {
             return "registrar/postulante";
         }
 
-
         userService.save(userForm);
 
         securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
