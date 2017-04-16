@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragmentos/head :: head" th:remove="tag">
+    <meta charset="UTF-8">
+    <title>Roles</title>
+</head>
+<body>
+<div class="site-wrapper" id="app">
+    <header class="header header-menu-fullw">
+
+        <div th:include="fragmentos/menu :: menu" th:remove="tag"></div>
+
+    </header>
+
+
+    <div class="main" role="main">
+
+        <div th:include="fragmentos/heading :: heading('Roles de Usuarios')"></div>
+
+        <section class="page-content">
+            <div class="container">
+                <div class="box">
+                    <div class="row">
+                        <div class="col-md-8 col-md-offset-2">
+                            <h3>Lista de Roles</h3>
+
+                            <div th:if="${messageSuccess!=null}" class="alert alert-success alert-dismissable">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <span th:text="${messageSuccess}"></span>
+                            </div>
+
+                            <div class="table-responsive">
+                                <a th:href="@{/roles/crear}" class="btn btn-success">Nuevo</a>
+                                <table class="table table-bordered table-stripe">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Id</th>
+                                            <th>Nombre</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="r,iter : ${roles}">
+                                            <td th:text="${iter.count}"></td>
+                                            <td th:text="${r.id}"></td>
+                                            <td th:text="${r.name}"></td>
+                                            <td>
+                                                <a th:href="@{/roles/{id}(id=${r.id})}" class="btn btn-info">Editar</a>
+
+                                                <form th:action="@{'/role/' + ${r.id}}"
+                                                      th:method="DELETE" class="btn">
+
+                                                    <div >
+                                                        <button type="submit"
+                                                                class="btn btn-danger btn-block"
+                                                                onclick="return confirm("Seguro que desea eliminar este registro?")">Eliminar</button>
+                                                    </div>
+
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div th:include="fragmentos/footer :: footer"></div>
+    </div>
+</div>
+
+
+<div th:include="fragmentos/scripts :: scripts"></div>
+<
+</body>
+</html>

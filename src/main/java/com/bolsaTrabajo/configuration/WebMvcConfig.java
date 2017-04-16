@@ -6,6 +6,7 @@ import com.bolsaTrabajo.validator.CertificationValidator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @Configuration
@@ -33,8 +34,11 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
     @Bean
     public RoleService roleService(){
-        return new RoleServiceImpl();
+        return new RoleService();
     }
+
+    @Bean
+    public PermissionService permissionService(){ return new PermissionService(); }
 
     @Bean
     public SecurityService securityService(){
