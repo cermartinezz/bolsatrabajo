@@ -5,6 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "postulant")
@@ -27,6 +28,12 @@ public class Postulant extends User{
 
     @Enumerated(EnumType.STRING)
     private Gender gender;
+
+    @OneToMany(mappedBy = "postulant",cascade = CascadeType.ALL)
+    private List<AcademicExperience> experiencia;
+
+    @OneToMany(mappedBy = "postulant",cascade = CascadeType.ALL)
+    private List<WorkExperience> xp;
 
     @Override
     public Long getId() {
@@ -78,5 +85,22 @@ public class Postulant extends User{
                 ", nit='" + nit + '\'' +
                 ", gender=" + gender +
                 '}';
+    }
+
+    public List<AcademicExperience> getExperiencia() {
+        return experiencia;
+    }
+
+
+    public void setExperiencia(List<AcademicExperience> experiencia) {
+        this.experiencia = experiencia;
+    }
+
+    public List<WorkExperience> getXp() {
+        return xp;
+    }
+
+    public void setXp(List<WorkExperience> xp) {
+        this.xp = xp;
     }
 }
