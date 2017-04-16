@@ -1,6 +1,8 @@
 package com.bolsaTrabajo.model;
 
 import com.bolsaTrabajo.util.InstitutionType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -59,7 +61,8 @@ public class Institution {
         this.institutionType = institutionType;
     }
 
-    @OneToMany(mappedBy = "institution", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnore
+    @OneToMany(mappedBy = "institution", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public Set<Certification> getCertifications() {
         return certifications;
     }

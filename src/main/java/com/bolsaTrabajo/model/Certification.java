@@ -1,5 +1,6 @@
 package com.bolsaTrabajo.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
@@ -47,7 +48,8 @@ public class Certification implements Serializable{
         this.certificationTitle = certificationTitle;
     }
 
-    @ManyToOne
+
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "institution_id")
     public Institution getInstitution() {
         return institution;

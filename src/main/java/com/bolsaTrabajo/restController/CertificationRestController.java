@@ -16,6 +16,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -24,13 +25,17 @@ import org.springframework.web.util.UriComponentsBuilder;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/certificaciones")
 public class CertificationRestController {
 
     public static final Logger logger = LoggerFactory.getLogger(CertificationRestController.class);
+
+    private HttpHeaders headers;
 
     @Autowired
     private CertificationService certificationService;
@@ -43,6 +48,9 @@ public class CertificationRestController {
         binder.setValidator(certificationValidator);
     }
 
+    public CertificationRestController() {
+        this.headers = new HttpHeaders();
+    }
 
     @GetMapping
     public ResponseEntity<List<Certification>> index() {
@@ -57,15 +65,16 @@ public class CertificationRestController {
     }
 
     @GetMapping(value= "{code}")
-    public ResponseEntity<Certification> show(@PathVariable("code") String code){
+    public ResponseEntity show(@PathVariable("code") String code){
 
         Certification certification = certificationService.findCertificationByCode(code);
-
+        logger.info("certification {}",certification);
         if(certification == null){
-            return new ResponseEntity<Certification>(HttpStatus.NOT_FOUND);
+            headers.set("message","No se encontraron registros");
+            return new ResponseEntity(headers,HttpStatus.NOT_FOUND);
         }
-
-        return new ResponseEntity<Certification>(certification, HttpStatus.OK);
+        headers.set("message","Registros Encontrados");
+        return new ResponseEntity(certification,headers, HttpStatus.OK);
     }
 
 
@@ -83,18 +92,15 @@ public class CertificationRestController {
     }
 
    @PutMapping(value = "/{code}")
-   public ResponseEntity update(@PathVariable("code") String code, @RequestBody Certification certification) {
-       Certification currentCertification = certificationService.findCertificationByCode(code);
+   public ResponseEntity update(@PathVariable("code") String code, @Valid @RequestBody Certification certification) {
 
-       if (currentCertification == null) {
-           return new ResponseEntity(new CustomErrorType("La certificacion que desea actualizar no existe"), HttpStatus.NOT_FOUND);
-       }
+        Certification currentCertification = certificationService.findCertificationByCode(code);
 
        currentCertification.setCertificationTitle(certification.getCertificationTitle());
 
        certificationService.updateCertification(currentCertification);
 
-       return new ResponseEntity<Certification>(currentCertification, HttpStatus.OK);
+       return new ResponseEntity(currentCertification, HttpStatus.OK);
     }
 
 
