@@ -21,10 +21,6 @@ public class Company {
     @Column(name = "company_name")
     private String companyName;
 
-    /*@NotNull
-    @OneToMany(mappedBy = "company",cascade = CascadeType.ALL)
-    private List<WorkExperience> experiencia;*/
-
     public long getId() {
         return id;
     }
@@ -41,12 +37,4 @@ public class Company {
     public void setCompanyName(String name) {
         this.companyName = name;
     }
-
-    /*public List<WorkExperience> getExperiencia() {
-        return experiencia;
-    }
-
-    public void setExperiencia(List<WorkExperience> experiencia) {
-        this.experiencia = experiencia;
-    }*/
 }

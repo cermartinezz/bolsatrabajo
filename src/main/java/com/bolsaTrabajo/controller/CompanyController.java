@@ -13,13 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
-import java.util.logging.Logger;
 
 /**
  * Created by enan0 on 13/4/2017.
  */
 @Controller
+@RequestMapping("/empresas")
 public class CompanyController {
 
     public static final String CREATE_COMPANY = "empresas/create_company";
@@ -30,21 +29,21 @@ public class CompanyController {
     @Autowired
     private CompanyService companyService;
 
-    @RequestMapping("/cat/empresas")
+    @RequestMapping
     public String show(Model model){
         model.addAttribute("user", Auth.auth());
         model.addAttribute("companies",companyService.getAllCompanies());
         return "empresas/show_company";
     }
 
-    @RequestMapping(value = "/cat/empresas/crear", method = RequestMethod.GET)
+    @RequestMapping(value = "/crear", method = RequestMethod.GET)
     public String create(ModelMap modelMap){
         modelMap.addAttribute(COMPANY,new Company());
         modelMap.addAttribute("user",Auth.auth());
         return CREATE_COMPANY;
     }
 
-    @RequestMapping(value = "/cat/empresas/{code}/editar",method = RequestMethod.GET)
+    @RequestMapping(value = "/editar/{code}",method = RequestMethod.GET)
     public ModelAndView update(@PathVariable String code){
         ModelAndView modelAndView = new ModelAndView();
         Company e = companyService.getCompany(Long.parseLong(code));

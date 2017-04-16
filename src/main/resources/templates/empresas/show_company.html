@@ -21,6 +21,15 @@
 
         <section class="page-content">
             <div class="container">
+                <div class="box">
+                    <div th:if="${message!=null}" class="alert alert-success alert-dismissable">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <span th:text="${message}"></span>
+                    </div>
+                </div>
+
+                <!--Agregar alert en caso fallo-->
+
                <div class="table-responsive">
                    <table class="job-manager-jobs table table-bordered table-stripe">
                        <thead>
@@ -36,8 +45,8 @@
                            <td>
                                <div class="row">
                                        <div class="span12 centered-text">
-                                           <a href="/" th:href="@{/cat/empresas/{id}/editar(id=${company.id})}" class="btn btn-success inline">Editar</a>
-                                           <form th:action="@{'/company/'+${company.id}}" th:method="DELETE" th:object="${company}" role="form"  class="btn inline">
+                                           <a href="/" th:href="@{/empresas/editar/{id}(id=${company.id})}" class="btn btn-success inline">Editar</a>
+                                           <form th:action="@{'/api/empresas/delete/'+${company.id}}" th:method="DELETE" th:object="${company}" role="form"  class="btn inline">
                                                <button type="submit" onclick="return confirm('Seguro que desea eliminar la empresa?')" class="btn btn-primary">Eliminar</button>
                                            </form>
                                        </div>
