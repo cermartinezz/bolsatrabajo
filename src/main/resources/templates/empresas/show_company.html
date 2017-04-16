@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragmentos/head :: head" th:remove="tag"/>
+<title>Bolsa Trabajo</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+
+<body>
+<div class="site-wrapper" id="app">
+    <header class="header header-menu-fullw">
+
+        <div th:include="fragmentos/top_bar :: top_bar(${user})" th:remove="tag"></div>
+        <div th:include="fragmentos/menu :: menu" th:remove="tag"></div>
+
+    </header>
+
+
+    <div class="main" role="main">
+
+        <div th:include="fragmentos/heading :: heading('Empresas')"></div>
+
+        <section class="page-content">
+            <div class="container">
+               <div class="table-responsive">
+                   <table class="job-manager-jobs table table-bordered table-stripe">
+                       <thead>
+                       <tr>
+                           <th>Id</th>
+                           <th>Nombre Empresa</th>
+                           <th>Acciones</th>
+                       </tr>
+                       </thead>
+                       <tr th:each="company : ${companies}">
+                           <td th:text="${company.id}"></td>
+                           <td th:text="${company.companyName}"></td>
+                           <td>
+                               <div class="row">
+                                       <div class="span12 centered-text">
+                                           <a href="/" th:href="@{/cat/empresas/{id}/editar(id=${company.id})}" class="btn btn-success inline">Editar</a>
+                                           <form th:action="@{'/company/'+${company.id}}" th:method="DELETE" th:object="${company}" role="form"  class="btn inline">
+                                               <button type="submit" onclick="return confirm('Seguro que desea eliminar la empresa?')" class="btn btn-primary">Eliminar</button>
+                                           </form>
+                                       </div>
+                                </div>
+                           </td>
+                       </tr>
+                   </table>
+               </div>
+            </div>
+        </section>
+
+        <div th:include="fragmentos/footer :: footer"></div>
+    </div>
+</div>
+
+
+<div th:include="fragmentos/scripts :: scripts"></div>
+<!--<script th:inline="javascript">
+
+    /*new Vue({
+        el: "#app",
+        data: {
+            companies: []
+        },
+        mounted(){
+            axios.get("/company")
+                .then(response => this.companies = response.data)
+        }
+    })*/
+
+</script>-->
+</body>
+</html>
