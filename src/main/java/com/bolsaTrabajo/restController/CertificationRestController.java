@@ -68,7 +68,7 @@ public class CertificationRestController {
     public ResponseEntity show(@PathVariable("code") String code){
 
         Certification certification = certificationService.findCertificationByCode(code);
-        logger.info("certification {}",certification);
+
         if(certification == null){
             headers.set("message","No se encontraron registros");
             return new ResponseEntity(headers,HttpStatus.NOT_FOUND);
@@ -83,9 +83,7 @@ public class CertificationRestController {
 
         certificationService.storeCertification(certification);
 
-        HttpHeaders headers = new HttpHeaders();
-
-        headers.setLocation(ucBuilder.path("/certifications/{id}").buildAndExpand(certification.getCertificationId()).toUri());
+        this.headers.setLocation(ucBuilder.path("/certifications/{id}").buildAndExpand(certification.getCertificationId()).toUri());
 
         return new ResponseEntity<String>(headers, HttpStatus.CREATED);
 

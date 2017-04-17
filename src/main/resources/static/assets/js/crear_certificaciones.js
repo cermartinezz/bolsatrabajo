@@ -31,18 +31,17 @@ class Errors{
         }
     }
 }
-
 new Vue({
     el: "#app",
     data: {
-        institutionCode: "",
-        institutionName: "",
-        institutionType: "",
+        certificationCode: "",
+        certificationTitle: "",
+        institution: "",
         listErrors: new Errors()
     },
-    methods:{
+    methods: {
         onSubmit: function(){
-            axios.post("/api/instituciones", this.$data)
+            axios.post("/api/certificaciones", this.$data)
                 .then(response => {
                     console.log(response);
                     showMessageTimer("Guardado","El registro fue guardado con exito",'success',2500);
@@ -53,11 +52,12 @@ new Vue({
                 })
         },
         clearData(){
-            this.institutionCode = "";
-            this.institutionName = "";
-            this.institutionType = "";
+            this.certificationCode = "";
+            this.certificationTitle = "";
+            this.institution = "";
             this.listErrors = new Errors();
         }
     }
-
 })
+
+

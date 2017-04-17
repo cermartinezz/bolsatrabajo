@@ -12,6 +12,7 @@ import org.springframework.validation.Validator;
 public class CertificationValidator implements Validator {
 
     private static final Logger log = LoggerFactory.getLogger(CertificationValidator.class);
+
     @Autowired
     private CertificationService certificationService;
 
@@ -23,11 +24,11 @@ public class CertificationValidator implements Validator {
     @Override
     public void validate(Object o, Errors errors) {
         Certification certificationFromRequest = (Certification) o;
-        log.info("FromRequest {}",certificationFromRequest);
+
         Certification certification = certificationService.findCertificationByCode(certificationFromRequest.getCertificationCode());
-        log.info("original {}",certification);
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "certificationCode", "NotEmpty","Este campo no puede ser vacio");
+
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "certificationTitle", "NotEmpty","Este campo no puede ser vacio");
 
         if (certification != null) {

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragmentos/head :: head" th:remove="tag"/>
+<title>Bolsa Trabajo</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+
+<body>
+    <div class="site-wrapper" id="app">
+        <header class="header header-menu-fullw">
+
+            <div th:include="fragmentos/top_bar :: top_bar(${user})" th:remove="tag"></div>
+
+            <div th:include="fragmentos/menu :: menu" th:remove="tag"></div>
+
+        </header>
+
+
+        <div class="main" role="main">
+
+            <div th:include="fragmentos/heading :: heading('Instituciones')"></div>
+
+            <section class="page-content">
+                <div class="container">
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <a href="/instituciones/crear" class="btn btn-info">Agregar</a>
+                        </div>
+                    </div>
+                    <div class="spacer-lg"></div>
+
+                    <div class="table-responsive">
+                        <table class="job-manager-jobs table table-bordered table-stripe">
+                            <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Codigo</th>
+                                <th>Titulo</th>
+                                <th>Acciones</th>
+                            </tr>
+                            </thead>
+                            <tr v-for="institucion in instituciones">
+                                <td >{{ institucion.id }}</td>
+                                <td >{{ institucion.institutionCode }}</td>
+                                <td >{{ institucion.institutionName }}</td>
+                                <td>
+                                    <div class="row">
+                                        <div class="span12 centered-text">
+                                            <a v-bind:href="'/instituciones/' + institucion.institutionCode + '/editar'"  class="btn btn-success inline">Editar</a>
+                                            <a href="/" th:href="@{/}" class="btn btn-primary inline">Eliminar</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
+            </section>
+
+            <div th:include="fragmentos/footer :: footer"></div>
+        </div>
+    </div>
+
+
+    <div th:include="fragmentos/scripts :: scripts" ></div>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                instituciones: [],
+            },
+            mounted(){
+                axios.get("/api/instituciones")
+                    .then(response => {
+                        console.log(response.data);
+                        this.instituciones = response.data;
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            }
+        });
+    </script>
+</body>
+</html>
