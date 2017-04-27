@@ -38,7 +38,6 @@
                                         <th>#</th>
                                         <th>Id</th>
                                         <th>Nombre</th>
-                                        <th>Descripción</th>
                                         <th></th>
                                     </tr>
                                     </thead>
@@ -47,7 +46,6 @@
                                         <td th:text="${iter.count}"></td>
                                         <td th:text="${p.id}"></td>
                                         <td th:text="${p.name}"></td>
-                                        <td th:text="${p.description}"></td>
                                         <td>
                                             <a th:href="@{/permissions/{id}(id=${p.id})}" class="btn btn-info">Editar</a>
 

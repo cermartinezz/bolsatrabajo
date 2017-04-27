@@ -36,7 +36,7 @@
 
                                 <div class="form-group">
                                     <label>Nombre:</label>
-                                    <input type="text" th:field="*{name}" name="name" placeholder="Nombre del Rol" class="form-control" required/>
+                                    <input type="text" th:field="*{name}" name="name" pattern="[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+" placeholder="Nombre del Rol" class="form-control" required/>
                                 </div>
 
                                 <div class="form-group">

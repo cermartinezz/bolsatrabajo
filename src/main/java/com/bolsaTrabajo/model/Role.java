@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.Set;
 
 @Entity
-@Table(name = "role")
+@Table(name = "roles")
 public class Role implements Serializable{
 
     private long id;
@@ -15,6 +15,14 @@ public class Role implements Serializable{
     private Set<User> users;
     private Set<Permission> permissions;
 
+    public Role(){
+        super();
+    }
+
+    public Role(final String name){
+        super();
+        this.name = name;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
