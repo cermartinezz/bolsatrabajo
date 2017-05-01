@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragmentos/head :: head" th:remove="tag"/>
+<title>Perfil Empresa</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+
+<body>
+
+<div class="site-wrapper">
+    <header class="header header-menu-fullw">
+
+        <div th:include="fragmentos/menu :: menu" th:remove="tag"></div>
+
+    </header>
+
+    <!-- Main -->
+    <div class="main" role="main">
+
+        <!-- Page Heading -->
+        <section class="page-heading">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1>Perfil Empresa</h1>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Page Heading / End -->
+
+        <!-- Page Content -->
+        <section class="page-content">
+            <div class="container">
+
+                <div class="row">
+                    <div class="content col-md-12">
+
+                        <div class="box mb-30">
+                            <div class="job-profile-info">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <h2 class="name" th:text="${username}"></h2>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="icon-box">
+                                            <a href="#" class="btn btn-info">
+                                                Editar
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                </div>
+            </div>
+        </section>
+        <!-- Page Content / End -->
+
+        <div th:include="fragmentos/footer :: footer"></div>
+
+    </div>
+    <!-- Main / End -->
+</div>
+
+<div th:include="fragmentos/scripts :: scripts" ></div>
+
+</body>
+</html>
