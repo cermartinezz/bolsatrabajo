@@ -14,7 +14,6 @@ public class Postulant extends User{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "dui", unique = true)
     private String dui;
 
     @Column(name = "birthday")
@@ -22,7 +21,6 @@ public class Postulant extends User{
     @DateTimeFormat(iso= DateTimeFormat.ISO.DATE)
     private Date birthday;
 
-    @Column(name = "nit", unique = true)
     private String nit;
 
     @Enumerated(EnumType.STRING)

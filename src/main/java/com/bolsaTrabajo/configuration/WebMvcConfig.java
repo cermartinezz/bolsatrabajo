@@ -28,6 +28,9 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     }
 
     @Bean
+    public CompanyService companyService(){ return  new CompanyServiceImpl(); }
+
+    @Bean
     public PostulantService postulantService(){
         return new PostulantServiceImpl();
     }

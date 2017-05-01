@@ -1,6 +1,7 @@
 package com.bolsaTrabajo.controller;
 
 
+import com.bolsaTrabajo.model.Company;
 import com.bolsaTrabajo.model.Postulant;
 import com.bolsaTrabajo.service.SecurityService;
 import com.bolsaTrabajo.service.UserService;
@@ -58,5 +59,16 @@ public class RegistrarController {
         securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
 
         return "redirect:/";
+    }
+
+    @RequestMapping(value = "/registrar/company", method = RequestMethod.GET)
+    public String registrationC(Model model) {
+        if(!Auth.auth().getPrincipal().equals("anonymousUser")){
+            return "redirect:/";
+        }else{
+            model.addAttribute("userForm", new Company());
+            model.addAttribute("user", Auth.auth());
+            return "registrar/company";
+        }
     }
 }

@@ -31,7 +31,6 @@ public class PostulantServiceImpl implements PostulantService {
     }
 
 
-
     @Override
     public void save(Postulant postulant) {
         postulant.setPassword(bCryptPasswordEncoder.encode(postulant.getPassword()));
