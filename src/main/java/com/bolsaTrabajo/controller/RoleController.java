@@ -1,7 +1,9 @@
 package com.bolsaTrabajo.controller;
 
 import com.bolsaTrabajo.model.Role;
+import com.bolsaTrabajo.model.User;
 import com.bolsaTrabajo.service.RoleService;
+import com.bolsaTrabajo.service.UserService;
 import com.bolsaTrabajo.util.Auth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +20,9 @@ public class RoleController {
     @Autowired
     RoleService roleService;
 
+    @Autowired
+    UserService userService;
+
     @RequestMapping(value = "/roles", method = RequestMethod.GET)
     public String index(Model model){
         model.addAttribute("roles", roleService.getAllRoles());
@@ -26,7 +31,9 @@ public class RoleController {
 
     @RequestMapping(value = "/roles/crear", method = RequestMethod.GET)
     public String create(ModelMap model){
+        User u = userService.findByUsername(Auth.auth().getName());
         model.addAttribute("user", Auth.auth());
+        model.addAttribute("u",u);
         model.addAttribute("role",new Role());
         return "admin/roles/crear";
     }

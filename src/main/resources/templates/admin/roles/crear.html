@@ -31,6 +31,10 @@
                                 <span th:text="${message}"></span>
                             </div>
 
+                            <div th:if="${u.hasRole('ADMIN')}">
+                                <span th:text="${u.getEmail()}"></span>
+                            </div>
+
                             <form th:action="@{/role}" th:object="${role}"
                                   method="post" class="form-horizontal">
 

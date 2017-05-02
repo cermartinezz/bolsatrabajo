@@ -1,5 +1,6 @@
 package com.bolsaTrabajo.controller;
 
+import com.bolsaTrabajo.model.User;
 import com.bolsaTrabajo.service.SecurityService;
 import com.bolsaTrabajo.service.UserService;
 import com.bolsaTrabajo.util.Auth;
@@ -31,10 +32,11 @@ public class LoginController {
     public String login(Model model, String error, String logout) {
 
         if(!Auth.auth().getPrincipal().equals("anonymousUser")){
-            return "redirect:/";
+            return "/";
         }else{
+            User u = userService.findByUsername(Auth.auth().getName());
             model.addAttribute("user",Auth.auth());
-
+            model.addAttribute("u",u);
             if (error != null)
                 model.addAttribute("error", "Your username and password is invalid.");
 
