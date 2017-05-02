@@ -103,7 +103,7 @@ public class User implements Serializable{
         this.roles = roles;
     }
 
-
+    //Metodos para control de contenido
     public boolean hasRole(String role){
         Iterator<Role> i = roles.iterator();            //Creando un iterador para los roles
         if (i.hasNext()){                               //Si el iterador contiene elementos itera y busca
