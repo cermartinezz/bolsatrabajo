@@ -19,6 +19,11 @@ public class InstitutionServiceImpl implements InstitutionService {
     }
 
     @Override
+    public Institution findInstitutionById(int id) {
+        return institutionRepository.findById(id);
+    }
+
+    @Override
     public Institution findInstitutionByCode(String code) {
         return institutionRepository.findByInstitutionCode(code);
     }

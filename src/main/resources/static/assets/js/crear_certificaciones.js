@@ -31,6 +31,7 @@ class Errors{
         }
     }
 }
+
 new Vue({
     el: "#app",
     data: {

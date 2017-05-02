@@ -19,7 +19,14 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
     @Bean
     public CertificationService certificationService(){
-        return new CertificationService();
+        return new CertificationServiceImpl();
+    }
+
+    @Bean
+    public PostulantCertificationService postulantCertificationService() {
+
+        return new PostulantCertificationImpl();
+
     }
 
     @Bean

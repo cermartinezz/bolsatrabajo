@@ -1,7 +1,10 @@
 package com.bolsaTrabajo.validator;
 
 import com.bolsaTrabajo.model.Certification;
+import com.bolsaTrabajo.model.Institution;
 import com.bolsaTrabajo.service.CertificationService;
+import com.bolsaTrabajo.service.InstitutionService;
+import org.apache.commons.lang3.text.WordUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +19,9 @@ public class CertificationValidator implements Validator {
     @Autowired
     private CertificationService certificationService;
 
+    @Autowired
+    private InstitutionService institutionService;
+
     @Override
     public boolean supports(Class<?> clazz) {
         return Certification.class.equals(clazz);
@@ -24,6 +30,17 @@ public class CertificationValidator implements Validator {
     @Override
     public void validate(Object o, Errors errors) {
         Certification certificationFromRequest = (Certification) o;
+
+        Institution institution = institutionService.findInstitutionById(certificationFromRequest.getInstitution().getId());
+
+        String code = certificationFromRequest.getCertificationCode().trim() + '-' + institution.getInstitutionCode().trim();
+
+        String title = WordUtils.capitalize(certificationFromRequest.getCertificationTitle().trim());
+
+        certificationFromRequest.setCertificationTitle(title);
+
+        certificationFromRequest.setCertificationCode(code.toUpperCase());
+
 
         Certification certification = certificationService.findCertificationByCode(certificationFromRequest.getCertificationCode());
 
@@ -36,7 +53,7 @@ public class CertificationValidator implements Validator {
                 errors.rejectValue(
                         "certificationCode",
                         "Duplicate.certification.code",
-                        "Ya existe una certificacion con este codigo");
+                        "Ya existe una certificacion con este codigo para esta institucion");
             }
         }
     }

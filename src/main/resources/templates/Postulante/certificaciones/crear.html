@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragmentos/head :: head" th:remove="tag"/>
+<title>Bolsa Trabajo</title>
+
+<body>
+    <div class="site-wrapper" >
+        <header class="header header-menu-fullw">
+
+            <div th:include="fragmentos/top_bar :: top_bar(${user})" th:remove="tag"></div>
+
+            <div th:include="fragmentos/menu :: menu" th:remove="tag"></div>
+
+        </header>
+
+
+        <div class="main" role="main" id="app">
+
+            <div th:include="fragmentos/heading :: heading('Certificaciones')"></div>
+
+            <section class="page-content">
+                <div class="container">
+
+                <div class="col-md-6 col-md-offset-3">
+                    <div class="box">
+                        <div class="row">
+
+                                <form>
+                                    <input type="hidden"
+                                           th:name="${_csrf.parameterName}"
+                                           th:value="${_csrf.token}" />
+                                    <div class="form-group" th:object="${institution}">
+                                        <label> Institucion</label>
+
+                                        <select class="form-control" id="institution"
+                                                v-model.number="institution"
+                                                v-on:change="getCertifications"
+                                                type="number" name="institution" required>
+
+                                            <option disabled value="">Seleccione institucion</option>
+
+                                            <option th:each="institution : ${institutions}"
+                                                    th:value="${institution.id}"
+                                                    th:text="${institution.institutionName}"></option>
+                                        </select>
+
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label> Certificacion</label>
+
+                                        <select class="form-control" id="certification"
+                                                v-model="certification"
+                                                v-bind:disabled="certifications_list.length == 0"
+                                                required>
+
+                                            <option disabled value="">Seleccione Certificacion</option>
+
+                                            <option v-for="certification in certifications_list"
+                                                    v-bind:value="certification.certificationCode"
+                                                    v-text="certification.certificationTitle">
+
+                                        </select>
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label> Identificador de Certficacion*</label>
+
+                                        <input type="text" name="certification_code"
+                                               v-model="certification_code" placeholder="Identificador de Certficacion" class="form-control" required/>
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label> Fecha de expiracion*</label>
+
+                                        <input type="date"
+                                               name="expiration_date"
+                                               min="2000-01-01"
+                                               class="form-control" required/>
+
+                                        <div    class="help-block with-errors"></div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary btn-block">Enviar</button>
+                                    </div>
+                                </form>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+                </div>
+            </section>
+
+            <div th:include="fragmentos/footer :: footer"></div>
+        </div>
+    </div>
+
+
+    <div th:include="fragmentos/scripts :: scripts" ></div>
+    <script th:src="@{/assets/js/postulante/agregar_certificacion.js}"></script>
+</body>
+</html>

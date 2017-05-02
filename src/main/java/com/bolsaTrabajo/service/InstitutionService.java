@@ -6,11 +6,15 @@ import java.util.List;
 
 
 public interface InstitutionService {
+
     void save(Institution institution);
+
+    Institution findInstitutionById(int id);
+
     Institution findInstitutionByCode(String code);
 
-    List<Institution> getAllInstitutions();
 
+    List<Institution> getAllInstitutions();
 
     void update(Institution currentInstitution);
 }

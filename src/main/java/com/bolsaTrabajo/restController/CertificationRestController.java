@@ -40,6 +40,7 @@ public class CertificationRestController {
     @Autowired
     private CertificationService certificationService;
 
+
     @Autowired
     private CertificationValidator certificationValidator;
 
@@ -70,10 +71,14 @@ public class CertificationRestController {
         Certification certification = certificationService.findCertificationByCode(code);
 
         if(certification == null){
+
             headers.set("message","No se encontraron registros");
+
             return new ResponseEntity(headers,HttpStatus.NOT_FOUND);
         }
+
         headers.set("message","Registros Encontrados");
+
         return new ResponseEntity(certification,headers, HttpStatus.OK);
     }
 
@@ -89,8 +94,8 @@ public class CertificationRestController {
 
     }
 
-   @PutMapping(value = "/{code}")
-   public ResponseEntity update(@PathVariable("code") String code, @Valid @RequestBody Certification certification) {
+    @PutMapping(value = "/{code}")
+    public ResponseEntity update(@PathVariable("code") String code, @Valid @RequestBody Certification certification) {
 
         Certification currentCertification = certificationService.findCertificationByCode(code);
 
@@ -99,6 +104,25 @@ public class CertificationRestController {
        certificationService.updateCertification(currentCertification);
 
        return new ResponseEntity(currentCertification, HttpStatus.OK);
+    }
+
+    @GetMapping("/institucion/{institution}")
+    public ResponseEntity<List<Certification>> getCertificationsByInstitution(@PathVariable Integer institution){
+
+        List<Certification> certifications = certificationService.getCertificationsByInstitution(institution);
+
+        logger.info("certificaciones tamaño: {}", certifications.size());
+
+        if (certifications == null || certifications.isEmpty()) {
+
+            this.headers.set("message", "NO se encontraron certificaciones");
+
+            return new ResponseEntity<List<Certification>>(this.headers,HttpStatus.NO_CONTENT);
+        }
+
+        this.headers.set("message", "Se encontraron Certificaciones de la institucion: "+ institution);
+
+        return new ResponseEntity<List<Certification>>(certifications,this.headers, HttpStatus.OK);
     }
 
 

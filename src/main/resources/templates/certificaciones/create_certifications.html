@@ -1,25 +1,25 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:v-on="http://www.w3.org/1999/xhtml"
-      xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
 
-<head th:include="fragmentos/head :: head" th:remove="tag">
-</head>
-<title>Certificaciones</title>
+<head th:include="fragmentos/head :: head" th:remove="tag"/>
+<title>Bolsa Trabajo</title>
 
 <body>
-<div class="site-wrapper" id="app">
+<div class="site-wrapper">
     <header class="header header-menu-fullw">
+
+        <div th:include="fragmentos/top_bar :: top_bar(${user})" th:remove="tag"></div>
 
         <div th:include="fragmentos/menu :: menu" th:remove="tag"></div>
 
     </header>
 
 
-    <div class="main" role="main">
+    <div class="main" role="main" id="app">
 
-        <div th:include="fragmentos/heading :: heading('Ingresar Certificacion')"></div>
+        <div th:include="fragmentos/heading :: heading('Ingrese Certificacion')"></div>
 
-        <section class="page-content">
+        <section class="page-content" >
             <div class="container">
                 <div class="col-md-6 col-md-offset-3">
                     <div class="box">
@@ -84,8 +84,8 @@
 </div>
 
 
-<div th:include="fragmentos/scripts :: scripts"></div>
-<script th:src="@{/assets/js/crear_certificaciones.js}">
-</script>
+<div th:include="fragmentos/scripts :: scripts" ></div>
+<script th:src="@{/assets/js/crear_certificaciones.js}"></script>
+
 </body>
 </html>
