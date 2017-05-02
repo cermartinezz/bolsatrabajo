@@ -3,7 +3,8 @@ new Vue({
     data: {
         institution: "",
         certification: "",
-        certification_code: "",
+        expirationDate: "",
+        certificationCode: "",
         certifications_list: []
     },
     methods: {

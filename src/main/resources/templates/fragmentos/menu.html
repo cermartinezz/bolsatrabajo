@@ -5,7 +5,7 @@
 </head>
 <body>
 
-    <div th:fragment="menu">
+    <div th:fragment="menu(user)">
 
         <div class="header-main">
 
@@ -28,7 +28,7 @@
                             <li class="active"><a href="/">Inicio</a></li>
                             <li><a href="#">Postulante</a>
                                 <ul>
-                                    <li><a th:href="@{/postulante/${user.getname()}/perfil}">Mi Perfil</a></li>
+                                    <li><a th:href="@{'/postulante/'+ ${user.getName()} + '/perfil'}">Mi Perfil</a></li>
                                   <!--  <li><a href="#">Mis Aplicaciones</a></li>
                                     <li><a href="#">Editar Perfil</a></li> -->
                                 </ul>

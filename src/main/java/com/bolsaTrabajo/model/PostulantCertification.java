@@ -11,7 +11,7 @@ public class PostulantCertification implements Serializable {
     private Integer id;
     private Postulant postulant;
     private Certification certification;
-    private Date expiration_date;
+    private Date expirationDate;
     private Integer certificationCode;
 
     @Id
@@ -24,6 +24,7 @@ public class PostulantCertification implements Serializable {
         this.id = id;
     }
 
+
     @ManyToOne
     @JoinColumn(name = "postulant_id")
     public Postulant getPostulant() {
@@ -33,6 +34,7 @@ public class PostulantCertification implements Serializable {
     public void setPostulant(Postulant postulant) {
         this.postulant = postulant;
     }
+
 
     @ManyToOne
     @JoinColumn(name = "certification_id")
@@ -45,12 +47,12 @@ public class PostulantCertification implements Serializable {
     }
 
     @Column(name = "published_date")
-    public Date getExpiration_date() {
-        return expiration_date;
+    public Date getExpirationDate() {
+        return expirationDate;
     }
 
-    public void setExpiration_date(Date expiration_date) {
-        this.expiration_date = expiration_date;
+    public void setExpirationDate(Date expirationDate) {
+        this.expirationDate = expirationDate;
     }
 
     public Integer getCertificationCode() {

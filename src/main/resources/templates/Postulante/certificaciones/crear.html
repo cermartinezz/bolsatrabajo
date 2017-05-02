@@ -10,7 +10,7 @@
 
             <div th:include="fragmentos/top_bar :: top_bar(${user})" th:remove="tag"></div>
 
-            <div th:include="fragmentos/menu :: menu" th:remove="tag"></div>
+            <div th:include="fragmentos/menu :: menu(${user})" th:remove="tag"></div>
 
         </header>
 
@@ -69,8 +69,8 @@
                                     <div class="form-group">
                                         <label> Identificador de Certficacion*</label>
 
-                                        <input type="text" name="certification_code"
-                                               v-model="certification_code" placeholder="Identificador de Certficacion" class="form-control" required/>
+                                        <input type="text" name="certificationCode"
+                                               v-model="certificationCode" placeholder="Identificador de Certficacion" class="form-control" required/>
 
                                     </div>
 
@@ -78,7 +78,8 @@
                                         <label> Fecha de expiracion*</label>
 
                                         <input type="date"
-                                               name="expiration_date"
+                                               name="expirationDate"
+                                               v-model="expirationDate"
                                                min="2000-01-01"
                                                class="form-control" required/>
 
