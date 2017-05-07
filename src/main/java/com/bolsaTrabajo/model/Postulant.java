@@ -8,26 +8,15 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "postulant")
 public class Postulant extends User{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
-    @Column(name = "dui", unique = true)
+    private String username;
     private String dui;
-
-    @Column(name = "birthday")
-    @Temporal(TemporalType.DATE)
-    @DateTimeFormat(iso= DateTimeFormat.ISO.DATE)
     private Date birthday;
-
-    @Column(name = "nit", unique = true)
     private String nit;
 
     @Column(name = "nup", unique = true)
@@ -46,6 +35,14 @@ public class Postulant extends User{
 
     @Enumerated(EnumType.STRING)
     private Gender gender;
+    private Set<PostulantCertification> postulantCertifications;
+
+    public Postulant() {super();}
+
+    public Postulant(String username) {
+        this.username = username;
+    }
+
 
     @OneToMany(mappedBy = "postulant")
     private Set<WorkExperience> workExperiences;
@@ -95,6 +92,8 @@ public class Postulant extends User{
     }
 
     @Override
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
         return id;
     }
@@ -103,6 +102,7 @@ public class Postulant extends User{
         this.id = id;
     }
 
+    @Column(name = "dui", unique = true)
     public String getDui() {
         return dui;
     }
@@ -111,6 +111,9 @@ public class Postulant extends User{
         this.dui = dui;
     }
 
+    @Column(name = "birthday")
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(iso= DateTimeFormat.ISO.DATE)
     public Date getBirthday() {
         return birthday;
     }
@@ -119,6 +122,7 @@ public class Postulant extends User{
         this.birthday = birthday;
     }
 
+    @Column(name = "nit", unique = true)
     public String getNit() {
         return nit;
     }
@@ -127,6 +131,7 @@ public class Postulant extends User{
         this.nit = nit;
     }
 
+    @Enumerated(EnumType.STRING)
     public Gender getGender() {
         return gender;
     }
@@ -134,6 +139,17 @@ public class Postulant extends User{
     public void setGender(Gender gender) {
         this.gender = gender;
     }
+
+    @OneToMany(mappedBy = "postulant", cascade = CascadeType.ALL, orphanRemoval = true)
+    public Set<PostulantCertification> getPostulantCertifications() {
+        return postulantCertifications;
+    }
+
+    public void setPostulantCertifications(Set<PostulantCertification> postulantCertifications) {
+        this.postulantCertifications = postulantCertifications;
+    }
+
+
 
     @Override
     public String toString() {

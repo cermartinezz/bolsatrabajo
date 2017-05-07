@@ -5,7 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository("institutionRepository")
-public interface InstitutionRepository extends JpaRepository<Institution,Long> {
+public interface InstitutionRepository extends JpaRepository<Institution,Integer> {
     Institution findByInstitutionCode(String code);
-    Institution findById(Long id);
+
+    Institution findById(Integer id);
 }

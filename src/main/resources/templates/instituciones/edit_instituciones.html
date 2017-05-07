@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:include="fragmentos/head :: head" th:remove="tag"></head>
-<title>Instituciones</title>
+<head th:include="fragmentos/head :: head" th:remove="tag"/>
+<title>Institucion</title>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
 
 <body>
@@ -15,32 +15,28 @@
 
         </header>
 
+
         <div class="main" role="main" id="app">
 
-            <div th:include="fragmentos/heading :: heading('Ingresar Institucion')"></div>
-
+            <div th:include="fragmentos/heading :: heading('Editar Institucion')"></div>
 
             <section class="page-content">
                 <div class="container">
-                    <div class="row">
-                        <div class="col-md-6 col-md-offset-3">
-                            <div class="box">
-                                <div th:include="instituciones/form_instituciones :: form" th:remove="tag"></div>
-                            </div>
+                    <div class="col-md-6 col-md-offset-3">
+                        <div class="box">
+                            <div th:include="instituciones/form_instituciones :: form" th:remove="tag"></div>
                         </div>
                     </div>
                 </div>
             </section>
-
 
             <div th:include="fragmentos/footer :: footer"></div>
         </div>
     </div>
 
 
-    <div th:include="fragmentos/scripts :: scripts" >
-    </div>
-    <script src="../../static/assets/js/crear_instituciones.js"
-            th:src="@{/assets/js/crear_instituciones.js}"></script>
+    <div th:include="fragmentos/scripts :: scripts" ></div>
+    <script th:inline="javascript">let code = [[${institution.institutionCode}]];</script>
+    <script src="../static/assets/js/editar_instituciones.js" th:src="@{/assets/js/editar_instituciones.js}"></script>
 </body>
 </html>

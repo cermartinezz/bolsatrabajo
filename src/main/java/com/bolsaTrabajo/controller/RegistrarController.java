@@ -59,4 +59,11 @@ public class RegistrarController {
 
         return "redirect:/";
     }
+
+    @RequestMapping("/registro")
+    public String registro(Model model){
+        model.addAttribute("user", Auth.auth());
+
+        return "registrar/menu";
+    }
 }

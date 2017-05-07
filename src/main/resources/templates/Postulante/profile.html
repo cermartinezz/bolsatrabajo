@@ -10,7 +10,9 @@
 <div class="site-wrapper">
     <header class="header header-menu-fullw">
 
-        <div th:include="fragmentos/menu :: menu" th:remove="tag"></div>
+        <div th:include="fragmentos/top_bar :: top_bar(${user})" th:remove="tag"></div>
+
+        <div th:include="fragmentos/menu :: menu(${user})" th:remove="tag"></div>
 
     </header>
 
@@ -128,7 +130,7 @@
 
                                         <div class="col-md-3">
                                             <a href="#" class="btn btn-sm btn-info">Ver detalle</a>
-                                            <a href="#" class="btn btn-sm btn-success">Agregar</a>
+                                            <a th:href="@{'/postulante/' + ${username} + '/certificaciones/agregar'}" class="btn btn-sm btn-success">Agregar</a>
                                         </div>
                                     </div>
                                     <li class="job_listing">

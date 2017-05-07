@@ -3,6 +3,7 @@ package com.bolsaTrabajo.configuration;
 import com.bolsaTrabajo.service.*;
 import com.bolsaTrabajo.service.implementations.*;
 import com.bolsaTrabajo.validator.CertificationValidator;
+import com.bolsaTrabajo.validator.InstitutionValidator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -18,7 +19,14 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
     @Bean
     public CertificationService certificationService(){
-        return new CertificationService();
+        return new CertificationServiceImpl();
+    }
+
+    @Bean
+    public PostulantCertificationService postulantCertificationService() {
+
+        return new PostulantCertificationImpl();
+
     }
 
     @Bean
@@ -65,6 +73,12 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
     @Bean
     public CertificationValidator certificationValidator() {
+
         return new CertificationValidator();
+    }
+
+    @Bean
+    public InstitutionValidator institutionValidator(){
+        return new InstitutionValidator();
     }
 }

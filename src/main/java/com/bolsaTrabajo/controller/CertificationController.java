@@ -40,7 +40,8 @@ public class CertificationController {
     public String index(Model model){
 
         model.addAttribute("user",Auth.auth());
-        model.addAttribute("certifications", certificationService.getAllCertifications());
+
+        model.addAttribute("certificaciones", certificationService.getAllCertifications());
 
         return "certificaciones/index_certifications";
 
@@ -50,6 +51,7 @@ public class CertificationController {
     public String show(Model model, @PathVariable String code){
 
         model.addAttribute("user",Auth.auth());
+
         model.addAttribute("certification",certificationService.findCertificationByCode(code));
 
         return "certificaciones/show_certifications";
@@ -74,13 +76,26 @@ public class CertificationController {
 
     }
 
-    @RequestMapping(value = "/cat/certificaciones/{code}/editar", method = RequestMethod.GET)
-    public ModelAndView edit(@PathVariable String code){
-        ModelAndView modelAndView = new ModelAndView();
+    @RequestMapping(value = "/{code}/editar", method = RequestMethod.GET)
+    public String edit(@PathVariable String code, Model model){
+
         Certification certification = certificationService.findCertificationByCode(code);
-        modelAndView.addObject(CERTIFICATION, certification);
-        modelAndView.setViewName(EDIT_CERTIFICATIONS);
-        return modelAndView;
+
+        List<Institution> institution = new ArrayList<>();
+
+        List<Institution> institutions = institutionService.getAllInstitutions();
+
+
+        model.addAttribute("user", Auth.auth());
+
+        model.addAttribute("certification", certification);
+
+        model.addAttribute("institution", institution);
+
+        model.addAttribute("institutions", institutions);
+
+        return "certificaciones/edit_certifications";
+
     }
 
 }
