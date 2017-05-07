@@ -11,11 +11,19 @@ import java.util.Set;
 public class Postulant extends User{
 
     private Long id;
+    private String username;
     private String dui;
     private Date birthday;
     private String nit;
     private Gender gender;
     private Set<PostulantCertification> postulantCertifications;
+
+    public Postulant() {super();}
+
+    public Postulant(String username) {
+        this.username = username;
+    }
+
 
     @Override
     @Id

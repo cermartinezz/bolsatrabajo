@@ -21,6 +21,10 @@ public class Certification implements Serializable{
         super();
     }
 
+    public Certification(int id) {
+        this.id = id;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "certification_id")
@@ -61,7 +65,7 @@ public class Certification implements Serializable{
         this.institution = institution;
     }
 
-    @OneToMany(mappedBy = "certification")
+    @OneToMany(mappedBy = "certification", cascade = CascadeType.ALL)
     public Set<PostulantCertification> getPostulantCertifications() {
         return postulantCertifications;
     }

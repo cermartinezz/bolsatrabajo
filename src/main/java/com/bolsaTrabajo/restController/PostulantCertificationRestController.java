@@ -1,7 +1,11 @@
 package com.bolsaTrabajo.restController;
 
+import com.bolsaTrabajo.model.Certification;
+import com.bolsaTrabajo.model.Postulant;
 import com.bolsaTrabajo.model.PostulantCertification;
+import com.bolsaTrabajo.service.CertificationService;
 import com.bolsaTrabajo.service.PostulantCertificationService;
+import com.bolsaTrabajo.service.PostulantService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +22,12 @@ public class PostulantCertificationRestController {
 
     public static final Logger logger = LoggerFactory.getLogger(PostulantCertification.class);
 
+    @Autowired
+    private PostulantService postulantService;
+
+    @Autowired
+    private CertificationService certificationService;
+
     private HttpHeaders headers;
 
     @Autowired
@@ -31,6 +41,16 @@ public class PostulantCertificationRestController {
 
     @PostMapping
     public ResponseEntity<?> store(@Valid @RequestBody PostulantCertification postulantCertification, @PathVariable String username){
+
+
+        Integer id = postulantCertification.getCertification().getCertificationId();
+
+        Certification certification = certificationService.findCertificationById(id);
+        Postulant user = postulantService.findByUsername(username);
+
+        postulantCertification.setCertification(certification);
+        postulantCertification.setPostulant(user);
+
 
         postulantCertificationService.save(postulantCertification);
 
