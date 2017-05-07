@@ -1,7 +1,7 @@
 package com.bolsaTrabajo.restController;
 
-import com.bolsaTrabajo.model.Company;
-import com.bolsaTrabajo.service.CompanyService;
+import com.bolsaTrabajo.model.CompanyCat;
+import com.bolsaTrabajo.service.CompanyCatService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,43 +14,42 @@ import org.springframework.web.servlet.view.RedirectView;
  */
 @RestController
 @RequestMapping("/api/empresas")
-public class CompanyRestController {
-    public static final Logger logger = LoggerFactory.getLogger(CompanyRestController.class);
+public class CompanyCatRestController {
 
     @Autowired
-    private CompanyService companyService;
+    private CompanyCatService companyCatService;
 
     @RequestMapping(method = RequestMethod.POST)
-    public RedirectView store(Company company, RedirectAttributes attributes){
+    public RedirectView store(CompanyCat companyCat, RedirectAttributes attributes){
 
-        Company company1 = companyService.getCompany(company.getCompanyName());
-        if (company1 != null){
-            attributes.addFlashAttribute("message","Empresa "+ company1.getCompanyName()+" ya existe");
+        CompanyCat companyCat1 = companyCatService.getCompany(companyCat.getCompanyName());
+        if (companyCat1 != null){
+            attributes.addFlashAttribute("message","Empresa "+ companyCat1.getCompanyName()+" ya existe");
             return new RedirectView("/empresas/crear");
         }
 
-        companyService.saveCompany(company);
+        companyCatService.saveCompany(companyCat);
         attributes.addFlashAttribute("message","Registro se guardo con exito");
         return new RedirectView("/empresas");
     }
 
     @RequestMapping(value = "/update/{id}",method = RequestMethod.PUT)
-    public RedirectView update(Company company, RedirectAttributes attributes){
-        Company e = companyService.getCompany(company.getId());
-        if (e.getCompanyName().equalsIgnoreCase(company.getCompanyName())){
-            logger.info("Ya existe empresa con nombre {}",company.getCompanyName());
+    public RedirectView update(CompanyCat companyCat, RedirectAttributes attributes){
+        CompanyCat e = companyCatService.getCompany(companyCat.getCompanyName());
+        if (e!=null){
             attributes.addFlashAttribute("message","Empresa "+ e.getCompanyName()+" ya existe");
-            return new RedirectView("/empresas/crear");
+            return new RedirectView("/empresas/editar/"+ companyCat.getId());
         }
-        e.setCompanyName(company.getCompanyName());
-        companyService.saveCompany(e);
+        e = companyCatService.getCompany(companyCat.getId());
+        e.setCompanyName(companyCat.getCompanyName());
+        companyCatService.saveCompany(e);
         attributes.addFlashAttribute("message","Registro modificado con exito");
         return new RedirectView("/empresas");
     }
 
     @RequestMapping(value = "/delete/{id}",method = RequestMethod.DELETE)
-    public RedirectView delete(Company company, RedirectAttributes attributes){
-        companyService.deleteCompany(company);
+    public RedirectView delete(CompanyCat companyCat, RedirectAttributes attributes){
+        companyCatService.deleteCompany(companyCat);
         attributes.addFlashAttribute("message","Registro se elimino con exito");
         return new RedirectView("/empresas");
     }

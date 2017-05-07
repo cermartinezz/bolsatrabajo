@@ -4,7 +4,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.List;
+import java.util.Set;
 
 /**
  * Created by enan0 on 6/4/2017.
@@ -12,7 +12,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "companies")
-public class Company {
+public class CompanyCat {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -20,6 +20,17 @@ public class Company {
     @NotNull
     @Column(name = "company_name")
     private String companyName;
+
+    @OneToMany(mappedBy = "company")
+    private Set<WorkExperience> workExperiences;
+
+    public Set<WorkExperience> getWorkExperiences() {
+        return workExperiences;
+    }
+
+    public void setWorkExperiences(Set<WorkExperience> workExperiences) {
+        this.workExperiences = workExperiences;
+    }
 
     public long getId() {
         return id;
