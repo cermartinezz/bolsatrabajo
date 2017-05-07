@@ -21,16 +21,22 @@ public class CompanyCat {
     @Column(name = "company_name")
     private String companyName;
 
+/*
     @OneToMany(mappedBy = "company")
     private Set<WorkExperience> workExperiences;
+*/
 
+/*
     public Set<WorkExperience> getWorkExperiences() {
         return workExperiences;
     }
+*/
 
+/*
     public void setWorkExperiences(Set<WorkExperience> workExperiences) {
         this.workExperiences = workExperiences;
     }
+*/
 
     public long getId() {
         return id;
