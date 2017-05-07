@@ -40,16 +40,62 @@
                             <div class="job-profile-info">
                                 <div class="row">
                                     <div class="col-md-8">
-                                        <h2 class="name" th:text="${username}"></h2>
+                                        <h3>Nombre del Usuario:</h3>
+                                        <h3 class="name" th:text="${username}"></h3>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="icon-box">
-                                            <a href="#" class="btn btn-info">
+                                            <a href="../company/editar.html" class="btn btn-info">
                                                 Editar
                                             </a>
                                         </div>
                                     </div>
                                 </div>
+
+                                    <div class="spacer-lg"></div>
+
+                                    <div class="col-md-8">
+                                        <div class="icon-box">
+                                            <h3> Nombre de la Empresa:</h3>
+                                            <h4 class="nombreC" th:text="${company.nombreC}"></h4>
+                                        </div>
+                                    </div>
+
+                                    <div class="spacer-lg"></div>
+
+
+                                    <div class="col-md-8">
+                                        <div class="icon-box">
+                                            <h3>Representante Legal:</h3>
+                                            <h4 class="repreLegal" th:text="${company.repreLegal}"></h4>
+                                        </div>
+                                    </div>
+                                    <div class="spacer-lg"></div>
+                                    <div class="col-md-8">
+                                    <div class="icon-box">
+                                        <h3> NIT de Empresa:</h3>
+                                        <h4 class="nitC" th:text="${company.nitC}"></h4>
+                                    </div>
+                                    </div>
+                                    <div class="spacer-lg"></div>
+                                    <div class="col-md-8">
+                                    <div class="icon-box">
+                                        <h3 > Telefono de Empresa:</h3>
+                                        <h4 class="telC" th:text="${company.telefonoC}"></h4>
+                                    </div>
+                                    </div>
+                                    <div class="spacer-lg"></div>
+                                    <div class="col-md-8">
+                                    <div class="icon-box">
+                                        <h3 > Informacion de Empresa:</h3>
+                                        <h4 class="infoC" th:text="${company.informacionC}"></h4>
+                                    </div>
+                                    </div>
+
+                            </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
