@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,6 +24,12 @@ public class RoleController {
     @Autowired
     UserService userService;
 
+    @ModelAttribute("usr")
+    public User globalUser(Model model) {
+        User u = userService.findByUsername(Auth.auth().getName());
+        return u;
+    }
+
     @RequestMapping(value = "/roles", method = RequestMethod.GET)
     public String index(Model model){
         model.addAttribute("roles", roleService.getAllRoles());
@@ -31,9 +38,7 @@ public class RoleController {
 
     @RequestMapping(value = "/roles/crear", method = RequestMethod.GET)
     public String create(ModelMap model){
-        User u = userService.findByUsername(Auth.auth().getName());
         model.addAttribute("user", Auth.auth());
-        model.addAttribute("u",u);
         model.addAttribute("role",new Role());
         return "admin/roles/crear";
     }

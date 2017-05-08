@@ -31,8 +31,8 @@
                                 <span th:text="${message}"></span>
                             </div>
 
-                            <div th:if="${u.hasRole('ADMIN')}">
-                                <span th:text="${u.getEmail()}"></span>
+                            <div th:if="${usr.hasRole('ADMIN')}">
+                                <span th:text="${usr.getUsername()}"></span>
                             </div>
 
                             <form th:action="@{/role}" th:object="${role}"
