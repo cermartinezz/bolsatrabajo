@@ -17,7 +17,7 @@
 
     <div class="main" role="main">
 
-        <div th:include="fragmentos/heading :: heading('Agregar habilidades')"></div>
+        <div th:include="fragmentos/heading :: heading('Editar habilidades')"></div>
 
 
         <!-- Page Content -->
@@ -58,7 +58,7 @@
                             <div class="spacer"></div>
 
                             <p>
-                                <input type="submit" name="submit_skill" class="btn btn-primary" value="Agregar &rarr;" />
+                                <input type="submit" name="submit_skill" class="btn btn-primary" value="Editar &rarr;" />
                             </p>
 
                         </form>
@@ -79,8 +79,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.0/axios.js" th:src="@{https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.0/axios.js}"></script>
 <script src="https://unpkg.com/vue" th:src="@{https://unpkg.com/vue}"></script>
 <script src="https://unpkg.com/vue-select@latest"></script>
-<script src="../../static/assets/js/crear_habilidad.js"
-        th:src="@{/assets/js/crear_habilidad.js}"></script>
+<script th:inline="javascript">
+    let code = [[${skill.codigo}]];
+</script>
+<script src="../../static/assets/js/editar_habilidad.js"
+        th:src="@{/assets/js/editar_habilidad.js}"></script>
 
 </body>
 </html>

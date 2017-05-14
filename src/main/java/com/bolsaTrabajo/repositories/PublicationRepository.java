@@ -10,5 +10,5 @@ import org.springframework.stereotype.Repository;
 @Repository("publicationRepository")
 public interface PublicationRepository extends JpaRepository<Publication,Integer> {
         Publication findByCodigo(String code);
-
+        Publication findById(int id);
 }

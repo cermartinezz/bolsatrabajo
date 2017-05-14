@@ -22,6 +22,7 @@ public class Certification implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "certification_id")
+    @NotEmpty
     public int getCertificationId() {
         return id;
     }

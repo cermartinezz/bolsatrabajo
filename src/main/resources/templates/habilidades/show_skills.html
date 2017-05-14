@@ -9,6 +9,8 @@
 <div class="site-wrapper" id="app">
     <header class="header header-menu-fullw">
 
+        <div th:include="fragmentos/top_bar :: top_bar(${user})" th:remove="tag"></div>
+
         <div th:include="fragmentos/menu :: menu" th:remove="tag"></div>
 
     </header>
@@ -40,16 +42,16 @@
                             <th>Acciones</th>
                         </tr>
                         </thead>
-                        <tr v-for="categoria in skills">
-                            <td >{{ categoria.id }}</td>
-                            <td >{{ categoria.codigo }}</td>
-                            <td >{{ categoria.titulo }}</td>
-                            <td >{{ categoria.skillCategory }}</td>
+                        <tr v-for="habilidad in skills">
+                            <td >{{ habilidad.id }}</td>
+                            <td >{{ habilidad.codigo }}</td>
+                            <td >{{ habilidad.titulo }}</td>
+                            <td >{{ habilidad.skillCategory }}</td>
 
                             <td>
                                 <div class="row">
                                     <div class="span12 centered-text">
-                                        <a href="/" th:href="@{/}" class="btn btn-success inline">Editar</a>
+                                        <a v-bind:href="'/habilidad/'+habilidad.codigo+'/editar'"  class="btn btn-success inline">Editar</a>
                                         <a href="/" th:href="@{/}" class="btn btn-primary inline">Eliminar</a>
                                     </div>
                                 </div>

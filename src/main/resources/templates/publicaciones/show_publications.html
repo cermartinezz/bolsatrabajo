@@ -9,6 +9,8 @@
 <div class="site-wrapper" id="app">
     <header class="header header-menu-fullw">
 
+        <div th:include="fragmentos/top_bar :: top_bar(${user})" th:remove="tag"></div>
+
         <div th:include="fragmentos/menu :: menu" th:remove="tag"></div>
 
     </header>
@@ -20,6 +22,15 @@
 
         <section class="page-content">
             <div class="container">
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <a class="btn btn-info" href="/publicacion/crear">Crear</a>
+
+                    </div>
+                </div>
+
+                <div class="spacer-lg"></div>
 
                 <div class="table-responsive">
                     <table class="job-manager-jobs table table-bordered table-stripe">
@@ -40,8 +51,8 @@
                             <td>
                                 <div class="row">
                                     <div class="span12 centered-text">
-                                        <a href="/" th:href="@{/}" class="btn btn-success inline">Editar</a>
-                                        <a href="/" th:href="@{/}" class="btn btn-primary inline">Eliminar</a>
+                                        <a v-bind:href="'/publicacion/'+publication.codigo+'/editar'" class="btn btn-success inline">Editar</a>
+                                        <a v-bind:href="'/publicacion/'+publication.id+'/eliminar'" class="btn btn-primary inline">Eliminar</a>
                                     </div>
                                 </div>
                             </td>
@@ -64,7 +75,11 @@
     new Vue({
         el: "#app",
         data: {
+            id: "",
             publications: []
+        },
+        methods:{
+            onSubmit: function(){}
         },
         mounted(){
             axios.get("/publications")

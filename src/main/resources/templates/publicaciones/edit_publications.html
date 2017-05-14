@@ -23,16 +23,21 @@
 
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
-                        <form action="#"
+                        <form
                           th:object="${publication}"
                           method="POST"
                           class="form-horizontal" role="form" v-on:submit.prevent="onSubmit">
+
+
+                            <input type="hidden"
+                                   th:name="${_csrf.parameterName}"
+                                   th:value="${_csrf.token}" />
 
                             <fieldset class="fieldset-book_title">
                                 <label for="book_title">Título</label>
                                 <div class="field">
                                     <input type="text"  class="form-control" v-model="titulo"
-                                           name="book_title" id="book_title" placeholder="Paper Data Analytics" th:value="${publication.titulo}"/>
+                                           name="book_title" id="book_title" placeholder="Paper Data Analytics"/>
                                 </div>
                             </fieldset>
 
@@ -40,7 +45,7 @@
                                 <label for="book_code">Código</label>
                                 <div class="field">
                                     <input type="text"  class="form-control" v-model="codigo"
-                                           name="book_code" id="book_code" placeholder="PAD111" th:value="${publication.codigo}"/>
+                                           name="book_code" id="book_code" placeholder="PAD111"/>
                                 </div>
                             </fieldset>
 
@@ -97,31 +102,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.0/axios.js"></script>
 <script src="https://unpkg.com/vue"></script>
 <script th:inline="javascript">
-
     let code = [[${publication.codigo}]];
-    let title = [[${publication.titulo}]];
-    let editorial = [[${publication.editorial}]];
-    let tipo = [[${publication.tipo}]];
-
-    new Vue({
-        el: "#app",
-        data: {
-            codigo: code,
-            titulo: title,
-            editorial: editorial,
-        },
-        methods: {
-            onSubmit: function(){
-                axios.put("/publications/"+code, this.$data)
-                    .then(function(){
-                        alert("success");
-                        window.location.href = "/postulant/profile";
-                    })
-                    .catch()
-            }
-        }
-    })
-
 </script>
+<script src="../static/assets/js/editar_publicacion.js" th:src="@{/assets/js/editar_publicacion.js}"></script>
 </body>
 </html>

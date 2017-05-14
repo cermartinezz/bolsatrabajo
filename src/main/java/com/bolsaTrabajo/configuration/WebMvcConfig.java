@@ -4,6 +4,8 @@ import com.bolsaTrabajo.service.*;
 import com.bolsaTrabajo.service.implementations.*;
 import com.bolsaTrabajo.validator.CertificationValidator;
 import com.bolsaTrabajo.validator.InstitutionValidator;
+import com.bolsaTrabajo.validator.PublicationValidator;
+import com.bolsaTrabajo.validator.SkillValidator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -49,6 +51,10 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     public PublicationService publicationService(){ return  new PublicationService();}
 
     @Bean
+    public PublicationValidator publicationValidator(){
+        return new PublicationValidator();
+    }
+    @Bean
     public SkillService skillService(){
         return new SkillService();
     }
@@ -56,6 +62,11 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     @Bean
     public SkillCategoryService skillCategoryService(){
         return new SkillCategoryService();
+    }
+
+    @Bean
+    public SkillValidator skillValidator(){
+        return new SkillValidator();
     }
 
     @Bean

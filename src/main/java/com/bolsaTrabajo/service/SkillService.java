@@ -26,4 +26,8 @@ public class SkillService {
     public Skill findSkillByCodigo(String code){
         return skillRepository.findByCodigo(code);
     }
+
+    public void updateSkill(Skill skill){
+        storeSkill(skill);
+    }
 }
