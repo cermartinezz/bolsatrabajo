@@ -35,29 +35,38 @@ class Errors{
 new Vue({
     el: "#app",
     data: {
-        institutionCode: "",
-        institutionName: "",
-        institutionType: "",
+        name: "",
+        lastName: "",
+        dui: "",
+        nit: "",
+        username: "",
         listErrors: new Errors()
     },
-    methods:{
-        onSubmit: function(){
-            axios.post("/api/instituciones", this.$data)
+    methods: {
+        onSubmit(){
+            axios.put('/api/postulant/'+ username +'/actualizar',this.$data)
                 .then(response => {
                     console.log(response);
-                    showMessageTimer("Guardado","El registro fue guardado con exito",'success',2500,response.headers.location);
-                    this.clearData();
+                    showMessageTimer("Actualizado","Informacion Actualizada","success",5000,response.headers.location);
                 })
                 .catch(error => {
-                    this.listErrors.record(error.response.data.errors);
+                    console.log(error)
                 })
-        },
-        clearData(){
-            this.institutionCode = "";
-            this.institutionName = "";
-            this.institutionType = "";
-            this.listErrors = new Errors();
         }
+    },
+    mounted(){
+        axios.get('/api/postulant/'+username)
+            .then(response => {
+                console.log(response);
+                this.name = response.data.name;
+                this.lastName = response.data.lastName;
+                this.nit = response.data.nit;
+                this.dui = response.data.dui;
+                this.username = response.data.username;
+            })
+            .catch(error => {
+                console.log(error);
+            })
     }
-
 })
+

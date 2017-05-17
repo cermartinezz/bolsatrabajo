@@ -72,7 +72,7 @@ public class InstitutionRestController {
 
         institutionService.save(institution);
 
-        this.headers.setLocation(ucBuilder.path("/instituciones/{id}").buildAndExpand(institution.getInstitutionCode()).toUri());
+        this.headers.setLocation(ucBuilder.path("/instituciones").buildAndExpand(institution.getInstitutionCode()).toUri());
 
 
         return new ResponseEntity<String>(this.headers, HttpStatus.CREATED);
@@ -80,7 +80,9 @@ public class InstitutionRestController {
     }
 
     @RequestMapping(value = "/{code}", method = RequestMethod.PUT)
-    public ResponseEntity actualizar(@PathVariable("code") String code, @Valid @RequestBody Institution institution) {
+    public ResponseEntity actualizar(@PathVariable("code") String code,
+                                     @Valid @RequestBody Institution institution,
+                                     UriComponentsBuilder uriBuilder) {
 
         Institution currentInstitution = institutionService.findInstitutionByCode(code);
 
@@ -89,6 +91,8 @@ public class InstitutionRestController {
         institutionService.update(currentInstitution);
 
         this.headers.set("message","Registro Actualizado con exito");
+
+        this.headers.setLocation(uriBuilder.path("/instituciones").build().toUri());
 
         return new ResponseEntity(this.headers, HttpStatus.OK);
     }

@@ -12,6 +12,8 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
+import java.util.Optional;
+
 public class CertificationValidator implements Validator {
 
     private static final Logger log = LoggerFactory.getLogger(CertificationValidator.class);
@@ -31,9 +33,9 @@ public class CertificationValidator implements Validator {
     public void validate(Object o, Errors errors) {
         Certification certificationFromRequest = (Certification) o;
 
-        Institution institution = institutionService.findInstitutionById(certificationFromRequest.getInstitution().getId());
+        Optional<Institution> institution = institutionService.findInstitutionById(certificationFromRequest.getInstitution().getId());
 
-        String code = certificationFromRequest.getCertificationCode().trim() + '-' + institution.getInstitutionCode().trim();
+        String code = certificationFromRequest.getCertificationCode().trim() + '-' + institution.get().getInstitutionCode().trim();
 
         String title = WordUtils.capitalize(certificationFromRequest.getCertificationTitle().trim());
 

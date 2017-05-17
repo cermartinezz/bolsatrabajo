@@ -6,4 +6,8 @@ public interface PostulantService {
     void save(Postulant postulant);
 
     Postulant findByUsername(String username);
+
+    Postulant findById(Long id);
+
+    void update(Postulant postulant);
 }

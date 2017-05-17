@@ -32,7 +32,7 @@ public class PostulantController {
     public Postulant postulant;
 
 
-    @GetMapping("/perfil")
+    @GetMapping("perfil")
     public String profile(Model model, @PathVariable String username){
 
         model.addAttribute("user", Auth.auth());
@@ -42,6 +42,18 @@ public class PostulantController {
         model.addAttribute("postulant", this.postulant);
 
         return "Postulante/profile";
+    }
+
+    @GetMapping("editar")
+    public String edit(Model model, @PathVariable String username){
+
+        model.addAttribute("user", Auth.auth());
+
+        this.postulant = postulantService.findByUsername(username);
+
+        model.addAttribute("postulant", this.postulant);
+
+        return "Postulante/editar";
     }
 
     @GetMapping("/certificaciones/agregar")
@@ -63,11 +75,11 @@ public class PostulantController {
         return "Postulante/certificaciones/crear";
     }
 
-    @RequestMapping("/postulant/workExp")
+    /*@RequestMapping("/postulant/workExp")
     public String workExperience(Model model){
         model.addAttribute("companies",companyCatService.getAllCompanies());
         model.addAttribute("workExp", new WorkExperience());
         return "exp_labo/create_workExp";
-    }
+    }*/
 
 }

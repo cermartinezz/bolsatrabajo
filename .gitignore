@@ -25,3 +25,7 @@ dist/
 nbdist/
 .nb-gradle/
 build.gradle
+
+### NODE MODULES ###
+
+node_modules

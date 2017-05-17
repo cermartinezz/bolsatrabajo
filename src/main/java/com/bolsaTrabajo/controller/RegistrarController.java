@@ -50,6 +50,7 @@ public class RegistrarController {
 
         if (bindingResult.hasErrors()) {
             log.info("postuante {}", bindingResult.getAllErrors());
+            model.addAttribute("user", Auth.auth());
             return "registrar/postulante";
         }
 

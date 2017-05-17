@@ -1,12 +1,11 @@
+
 package com.bolsaTrabajo.model;
 
 import com.bolsaTrabajo.util.Gender;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Set;
 
@@ -18,6 +17,13 @@ public class Postulant extends User{
     private String dui;
     private Date birthday;
     private String nit;
+    private Gender gender;
+    private Set<PostulantCertification> postulantCertifications;
+
+
+    @Size(max = 9)
+    @Column(name = "cellphone")
+    private String celular;
 
     @Column(name = "nup", unique = true)
     private String nup;
@@ -29,14 +35,6 @@ public class Postulant extends User{
     @Size(max = 9)
     private String telefono;
 
-    @Size(max = 9)
-    @Column(name = "cellphone")
-    private String celular;
-
-    @Enumerated(EnumType.STRING)
-    private Gender gender;
-    private Set<PostulantCertification> postulantCertifications;
-
     public Postulant() {super();}
 
     public Postulant(String username) {
@@ -44,12 +42,12 @@ public class Postulant extends User{
     }
 
 
-    @OneToMany(mappedBy = "postulant")
+    /*@OneToMany(mappedBy = "postulant")
     private Set<WorkExperience> workExperiences;
-
-    public Postulant(){
+*/
+ /*   public Postulant(){
         workExperiences = new HashSet<>();
-    }
+    }*/
 
     public String getNup() {
         return nup;
@@ -83,13 +81,13 @@ public class Postulant extends User{
         this.celular = celular;
     }
 
-    public Set<WorkExperience> getWorkExperiences() {
+    /*public Set<WorkExperience> getWorkExperiences() {
         return workExperiences;
     }
 
     public void setWorkExperiences(Set<WorkExperience> workExperiences) {
         this.workExperiences = workExperiences;
-    }
+    }*/
 
     @Override
     @Id
@@ -140,6 +138,7 @@ public class Postulant extends User{
         this.gender = gender;
     }
 
+
     @OneToMany(mappedBy = "postulant", cascade = CascadeType.ALL, orphanRemoval = true)
     public Set<PostulantCertification> getPostulantCertifications() {
         return postulantCertifications;
@@ -148,8 +147,6 @@ public class Postulant extends User{
     public void setPostulantCertifications(Set<PostulantCertification> postulantCertifications) {
         this.postulantCertifications = postulantCertifications;
     }
-
-
 
     @Override
     public String toString() {

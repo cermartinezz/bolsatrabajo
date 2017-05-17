@@ -1,33 +1,20 @@
 package com.bolsaTrabajo.restController;
 
 import com.bolsaTrabajo.model.Certification;
-import com.bolsaTrabajo.model.Institution;
 import com.bolsaTrabajo.service.CertificationService;
-import com.bolsaTrabajo.service.InstitutionService;
-import com.bolsaTrabajo.util.Auth;
-import com.bolsaTrabajo.util.CustomErrorType;
 import com.bolsaTrabajo.validator.CertificationValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
-import org.springframework.util.MultiValueMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/certificaciones")
@@ -88,14 +75,16 @@ public class CertificationRestController {
 
         certificationService.storeCertification(certification);
 
-        this.headers.setLocation(ucBuilder.path("/certifications/{id}").buildAndExpand(certification.getCertificationId()).toUri());
+        this.headers.setLocation(ucBuilder.path("/certificaciones").build().toUri());
 
         return new ResponseEntity<String>(headers, HttpStatus.CREATED);
 
     }
 
     @PutMapping(value = "/{code}")
-    public ResponseEntity update(@PathVariable("code") String code, @Valid @RequestBody Certification certification) {
+    public ResponseEntity update(@PathVariable("code") String code,
+                                 @Valid @RequestBody Certification certification,
+                                 UriComponentsBuilder uriBuilder) {
 
         Certification currentCertification = certificationService.findCertificationByCode(code);
 
@@ -103,7 +92,9 @@ public class CertificationRestController {
 
        certificationService.updateCertification(currentCertification);
 
-       return new ResponseEntity(currentCertification, HttpStatus.OK);
+       this.headers.setLocation(uriBuilder.path("/certificaciones").build().toUri());
+
+       return new ResponseEntity(currentCertification,this.headers, HttpStatus.OK);
     }
 
     @GetMapping("/institucion/{institution}")

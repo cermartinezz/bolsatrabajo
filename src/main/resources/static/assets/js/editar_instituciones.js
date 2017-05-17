@@ -45,7 +45,7 @@ new Vue({
             axios.put("/api/instituciones/"+code, this.$data)
                 .then(response => {
                     console.log(response);
-                    showMessageTimer("Actualizado","El registro fue actualizado con exito",'success',2500);
+                    showMessageTimer("Actualizado","El registro fue actualizado con exito",'success',2500,response.headers.location);
                 })
                 .catch(error => {
                     console.log(error);
