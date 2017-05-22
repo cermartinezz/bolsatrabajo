@@ -6,6 +6,7 @@ import com.bolsaTrabajo.service.InstitutionService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.Optional;
 
 public class InstitutionServiceImpl implements InstitutionService {
 
@@ -16,6 +17,11 @@ public class InstitutionServiceImpl implements InstitutionService {
     @Override
     public void save(Institution institution) {
         institutionRepository.save(institution);
+    }
+
+    @Override
+    public Optional<Institution> findInstitutionById(int id) {
+        return institutionRepository.findById(id);
     }
 
     @Override

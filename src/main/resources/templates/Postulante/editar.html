@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragmentos/head :: head" th:remove="tag"/>
+<title>Bolsa Trabajo</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+
+<body>
+    <div class="site-wrapper" id="app">
+        <header class="header header-menu-fullw">
+
+            <div th:include="fragmentos/top_bar :: top_bar(${user})" th:remove="tag"></div>
+
+            <div th:include="fragmentos/menu :: menu(${user})" th:remove="tag"></div>
+
+        </header>
+
+
+        <div class="main" role="main">
+
+            <div th:include="fragmentos/heading :: heading('Editar Informacion')"></div>
+
+            <section class="page-content">
+                <div class="container">
+                    <form @submit.prevent="onSubmit">
+                        <input type="hidden"
+                               th:name="${_csrf.parameterName}"
+                               th:value="${_csrf.token}" />
+                        <div class="form-group" :class="{'has-error': listErrors.has('username') }">
+                            <label> Nombre de Usuario*</label>
+
+                            <input type="text" name="username"
+                                   v-model="username" placeholder="Nombre de Usuario" class="form-control" required/>
+
+                            <div class="help-block with-errors" v-if="listErrors.has('username')" v-text="listErrors.get('username')"></div>
+                        </div>
+                        <div class="form-group" :class="{'has-error': listErrors.has('name') }">
+                            <label> Nombre*</label>
+                        
+                            <input type="text" name="name"
+                                   v-model="name" placeholder="Nombre" class="form-control" required/>
+                        
+                            <div class="help-block with-errors" v-if="listErrors.has('name')" v-text="listErrors.get('name')"></div>
+                        </div>
+                        <div class="form-group" :class="{'has-error': listErrors.has('lastName') }">
+                            <label> Apellidos*</label>
+                        
+                            <input type="text" name="lastName"
+                                   v-model="lastName" placeholder="Apellidos" class="form-control" required/>
+                        
+                            <div class="help-block with-errors" v-if="listErrors.has('lastName')" v-text="listErrors.get('lastName')"></div>
+                        </div>
+                        <div class="form-group" :class="{'has-error': listErrors.has('dui') }">
+                            <label> DUI*</label>
+                        
+                            <masked-input type="text" name="dui"
+                                   v-model="dui" placeholder="DUI" mask="11111111-1" class="form-control" required/>
+                        
+                            <div class="help-block with-errors" v-if="listErrors.has('dui')" v-text="listErrors.get('dui')"></div>
+                        </div>
+                        <div class="form-group" :class="{'has-error': listErrors.has('nit') }">
+                            <label> NIT*</label>
+                        
+                            <masked-input type="text" name="nit"
+                                   v-model="nit" placeholder="NIT" mask="1111-111111-111-1" class="form-control" required/>
+                        
+                            <div class="help-block with-errors" v-if="listErrors.has('nit')" v-text="listErrors.get('nit')"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-block">Actualizar</button>
+                        </div>
+
+                    </form>
+                </div>
+            </section>
+
+            <div th:include="fragmentos/footer :: footer"></div>
+        </div>
+    </div>
+
+
+    <div th:include="fragmentos/scripts :: scripts" ></div>
+    <script th:inline="javascript">let username = [[${username}]];</script>
+    <script th:src="@{/assets/js/postulante/editar-perfil.js}"></script>
+</body>
+</html>

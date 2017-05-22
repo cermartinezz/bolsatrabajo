@@ -1,6 +1,7 @@
 package com.bolsaTrabajo.validator;
 
 import com.bolsaTrabajo.model.Postulant;
+import com.bolsaTrabajo.service.PostulantService;
 import com.bolsaTrabajo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -12,7 +13,7 @@ import org.springframework.validation.Validator;
 public class PostulantValidator implements Validator {
 
     @Autowired
-    private UserService userService;
+    private PostulantService postulantService;
 
     @Override
     public boolean supports(Class<?> aClass) {
@@ -21,26 +22,36 @@ public class PostulantValidator implements Validator {
 
     @Override
     public void validate(Object o, Errors errors) {
-        Postulant user = (Postulant) o;
+        Postulant userFromRequest = (Postulant) o;
+
+        Postulant postulant = postulantService.findByUsername(userFromRequest.getUsername());
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "NotEmpty");
 
-        if (user.getUsername().length() < 6 || user.getUsername().length() > 32) {
+        if (userFromRequest.getUsername().length() < 6 || userFromRequest.getUsername().length() > 32) {
             errors.rejectValue("username", "Size.userForm.username");
         }
-        if (userService.findByUsername(user.getUsername()) != null) {
+        if (postulantService.findByUsername(userFromRequest.getUsername()) != null) {
             errors.rejectValue("username", "Duplicate.userForm.username");
         }
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty");
-        if (user.getPassword().length() < 8 || user.getPassword().length() > 32) {
+        if (userFromRequest.getPassword().length() < 8 || userFromRequest.getPassword().length() > 32) {
             errors.rejectValue("password", "Size.userForm.password");
         }
 
-        if (!user.getPasswordConfirm().equals(user.getPassword())) {
+        if (!userFromRequest.getPasswordConfirm().equals(userFromRequest.getPassword())) {
             errors.rejectValue("passwordConfirm", "Diff.userForm.passwordConfirm");
         }
 
+        if (postulant != null) {
+            if(userFromRequest.getId() != postulant.getId()){
+                errors.rejectValue(
+                        "username",
+                        "Duplicate.postulante.username",
+                        "Ya existe un postulante con este username");
+            }
+        }
 
     }
 }

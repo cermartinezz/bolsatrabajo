@@ -51,6 +51,7 @@ public class RegistrarController {
 
         if (bindingResult.hasErrors()) {
             log.info("postuante {}", bindingResult.getAllErrors());
+            model.addAttribute("user", Auth.auth());
             return "registrar/postulante";
         }
 
@@ -60,6 +61,15 @@ public class RegistrarController {
 
         return "redirect:/";
     }
+
+    @RequestMapping("/registro")
+    public String registro(Model model){
+        model.addAttribute("user", Auth.auth());
+
+        return "registrar/menu";
+    }
+
+
 
     @RequestMapping(value = "/registrar/company", method = RequestMethod.GET)
     public String registrationC(Model model) {

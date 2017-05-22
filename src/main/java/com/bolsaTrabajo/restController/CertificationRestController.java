@@ -1,29 +1,19 @@
 package com.bolsaTrabajo.restController;
 
 import com.bolsaTrabajo.model.Certification;
-import com.bolsaTrabajo.model.Institution;
 import com.bolsaTrabajo.service.CertificationService;
-import com.bolsaTrabajo.service.InstitutionService;
-import com.bolsaTrabajo.util.Auth;
-import com.bolsaTrabajo.util.CustomErrorType;
 import com.bolsaTrabajo.validator.CertificationValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -32,8 +22,11 @@ public class CertificationRestController {
 
     public static final Logger logger = LoggerFactory.getLogger(CertificationRestController.class);
 
+    private HttpHeaders headers;
+
     @Autowired
     private CertificationService certificationService;
+
 
     @Autowired
     private CertificationValidator certificationValidator;
@@ -43,6 +36,9 @@ public class CertificationRestController {
         binder.setValidator(certificationValidator);
     }
 
+    public CertificationRestController() {
+        this.headers = new HttpHeaders();
+    }
 
     @GetMapping
     public ResponseEntity<List<Certification>> index() {
@@ -57,15 +53,20 @@ public class CertificationRestController {
     }
 
     @GetMapping(value= "{code}")
-    public ResponseEntity<Certification> show(@PathVariable("code") String code){
+    public ResponseEntity show(@PathVariable("code") String code){
 
         Certification certification = certificationService.findCertificationByCode(code);
 
         if(certification == null){
-            return new ResponseEntity<Certification>(HttpStatus.NOT_FOUND);
+
+            headers.set("message","No se encontraron registros");
+
+            return new ResponseEntity(headers,HttpStatus.NOT_FOUND);
         }
 
-        return new ResponseEntity<Certification>(certification, HttpStatus.OK);
+        headers.set("message","Registros Encontrados");
+
+        return new ResponseEntity(certification,headers, HttpStatus.OK);
     }
 
 
@@ -74,27 +75,45 @@ public class CertificationRestController {
 
         certificationService.storeCertification(certification);
 
-        HttpHeaders headers = new HttpHeaders();
-
-        headers.setLocation(ucBuilder.path("/certifications/{id}").buildAndExpand(certification.getCertificationId()).toUri());
+        this.headers.setLocation(ucBuilder.path("/certificaciones").build().toUri());
 
         return new ResponseEntity<String>(headers, HttpStatus.CREATED);
 
     }
 
-   @PutMapping(value = "/{code}")
-   public ResponseEntity update(@PathVariable("code") String code, @RequestBody Certification certification) {
-       Certification currentCertification = certificationService.findCertificationByCode(code);
+    @PutMapping(value = "/{code}")
+    public ResponseEntity update(@PathVariable("code") String code,
+                                 @Valid @RequestBody Certification certification,
+                                 UriComponentsBuilder uriBuilder) {
 
-       if (currentCertification == null) {
-           return new ResponseEntity(new CustomErrorType("La certificacion que desea actualizar no existe"), HttpStatus.NOT_FOUND);
-       }
+        Certification currentCertification = certificationService.findCertificationByCode(code);
 
        currentCertification.setCertificationTitle(certification.getCertificationTitle());
 
        certificationService.updateCertification(currentCertification);
 
-       return new ResponseEntity<Certification>(currentCertification, HttpStatus.OK);
+       this.headers.setLocation(uriBuilder.path("/certificaciones").build().toUri());
+
+       return new ResponseEntity(currentCertification,this.headers, HttpStatus.OK);
+    }
+
+    @GetMapping("/institucion/{institution}")
+    public ResponseEntity<List<Certification>> getCertificationsByInstitution(@PathVariable Integer institution){
+
+        List<Certification> certifications = certificationService.getCertificationsByInstitution(institution);
+
+        logger.info("certificaciones tamaño: {}", certifications.size());
+
+        if (certifications == null || certifications.isEmpty()) {
+
+            this.headers.set("message", "NO se encontraron certificaciones");
+
+            return new ResponseEntity<List<Certification>>(this.headers,HttpStatus.NO_CONTENT);
+        }
+
+        this.headers.set("message", "Se encontraron Certificaciones de la institucion: "+ institution);
+
+        return new ResponseEntity<List<Certification>>(certifications,this.headers, HttpStatus.OK);
     }
 
 

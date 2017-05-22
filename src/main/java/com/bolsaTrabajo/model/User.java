@@ -1,8 +1,5 @@
 package com.bolsaTrabajo.model;
 
-
-import org.springframework.data.annotation.Transient;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Iterator;
