@@ -35,13 +35,16 @@ public class PostulantController {
     @GetMapping("perfil")
     public String profile(Model model, @PathVariable String username){
 
-        model.addAttribute("user", Auth.auth());
+        if( !username.equals("anonymousUser") ){
+            model.addAttribute("user", Auth.auth());
 
-        this.postulant = postulantService.findByUsername(username);
+            this.postulant = postulantService.findByUsername(username);
 
-        model.addAttribute("postulant", this.postulant);
+            model.addAttribute("postulant", this.postulant);
 
-        return "Postulante/profile";
+            return "Postulante/profile";
+        }
+        return "redirect:/";
     }
 
     @GetMapping("editar")

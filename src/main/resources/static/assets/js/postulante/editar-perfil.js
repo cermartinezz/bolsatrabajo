@@ -47,7 +47,7 @@ new Vue({
             axios.put('/api/postulant/'+ username +'/actualizar',this.$data)
                 .then(response => {
                     console.log(response);
-                    showMessageTimer("Actualizado","Informacion Actualizada","success",5000,response.headers.location);
+                    showMessageTimerRedirect("Actualizado","Informacion Actualizada","success",5000,response.headers.location);
                 })
                 .catch(error => {
                     console.log(error)

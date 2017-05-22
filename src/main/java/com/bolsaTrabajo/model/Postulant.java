@@ -19,7 +19,7 @@ public class Postulant extends User{
     private String nit;
     private Gender gender;
     private Set<PostulantCertification> postulantCertifications;
-
+    private Set<Recommendation> recomenRecommendations;
 
     @Size(max = 9)
     @Column(name = "cellphone")
@@ -147,6 +147,17 @@ public class Postulant extends User{
     public void setPostulantCertifications(Set<PostulantCertification> postulantCertifications) {
         this.postulantCertifications = postulantCertifications;
     }
+
+    @OneToMany(mappedBy = "postulant", cascade = CascadeType.ALL)
+    public Set<Recommendation> getRecomenRecommendations() {
+        return recomenRecommendations;
+    }
+
+    public void setRecomenRecommendations(Set<Recommendation> recomenRecommendations) {
+        this.recomenRecommendations = recomenRecommendations;
+    }
+
+
 
     @Override
     public String toString() {

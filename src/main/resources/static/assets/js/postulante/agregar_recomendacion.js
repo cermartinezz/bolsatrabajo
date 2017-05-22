@@ -31,38 +31,31 @@ class Errors{
         }
     }
 }
+
 new Vue({
     el: "#app",
     data: {
-        id: "",
-        institutionCode: "",
-        institutionName: "",
-        institutionType: "",
+        name: "",
+        phoneNumber: "",
+        username: username,
         listErrors: new Errors()
     },
     methods: {
-        onSubmit: function(){
-            axios.put("/api/instituciones/"+code, this.$data)
+        onSubmit(){
+            axios.post("/api/recomendaciones/"+this.username+"/crear",this.$data)
                 .then(response => {
                     console.log(response);
-                    showMessageTimerRedirect("Actualizado","El registro fue actualizado con exito",'success',2500,response.headers.location);
+                    showMessageTimer("Agregado","Recomendacion Agregada","success",1000);
+                    this.clearData();
+
                 })
                 .catch(error => {
                     console.log(error);
-                    this.listErrors.record(error.response.data.errors);
                 })
+        },
+        clearData(){
+            this.name = "";
+            this.phoneNumber =  "";
         }
-    },
-    mounted(){
-        axios.get("/api/instituciones/"+code)
-            .then(response =>{
-                console.log(response.data);
-                this.id = response.data.id;
-                this.institutionCode = response.data.institutionCode;
-                this.institutionType = response.data.institutionType;
-                this.institutionName = response.data.institutionName;
-
-            })
-            .catch(error => error.log(error))
     }
 })

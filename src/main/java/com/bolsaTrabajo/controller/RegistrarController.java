@@ -34,7 +34,7 @@ public class RegistrarController {
 
     @RequestMapping(value = "/registrar/postulante", method = RequestMethod.GET)
     public String registration(Model model) {
-        if(!Auth.auth().getPrincipal().equals("anonymousUser")){
+        if(Auth.check()){
             return "redirect:/";
         }else{
             model.addAttribute("userForm", new Postulant());
@@ -63,6 +63,7 @@ public class RegistrarController {
 
     @RequestMapping("/registro")
     public String registro(Model model){
+
         model.addAttribute("user", Auth.auth());
 
         return "registrar/menu";

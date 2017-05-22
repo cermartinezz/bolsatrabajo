@@ -34,35 +34,33 @@ class Errors{
 new Vue({
     el: "#app",
     data: {
-        id: "",
-        institutionCode: "",
-        institutionName: "",
-        institutionType: "",
+        id: id,
+        name: "",
+        phoneNumber: "",
+        username: username,
         listErrors: new Errors()
     },
     methods: {
-        onSubmit: function(){
-            axios.put("/api/instituciones/"+code, this.$data)
+        onSubmit(){
+            axios.put("/api/recomendaciones/"+username+"/actualizar/recomendacion/"+this.id,this.$data)
                 .then(response => {
                     console.log(response);
-                    showMessageTimerRedirect("Actualizado","El registro fue actualizado con exito",'success',2500,response.headers.location);
+                    showMessageTimerRedirect("Actualizado","Recomendacion Actualizada","success",2000,response.headers.location)
                 })
                 .catch(error => {
                     console.log(error);
-                    this.listErrors.record(error.response.data.errors);
                 })
         }
     },
     mounted(){
-        axios.get("/api/instituciones/"+code)
-            .then(response =>{
-                console.log(response.data);
-                this.id = response.data.id;
-                this.institutionCode = response.data.institutionCode;
-                this.institutionType = response.data.institutionType;
-                this.institutionName = response.data.institutionName;
-
+        axios.get("/api/recomendaciones/"+this.username+'/'+this.id)
+            .then(response => {
+                console.log(response);
+                this.name = response.data.name;
+                this.phoneNumber = response.data.phoneNumber;
             })
-            .catch(error => error.log(error))
+            .catch(error => {
+                console.log(error);
+            })
     }
 })
