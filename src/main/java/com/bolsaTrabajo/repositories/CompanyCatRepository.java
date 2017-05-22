@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 /**
  * Created by enan0 on 13/4/2017.
  */
-@Repository("companyRepository")
+@Repository("companyCatRepository")
 public interface CompanyCatRepository extends JpaRepository<CompanyCat,Long> {
 
     CompanyCat findById(long id);

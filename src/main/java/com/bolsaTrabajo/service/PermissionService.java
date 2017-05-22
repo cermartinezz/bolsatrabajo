@@ -19,5 +19,5 @@ public class PermissionService {
 
     public void save(Permission permission){ permissionRepository.save(permission); }
 
-    public void delete(long id){ permissionRepository.delete(id); }
+    public void delete(long id){ permissionRepository.deleteById(id); }
 }

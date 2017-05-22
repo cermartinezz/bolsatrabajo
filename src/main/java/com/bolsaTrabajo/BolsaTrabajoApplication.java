@@ -37,18 +37,51 @@ public class BolsaTrabajoApplication implements CommandLineRunner {
 
 		//Permisos, roles y usuario inicial en la aplicacion
 
-
-
 		UserService userService;
-
+		//Si el role ADMIN no existe entonces no se ha realizado la configuración inicial
 		if(roleService.findByName("ADMIN")==null) {
+			/*Permisos para el administrador*/
+			//Permisos sobre Usuarios
 			Permission ucpermission = createPermissionIfNotExist("USER.CREATE");
 			Permission urpermission = createPermissionIfNotExist("USER.READ");
 			Permission uepermission = createPermissionIfNotExist("USER.EDIT");
 			Permission udpermission = createPermissionIfNotExist("USER.DELETE");
+			//Permisos sobre Roles
+			Permission rcpermission = createPermissionIfNotExist("ROLE.CREATE");
+			Permission rrpermission = createPermissionIfNotExist("ROLE.READ");
+			Permission repermission = createPermissionIfNotExist("ROLE.EDIT");
+			Permission rdpermission = createPermissionIfNotExist("ROLE.DELETE");
+			//Permisos
+			Permission pcpermission = createPermissionIfNotExist("PERMISSION.CREATE");
+			Permission prpermission = createPermissionIfNotExist("PERMISSION.READ");
+			Permission pepermission = createPermissionIfNotExist("PERMISSION.EDIT");
+			Permission pdpermission = createPermissionIfNotExist("PERMISSION.DELETE");
 
-			Set<Permission> adminPermission = new HashSet<>(Arrays.asList(ucpermission, urpermission, uepermission, udpermission));
+			/*Permisos para el Postulante*/
+			//Permisos sobre Postulantes
+			Permission pocpermission = createPermissionIfNotExist("POSTULANT.CREATE");
+			Permission porpermission = createPermissionIfNotExist("POSTULANT.READ");
+			Permission poepermission = createPermissionIfNotExist("POSTULANT.EDIT");
+			Permission podpermission = createPermissionIfNotExist("POSTULANT.DELETE");
+
+			/*Permisos para Empresa*/
+			//Permisos sobre empresa
+			Permission ccpermission = createPermissionIfNotExist("COMPANY.CREATE");
+			Permission crpermission = createPermissionIfNotExist("COMPANY.READ");
+			Permission cepermission = createPermissionIfNotExist("COMPANY.EDIT");
+			Permission cdpermission = createPermissionIfNotExist("COMPANY.DELETE");
+
+			Set<Permission> adminPermission = new HashSet<>(Arrays.asList(ucpermission, urpermission, uepermission, udpermission,
+					rcpermission, rrpermission, repermission, rdpermission,
+					pcpermission, prpermission, pepermission, pdpermission,
+					pocpermission, porpermission, poepermission, podpermission,
+					ccpermission, crpermission, cepermission, cdpermission));
+
+			Set<Permission> postulantPermission = new HashSet<>(Arrays.asList(pocpermission, porpermission, poepermission, podpermission));
+			Set<Permission> companyPermission = new HashSet<>(Arrays.asList(ccpermission, crpermission, cepermission, cdpermission));
 			createRoleIfNotFound("ADMIN", adminPermission);
+			createRoleIfNotFound("POSTULANTE", postulantPermission);
+			createRoleIfNotFound("EMPRESA", companyPermission);
 		}
 
 		SkillCategory category1 = new SkillCategory(

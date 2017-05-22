@@ -68,7 +68,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     }
 
     @Bean
-    public CompanyCatService companyService(){ return new CompanyCatService(); }
+    public CompanyCatService companyCatService(){ return new CompanyCatService(); }
 
     @Bean
     public JobCatService jobCatService(){ return new JobCatService(); }
