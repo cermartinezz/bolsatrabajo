@@ -38,7 +38,7 @@
                             <fieldset class="fieldset-skill_title">
                                 <label for="skill_title">Título</label>
                                 <div class="field">
-                                    <input type="text"  class="form-control" v-model="titulo"
+                                    <input type="text"  class="form-control" v-model="titulo" th:field="*{titulo}"
                                            name="skill_title" id="skill_title" placeholder="Facilidad de aprendizaje" />
                                 </div>
                             </fieldset>
@@ -46,14 +46,21 @@
                             <fieldset class="fieldset-skill_code">
                                 <label for="skill_code">Código</label>
                                 <div class="field" v-bind:class="{'has-error': listErrors.has('codigo') }">
-                                    <input type="text"  class="form-control" v-model="codigo"
+                                    <input type="text"  class="form-control" th:field="*{codigo}" v-model="codigo"
                                            name="skill_code" id="skill_code" placeholder="FA12" />
                                     <div class="help-block with-errors" v-if="listErrors.has('codigo')" v-text="listErrors.get('codigo')"></div>
                                 </div>
                             </fieldset>
 
                             <label>Categorias</label>
-                            <v-select :options="listacategorias"></v-select>
+                            <select class="form-control" id="skillCategory"
+                                v-model.number="skillCategory" type="number" name="skillCategory" required>
+
+                                <option disabled value="">Seleccione una categoria</option>
+                                <option th:each="skillCategory : ${categories}"
+                                        th:value="${skillCategory.id}"
+                                        th:text="${skillCategory.titulo}"></option>
+                            </select>
 
                             <div class="spacer"></div>
 
@@ -76,9 +83,6 @@
 
 
 <div th:include="fragmentos/scripts :: scripts" ></div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.0/axios.js" th:src="@{https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.0/axios.js}"></script>
-<script src="https://unpkg.com/vue" th:src="@{https://unpkg.com/vue}"></script>
-<script src="https://unpkg.com/vue-select@latest"></script>
 <script th:inline="javascript">
     let code = [[${skill.codigo}]];
 </script>

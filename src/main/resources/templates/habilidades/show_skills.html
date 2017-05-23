@@ -46,13 +46,13 @@
                             <td >{{ habilidad.id }}</td>
                             <td >{{ habilidad.codigo }}</td>
                             <td >{{ habilidad.titulo }}</td>
-                            <td >{{ habilidad.skillCategory }}</td>
+                            <td >{{ habilidad.skillCategory.titulo }}</td>
 
                             <td>
                                 <div class="row">
                                     <div class="span12 centered-text">
                                         <a v-bind:href="'/habilidad/'+habilidad.codigo+'/editar'"  class="btn btn-success inline">Editar</a>
-                                        <a href="/" th:href="@{/}" class="btn btn-primary inline">Eliminar</a>
+                                        <a v-bind:href="'/habilidad/'+habilidad.codigo+'/eliminar'" class="btn btn-primary inline">Eliminar</a>
                                     </div>
                                 </div>
                             </td>

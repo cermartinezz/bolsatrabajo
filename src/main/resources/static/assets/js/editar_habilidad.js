@@ -37,17 +37,18 @@ new Vue({
         id: "",
         codigo: "",
         titulo: "",
-        listacategorias: "",
+        skillCategory: "",
         listErrors: new Errors()
     },
     methods: {
-        onSubmit: function(){
+        onSubmit: function () {
             axios.put("/skills/"+code, this.$data)
                 .then(response => {
                 console.log(response);
-            showMessageTimer("Actualizado","El registro fue actualizado con exito",'success',2500);
+            showMessageTimer("Actualizado", "El registro fue actualizado con exito", 'success', 2500);
         })
-            .catch(error => {
+            .
+            catch(error => {
                 console.log(error);
             this.listErrors.record(error.response.data.errors);
         })
@@ -60,8 +61,9 @@ new Vue({
         this.id = response.data.id;
         this.codigo = response.data.codigo;
         this.titulo = response.data.titulo;
-        this.listacategorias = response.data.listacategorias;
+        this.skillCategory = response.data.skillCategory.id;
     })
     .catch(error => error.log(error))
+
     }
 })

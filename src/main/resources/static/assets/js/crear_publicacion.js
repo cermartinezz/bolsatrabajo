@@ -37,6 +37,7 @@ new Vue({
     data: {
         titulo: "",
         codigo: "",
+        tipo: "",
         editorial: "",
         listErrors: new Errors()
     },

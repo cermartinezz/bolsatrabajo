@@ -1,26 +1,23 @@
 package com.bolsaTrabajo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created by mvip on 04-05-17.
  */
 @Entity
 @Table(name = "skill")
-public class Skill {
+public class Skill implements Serializable{
     private int id;
     private String titulo;
     private String codigo;
     private SkillCategory skillCategory;
 
     public Skill() {
-    }
-
-    public Skill(int id, String titulo, String codigo, SkillCategory skillCategory) {
-        this.id = id;
-        this.titulo = titulo;
-        this.codigo = codigo;
-        this.skillCategory = skillCategory;
+        super();
     }
 
     @Id
@@ -51,6 +48,7 @@ public class Skill {
     public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
+
 
     @ManyToOne
     @JoinColumn(name = "skillCategory_id")

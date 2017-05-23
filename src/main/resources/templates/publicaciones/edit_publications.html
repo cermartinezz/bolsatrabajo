@@ -62,12 +62,11 @@
                             <div class="spacer"></div>
 
                             <h5>Selecciona el tipo de publicación</h5>
-
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="radio radio__custom radio__style1">
                                         <label>
-                                            <input type="radio" name="optionsRadios1" id="optRadio11" value="option1" checked>
+                                            <input type="radio" name="optionsRadios1" id="optRadio1" value="1" v-model.number="tipo">
                                             <span>Libro</span>
                                         </label>
                                     </div>
@@ -75,13 +74,14 @@
                                 <div class="col-md-6">
                                     <div class="radio radio__custom radio__style1">
                                         <label>
-                                            <input type="radio" name="optionsRadios1" id="optRadio11" value="option1">
+                                            <input type="radio" name="optionsRadios2" id="optRadio2" value="2" v-model.number="tipo">
                                             <span>Publicación Científica</span>
                                         </label>
                                     </div>
 
                                 </div>
                             </div>
+
 
                             <div class="spacer"></div>
                             <p>

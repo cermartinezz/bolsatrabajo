@@ -38,6 +38,7 @@ new Vue({
         codigo: "",
         titulo: "",
         editorial: "",
+        tipo: "",
         listErrors: new Errors()
     },
     methods: {

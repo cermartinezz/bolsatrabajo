@@ -53,7 +53,14 @@
                             </fieldset>
 
                             <label>Categorias</label>
-                            <v-select :options="listacategorias"></v-select>
+                            <select class="form-control" id="skillCategory"
+                            v-model.number="skillCategory" type="number" name="skillCategory" required>
+                                <option disabled value="">Seleccione una categoria</option>
+
+                                <option th:each="skillCategory : ${categories}"
+                                        th:value="${skillCategory.id}"
+                                        th:text="${skillCategory.titulo}"></option>
+                            </select>
 
                             <div class="spacer"></div>
 
@@ -75,12 +82,9 @@
 </div>
 
 
-<div th:include="fragmentos/scripts :: scripts" ></div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.0/axios.js" th:src="@{https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.0/axios.js}"></script>
-<script src="https://unpkg.com/vue" th:src="@{https://unpkg.com/vue}"></script>
-<script src="https://unpkg.com/vue-select@latest"></script>
-<script src="../../static/assets/js/crear_habilidad.js"
-        th:src="@{/assets/js/crear_habilidad.js}"></script>
+<div th:include="fragmentos/scripts :: scripts"></div>
+
+<script  th:src="@{/assets/js/crear_habilidad.js}"></script>
 
 </body>
 </html>

@@ -37,7 +37,7 @@ new Vue({
     data: {
         titulo: "",
         codigo: "",
-        listacategorias: [],
+        skillCategory: "",
         listErrors: new Errors()
     },
     methods:{
@@ -52,15 +52,6 @@ new Vue({
             this.listErrors.record(error.response.data.errors);
         })
         }
-    },
-    mounted(){
-        axios.get("/skills/names").then(response =>
-        {
-            console.log(response)
-        this.listacategorias = response.data.skillCategory;
-    }).catch(error => {
-            console.log(error.response)
-    })
     }
 
 })

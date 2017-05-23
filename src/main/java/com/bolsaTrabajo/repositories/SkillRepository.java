@@ -10,4 +10,5 @@ import org.springframework.stereotype.Repository;
 @Repository("skillRepository")
 public interface SkillRepository extends JpaRepository<Skill,Integer> {
     Skill findByCodigo(String code);
+    Skill deleteByCodigo(String code);
 }

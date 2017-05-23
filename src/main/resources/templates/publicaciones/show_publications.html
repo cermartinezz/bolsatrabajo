@@ -36,18 +36,19 @@
                     <table class="job-manager-jobs table table-bordered table-stripe">
                         <thead>
                         <tr>
-                            <th>Id</th>
                             <th>Codigo</th>
                             <th>Titulo</th>
                             <th>Editorial</th>
+                            <th>Tipo</th>
                             <th>Acciones</th>
                         </tr>
                         </thead>
                         <tr v-for="publication in publications">
-                            <td >{{ publication.id }}</td>
                             <td >{{ publication.codigo }}</td>
                             <td >{{ publication.titulo }}</td>
                             <td >{{ publication.editorial }}</td>
+                            <td >{{ publication.tipo }}</td>
+
                             <td>
                                 <div class="row">
                                     <div class="span12 centered-text">

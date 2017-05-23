@@ -41,5 +41,9 @@ public class BolsaTrabajoApplication implements CommandLineRunner {
 		SkillCategory category5 = new SkillCategory(
 				"Linguisticas","HLIN"
 		);
+		if (skillCategoryRepository.count()<0){
+			skillCategoryRepository.save(category1);
+			skillCategoryRepository.save(category2);
+		}
 	}
 }

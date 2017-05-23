@@ -30,4 +30,8 @@ public class SkillService {
     public void updateSkill(Skill skill){
         storeSkill(skill);
     }
+
+    public void deleteSkill(String code){
+        skillRepository.deleteByCodigo(code);
+    }
 }

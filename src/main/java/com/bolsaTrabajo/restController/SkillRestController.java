@@ -101,7 +101,7 @@ public class SkillRestController {
         return new ResponseEntity<String>(headers, HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/{code}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/{code}")
     public ResponseEntity actualizar(@PathVariable("code") String code, @Valid @RequestBody Skill skill) {
         Skill current = skillService.findSkillByCodigo(code);
 

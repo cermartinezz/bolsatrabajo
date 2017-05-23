@@ -1,5 +1,7 @@
 package com.bolsaTrabajo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -16,6 +18,11 @@ public class SkillCategory {
     private List<Skill> skills;
 
     public SkillCategory() {
+        super();
+    }
+
+    public SkillCategory(int id) {
+       this.id = id;
     }
 
     public SkillCategory(String titulo, String codigo) {
@@ -52,6 +59,7 @@ public class SkillCategory {
         this.codigo = codigo;
     }
 
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "skillCategory")
     public List<Skill> getSkills() {
         return skills;
