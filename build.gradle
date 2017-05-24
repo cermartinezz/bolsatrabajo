@@ -34,5 +34,6 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-security')
 	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
 	compile('org.springframework.boot:spring-boot-starter-web')
+	compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.5'
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }

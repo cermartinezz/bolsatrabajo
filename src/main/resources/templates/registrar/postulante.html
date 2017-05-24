@@ -5,15 +5,17 @@
 </head>
 <title>Postulante</title>
 <body>
-<div class="site-wrapper" id="app">
+<div class="site-wrapper" >
     <header class="header header-menu-fullw">
 
-        <div th:include="fragmentos/menu :: menu" th:remove="tag"></div>
+        <div th:include="fragmentos/top_bar :: top_bar(${user})" th:remove="tag"></div>
+
+        <div th:include="fragmentos/menu :: menu(${user})" th:remove="tag"></div>
 
     </header>
 
 
-    <div class="main" role="main">
+    <div class="main" role="main" id="app">
 
         <div th:include="fragmentos/heading :: heading('Registro Postulante')"></div>
 
@@ -49,6 +51,7 @@
                                     <label for="birthday">Fecha de Nacimiento</label>
                                     <input type="date"
                                            name="birthday"
+                                           placeholder="fecha de nacimiento"
                                            th:field="*{birthday}"
                                            class="form-control" required/>
                                 </div>
@@ -62,12 +65,12 @@
 
                                 <div class="form-group">
                                     <label th:if="${#fields.hasErrors('nit')}" th:errors="*{nit}"></label>
-                                    <input type="text" th:field="*{nit}" placeholder="Nit" class="form-control" required/>
+                                    <masked-input type="text" mask="1111-111111-111-1" name="nit" th:field="*{nit}" placeholder="Nit" class="form-control" required/>
                                 </div>
 
                                 <div class="form-group">
                                     <label th:if="${#fields.hasErrors('dui')}" th:errors="*{dui}" ></label>
-                                    <input type="text" th:field="*{dui}" placeholder="DUI" class="form-control" />
+                                    <masked-input type="text" mask="11111111-1" name="dui" th:field="*{dui}" placeholder="DUI" class="form-control" />
                                 </div>
 
                                 <div class="form-group">
@@ -103,6 +106,11 @@
 
 
 <div th:include="fragmentos/scripts :: scripts" ></div>
+<script>
+    new Vue({
+        el: "#app"
+    })
+</script>
 
 </body>
 </html>

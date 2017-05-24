@@ -16,10 +16,7 @@ public class HomeController {
         return "home";
     }
 
-    @RequestMapping("/registro")
-    public String registro(){
-        return "registrar/menu";
-    }
+
 
     @RequestMapping("/admin/menu")
     public String adminMenu(){

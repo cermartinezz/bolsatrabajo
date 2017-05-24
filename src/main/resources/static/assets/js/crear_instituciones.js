@@ -45,7 +45,7 @@ new Vue({
             axios.post("/api/instituciones", this.$data)
                 .then(response => {
                     console.log(response);
-                    showMessageTimer("Guardado","El registro fue guardado con exito",'success',2500);
+                    showMessageTimerRedirect("Guardado","El registro fue guardado con exito",'success',2500,response.headers.location);
                     this.clearData();
                 })
                 .catch(error => {

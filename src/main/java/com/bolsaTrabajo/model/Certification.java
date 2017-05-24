@@ -5,18 +5,24 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
-@Table(name="certifications")
+@Table(name="certification")
 public class Certification implements Serializable{
 
     private int id;
     private String certificationCode;
     private String certificationTitle;
     private Institution institution;
+    private Set<PostulantCertification> postulantCertifications;
 
     public Certification() {
         super();
+    }
+
+    public Certification(int id) {
+        this.id = id;
     }
 
     @Id
@@ -59,6 +65,19 @@ public class Certification implements Serializable{
     public void setInstitution(Institution institution) {
         this.institution = institution;
     }
+
+    @OneToMany(mappedBy = "certification", cascade = CascadeType.ALL)
+    public Set<PostulantCertification> getPostulantCertifications() {
+        return postulantCertifications;
+    }
+
+    public void setPostulantCertifications(Set<PostulantCertification> postulantCertifications) {
+        this.postulantCertifications = postulantCertifications;
+    }
+
+
+
+
 
     @Override
     public String toString() {

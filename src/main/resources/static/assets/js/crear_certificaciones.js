@@ -31,6 +31,7 @@ class Errors{
         }
     }
 }
+
 new Vue({
     el: "#app",
     data: {
@@ -44,7 +45,7 @@ new Vue({
             axios.post("/api/certificaciones", this.$data)
                 .then(response => {
                     console.log(response);
-                    showMessageTimer("Guardado","El registro fue guardado con exito",'success',2500);
+                    showMessageTimerRedirect("Guardado","El registro fue guardado con exito",'success',2500,response.headers.location);
                     this.clearData();
                 })
                 .catch(error => {

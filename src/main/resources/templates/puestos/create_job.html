@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:v-on="http://www.w3.org/1999/xhtml">
+
+<head th:include="fragmentos/head :: head" th:remove="tag">
+</head>
+<title>Bolsa Trabajo</title>
+
+<body>
+<div class="site-wrapper" id="app">
+    <header class="header header-menu-fullw">
+
+        <div th:include="fragmentos/menu :: menu" th:remove="tag"></div>
+
+    </header>
+
+
+    <div class="main" role="main">
+
+        <div th:include="fragmentos/heading :: heading('Ingresar Puesto')"></div>
+
+        <section class="page-content">
+            <div class="container">
+                <div class="box">
+                    <div th:if="${message!=null}" class="alert alert-danger alert-dismissable">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <span th:text="${message}"></span>
+                    </div>
+                </div>
+                <div class="box">
+                    <h3>Datos</h3>
+                    <span th:utext="${successMessage}"></span>
+                    <form th:object="${job}"
+                          method="POST" th:action="@{/api/jobs}"
+                          class="form-horizontal">
+
+                        <div class="form-group">
+                            <label> Titulo*</label>
+                            <input type="text" th:field="*{puesto}" name="Puesto" placeholder="Puesto" class="form-control" required />
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <button type="submit" class="btn btn-primary btn-block">Agregar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <div th:include="fragmentos/footer :: footer"></div>
+    </div>
+</div>
+
+
+<div th:include="fragmentos/scripts :: scripts"></div>
+</body>
+</html>

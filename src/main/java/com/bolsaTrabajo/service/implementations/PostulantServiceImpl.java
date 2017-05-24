@@ -47,4 +47,15 @@ public class PostulantServiceImpl implements PostulantService {
     public Postulant findByUsername(String username) {
         return postulantRepository.findByUsername(username);
     }
+
+    @Override
+    public Postulant findById(Long id) {
+        return postulantRepository.findById(id);
+    }
+
+    @Override
+    public void update(Postulant postulant) {
+        postulantRepository.save(postulant);
+    }
+
 }
