@@ -56,7 +56,7 @@ new Vue({
     },
     mounted(){
         axios.get("/skills/"+code)
-            .then(response =>{
+            .then(response => {
             console.log(response.data);
         this.id = response.data.id;
         this.codigo = response.data.codigo;

@@ -71,14 +71,4 @@ public class SkillController {
         return "habilidades/edit_skill";
 
     }
-
-    @RequestMapping(value = "habilidad/{code}/eliminar")
-    public ResponseEntity<?> eliminar(@PathVariable("code") String code){
-        Skill skill = skillService.findSkillByCodigo(code);
-        if (skill == null){
-            return new ResponseEntity(new CustomErrorType("No existe habilidad con ese codigo"+code), HttpStatus.NOT_FOUND);
-        }
-        skillService.deleteSkill(code);
-        return new ResponseEntity<Skill>(HttpStatus.NO_CONTENT);
-    }
 }
