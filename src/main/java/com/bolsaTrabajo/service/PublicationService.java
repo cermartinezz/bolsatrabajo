@@ -36,7 +36,7 @@ public class PublicationService {
         storePublication(publication);
     }
 
-    public void deletePublication(int id){
-        publicationRepository.delete(id);
+    public void deletePublication(String code){
+        publicationRepository.deleteByCodigo(code);
     }
 }

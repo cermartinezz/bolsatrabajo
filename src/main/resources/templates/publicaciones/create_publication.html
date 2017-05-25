@@ -10,7 +10,7 @@
 
         <div th:include="fragmentos/top_bar :: top_bar(${user})" th:remove="tag"></div>
 
-        <div th:include="fragmentos/menu :: menu" th:remove="tag"></div>
+        <div th:include="fragmentos/menu :: menu(${user})" th:remove="tag"></div>
 
     </header>
 
@@ -26,8 +26,8 @@
 
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
-                        <JobCat Job Form -->
-                        <form  th:object="${publication}" method="post" id="submit-pub-form" class="job-manager-form"
+
+                        <form  method="post" id="submit-pub-form" class="job-manager-form"
                                v-on:submit.prevent="onSubmit">
 
                             <input type="hidden"
@@ -45,7 +45,7 @@
 
                             <fieldset class="fieldset-book_code">
                                 <label for="book_code">Código</label>
-                                <div class="field" v-bind:class="{'has-error': listErrors.has('codigo') }">
+                                <div class="field" :class="{'has-error': listErrors.has('codigo') }">
                                     <input type="text"  class="form-control" v-model="codigo"
                                            name="book_code" id="book_code" placeholder="PAD111" />
                                     <div class="help-block with-errors" v-if="listErrors.has('codigo')" v-text="listErrors.get('codigo')"></div>
@@ -94,7 +94,7 @@
                             </p>
 
                         </form>
-                        <JobCat Job Form / End -->
+
                     </div>
                 </div>
 
@@ -108,9 +108,7 @@
 
 
 <div th:include="fragmentos/scripts :: scripts" ></div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.0/axios.js" th:src="@{https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.0/axios.js}"></script>
-<script src="https://unpkg.com/vue" th:src="@{https://unpkg.com/vue}"></script>
-<script src="../../static/assets/js/crear_publicacion.js"
-        th:src="@{/assets/js/crear_publicacion.js}"></script>
+<script th:src="@{/assets/js/crear_publicacion.js}"></script>
+
 </body>
 </html>

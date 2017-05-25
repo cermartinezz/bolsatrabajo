@@ -10,7 +10,7 @@
 
         <div th:include="fragmentos/top_bar :: top_bar(${user})" th:remove="tag"></div>
 
-        <div th:include="fragmentos/menu :: menu" th:remove="tag"></div>
+        <div th:include="fragmentos/menu :: menu(${user})" th:remove="tag"></div>
 
     </header>
 
@@ -26,7 +26,6 @@
 
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
-                        <JobCat Job Form -->
                         <form  th:object="${skill}" th:o method="post" id="submit-skill-form" class="job-manager-form"
                                v-on:submit.prevent="onSubmit">
 
@@ -69,7 +68,6 @@
                             </p>
 
                         </form>
-                        <JobCat Job Form / End -->
                     </div>
                 </div>
 

@@ -11,4 +11,6 @@ import org.springframework.stereotype.Repository;
 public interface PublicationRepository extends JpaRepository<Publication,Integer> {
         Publication findByCodigo(String code);
         Publication findById(int id);
+        Publication deleteByCodigo(String code);
+
 }

@@ -15,6 +15,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/recomendaciones/{username}")
@@ -58,13 +59,13 @@ public class RecommendationRestController {
     public ResponseEntity show(@PathVariable Integer recomendationId){
 
 
-        Recommendation recommendation = recommendationService.getRecommendation(recomendationId);
+        Optional<Recommendation> recommendation = recommendationService.getRecommendation(recomendationId);
 
-        if(recommendation.equals(null)){
+        if(recommendation.get().equals(null)){
             return new ResponseEntity<List<Recommendation>>(HttpStatus.NOT_FOUND);
         }
 
-        return new ResponseEntity(recommendation,this.headers,HttpStatus.OK);
+        return new ResponseEntity(recommendation.get(),this.headers,HttpStatus.OK);
     }
 
     @PostMapping("/crear")
@@ -100,9 +101,9 @@ public class RecommendationRestController {
     @DeleteMapping("/recomendacion/{recomendationId}")
     public ResponseEntity destroy(@PathVariable String username,@PathVariable Integer recomendationId){
 
-        Recommendation recommendation = recommendationService.getRecommendation(recomendationId);
+        Optional<Recommendation> recommendation = recommendationService.getRecommendation(recomendationId);
 
-        recommendationService.detele(recommendation);
+        recommendationService.detele(recommendation.get());
 
         this.headers.set("message","El registro fue eliminado");
 

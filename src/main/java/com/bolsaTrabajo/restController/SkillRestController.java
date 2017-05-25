@@ -97,7 +97,7 @@ public class SkillRestController {
         skillService.storeSkill(skill);
         //publicationRepository.save(publication);
 
-        this.headers.setLocation(ucBuilder.path("/skills/{id}").buildAndExpand(skill.getId()).toUri());
+        this.headers.setLocation(ucBuilder.path("/habilidades").buildAndExpand(skill.getId()).toUri());
         return new ResponseEntity<String>(headers, HttpStatus.CREATED);
     }
 

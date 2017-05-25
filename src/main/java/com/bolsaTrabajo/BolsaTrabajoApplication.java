@@ -44,6 +44,9 @@ public class BolsaTrabajoApplication implements CommandLineRunner {
 		if (skillCategoryRepository.count()<0){
 			skillCategoryRepository.save(category1);
 			skillCategoryRepository.save(category2);
+			skillCategoryRepository.save(category3);
+			skillCategoryRepository.save(category4);
 		}
+
 	}
 }

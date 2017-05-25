@@ -11,7 +11,7 @@
 
         <div th:include="fragmentos/top_bar :: top_bar(${user})" th:remove="tag"></div>
 
-        <div th:include="fragmentos/menu :: menu" th:remove="tag"></div>
+        <div th:include="fragmentos/menu :: menu(${user})" th:remove="tag"></div>
 
     </header>
 
@@ -53,7 +53,7 @@
                                 <div class="row">
                                     <div class="span12 centered-text">
                                         <a v-bind:href="'/publicacion/'+publication.codigo+'/editar'" class="btn btn-success inline">Editar</a>
-                                        <a v-bind:href="'/publicacion/'+publication.id+'/eliminar'" class="btn btn-primary inline">Eliminar</a>
+                                        <a v-on:click="deletePub(publication.codigo)" class="btn btn-primary inline">Eliminar</a>
                                     </div>
                                 </div>
                             </td>
@@ -69,8 +69,7 @@
 
 
 <div th:include="fragmentos/scripts :: scripts"></div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.0/axios.js"></script>
-<script src="https://unpkg.com/vue"></script>
+
 <script th:inline="javascript">
 
     new Vue({
@@ -80,7 +79,26 @@
             publications: []
         },
         methods:{
-            onSubmit: function(){}
+            deletePub: function(codigo){
+                swal({
+                        title: 'Eliminar',
+                        text:'Esta seguro que desea eliminar este elemento?',
+                        showCancelButton: true,
+                        confirmButtonText: 'Si, eliminar!',
+                        confirmButtonColor: '#d9534f',
+                        closeOnConfirm: false,
+                        type: 'error'
+                    },
+                    function () {
+                        axios.delete("/publications/"+ codigo)
+                            .then(response => {
+                                console.log(response);
+                                showMessageTimer("Eliminado", "El registro fue eliminado con exito", 'success', 2500);
+
+                            })
+
+                    });
+            }
         },
         mounted(){
             axios.get("/publications")

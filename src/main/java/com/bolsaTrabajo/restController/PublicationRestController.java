@@ -74,7 +74,7 @@ public class PublicationRestController {
 
         publicationService.storePublication(publication);
 
-        this.headers.setLocation(ucBuilder.path("/publications/{id}").buildAndExpand(publication.getId()).toUri());
+        this.headers.setLocation(ucBuilder.path("/publicaciones").buildAndExpand(publication.getId()).toUri());
         return new ResponseEntity<String>(headers, HttpStatus.CREATED);
     }
 
@@ -90,15 +90,15 @@ public class PublicationRestController {
 
         return new ResponseEntity(current, HttpStatus.OK);
     }
-    /*
-    @RequestMapping(value = "/{id}",method = RequestMethod.DELETE)
-    public ResponseEntity eliminar(@PathVariable("id") int id){
-        Publication publication = publicationService.findById(id);
+
+    @RequestMapping(value = "/{code}",method = RequestMethod.DELETE)
+    public ResponseEntity eliminar(@PathVariable("code") String code){
+        Publication publication = publicationService.findPublicationByCodigo(code);
         if (publication == null){
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
-        publicationService.deletePublication(id);
+        publicationService.deletePublication(code);
 
         return  new ResponseEntity<Publication>(HttpStatus.NO_CONTENT);
-    }*/
+    }
 }

@@ -7,6 +7,7 @@ import com.bolsaTrabajo.service.RecommendationService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.Optional;
 
 public class RecommendationsServiceImpl implements RecommendationService {
 
@@ -22,7 +23,7 @@ public class RecommendationsServiceImpl implements RecommendationService {
     }
 
     @Override
-    public Recommendation getRecommendation(Integer in) {
+    public Optional<Recommendation> getRecommendation(Integer in) {
         return recommendationRepository.findById(in);
     }
 
@@ -33,10 +34,10 @@ public class RecommendationsServiceImpl implements RecommendationService {
 
     @Override
     public void update(Recommendation recommendation,Integer originalId) {
-        Recommendation recommendationOriginal = this.getRecommendation(originalId);
-        recommendationOriginal.setName(recommendation.getName());
-        recommendationOriginal.setPhoneNumber(recommendation.getPhoneNumber());
-        store(recommendationOriginal);
+        Optional<Recommendation> recommendationOriginal = this.getRecommendation(originalId);
+        recommendationOriginal.get().setName(recommendation.getName());
+        recommendationOriginal.get().setPhoneNumber(recommendation.getPhoneNumber());
+        store(recommendationOriginal.get());
     }
 
     @Override

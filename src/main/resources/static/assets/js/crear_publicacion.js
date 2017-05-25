@@ -46,7 +46,7 @@ new Vue({
             axios.post("/publications", this.$data)
                 .then(response => {
                 console.log(response);
-            showMessageTimer("Guardado","El registro fue guardado con exito",'success',2500);
+            showMessageTimerRedirect("Guardado","El registro fue guardado con exito",'success',2500,response.headers.location);
         })
             .catch(error => {
                 console.log(error);
