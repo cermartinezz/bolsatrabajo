@@ -79,7 +79,7 @@ public class PublicationRestController {
     }
 
     @RequestMapping(value = "/{code}", method = RequestMethod.PUT)
-    public ResponseEntity actualizar(@PathVariable("code") String code, @Valid @RequestBody Publication publication) {
+    public ResponseEntity actualizar(@PathVariable("code") String code, @Valid @RequestBody Publication publication,UriComponentsBuilder ucBuilder) {
         Publication current = publicationService.findPublicationByCodigo(code);
 
         current.setTitulo(publication.getTitulo());
@@ -87,8 +87,9 @@ public class PublicationRestController {
         current.setTipo(publication.getTipo());
 
         publicationService.updatePublication(current);
+        this.headers.setLocation(ucBuilder.path("/publicaciones").buildAndExpand(publication.getId()).toUri());
 
-        return new ResponseEntity(current, HttpStatus.OK);
+        return new ResponseEntity(current,headers, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{code}",method = RequestMethod.DELETE)
