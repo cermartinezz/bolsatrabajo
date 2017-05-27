@@ -6,6 +6,7 @@ import com.bolsaTrabajo.model.catalog.CompanyCat;
 import com.bolsaTrabajo.model.catalog.Institution;
 import com.bolsaTrabajo.model.catalog.JobCat;
 import com.bolsaTrabajo.model.postulantInfo.AcademicExperience;
+import com.bolsaTrabajo.model.postulantInfo.WorkExperience;
 import com.bolsaTrabajo.service.*;
 import com.bolsaTrabajo.service.CompanyCatService;
 import com.bolsaTrabajo.service.PostulantService;

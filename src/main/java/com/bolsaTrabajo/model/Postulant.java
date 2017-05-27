@@ -4,7 +4,6 @@ import com.bolsaTrabajo.model.postulantInfo.PostulantCertification;
 import com.bolsaTrabajo.model.postulantInfo.PostulantSkill;
 import com.bolsaTrabajo.model.postulantInfo.Recommendation;
 import com.bolsaTrabajo.model.postulantInfo.AcademicExperience;
-import com.bolsaTrabajo.model.postulantInfo.PostulantCertification;
 import com.bolsaTrabajo.model.postulantInfo.WorkExperience;
 import com.bolsaTrabajo.util.Gender;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -97,10 +96,6 @@ public class Postulant extends User{
 
     public String getNup() {
         return nup;
-
-    @OneToMany(mappedBy = "postulant", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    public Set<PostulantCertification> getPostulantCertifications() {
-        return postulantCertifications;
     }
 
     public void setNup(String nup) {
@@ -110,10 +105,7 @@ public class Postulant extends User{
     public String getPassport() {
         return passport;
     }
-    @OneToMany(mappedBy = "pk.postulant", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    public Set<WorkExperience> getWorkExperiences() {
-        return workExperiences;
-    }
+
 
     public void setPassport(String passport) {
         this.passport = passport;
@@ -167,6 +159,12 @@ public class Postulant extends User{
     public void setSkills(Set<PostulantSkill> skills) {
         this.skills = skills;
     }
+
+    @OneToMany(mappedBy = "pk.postulant", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    public Set<WorkExperience> getWorkExperiences() {
+        return workExperiences;
+    }
+
     public void setWorkExperiences(Set<WorkExperience> workExperiences) {
         this.workExperiences = workExperiences;
     }

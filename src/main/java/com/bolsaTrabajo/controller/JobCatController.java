@@ -44,7 +44,9 @@ public class JobCatController {
     @RequestMapping(value = "/editar/{code}",method = RequestMethod.GET)
     public ModelAndView update(@PathVariable String code){
         ModelAndView modelAndView = new ModelAndView();
+
         JobCat e = jobCatService.getJob(Long.parseLong(code));
+        modelAndView.addObject("user", Auth.auth());
         modelAndView.addObject("job",e);
         modelAndView.setViewName(EDIT_JOB);
         return modelAndView;
