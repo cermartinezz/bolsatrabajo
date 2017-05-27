@@ -8,6 +8,7 @@ import com.bolsaTrabajo.validator.PublicationValidator;
 import com.bolsaTrabajo.validator.SkillValidator;
 import com.bolsaTrabajo.validator.RecommendationValidator;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -23,13 +24,6 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     @Bean
     public CertificationService certificationService(){
         return new CertificationServiceImpl();
-    }
-
-    @Bean
-    public PostulantCertificationService postulantCertificationService() {
-
-        return new PostulantCertificationImpl();
-
     }
 
     @Bean
@@ -59,6 +53,10 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     @Bean
     public RecommendationService postulantRecomendationService(){
         return new RecommendationsServiceImpl();
+    }
+
+    @Bean PostulantSkillService postulantSkillService() {
+        return new PostulantSkillServiceImpl();
     }
 
     @Bean

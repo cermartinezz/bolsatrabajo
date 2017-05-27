@@ -1,6 +1,6 @@
 package com.bolsaTrabajo.validator;
 
-import com.bolsaTrabajo.model.Skill;
+import com.bolsaTrabajo.model.catalog.Skill;
 import com.bolsaTrabajo.service.SkillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.Errors;

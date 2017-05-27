@@ -1,6 +1,6 @@
 package com.bolsaTrabajo.restController;
 
-import com.bolsaTrabajo.model.JobCat;
+import com.bolsaTrabajo.model.catalog.JobCat;
 import com.bolsaTrabajo.service.JobCatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

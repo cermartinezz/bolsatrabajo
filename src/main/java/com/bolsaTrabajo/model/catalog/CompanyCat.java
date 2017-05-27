@@ -1,4 +1,4 @@
-package com.bolsaTrabajo.model;
+package com.bolsaTrabajo.model.catalog;
 
 import org.hibernate.validator.constraints.NotEmpty;
 

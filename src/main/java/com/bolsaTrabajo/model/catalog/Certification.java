@@ -1,6 +1,6 @@
-package com.bolsaTrabajo.model;
+package com.bolsaTrabajo.model.catalog;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.bolsaTrabajo.model.postulantInfo.PostulantCertification;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
@@ -11,7 +11,7 @@ import java.util.Set;
 @Table(name="certification")
 public class Certification implements Serializable{
 
-    private int id;
+    private Integer id;
     private String certificationCode;
     private String certificationTitle;
     private Institution institution;
@@ -28,12 +28,11 @@ public class Certification implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "certification_id")
-    @NotEmpty
-    public int getCertificationId() {
+    public Integer getCertificationId() {
         return id;
     }
 
-    public void setCertificationId(int certificationId) {
+    public void setCertificationId(Integer certificationId) {
         this.id = certificationId;
     }
 
@@ -66,7 +65,8 @@ public class Certification implements Serializable{
         this.institution = institution;
     }
 
-    @OneToMany(mappedBy = "certification", cascade = CascadeType.ALL)
+    @OneToMany( mappedBy = "primaryKey.certification",
+                fetch = FetchType.LAZY)
     public Set<PostulantCertification> getPostulantCertifications() {
         return postulantCertifications;
     }
@@ -74,9 +74,6 @@ public class Certification implements Serializable{
     public void setPostulantCertifications(Set<PostulantCertification> postulantCertifications) {
         this.postulantCertifications = postulantCertifications;
     }
-
-
-
 
 
     @Override

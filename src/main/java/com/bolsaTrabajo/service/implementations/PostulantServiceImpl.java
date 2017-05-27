@@ -35,11 +35,17 @@ public class PostulantServiceImpl implements PostulantService {
     @Override
     public void save(Postulant postulant) {
         postulant.setPassword(bCryptPasswordEncoder.encode(postulant.getPassword()));
+
         postulant.setActive(1);
+
         HashSet<Role> roleCollection = new HashSet<>();
-        roleCollection.add(roleRepository.findByName("POSTULANTE"));
+
+        Role ROLE = roleRepository.findByName("POSTULANTE");
+
+        roleCollection.add(ROLE);
 
         postulant.setRoles(roleCollection);
+
         postulantRepository.save(postulant);
     }
 

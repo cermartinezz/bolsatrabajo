@@ -1,28 +1,38 @@
-package com.bolsaTrabajo.model;
+package com.bolsaTrabajo.model.catalog;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by mvip on 04-05-17.
  */
 @Entity
-@Table(name = "skill")
-public class Skill implements Serializable{
+@Table(name = "skillCategory")
+public class SkillCategory {
+
     private int id;
     private String titulo;
     private String codigo;
-    private SkillCategory skillCategory;
+    private List<Skill> skills;
 
-    public Skill() {
+    public SkillCategory() {
         super();
+    }
+
+    public SkillCategory(int id) {
+       this.id = id;
+    }
+
+    public SkillCategory(String titulo, String codigo) {
+        this.titulo = titulo;
+        this.codigo = codigo;
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "skill_id")
+    @Column(name = "skillCategory_id")
     public int getId() {
         return id;
     }
@@ -49,14 +59,13 @@ public class Skill implements Serializable{
         this.codigo = codigo;
     }
 
-
-    @ManyToOne
-    @JoinColumn(name = "skillCategory_id")
-    public SkillCategory getSkillCategory() {
-        return skillCategory;
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "skillCategory")
+    public List<Skill> getSkills() {
+        return skills;
     }
 
-    public void setSkillCategory(SkillCategory skillCategory) {
-        this.skillCategory = skillCategory;
+    public void setSkills(List<Skill> skills) {
+        this.skills = skills;
     }
 }

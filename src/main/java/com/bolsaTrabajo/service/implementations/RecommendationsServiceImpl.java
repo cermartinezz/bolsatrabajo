@@ -1,7 +1,7 @@
 package com.bolsaTrabajo.service.implementations;
 
 import com.bolsaTrabajo.model.Postulant;
-import com.bolsaTrabajo.model.Recommendation;
+import com.bolsaTrabajo.model.postulantInfo.Recommendation;
 import com.bolsaTrabajo.repositories.RecommendationRepository;
 import com.bolsaTrabajo.service.RecommendationService;
 import org.springframework.beans.factory.annotation.Autowired;

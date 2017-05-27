@@ -1,12 +1,9 @@
-package com.bolsaTrabajo.model;
+package com.bolsaTrabajo.model.catalog;
 
 import com.bolsaTrabajo.util.InstitutionType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.util.List;
 import java.util.Set;
 
 @Entity

@@ -1,7 +1,7 @@
 package com.bolsaTrabajo.service;
 
 import com.bolsaTrabajo.model.Postulant;
-import com.bolsaTrabajo.model.Recommendation;
+import com.bolsaTrabajo.model.postulantInfo.Recommendation;
 
 import java.util.List;
 import java.util.Optional;

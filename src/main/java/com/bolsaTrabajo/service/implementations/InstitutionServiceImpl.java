@@ -1,6 +1,6 @@
 package com.bolsaTrabajo.service.implementations;
 
-import com.bolsaTrabajo.model.Institution;
+import com.bolsaTrabajo.model.catalog.Institution;
 import com.bolsaTrabajo.repositories.InstitutionRepository;
 import com.bolsaTrabajo.service.InstitutionService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,10 +1,9 @@
 package com.bolsaTrabajo.restController;
 
-import com.bolsaTrabajo.model.Certification;
+import com.bolsaTrabajo.model.catalog.Certification;
 import com.bolsaTrabajo.model.Postulant;
-import com.bolsaTrabajo.model.PostulantCertification;
+import com.bolsaTrabajo.model.postulantInfo.PostulantCertification;
 import com.bolsaTrabajo.service.CertificationService;
-import com.bolsaTrabajo.service.PostulantCertificationService;
 import com.bolsaTrabajo.service.PostulantService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,11 +29,6 @@ public class PostulantCertificationRestController {
 
     private HttpHeaders headers;
 
-    @Autowired
-    private PostulantCertificationService postulantCertificationService;
-
-
-
     public PostulantCertificationRestController() {
         this.headers = new HttpHeaders();
     }
@@ -51,8 +45,13 @@ public class PostulantCertificationRestController {
         postulantCertification.setCertification(certification);
         postulantCertification.setPostulant(user);
 
+        logger.info("postulat certification {}", postulantCertification);
+        logger.info("postulante {}", user);
+        logger.info("certificacion {}", certification);
 
-        postulantCertificationService.save(postulantCertification);
+        user.getCertifications().add(postulantCertification);
+
+        postulantService.save(user);
 
         this.headers.set("message","Se guardo el registro");
 

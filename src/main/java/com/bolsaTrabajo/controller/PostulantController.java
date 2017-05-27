@@ -1,9 +1,7 @@
 package com.bolsaTrabajo.controller;
 
-import com.bolsaTrabajo.model.Certification;
-import com.bolsaTrabajo.model.Institution;
+import com.bolsaTrabajo.model.catalog.Institution;
 import com.bolsaTrabajo.model.Postulant;
-import com.bolsaTrabajo.service.CertificationService;
 import com.bolsaTrabajo.service.InstitutionService;
 import com.bolsaTrabajo.service.PostulantService;
 import com.bolsaTrabajo.util.Auth;
@@ -40,7 +38,7 @@ public class PostulantController {
 
             this.postulant = postulantService.findByUsername(username);
 
-            model.addAttribute("postulant", this.postulant);
+            model.addAttribute("postulantInfo", this.postulant);
 
             return "Postulante/profile";
         }
@@ -54,7 +52,7 @@ public class PostulantController {
 
         this.postulant = postulantService.findByUsername(username);
 
-        model.addAttribute("postulant", this.postulant);
+        model.addAttribute("postulantInfo", this.postulant);
 
         return "Postulante/editar";
     }
@@ -73,12 +71,12 @@ public class PostulantController {
 
         model.addAttribute("user", Auth.auth());
 
-        model.addAttribute("postulant", postulantService.findByUsername(username));
+        model.addAttribute("postulantInfo", postulantService.findByUsername(username));
 
         return "Postulante/certificaciones/crear";
     }
 
-    /*@RequestMapping("/postulant/workExp")
+    /*@RequestMapping("/postulantInfo/workExp")
     public String workExperience(Model model){
         model.addAttribute("companies",companyCatService.getAllCompanies());
         model.addAttribute("workExp", new WorkExperience());

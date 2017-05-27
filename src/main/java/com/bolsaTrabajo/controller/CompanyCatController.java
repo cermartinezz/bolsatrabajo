@@ -1,6 +1,6 @@
 package com.bolsaTrabajo.controller;
 
-import com.bolsaTrabajo.model.CompanyCat;
+import com.bolsaTrabajo.model.catalog.CompanyCat;
 import com.bolsaTrabajo.service.CompanyCatService;
 import com.bolsaTrabajo.util.Auth;
 import org.springframework.beans.factory.annotation.Autowired;

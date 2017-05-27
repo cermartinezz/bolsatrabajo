@@ -1,4 +1,7 @@
-package com.bolsaTrabajo.model;
+package com.bolsaTrabajo.model.postulantInfo;
+
+import com.bolsaTrabajo.model.Postulant;
+import com.bolsaTrabajo.model.catalog.CompanyCat;
 
 import javax.persistence.*;
 import java.io.Serializable;

@@ -1,9 +1,7 @@
 package com.bolsaTrabajo.service;
 
-import com.bolsaTrabajo.model.CompanyCat;
+import com.bolsaTrabajo.model.catalog.CompanyCat;
 import com.bolsaTrabajo.repositories.CompanyCatRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;

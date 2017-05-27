@@ -1,9 +1,7 @@
 package com.bolsaTrabajo.restController;
 
-import com.bolsaTrabajo.model.Certification;
-import com.bolsaTrabajo.model.Publication;
+import com.bolsaTrabajo.model.postulantInfo.Publication;
 import com.bolsaTrabajo.service.PublicationService;
-import com.bolsaTrabajo.util.CustomErrorType;
 import com.bolsaTrabajo.validator.PublicationValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

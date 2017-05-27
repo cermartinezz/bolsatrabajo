@@ -1,11 +1,13 @@
 
 package com.bolsaTrabajo.model;
 
+import com.bolsaTrabajo.model.postulantInfo.PostulantCertification;
+import com.bolsaTrabajo.model.postulantInfo.PostulantSkill;
+import com.bolsaTrabajo.model.postulantInfo.Recommendation;
 import com.bolsaTrabajo.util.Gender;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.Set;
 
@@ -18,22 +20,15 @@ public class Postulant extends User{
     private Date birthday;
     private String nit;
     private Gender gender;
-    private Set<PostulantCertification> postulantCertifications;
-    private Set<Recommendation> recomenRecommendations;
-
-    @Size(max = 9)
-    @Column(name = "cellphone")
-    private String celular;
-
-    @Column(name = "nup", unique = true)
+    private String cellphone;
+    private String phonenumber;
+    private String passport;
     private String nup;
 
-    @Column(name = "passport", unique = true)
-    private String pasaporte;
+    private Set<PostulantCertification> certifications;
+    private Set<Recommendation> recommendations;
+    private Set<PostulantSkill> skills;
 
-    @Column(name = "tel")
-    @Size(max = 9)
-    private String telefono;
 
     public Postulant() {super();}
 
@@ -42,44 +37,13 @@ public class Postulant extends User{
     }
 
 
-    /*@OneToMany(mappedBy = "postulant")
+    /*@OneToMany(mappedBy = "postulantInfo")
     private Set<WorkExperience> workExperiences;
 */
  /*   public Postulant(){
         workExperiences = new HashSet<>();
     }*/
 
-    public String getNup() {
-        return nup;
-    }
-
-    public void setNup(String nup) {
-        this.nup = nup;
-    }
-
-    public String getPasaporte() {
-        return pasaporte;
-    }
-
-    public void setPasaporte(String pasaporte) {
-        this.pasaporte = pasaporte;
-    }
-
-    public String getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
-
-    public String getCelular() {
-        return celular;
-    }
-
-    public void setCelular(String celular) {
-        this.celular = celular;
-    }
 
     /*public Set<WorkExperience> getWorkExperiences() {
         return workExperiences;
@@ -138,35 +102,84 @@ public class Postulant extends User{
         this.gender = gender;
     }
 
-
-    @OneToMany(mappedBy = "postulant", cascade = CascadeType.ALL, orphanRemoval = true)
-    public Set<PostulantCertification> getPostulantCertifications() {
-        return postulantCertifications;
+    public String getNup() {
+        return nup;
     }
 
-    public void setPostulantCertifications(Set<PostulantCertification> postulantCertifications) {
-        this.postulantCertifications = postulantCertifications;
+    public void setNup(String nup) {
+        this.nup = nup;
     }
 
-    @OneToMany(mappedBy = "postulant", cascade = CascadeType.ALL)
-    public Set<Recommendation> getRecomenRecommendations() {
-        return recomenRecommendations;
+    public String getPassport() {
+        return passport;
     }
 
-    public void setRecomenRecommendations(Set<Recommendation> recomenRecommendations) {
-        this.recomenRecommendations = recomenRecommendations;
+    public void setPassport(String passport) {
+        this.passport = passport;
     }
 
+    public String getPhonenumber() {
+        return phonenumber;
+    }
 
+    public void setPhonenumber(String phonenumber) {
+        this.phonenumber = phonenumber;
+    }
+
+    public String getCellphone() {
+        return cellphone;
+    }
+
+    public void setCellphone(String cellphone) {
+        this.cellphone = cellphone;
+    }
+
+    /***********RELACIONES**************/
+
+    @OneToMany( mappedBy = "primaryKey.postulant",
+                cascade = CascadeType.ALL,
+                orphanRemoval = true)
+    public Set<PostulantCertification> getCertifications() {
+        return certifications;
+    }
+
+    public void setCertifications(Set<PostulantCertification> certifications) {
+        this.certifications = certifications;
+    }
+
+    @OneToMany( mappedBy = "postulant",
+                cascade = CascadeType.ALL)
+    public Set<Recommendation> getRecommendations() {
+        return recommendations;
+    }
+
+    public void setRecommendations(Set<Recommendation> recommendations) {
+        this.recommendations = recommendations;
+    }
+
+    @OneToMany( mappedBy = "postulant",
+                cascade = CascadeType.ALL)
+    public Set<PostulantSkill> getSkills() {
+        return skills;
+    }
+
+    public void setSkills(Set<PostulantSkill> skills) {
+        this.skills = skills;
+    }
 
     @Override
     public String toString() {
         return "Postulant{" +
                 "id=" + id +
+                ", username='" + username + '\'' +
                 ", dui='" + dui + '\'' +
                 ", birthday=" + birthday +
                 ", nit='" + nit + '\'' +
                 ", gender=" + gender +
+                ", cellphone='" + cellphone + '\'' +
+                ", phonenumber='" + phonenumber + '\'' +
+                ", passport='" + passport + '\'' +
+                ", nup='" + nup + '\'' +
                 '}';
     }
 }

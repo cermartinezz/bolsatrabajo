@@ -1,7 +1,7 @@
 package com.bolsaTrabajo.restController;
 
 import com.bolsaTrabajo.model.Postulant;
-import com.bolsaTrabajo.model.Recommendation;
+import com.bolsaTrabajo.model.postulantInfo.Recommendation;
 import com.bolsaTrabajo.service.RecommendationService;
 import com.bolsaTrabajo.service.PostulantService;
 import com.bolsaTrabajo.validator.RecommendationValidator;

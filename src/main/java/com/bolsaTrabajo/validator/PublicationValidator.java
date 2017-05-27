@@ -1,6 +1,6 @@
 package com.bolsaTrabajo.validator;
 
-import com.bolsaTrabajo.model.Publication;
+import com.bolsaTrabajo.model.postulantInfo.Publication;
 import com.bolsaTrabajo.service.PublicationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

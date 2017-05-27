@@ -1,8 +1,8 @@
 package com.bolsaTrabajo.restController;
 
 import com.bolsaTrabajo.model.*;
-import com.bolsaTrabajo.repositories.PostulantRepository;
-import com.bolsaTrabajo.repositories.UserRepository;
+import com.bolsaTrabajo.model.catalog.CompanyCat;
+import com.bolsaTrabajo.model.postulantInfo.WorkExperience;
 import com.bolsaTrabajo.service.CompanyCatService;
 import com.bolsaTrabajo.service.PostulantService;
 import com.bolsaTrabajo.service.UserService;
@@ -89,6 +89,6 @@ public class PostulantRestController {
 
         //p.getWorkExperiences().add(experience);
         userService.save(p);
-        return "redirect:/postulant/profile";
+        return "redirect:/postulantInfo/profile";
     }
 }

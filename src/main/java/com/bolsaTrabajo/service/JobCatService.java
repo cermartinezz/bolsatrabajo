@@ -1,6 +1,6 @@
 package com.bolsaTrabajo.service;
 
-import com.bolsaTrabajo.model.JobCat;
+import com.bolsaTrabajo.model.catalog.JobCat;
 import com.bolsaTrabajo.repositories.JobCatRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 

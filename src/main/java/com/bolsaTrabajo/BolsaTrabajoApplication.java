@@ -1,6 +1,6 @@
 package com.bolsaTrabajo;
 
-import com.bolsaTrabajo.model.SkillCategory;
+import com.bolsaTrabajo.model.catalog.SkillCategory;
 import com.bolsaTrabajo.repositories.SkillCategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
