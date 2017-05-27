@@ -40,3 +40,8 @@
     text-align: center;
 }
 
+.form-horizontal .form-group {
+    margin-left: -15px;
+    margin-right: 0px;
+}
+

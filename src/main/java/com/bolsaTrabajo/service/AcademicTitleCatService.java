@@ -19,7 +19,7 @@ public class AcademicTitleCatService {
 
     //public Optional<AcademicTitleCat> getTitle(Long id){return academicTitleCatRepository.findById(id);}
 
-    public Optional<AcademicTitleCat> getTitle(Long id){return Optional.ofNullable(academicTitleCatRepository.findById(id));}
+    public Optional<AcademicTitleCat> getTitle(Long id){return academicTitleCatRepository.findById(id);}
 
     public AcademicTitleCat getTitle(String nom){return academicTitleCatRepository.findByTitulo(nom);}
 

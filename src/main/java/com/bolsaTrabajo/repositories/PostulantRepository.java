@@ -6,5 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface PostulantRepository extends JpaRepository<Postulant,Integer> {
     Postulant findByEmail(String email);
     Postulant findByUsername(String username);
+    Postulant findByNit(String nit);
+    Postulant findByDui(String dui);
+    Postulant findByPassport(String passport);
+    Postulant findByNup(String nup);
     Postulant findById(Long id);
 }

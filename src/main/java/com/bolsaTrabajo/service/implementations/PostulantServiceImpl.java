@@ -60,6 +60,31 @@ public class PostulantServiceImpl implements PostulantService {
     }
 
     @Override
+    public Postulant findByNup(String nup) {
+        return postulantRepository.findByNup(nup);
+    }
+
+    @Override
+    public Postulant findByDui(String dui) {
+        return postulantRepository.findByDui(dui);
+    }
+
+    @Override
+    public Postulant findByNit(String nit) {
+        return postulantRepository.findByNit(nit);
+    }
+
+    @Override
+    public Postulant findByPassport(String passport) {
+        return postulantRepository.findByPassport(passport);
+    }
+
+    @Override
+    public Postulant findByEmail(String email) {
+        return postulantRepository.findByEmail(email);
+    }
+
+    @Override
     public void update(Postulant postulant) {
         postulantRepository.save(postulant);
     }

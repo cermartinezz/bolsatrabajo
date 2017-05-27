@@ -56,7 +56,7 @@ public class Postulant extends User{
         this.id = id;
     }
 
-    @Column(name = "dui", unique = true)
+    @Column(name = "dui")
     public String getDui() {
         return dui;
     }
@@ -76,7 +76,7 @@ public class Postulant extends User{
         this.birthday = birthday;
     }
 
-    @Column(name = "nit", unique = true)
+    @Column(name = "nit")
     public String getNit() {
         return nit;
     }

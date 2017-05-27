@@ -9,5 +9,15 @@ public interface PostulantService {
 
     Postulant findById(Long id);
 
+    Postulant findByNup(String nup);
+
+    Postulant findByDui(String dui);
+
+    Postulant findByNit(String nit);
+
+    Postulant findByPassport(String passport);
+
+    Postulant findByEmail(String email);
+
     void update(Postulant postulant);
 }
