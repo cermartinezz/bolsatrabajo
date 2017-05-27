@@ -73,6 +73,26 @@
                                 </div>
 
                                 <div class="form-group">
+                                    <label th:if="${#fields.hasErrors('nup')}" th:errors="*{nup}" ></label>
+                                    <input type="text" th:field="*{nup}" placeholder="NUP" class="form-control" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label th:if="${#fields.hasErrors('pasaporte')}" th:errors="*{pasaporte}" ></label>
+                                    <input type="text" th:field="*{pasaporte}" placeholder="PASAPORTE" class="form-control" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}" ></label>
+                                    <input type="text" th:field="*{telefono}" placeholder="TELEFONO" class="form-control" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label th:if="${#fields.hasErrors('celular')}" th:errors="*{celular}" ></label>
+                                    <input type="text" th:field="*{celular}" placeholder="CELULAR" class="form-control" />
+                                </div>
+
+                                <div class="form-group">
                                     <label th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></label>
                                     <input type="email" th:field="*{email}" placeholder="Email" class="form-control" />
                                 </div>

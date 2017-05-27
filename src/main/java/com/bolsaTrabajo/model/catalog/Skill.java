@@ -1,31 +1,31 @@
-package com.bolsaTrabajo.model;
+package com.bolsaTrabajo.model.catalog;
 
 import javax.persistence.*;
-import java.util.List;
 
 /**
  * Created by mvip on 04-05-17.
  */
 @Entity
-@Table(name = "skillCategory")
-public class SkillCategory {
-
+@Table(name = "skill")
+public class Skill {
     private int id;
     private String titulo;
     private String codigo;
-    private List<Skill> skills;
+    private SkillCategory skillCategory;
 
-    public SkillCategory() {
+    public Skill() {
     }
 
-    public SkillCategory(String titulo, String codigo) {
+    public Skill(int id, String titulo, String codigo, SkillCategory skillCategory) {
+        this.id = id;
         this.titulo = titulo;
         this.codigo = codigo;
+        this.skillCategory = skillCategory;
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "skillCategory_id")
+    @Column(name = "skill_id")
     public int getId() {
         return id;
     }
@@ -52,12 +52,13 @@ public class SkillCategory {
         this.codigo = codigo;
     }
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "skillCategory")
-    public List<Skill> getSkills() {
-        return skills;
+    @ManyToOne
+    @JoinColumn(name = "skillCategory_id")
+    public SkillCategory getSkillCategory() {
+        return skillCategory;
     }
 
-    public void setSkills(List<Skill> skills) {
-        this.skills = skills;
+    public void setSkillCategory(SkillCategory skillCategory) {
+        this.skillCategory = skillCategory;
     }
 }

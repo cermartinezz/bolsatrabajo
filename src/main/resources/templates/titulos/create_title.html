@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:v-on="http://www.w3.org/1999/xhtml">
 
 <head th:include="fragmentos/head :: head" th:remove="tag">
-    <title>Bolsa Trabajo</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+</head>
+<title>Bolsa Trabajo</title>
 
 <body>
-<div class="site-wrapper">
+<div class="site-wrapper" id="app">
     <header class="header header-menu-fullw">
 
         <div th:include="fragmentos/top_bar :: top_bar(${user})" th:remove="tag"></div>
@@ -16,9 +16,9 @@
     </header>
 
 
-    <div class="main" id="app" role="main">
+    <div class="main" role="main">
 
-        <div th:include="fragmentos/heading :: heading('Editar Puesto')"></div>
+        <div th:include="fragmentos/heading :: heading('Ingresar Puesto')"></div>
 
         <section class="page-content">
             <div class="container">
@@ -29,21 +29,20 @@
                     </div>
                 </div>
                 <div class="box">
-                    <h3> Datos</h3>
-                    <form th:action="@{'/api/cat/jobs/update/'+${job.id}}"
-                          th:object="${job}"
-                          th:method="PUT"
-                          class="form-horizontal" role="form">
+                    <h3>Datos</h3>
+                    <span th:utext="${successMessage}"></span>
+                    <form th:object="${title}"
+                          method="POST" th:action="@{/api/cat/titles}"
+                          class="form-horizontal">
 
                         <div class="form-group">
                             <label> Titulo*</label>
-                            <input type="text" th:field="*{puesto}" name="puesto"  th:value="${job.puesto}"
-                                   placeholder="Titulo" class="form-control" required/>
+                            <input type="text" th:field="*{titulo}" name="Titulo" placeholder="Titulo" class="form-control" required />
                         </div>
 
                         <div class="form-group">
                             <div class="col-sm-9">
-                                <button type="submit" class="btn btn-primary btn-block">Actualizar</button>
+                                <button type="submit" class="btn btn-primary btn-block">Agregar</button>
                             </div>
                         </div>
                     </form>
@@ -57,6 +56,5 @@
 
 
 <div th:include="fragmentos/scripts :: scripts"></div>
-
 </body>
 </html>

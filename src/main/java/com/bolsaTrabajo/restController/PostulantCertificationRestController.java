@@ -1,8 +1,8 @@
 package com.bolsaTrabajo.restController;
 
-import com.bolsaTrabajo.model.Certification;
+import com.bolsaTrabajo.model.catalog.Certification;
 import com.bolsaTrabajo.model.Postulant;
-import com.bolsaTrabajo.model.PostulantCertification;
+import com.bolsaTrabajo.model.postulantInfo.PostulantCertification;
 import com.bolsaTrabajo.service.CertificationService;
 import com.bolsaTrabajo.service.PostulantCertificationService;
 import com.bolsaTrabajo.service.PostulantService;

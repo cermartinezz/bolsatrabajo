@@ -2,8 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head th:include="fragmentos/head :: head" th:remove="tag">
-    <title>Bolsa Trabajo</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+<title>Bolsa Trabajo</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
 
 <body>
 <div class="site-wrapper">
@@ -18,7 +18,7 @@
 
     <div class="main" id="app" role="main">
 
-        <div th:include="fragmentos/heading :: heading('Editar Puesto')"></div>
+        <div th:include="fragmentos/heading :: heading('Editar Empresa')"></div>
 
         <section class="page-content">
             <div class="container">
@@ -30,14 +30,14 @@
                 </div>
                 <div class="box">
                     <h3> Datos</h3>
-                    <form th:action="@{'/api/cat/jobs/update/'+${job.id}}"
-                          th:object="${job}"
+                    <form th:action="@{'/api/cat/empresas/update/'+${company.id}}"
+                          th:object="${company}"
                           th:method="PUT"
                           class="form-horizontal" role="form">
 
                         <div class="form-group">
                             <label> Titulo*</label>
-                            <input type="text" th:field="*{puesto}" name="puesto"  th:value="${job.puesto}"
+                            <input type="text" th:field="*{companyName}" name="companyName"  th:value="${company.companyName}"
                                    placeholder="Titulo" class="form-control" required/>
                         </div>
 

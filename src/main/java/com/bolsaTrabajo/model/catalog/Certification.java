@@ -1,7 +1,6 @@
-package com.bolsaTrabajo.model;
+package com.bolsaTrabajo.model.catalog;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import org.hibernate.validator.constraints.NotEmpty;
+import com.bolsaTrabajo.model.postulantInfo.PostulantCertification;
 
 import javax.persistence.*;
 import java.io.Serializable;

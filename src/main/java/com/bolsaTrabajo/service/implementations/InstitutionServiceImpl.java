@@ -1,11 +1,12 @@
 package com.bolsaTrabajo.service.implementations;
 
-import com.bolsaTrabajo.model.Institution;
+import com.bolsaTrabajo.model.catalog.Institution;
 import com.bolsaTrabajo.repositories.InstitutionRepository;
 import com.bolsaTrabajo.service.InstitutionService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.Optional;
 
 public class InstitutionServiceImpl implements InstitutionService {
 
@@ -19,7 +20,7 @@ public class InstitutionServiceImpl implements InstitutionService {
     }
 
     @Override
-    public Institution findInstitutionById(int id) {
+    public Optional<Institution> findInstitutionById(int id) {
         return institutionRepository.findById(id);
     }
 

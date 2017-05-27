@@ -1,6 +1,6 @@
 package com.bolsaTrabajo.service;
 
-import com.bolsaTrabajo.model.PostulantCertification;
+import com.bolsaTrabajo.model.postulantInfo.PostulantCertification;
 
 public interface PostulantCertificationService {
 

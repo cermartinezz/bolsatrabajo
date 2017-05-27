@@ -1,5 +1,7 @@
-package com.bolsaTrabajo.model;
+package com.bolsaTrabajo.model.postulantInfo;
 
+import com.bolsaTrabajo.model.Postulant;
+import com.bolsaTrabajo.model.catalog.Certification;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;

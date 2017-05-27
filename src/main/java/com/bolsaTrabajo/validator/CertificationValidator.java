@@ -1,7 +1,7 @@
 package com.bolsaTrabajo.validator;
 
-import com.bolsaTrabajo.model.Certification;
-import com.bolsaTrabajo.model.Institution;
+import com.bolsaTrabajo.model.catalog.Certification;
+import com.bolsaTrabajo.model.catalog.Institution;
 import com.bolsaTrabajo.service.CertificationService;
 import com.bolsaTrabajo.service.InstitutionService;
 import org.apache.commons.lang3.text.WordUtils;
@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
+
+import java.util.Optional;
 
 public class CertificationValidator implements Validator {
 
@@ -31,9 +33,9 @@ public class CertificationValidator implements Validator {
     public void validate(Object o, Errors errors) {
         Certification certificationFromRequest = (Certification) o;
 
-        Institution institution = institutionService.findInstitutionById(certificationFromRequest.getInstitution().getId());
+        Optional<Institution> institution = institutionService.findInstitutionById(certificationFromRequest.getInstitution().getId());
 
-        String code = certificationFromRequest.getCertificationCode().trim() + '-' + institution.getInstitutionCode().trim();
+        String code = certificationFromRequest.getCertificationCode().trim() + '-' + institution.get().getInstitutionCode().trim();
 
         String title = WordUtils.capitalize(certificationFromRequest.getCertificationTitle().trim());
 

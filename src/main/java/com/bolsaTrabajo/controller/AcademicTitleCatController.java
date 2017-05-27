@@ -1,7 +1,7 @@
 package com.bolsaTrabajo.controller;
 
-import com.bolsaTrabajo.model.catalog.CompanyCat;
-import com.bolsaTrabajo.service.CompanyCatService;
+import com.bolsaTrabajo.model.catalog.AcademicTitleCat;
+import com.bolsaTrabajo.service.AcademicTitleCatService;
 import com.bolsaTrabajo.util.Auth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,43 +12,42 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-
 /**
- * Created by enan0 on 13/4/2017.
+ * Created by keepercito on 05-21-17.
  */
-@Controller
-@RequestMapping("/cat/empresas")
-public class CompanyCatController {
 
-    public static final String CREATE_COMPANY = "Postulante/empresasCat/create_company";
-    public static final String EDIT_COMPANY = "Postulante/empresasCat/edit_company";
-    public static final String COMPANY = "company";
+@Controller
+@RequestMapping("/cat/titles")
+public class AcademicTitleCatController {
+
+    public static final String CREATE_TITLE = "titulos/create_title";
+    public static final String EDIT_TITLE = "titulos/edit_title";
+    public static final String TITLE = "title";
 
     @Autowired
-    private CompanyCatService companyCatService;
+    private AcademicTitleCatService academicTitleCatService;
 
     @RequestMapping
     public String show(Model model){
         model.addAttribute("user", Auth.auth());
-        model.addAttribute("companies", companyCatService.getAllCompanies());
-        return "Postulante/empresasCat/show_company";
+        model.addAttribute("titles", academicTitleCatService.getAllTitles());
+        return "titulos/show_title";
     }
 
     @RequestMapping(value = "/crear", method = RequestMethod.GET)
     public String create(ModelMap modelMap){
-        modelMap.addAttribute(COMPANY,new CompanyCat());
+        modelMap.addAttribute(TITLE,new AcademicTitleCat());
         modelMap.addAttribute("user",Auth.auth());
-        return CREATE_COMPANY;
+        return CREATE_TITLE;
     }
 
     @RequestMapping(value = "/editar/{code}",method = RequestMethod.GET)
     public ModelAndView update(@PathVariable String code){
         ModelAndView modelAndView = new ModelAndView();
-        CompanyCat e = companyCatService.getCompany(Long.parseLong(code));
-        modelAndView.addObject("company",e);
+        AcademicTitleCat t = academicTitleCatService.getTitle(Long.parseLong(code)).get();
         modelAndView.addObject("user",Auth.auth());
-        modelAndView.setViewName(EDIT_COMPANY);
+        modelAndView.addObject("title",t);
+        modelAndView.setViewName(EDIT_TITLE);
         return modelAndView;
     }
-
 }

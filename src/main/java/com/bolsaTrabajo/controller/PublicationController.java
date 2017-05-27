@@ -1,6 +1,6 @@
 package com.bolsaTrabajo.controller;
 
-import com.bolsaTrabajo.model.Publication;
+import com.bolsaTrabajo.model.postulantInfo.Publication;
 import com.bolsaTrabajo.service.PublicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

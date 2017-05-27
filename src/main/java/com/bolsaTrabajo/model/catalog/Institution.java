@@ -1,12 +1,10 @@
-package com.bolsaTrabajo.model;
+package com.bolsaTrabajo.model.catalog;
 
+import com.bolsaTrabajo.model.postulantInfo.AcademicExperience;
 import com.bolsaTrabajo.util.InstitutionType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -17,6 +15,7 @@ public class Institution {
     private String institutionName;
     private InstitutionType institutionType;
     private Set<Certification> certifications;
+    private Set<AcademicExperience> academicExperiences;
 
     public Institution() {
         super();
@@ -69,6 +68,15 @@ public class Institution {
 
     public void setCertifications(Set<Certification> certifications) {
         this.certifications = certifications;
+    }
+
+    @OneToMany(mappedBy = "pk.institution", fetch = FetchType.LAZY)
+    public Set<AcademicExperience> getAcademicExperiences() {
+        return academicExperiences;
+    }
+
+    public void setAcademicExperiences(Set<AcademicExperience> academicExperiences) {
+        this.academicExperiences = academicExperiences;
     }
 
     @Override

@@ -1,7 +1,7 @@
 package com.bolsaTrabajo.restController;
 
-import com.bolsaTrabajo.model.Skill;
-import com.bolsaTrabajo.model.SkillCategory;
+import com.bolsaTrabajo.model.catalog.Skill;
+import com.bolsaTrabajo.model.catalog.SkillCategory;
 import com.bolsaTrabajo.service.SkillCategoryService;
 import com.bolsaTrabajo.service.SkillService;
 import com.bolsaTrabajo.util.CustomErrorType;

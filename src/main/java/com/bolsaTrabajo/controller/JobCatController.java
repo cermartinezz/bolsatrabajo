@@ -1,6 +1,6 @@
 package com.bolsaTrabajo.controller;
 
-import com.bolsaTrabajo.model.JobCat;
+import com.bolsaTrabajo.model.catalog.JobCat;
 import com.bolsaTrabajo.service.JobCatService;
 import com.bolsaTrabajo.util.Auth;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 
 @Controller
-@RequestMapping("/jobs")
+@RequestMapping("/cat/jobs")
 public class JobCatController {
 
     public static final String CREATE_JOB = "puestos/create_job";

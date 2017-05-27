@@ -1,7 +1,6 @@
 package com.bolsaTrabajo.controller;
 
-import com.bolsaTrabajo.model.Skill;
-import com.bolsaTrabajo.model.SkillCategory;
+import com.bolsaTrabajo.model.catalog.Skill;
 import com.bolsaTrabajo.service.PublicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

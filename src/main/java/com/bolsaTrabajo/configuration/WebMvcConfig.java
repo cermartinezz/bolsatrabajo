@@ -67,6 +67,9 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     public JobCatService jobCatService(){ return new JobCatService(); }
 
     @Bean
+    public AcademicTitleCatService academicTitleCatService(){ return new AcademicTitleCatService(); }
+
+    @Bean
     public SkillCategoryService skillCategoryService(){
         return new SkillCategoryService();
     }

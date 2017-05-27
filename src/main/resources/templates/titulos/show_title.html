@@ -18,7 +18,7 @@
 
     <div class="main" role="main">
 
-        <div th:include="fragmentos/heading :: heading('Puestos')"></div>
+        <div th:include="fragmentos/heading :: heading('Titulos')"></div>
 
         <section class="page-content">
             <div class="container">
@@ -40,15 +40,15 @@
                             <th>Acciones</th>
                         </tr>
                         </thead>
-                        <tr th:each="job : ${jobs}">
-                            <td th:text="${job.id}"></td>
-                            <td th:text="${job.puesto}"></td>
+                        <tr th:each="title : ${titles}">
+                            <td th:text="${title.id}"></td>
+                            <td th:text="${title.titulo}"></td>
                             <td>
                                 <div class="row">
                                     <div class="span12 centered-text">
-                                        <a href="/" th:href="@{/cat/jobs/editar/{id}(id=${job.id})}" class="btn btn-success inline">Editar</a>
-                                        <form th:action="@{'/api/cat/jobs/delete/'+${job.id}}" th:method="DELETE" th:object="${job}" role="form"  class="btn inline">
-                                            <button type="submit" onclick="return confirm('Seguro que desea eliminar el Puesto?')" class="btn btn-primary">Eliminar</button>
+                                        <a href="/" th:href="@{/cat/titles/editar/{id}(id=${title.id})}" class="btn btn-success inline">Editar</a>
+                                        <form th:action="@{'/api/cat/titles/delete/'+${title.id}}" th:method="DELETE" th:object="${title}" role="form"  class="btn inline">
+                                            <button type="submit" onclick="return confirm('Seguro que desea eliminar el Titulo?')" class="btn btn-primary">Eliminar</button>
                                         </form>
                                     </div>
                                 </div>
