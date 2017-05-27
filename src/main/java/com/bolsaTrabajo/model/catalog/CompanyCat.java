@@ -1,9 +1,8 @@
 package com.bolsaTrabajo.model.catalog;
 
-import org.hibernate.validator.constraints.NotEmpty;
+import com.bolsaTrabajo.model.postulantInfo.WorkExperience;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 /**
@@ -11,47 +10,40 @@ import java.util.Set;
  */
 
 @Entity
-@Table(name = "companies")
+@Table(name = "companies_cat")
 public class CompanyCat {
+
+    private Long id;
+    private String companyName;
+    private Set<WorkExperience> workExperiences;
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
-
-    @NotNull
-    @Column(name = "company_name")
-    private String companyName;
-
-/*
-    @OneToMany(mappedBy = "company")
-    private Set<WorkExperience> workExperiences;
-*/
-
-/*
-    public Set<WorkExperience> getWorkExperiences() {
-        return workExperiences;
-    }
-*/
-
-/*
-    public void setWorkExperiences(Set<WorkExperience> workExperiences) {
-        this.workExperiences = workExperiences;
-    }
-*/
-
-    public long getId() {
+    @Column(name = "company_cat_id")
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    @NotEmpty(message = "*Ingrese un nombre para la empresa")
+    @Column(name = "company_name")
     public String getCompanyName() {
         return companyName;
     }
 
     public void setCompanyName(String name) {
         this.companyName = name;
+    }
+
+    @OneToMany(mappedBy = "pk.companyCat", fetch = FetchType.LAZY)
+    public Set<WorkExperience> getWorkExperiences() {
+        return workExperiences;
+    }
+
+    public void setWorkExperiences(Set<WorkExperience> workExperiences) {
+        this.workExperiences = workExperiences;
     }
 }

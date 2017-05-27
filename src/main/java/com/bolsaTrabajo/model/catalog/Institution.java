@@ -1,5 +1,6 @@
 package com.bolsaTrabajo.model.catalog;
 
+import com.bolsaTrabajo.model.postulantInfo.AcademicExperience;
 import com.bolsaTrabajo.util.InstitutionType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -14,6 +15,7 @@ public class Institution {
     private String institutionName;
     private InstitutionType institutionType;
     private Set<Certification> certifications;
+    private Set<AcademicExperience> academicExperiences;
 
     public Institution() {
         super();
@@ -66,6 +68,15 @@ public class Institution {
 
     public void setCertifications(Set<Certification> certifications) {
         this.certifications = certifications;
+    }
+
+    @OneToMany(mappedBy = "pk.institution", fetch = FetchType.LAZY)
+    public Set<AcademicExperience> getAcademicExperiences() {
+        return academicExperiences;
+    }
+
+    public void setAcademicExperiences(Set<AcademicExperience> academicExperiences) {
+        this.academicExperiences = academicExperiences;
     }
 
     @Override

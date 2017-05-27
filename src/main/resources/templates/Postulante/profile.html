@@ -218,32 +218,34 @@
                                         </div>
 
                                         <div class="col-md-3">
-                                            <a href="/empresas" class="btn btn-sm btn-info">Ver detalle</a>
-                                            <a href="/empresas/crear" class="btn btn-sm btn-success">Agregar</a>
+                                            <a href="/empresasCat" class="btn btn-sm btn-info">Ver detalle</a>
+                                            <a th:href="@{'/postulante/'+ ${user.getName()} + '/workExp/agregar'}" class="btn btn-sm btn-success">Agregar</a>
                                         </div>
                                     </div>
-                                    <li class="job_listing">
-                                        <a href="#">
-                                            <div class="job_img">
-                                                <img src="images/samples/person1.jpg" alt="" class="company_logo">
-                                            </div>
-                                            <div class="position">
-                                                <h4>Trabajito 1</h4>
-
-                                            </div>
-                                            <div class="rating">
-                                                <div class="rating-stars">
+                                    <div>
+                                        <li class="job_listing">
+                                            <a href="#">
+                                                <div class="job_img">
+                                                    <img src="images/samples/person1.jpg" alt="" class="company_logo">
+                                                </div>
+                                                <div class="position">
+                                                    <h4>Trabajito 1</h4>
 
                                                 </div>
-                                                <div class="reviews-num"></div>
-                                            </div>
-                                            <ul class="meta">
-                                                <li class="job-type">Código</li>
-                                                <li class="date">Fecha
-                                                </li>
-                                            </ul>
-                                        </a>
-                                    </li>
+                                                <div class="rating">
+                                                    <div class="rating-stars">
+
+                                                    </div>
+                                                    <div class="reviews-num"></div>
+                                                </div>
+                                                <ul class="meta">
+                                                    <li class="job-type">Código</li>
+                                                    <li class="date">Fecha
+                                                    </li>
+                                                </ul>
+                                            </a>
+                                        </li>
+                                    </div>
                                 </ul>
 
                                 <ul class="job_listings">

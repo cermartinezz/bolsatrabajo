@@ -1,5 +1,10 @@
 package com.bolsaTrabajo.controller;
 
+import com.bolsaTrabajo.model.*;
+import com.bolsaTrabajo.model.catalog.Institution;
+import com.bolsaTrabajo.model.postulantInfo.AcademicExperience;
+import com.bolsaTrabajo.model.postulantInfo.WorkExperience;
+import com.bolsaTrabajo.service.*;
 import com.bolsaTrabajo.model.catalog.Institution;
 import com.bolsaTrabajo.model.Postulant;
 import com.bolsaTrabajo.service.InstitutionService;
@@ -26,6 +31,14 @@ public class PostulantController {
     @Autowired
     private InstitutionService institutionService;
 
+    @Autowired
+    private CompanyCatService companyCatService;
+
+    @Autowired
+    private JobCatService jobCatService;
+
+    @Autowired
+    private AcademicTitleCatService titleCatService;
 
     public Postulant postulant;
 
@@ -76,11 +89,22 @@ public class PostulantController {
         return "Postulante/certificaciones/crear";
     }
 
-    /*@RequestMapping("/postulantInfo/workExp")
+    @RequestMapping("/workExp/agregar")
     public String workExperience(Model model){
+        model.addAttribute("user", Auth.auth());
         model.addAttribute("companies",companyCatService.getAllCompanies());
+        model.addAttribute("jobs",jobCatService.getAllJobs());
         model.addAttribute("workExp", new WorkExperience());
-        return "exp_labo/create_workExp";
-    }*/
+        return "Postulante/exp_labo/create_workExp";
+    }
+
+    @RequestMapping("/acadExp/agregar")
+    public String academicExperience(Model model){
+        model.addAttribute("user", Auth.auth());
+        model.addAttribute("institutions",institutionService.getAllInstitutions());
+        model.addAttribute("titles",titleCatService.getAllTitles());
+        model.addAttribute("acadExp", new AcademicExperience());
+        return "Postulante/exp_acad/create_acadExp";
+    }
 
 }

@@ -1,8 +1,12 @@
 package com.bolsaTrabajo.restController;
 
 import com.bolsaTrabajo.model.*;
+import com.bolsaTrabajo.model.catalog.AcademicTitleCat;
 import com.bolsaTrabajo.model.catalog.CompanyCat;
-import com.bolsaTrabajo.model.postulantInfo.WorkExperience;
+import com.bolsaTrabajo.model.catalog.Institution;
+import com.bolsaTrabajo.model.catalog.JobCat;
+import com.bolsaTrabajo.model.postulantInfo.AcademicExperience;
+import com.bolsaTrabajo.service.*;
 import com.bolsaTrabajo.service.CompanyCatService;
 import com.bolsaTrabajo.service.PostulantService;
 import com.bolsaTrabajo.service.UserService;
@@ -13,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
@@ -25,15 +30,25 @@ import javax.validation.Valid;
 @RequestMapping("/api/postulant")
 public class PostulantRestController {
 
+
+    @Autowired
+    private AcademicTitleCatService academicTitleCatService;
+
+
     @Autowired
     PostulantService postulantService;
+
+    @Autowired
+    private CompanyCatService companyCatService;
 
     @Autowired
     UserService userService;
 
     @Autowired
-    CompanyCatService companyCatService;
+    private JobCatService jobCatService;
 
+    @Autowired
+    private InstitutionService institutionService;
     private HttpHeaders headers;
 
     public PostulantRestController() {
@@ -78,17 +93,40 @@ public class PostulantRestController {
         return new ResponseEntity(currentPostulant,this.headers, HttpStatus.OK);
     }
 
-    @PostMapping()
-    public String storeWorkExp(WorkExperience experience, @RequestParam("empresas") long empresa, RedirectAttributes attributes){
+
+    @PostMapping(value = "/workExp")
+    public RedirectView storeWorkExp(WorkExperience experience, @RequestParam("empresas") long empresa,
+                                     @RequestParam("jobs") long job, RedirectAttributes attributes){
 
         Postulant p = postulantService.findByUsername(Auth.auth().getName());
         CompanyCat c = companyCatService.getCompany(empresa);
+        JobCat j = jobCatService.getJob(job);
 
-        experience.setCompany(c);
+        experience.setCompanyCat(c);
         experience.setPostulant(p);
+        experience.setJobCat(j);
 
-        //p.getWorkExperiences().add(experience);
-        userService.save(p);
-        return "redirect:/postulantInfo/profile";
+        p.getWorkExperiences().add(experience);
+        postulantService.save(p);
+        //attributes.addFlashAttribute("message","Registro se guardo con exito");
+        return new RedirectView("/postulante/"+p.getUsername()+"/perfil");
+    }
+
+    @PostMapping(value = "/acadExp")
+    public RedirectView storeAcadExp(AcademicExperience experience, @RequestParam("institucion") int institucion,
+                                     @RequestParam("titles") long title, RedirectAttributes attributes){
+
+        Postulant p = postulantService.findByUsername(Auth.auth().getName());
+        Institution ins = institutionService.findInstitutionById(institucion).get();
+        AcademicTitleCat acad = academicTitleCatService.getTitle(title).get();
+
+        experience.setInstitution(ins);
+        experience.setPostulant(p);
+        experience.setTitle(acad);
+
+        p.getAcademicExperiences().add(experience);
+        postulantService.save(p);
+        //attributes.addFlashAttribute("message","Registro se guardo con exito");
+        return new RedirectView("/postulante/"+p.getUsername()+"/perfil");
     }
 }

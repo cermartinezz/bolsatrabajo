@@ -17,7 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 
 @Controller
-@RequestMapping("/jobs")
+@RequestMapping("/cat/jobs")
 public class JobCatController {
 
     public static final String CREATE_JOB = "puestos/create_job";

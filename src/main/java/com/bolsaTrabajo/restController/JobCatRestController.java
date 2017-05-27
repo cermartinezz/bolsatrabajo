@@ -18,7 +18,6 @@ public class JobCatRestController {
     @Autowired
     private JobCatService jobCatService;
 
-    //@RequestMapping(method = RequestMethod.POST)
     @PostMapping
     public RedirectView store(JobCat jobCat, RedirectAttributes attributes){
 
@@ -33,7 +32,6 @@ public class JobCatRestController {
         return new RedirectView("/jobs");
     }
 
-    //@RequestMapping(value = "/update/{id}",method = RequestMethod.PUT)
     @PutMapping(value = "/update/{id}")
     public RedirectView update(JobCat jobCat, RedirectAttributes attributes){
         JobCat e = jobCatService.getJob(jobCat.getPuesto());
@@ -48,7 +46,6 @@ public class JobCatRestController {
         return new RedirectView("/jobs");
     }
 
-    //@RequestMapping(value = "/delete/{id}",method = RequestMethod.DELETE)
     @DeleteMapping(value = "/delete/{id}")
     public RedirectView delete(JobCat jobCat, RedirectAttributes attributes){
         jobCatService.deleteJob(jobCat);

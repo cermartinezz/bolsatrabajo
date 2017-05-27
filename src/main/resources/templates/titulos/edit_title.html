@@ -2,21 +2,23 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head th:include="fragmentos/head :: head" th:remove="tag">
-<title>Bolsa Trabajo</title>
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+    <title>Bolsa Trabajo</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
 
 <body>
 <div class="site-wrapper">
     <header class="header header-menu-fullw">
 
-        <div th:include="fragmentos/menu :: menu" th:remove="tag"></div>
+        <div th:include="fragmentos/top_bar :: top_bar(${user})" th:remove="tag"></div>
+
+        <div th:include="fragmentos/menu :: menu(${user})" th:remove="tag"></div>
 
     </header>
 
 
     <div class="main" id="app" role="main">
 
-        <div th:include="fragmentos/heading :: heading('Editar Empresa')"></div>
+        <div th:include="fragmentos/heading :: heading('Editar Titulo')"></div>
 
         <section class="page-content">
             <div class="container">
@@ -28,14 +30,14 @@
                 </div>
                 <div class="box">
                     <h3> Datos</h3>
-                    <form th:action="@{'/api/empresas/update/'+${company.id}}"
-                          th:object="${company}"
+                    <form th:action="@{'/api/cat/titles/update/'+${title.id}}"
+                          th:object="${title}"
                           th:method="PUT"
                           class="form-horizontal" role="form">
 
                         <div class="form-group">
                             <label> Titulo*</label>
-                            <input type="text" th:field="*{companyName}" name="companyName"  th:value="${company.companyName}"
+                            <input type="text" th:field="*{titulo}" name="titulo"  th:value="${title.titulo}"
                                    placeholder="Titulo" class="form-control" required/>
                         </div>
 
