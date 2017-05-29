@@ -6,6 +6,7 @@ import com.bolsaTrabajo.model.Postulant;
 import com.bolsaTrabajo.service.SecurityService;
 import com.bolsaTrabajo.service.UserService;
 import com.bolsaTrabajo.util.Auth;
+import com.bolsaTrabajo.validator.CompanyValidator;
 import com.bolsaTrabajo.validator.PostulantValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +33,9 @@ public class RegistrarController {
 
     @Autowired
     private PostulantValidator postulantValidator;
+
+    @Autowired
+    private CompanyValidator companyValidator;
 
     @RequestMapping(value = "/registrar/postulante", method = RequestMethod.GET)
     public String registration(Model model) {
@@ -70,5 +74,21 @@ public class RegistrarController {
             model.addAttribute("user", Auth.auth());
             return "registrar/company";
         }
+    }
+    @RequestMapping(value = "/registrar/company", method = RequestMethod.POST)
+    public String registration(@ModelAttribute("userForm") Company userForm, BindingResult bindingResult, Model model) {
+
+        companyValidator.validate(userForm, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            log.info("company {}", bindingResult.getAllErrors());
+            return "registrar/company";
+        }
+
+        userService.save(userForm);
+
+        securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
+
+        return "redirect:/";
     }
 }

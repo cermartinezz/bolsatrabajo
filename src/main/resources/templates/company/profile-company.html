@@ -23,6 +23,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <h1>Perfil Empresa</h1>
+                        <form th:action="@{'/company/' + ${company.id}}" th:object="${company}"
                     </div>
                 </div>
             </div>
@@ -45,7 +46,7 @@
                                     </div>
                                     <div class="col-md-2">
                                         <div class="icon-box">
-                                            <a href="../company/editar.html" class="btn btn-info">
+                                            <a th:href="@{'/company/'+ ${user.getName()} + '/editar'}" class="btn btn-info">
                                                 Editar
                                             </a>
                                         </div>

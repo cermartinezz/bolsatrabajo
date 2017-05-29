@@ -28,12 +28,17 @@
                             <li class="active"><a href="/">Inicio</a></li>
                             <li><a href="#">Postulante</a>
                                 <ul>
-                                    <li><a href="../postulant/profile.html">Mi Perfil</a></li>
+                                    <li><a href="../postulant/profile">Mi Perfil</a></li>
                                   <!--  <li><a href="#">Mis Aplicaciones</a></li>
                                     <li><a href="#">Editar Perfil</a></li> -->
                                 </ul>
                             </li>
-
+                            <li><a href="#">Empresa</a>
+                                <ul>
+                                    <li><a th:href="@{'/company/'+ ${user.getName()} + '/profile'}">Perfil Empresa</a></li>
+                                    <li><a th:href="@{'/company/'+ ${user.getName()} + '/editar'}">Editar Perfil</a></li>
+                                </ul>
+                            </li>
                             <!--<li><a href="#">Oportunidades</a>
                                 <ul>
                                     <li><a href="#">Empleos</a></li>
