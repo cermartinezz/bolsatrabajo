@@ -32,6 +32,7 @@ public class RoleController {
 
     @RequestMapping(value = "/roles", method = RequestMethod.GET)
     public String index(Model model){
+        model.addAttribute("user", Auth.auth());
         model.addAttribute("roles", roleService.getAllRoles());
         return "admin/roles/index";
     }
@@ -47,6 +48,7 @@ public class RoleController {
     public ModelAndView show(@PathVariable String id){
         ModelAndView model = new ModelAndView();
         Role role = roleService.findById(Long.parseLong(id));
+        model.addObject("user", Auth.auth());
         model.addObject("role",role);
         model.setViewName("admin/roles/editar");
         return model;

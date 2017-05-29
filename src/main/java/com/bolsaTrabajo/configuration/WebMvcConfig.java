@@ -31,6 +31,9 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     }
 
     @Bean
+    public AwardService awardService(){ return new AwardService();}
+
+    @Bean
     public UserService userService(){
         return new UserServiceImpl();
     }

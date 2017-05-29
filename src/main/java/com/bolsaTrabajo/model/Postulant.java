@@ -19,6 +19,7 @@ public class Postulant extends User{
     private String nit;
     private Gender gender;
     private Set<PostulantCertification> postulantCertifications;
+    private Set<Award> awards;
 
 
     @Size(max = 9)
@@ -146,6 +147,15 @@ public class Postulant extends User{
 
     public void setPostulantCertifications(Set<PostulantCertification> postulantCertifications) {
         this.postulantCertifications = postulantCertifications;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "postulant", cascade = CascadeType.REMOVE)
+    public Set<Award> getAwards() {
+        return awards;
+    }
+
+    public void setAwards(Set<Award> awards) {
+        this.awards = awards;
     }
 
     @Override

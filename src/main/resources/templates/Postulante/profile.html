@@ -254,6 +254,64 @@
                                 <ul class="job_listings">
                                     <div class="spacer-lg"></div>
 
+                                    <div class="row" id="logros-premios-etc">
+                                        <div class="col-md-9">
+                                            <h4>Logros, Premios, Etc.</h4>
+                                            <div th:if="${messageSuccess!=null}" class="alert alert-success alert-dismissable">
+                                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                <span th:text="${messageSuccess}"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <a href="#logros-premios-etc" class="btn btn-sm btn-info" onclick="if(document.getElementById('logros-spoiler') .style.display=='none') {document.getElementById('logros-spoiler') .style.display=''}else{document.getElementById('logros-spoiler') .style.display='none'}">Ver detalle</a>
+                                            <a href="/logros/crear" class="btn btn-sm btn-success">Agregar</a>
+                                        </div>
+
+                                    </div>
+                                    <li class="job_listing">
+                                            <div class="position">
+                                                <div id="logros-spoiler" style="display:none" class="table-responsive">
+                                                    <table class="table" style="padding:0px;margin:0px;">
+                                                        <thead>
+                                                            <tr>
+                                                                <th style="background: #99ccff;color: #000;">#</th>
+                                                                <th class="col-md-3" style="background: #99ccff;color: #000;">Nombre del Logro</th>
+                                                                <th class="col-md-3" style="background: #99ccff;color: #000;">Lugar</th>
+                                                                <th class="col-md-3" style="background: #99ccff;color: #000;">Fecha</th>
+                                                                <th style="background: #99ccff;color: #000;"></th>
+                                                                <th style="background: #99ccff;color: #000;"></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr th:each="award,iter : ${postulant.getAwards()}">
+                                                                <td> - </td>
+                                                                <td th:text="${award.getNombre()}"></td>
+                                                                <td th:text="${award.getLugar()}"></td>
+                                                                <td th:text="${award.getFecha()}"></td>
+                                                                <td>
+                                                                    <a th:href="@{/logros/{id}(id=${award.id})}" style="text-decoration:none;"><button class="btn btn-warning btn-xs"><span class="fa fa-pencil"></span> Editar</button></a>
+                                                                </td>
+                                                                <td>
+                                                                    <a href="/awards/crear"><button class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Eliminar</button></a>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="rating">
+                                                <div class="rating-stars">
+
+                                                </div>
+                                                <div class="reviews-num"></div>
+                                            </div>
+                                    </li>
+                                </ul>
+
+                                <ul class="job_listings">
+                                    <div class="spacer-lg"></div>
+
                                     <div class="col-md-6">
                                         <li class="job_listing">
 
@@ -268,6 +326,10 @@
                                     </div>
 
                                 </ul>
+
+
+
+
 
                             </div>
 
@@ -287,6 +349,5 @@
 </div>
 
 <div th:include="fragmentos/scripts :: scripts" ></div>
-
 </body>
 </html>
