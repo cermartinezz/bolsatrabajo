@@ -1,6 +1,7 @@
 package com.bolsaTrabajo.service;
 
 import com.bolsaTrabajo.model.Postulant;
+import com.bolsaTrabajo.model.postulantInfo.PostulantCertification;
 
 public interface PostulantService {
     void save(Postulant postulant);

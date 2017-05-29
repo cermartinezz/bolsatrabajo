@@ -38,7 +38,8 @@ new Vue({
         institution: "",
         certification: "",
         expirationDate: "",
-        certificationCode: "",
+        code: "",
+        listErrors: new Errors(),
         postulant: postulant,
         certifications_list: []
     },
@@ -47,7 +48,6 @@ new Vue({
             this.certification =  "";
             axios.get("/api/certificaciones/institucion/" + this.institution )
                 .then(response => {
-                    console.log(response.data);
                     this.certifications_list = response.data;
                 })
                 .catch(error => {
@@ -58,9 +58,11 @@ new Vue({
             axios.post("/api/postulante/" + this.postulant + "/certificaciones",this.$data)
                 .then(response => {
                     console.log(response);
+                    showMessageTimerRedirect("Guardado",response.headers.message,"success",5000,response.headers.location);
                 })
                 .catch(error => {
                     console.log(error);
+                    //showMessageTimer("Error",error.headers.message,"error",5000);
                 })
         }
     },

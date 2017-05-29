@@ -2,6 +2,7 @@ package com.bolsaTrabajo.controller;
 
 
 import com.bolsaTrabajo.model.Postulant;
+import com.bolsaTrabajo.service.PostulantService;
 import com.bolsaTrabajo.service.SecurityService;
 import com.bolsaTrabajo.service.UserService;
 import com.bolsaTrabajo.util.Auth;
@@ -23,6 +24,9 @@ public class RegistrarController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private PostulantService postulantService;
 
 
     @Autowired
@@ -54,7 +58,7 @@ public class RegistrarController {
             return "registrar/postulante";
         }
 
-        userService.save(userForm);
+        postulantService.save(userForm);
 
         securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
 

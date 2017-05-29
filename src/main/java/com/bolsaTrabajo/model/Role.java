@@ -14,6 +14,13 @@ public class Role implements Serializable{
     private String name;
     private Set<User> users;
 
+    public Role(String name) {
+        this.name = name;
+    }
+
+    public Role(){
+
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

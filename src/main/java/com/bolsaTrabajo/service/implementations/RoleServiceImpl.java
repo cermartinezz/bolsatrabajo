@@ -14,4 +14,14 @@ public class RoleServiceImpl implements RoleService {
     public Role findByName(String name) {
         return roleRepository.findByName(name);
     }
+
+    @Override
+    public Long count() {
+        return roleRepository.count();
+    }
+
+    @Override
+    public void save(Role role) {
+        roleRepository.save(role);
+    }
 }

@@ -19,7 +19,6 @@ public class PostulantCertification implements Serializable {
 
     private PostulantCertificationId primaryKey = new PostulantCertificationId();
     private Date expirationDate;
-    private String certificationCode;
 
     @EmbeddedId
     public PostulantCertificationId getPrimaryKey() {
@@ -28,6 +27,18 @@ public class PostulantCertification implements Serializable {
 
     public void setPrimaryKey(PostulantCertificationId primaryKey) {
         this.primaryKey = primaryKey;
+    }
+
+    @Transient
+    public String getCode(){
+
+        return primaryKey.getCode();
+    }
+
+    @Transient
+    public void setCode(String certificationCode){
+
+        primaryKey.setCode(certificationCode);
     }
 
     @Transient
@@ -48,15 +59,6 @@ public class PostulantCertification implements Serializable {
         getPrimaryKey().setCertification(certification);
     }
 
-    @Column(unique = true)
-    public String getCertificationCode() {
-        return certificationCode;
-    }
-
-    public void setCertificationCode(String certificationCode) {
-        this.certificationCode = certificationCode;
-    }
-
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(iso= DateTimeFormat.ISO.DATE)
     @Column(name = "expiration_date")
@@ -74,8 +76,30 @@ public class PostulantCertification implements Serializable {
         return "PostulantCertification{" +
                 "primaryKey=" + primaryKey +
                 ", expirationDate=" + expirationDate +
-                ", certificationCode='" + certificationCode + '\'' +
                 '}';
+    }
+
+    @Override
+    public int hashCode() {
+        return (getPrimaryKey() != null ? getPrimaryKey().hashCode() : 0);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(this == obj)
+            return true;
+        if(obj == null)
+            return false;
+        if(!(obj instanceof PostulantCertification))
+            return false;
+
+        PostulantCertification other = (PostulantCertification) obj;
+        if(primaryKey == null){
+            if(other.primaryKey != null)
+                return false;
+        }else if(!primaryKey.equals(other.primaryKey))
+            return false;
+        return true;
     }
 }
 

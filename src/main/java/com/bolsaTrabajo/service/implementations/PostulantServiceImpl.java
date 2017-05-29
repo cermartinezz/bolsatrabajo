@@ -2,6 +2,7 @@ package com.bolsaTrabajo.service.implementations;
 
 import com.bolsaTrabajo.model.Postulant;
 import com.bolsaTrabajo.model.Role;
+import com.bolsaTrabajo.model.postulantInfo.PostulantCertification;
 import com.bolsaTrabajo.repositories.PostulantRepository;
 import com.bolsaTrabajo.repositories.RoleRepository;
 import com.bolsaTrabajo.repositories.UserRepository;

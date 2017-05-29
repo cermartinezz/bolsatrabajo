@@ -1,6 +1,9 @@
 package com.bolsaTrabajo.model.catalog;
 
 import com.bolsaTrabajo.model.postulantInfo.PostulantCertification;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
@@ -66,7 +69,9 @@ public class Certification implements Serializable{
     }
 
     @OneToMany( mappedBy = "primaryKey.certification",
+                cascade = CascadeType.ALL,
                 fetch = FetchType.LAZY)
+    @JsonIgnore
     public Set<PostulantCertification> getPostulantCertifications() {
         return postulantCertifications;
     }
