@@ -1,18 +1,26 @@
 package com.bolsaTrabajo.model;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.List;
 
 /**
  * Created by mvip on 05-26-17.
  */
+@Entity
+@Table(name="languageLevel")
 public class LanguageLevel {
     private int id;
     private String titulo;
     private String codigo;
+
+    public LanguageLevel(){
+        super();
+    }
+
+    public LanguageLevel(String titulo, String codigo){
+        this.titulo = titulo;
+        this.codigo = codigo;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

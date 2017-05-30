@@ -1,7 +1,10 @@
 package com.bolsaTrabajo;
 
+import com.bolsaTrabajo.model.Language;
 import com.bolsaTrabajo.model.SkillCategory;
 import com.bolsaTrabajo.repositories.SkillCategoryRepository;
+import com.bolsaTrabajo.service.LanguageService;
+import com.bolsaTrabajo.service.SkillCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -12,8 +15,12 @@ import javax.transaction.Transactional;
 @SpringBootApplication
 public class BolsaTrabajoApplication implements CommandLineRunner {
 
+
 	@Autowired
-	private SkillCategoryRepository skillCategoryRepository;
+	private SkillCategoryService skillCategoryService;
+
+	@Autowired
+	private LanguageService languageService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(BolsaTrabajoApplication.class, args);
@@ -23,6 +30,21 @@ public class BolsaTrabajoApplication implements CommandLineRunner {
 	@Transactional
 	public void run(String... strings) throws Exception{
 
+
+		if(skillCategoryService.getAllSkillsCategory() == null){
+			insertCategories();
+		}
+
+
+		if(languageService.getAllLanguages() == null){
+			insertLanguages();
+
+		}
+
+
+	}
+
+	private void insertCategories(){
 		SkillCategory category1 = new SkillCategory(
 				"Locomotrices","HLOC"
 		);
@@ -41,12 +63,41 @@ public class BolsaTrabajoApplication implements CommandLineRunner {
 		SkillCategory category5 = new SkillCategory(
 				"Linguisticas","HLIN"
 		);
-		if (skillCategoryRepository.count()<0){
-			skillCategoryRepository.save(category1);
-			skillCategoryRepository.save(category2);
-			skillCategoryRepository.save(category3);
-			skillCategoryRepository.save(category4);
-		}
+
+		skillCategoryService.store(category1);
+		skillCategoryService.store(category2);
+		skillCategoryService.store(category3);
+		skillCategoryService.store(category4);
+		skillCategoryService.store(category5);
+	}
+
+	private void insertLanguages(){
+		Language language1 = new Language(
+				"ES","Español"
+		);
+
+		Language language2 = new Language(
+				"EN","Inglés"
+		);
+
+		Language language3 = new Language(
+				"IT","Italiano"
+		);
+
+		Language language4 = new Language(
+				"DE","Alemán"
+		);
+
+		Language language5 = new Language(
+				"JA","Japonés"
+		);
+
+		languageService.store(language1);
+		languageService.store(language2);
+		languageService.store(language3);
+		languageService.store(language4);
+		languageService.store(language5);
 
 	}
+
 }

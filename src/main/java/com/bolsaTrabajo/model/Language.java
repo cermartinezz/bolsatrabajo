@@ -8,10 +8,21 @@ import java.io.Serializable;
 /**
  * Created by mvip on 05-26-17.
  */
-public class Language {
+@Entity
+@Table(name="languages")
+public class Language implements Serializable{
     private int id;
     private String codigo;
     private String nombre;
+
+    public Language(){
+        super();
+    }
+
+    public Language(String codigo, String nombre){
+        this.codigo = codigo;
+        this.nombre = nombre;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,7 +35,7 @@ public class Language {
         this.id = id;
     }
 
-    @Column(name = "code")
+    @Column(name = "code",unique = true)
     @NotEmpty(message ="*Por favor ingrese un código")
     public String getCodigo() {
         return codigo;

@@ -17,4 +17,8 @@ public class SkillCategoryService {
     public List<SkillCategory> getAllSkillsCategory(){
         return skillCategoryRepository.findAll();
     }
+
+    public void store(SkillCategory skillCategory){
+        skillCategoryRepository.save(skillCategory);
+    }
 }

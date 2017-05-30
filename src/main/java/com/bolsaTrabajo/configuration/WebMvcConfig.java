@@ -114,6 +114,11 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         return new RecommendationValidator();
     }
 
+    @Bean
+    public LanguageService languageService(){
+        return new LanguageService();
+    }
+
 
 }
 
