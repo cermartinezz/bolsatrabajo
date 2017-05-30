@@ -68,10 +68,10 @@
 
                                     <div class="form-group" :class="{'has-error': listErrors.has('code') }">
                                         <label> Id de la certificacion*</label>
-                                    
+
                                         <input type="text" name="code"
                                                v-model="code" placeholder="Id de la certificacion" class="form-control" required/>
-                                    
+
                                         <div class="help-block with-errors" v-if="listErrors.has('code')" v-text="listErrors.get('code')"></div>
                                     </div>
 

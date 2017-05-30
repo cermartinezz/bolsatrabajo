@@ -1,14 +1,10 @@
 package com.bolsaTrabajo.configuration;
 
+import com.bolsaTrabajo.model.postulantInfo.PostulantCertification;
 import com.bolsaTrabajo.service.*;
 import com.bolsaTrabajo.service.implementations.*;
-import com.bolsaTrabajo.validator.CertificationValidator;
-import com.bolsaTrabajo.validator.InstitutionValidator;
-import com.bolsaTrabajo.validator.PublicationValidator;
-import com.bolsaTrabajo.validator.SkillValidator;
-import com.bolsaTrabajo.validator.RecommendationValidator;
+import com.bolsaTrabajo.validator.*;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -60,6 +56,11 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     }
 
     @Bean
+    PostulantCertificationService postulantCertificationService() {
+        return new PostulantCertificationServiceImpl();
+    }
+
+    @Bean
     public PublicationService publicationService(){ return  new PublicationService();}
 
     @Bean
@@ -105,6 +106,11 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     @Bean
     public RecommendationValidator recomendationsValidator(){
         return new RecommendationValidator();
+    }
+
+    @Bean
+    public PostulantCertification postulantCertification(){
+        return new PostulantCertification();
     }
 
 

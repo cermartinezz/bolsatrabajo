@@ -1,14 +1,10 @@
 package com.bolsaTrabajo.controller;
 
-import com.bolsaTrabajo.model.*;
+import com.bolsaTrabajo.model.Postulant;
 import com.bolsaTrabajo.model.catalog.Institution;
 import com.bolsaTrabajo.model.postulantInfo.AcademicExperience;
 import com.bolsaTrabajo.model.postulantInfo.WorkExperience;
 import com.bolsaTrabajo.service.*;
-import com.bolsaTrabajo.model.catalog.Institution;
-import com.bolsaTrabajo.model.Postulant;
-import com.bolsaTrabajo.service.InstitutionService;
-import com.bolsaTrabajo.service.PostulantService;
 import com.bolsaTrabajo.util.Auth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,6 +26,7 @@ public class PostulantController {
 
     @Autowired
     private InstitutionService institutionService;
+
 
     @Autowired
     private CompanyCatService companyCatService;
@@ -87,6 +84,34 @@ public class PostulantController {
         model.addAttribute("postulantInfo", postulantService.findByUsername(username));
 
         return "Postulante/certificaciones/crear";
+    }
+
+    @GetMapping("/certificaciones/{code}/{certificationId}/editar")
+    public String certificationesEditar(Model model,
+                                        @PathVariable String username,
+                                        @PathVariable Integer certificationId,
+                                        @PathVariable String code){
+
+        Postulant postulant = postulantService.findByUsername(username);
+
+        List<Institution> institution = new ArrayList<>();
+
+        List<Institution> institutions = institutionService.getAllInstitutions();
+
+
+        model.addAttribute("institution", institution);
+
+        model.addAttribute("institutions", institutions);
+
+        model.addAttribute("user", Auth.auth());
+
+        model.addAttribute("postulantInfo", postulant);
+
+        model.addAttribute("id",certificationId);
+
+        model.addAttribute("code",code);
+
+        return "Postulante/certificaciones/editar";
     }
 
     @RequestMapping("/workExp/agregar")

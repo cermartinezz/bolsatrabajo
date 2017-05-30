@@ -2,6 +2,8 @@ package com.bolsaTrabajo.model;
 
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
@@ -41,6 +43,7 @@ public class Role implements Serializable{
     }
 
     @ManyToMany(mappedBy = "roles")
+    @JsonIgnore
     public Set<User> getUsers() {
         return users;
     }

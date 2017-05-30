@@ -1,8 +1,14 @@
 package com.bolsaTrabajo.model.postulantInfo;
 
-import com.bolsaTrabajo.model.catalog.Certification;
 import com.bolsaTrabajo.model.Postulant;
+import com.bolsaTrabajo.model.catalog.Certification;
 import com.bolsaTrabajo.model.compositeKeys.PostulantCertificationId;
+import com.bolsaTrabajo.service.PostulantCertificationService;
+import com.bolsaTrabajo.service.PostulantService;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -17,8 +23,27 @@ import java.util.Date;
 })
 public class PostulantCertification implements Serializable {
 
+    private Logger logger = LoggerFactory.getLogger(PostulantCertification.class);
+
+    @Autowired
+    private PostulantCertificationService postulantCertificationService;
+    @Autowired
+    private PostulantService postulantService;
+
+    @Autowired
+    PostulantCertification postulantCertification;
+
     private PostulantCertificationId primaryKey = new PostulantCertificationId();
     private Date expirationDate;
+
+    @Autowired
+    public PostulantCertification(PostulantCertificationService postulantCertificationService,PostulantService postulantService) {
+        this.postulantCertificationService = postulantCertificationService;
+        this.postulantService = postulantService;
+    }
+
+    public PostulantCertification() {
+    }
 
     @EmbeddedId
     public PostulantCertificationId getPrimaryKey() {
@@ -42,6 +67,7 @@ public class PostulantCertification implements Serializable {
     }
 
     @Transient
+    @JsonIgnore
     public Postulant getPostulant(){
         return getPrimaryKey().getPostulant();
     }
@@ -77,6 +103,44 @@ public class PostulantCertification implements Serializable {
                 "primaryKey=" + primaryKey +
                 ", expirationDate=" + expirationDate +
                 '}';
+    }
+
+    public void delete(Postulant postulant,Certification certification,String code){
+
+        PostulantCertificationId postulantCertificationId = new PostulantCertificationId(postulant,certification,code);
+
+        PostulantCertification certificationOfPostulant = postulantCertificationService.getCertificationOfPostulant(postulantCertificationId);
+
+        postulantCertificationService.delete(certificationOfPostulant);
+
+    }
+
+    public void update(Postulant postulant,Certification certification,String code,PostulantCertification freshCertification){
+
+
+        this.postulantCertification.delete(postulant,certification,code);
+
+        this.postulantCertification.create(postulant,certification,freshCertification);
+
+    }
+
+    public void create(Postulant postulant,Certification certification,PostulantCertification freshCertification){
+
+        PostulantCertificationId newPrimaryKey = new PostulantCertificationId(postulant, certification, freshCertification.getCode());
+
+        PostulantCertification postulantCertification  = new PostulantCertification();
+
+        postulantCertification.setCertification(newPrimaryKey.getCertification());
+
+        postulantCertification.setPostulant(newPrimaryKey.getPostulant());
+
+        postulantCertification.setCode(newPrimaryKey.getCode());
+
+        postulantCertification.setExpirationDate(freshCertification.getExpirationDate());
+
+        postulant.getCertifications().add(postulantCertification);
+
+        postulantService.save(postulant);
     }
 
     @Override

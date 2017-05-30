@@ -25,6 +25,13 @@ public class Institution {
         this.id = id;
     }
 
+    public Institution(int id, String institutionCode, String institutionName, InstitutionType institutionType) {
+        this.id = id;
+        this.institutionCode = institutionCode;
+        this.institutionName = institutionName;
+        this.institutionType = institutionType;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public int getId() {

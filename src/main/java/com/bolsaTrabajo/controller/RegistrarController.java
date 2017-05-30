@@ -2,7 +2,9 @@ package com.bolsaTrabajo.controller;
 
 
 import com.bolsaTrabajo.model.Postulant;
+import com.bolsaTrabajo.model.Role;
 import com.bolsaTrabajo.service.PostulantService;
+import com.bolsaTrabajo.service.RoleService;
 import com.bolsaTrabajo.service.SecurityService;
 import com.bolsaTrabajo.service.UserService;
 import com.bolsaTrabajo.util.Auth;
@@ -10,12 +12,15 @@ import com.bolsaTrabajo.validator.PostulantValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import java.util.HashSet;
 
 @Controller
 public class RegistrarController {
@@ -26,12 +31,17 @@ public class RegistrarController {
     private UserService userService;
 
     @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Autowired
     private PostulantService postulantService;
 
 
     @Autowired
     private SecurityService securityService;
 
+    @Autowired
+    private RoleService roleRepository;
 
     @Autowired
     private PostulantValidator postulantValidator;
@@ -53,10 +63,25 @@ public class RegistrarController {
         postulantValidator.validate(userForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
+
             log.info("postuante {}", bindingResult.getAllErrors());
+
             model.addAttribute("user", Auth.auth());
+
             return "registrar/postulante";
         }
+
+        userForm.setPassword(bCryptPasswordEncoder.encode(userForm.getPassword()));
+
+        userForm.setActive(1);
+
+        HashSet<Role> roleCollection = new HashSet<>();
+
+        Role ROLE = roleRepository.findByName("POSTULANTE");
+
+        roleCollection.add(ROLE);
+
+        userForm.setRoles(roleCollection);
 
         postulantService.save(userForm);
 

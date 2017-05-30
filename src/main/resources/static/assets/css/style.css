@@ -45,3 +45,9 @@
     margin-right: 0px;
 }
 
+.message_no_data{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+

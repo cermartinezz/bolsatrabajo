@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragmentos/head :: head" th:remove="tag"/>
+<title>Editar Certificacion</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+
+<body>
+    <div class="site-wrapper">
+        <header class="header header-menu-fullw">
+
+            <div th:include="fragmentos/top_bar :: top_bar(${user})" th:remove="tag"></div>
+
+            <div th:include="fragmentos/menu :: menu(${user})" th:remove="tag"></div>
+
+        </header>
+
+
+        <div class="main" role="main" id="app">
+
+            <div th:include="fragmentos/heading :: heading('Editar Certificacion')"></div>
+
+            <section class="page-content">
+                <div class="container">
+                    <div class="box">
+                        <div class="row">
+
+                            <form @submit.prevent="onSubmit">
+                                <input type="hidden"
+                                       th:name="${_csrf.parameterName}"
+                                       th:value="${_csrf.token}" />
+
+                                <div class="form-group" :class="{'has-error': listErrors.has('institutionName') }">
+                                    <label> Institucion</label>
+                                
+                                    <input type="text" name="institutionName"
+                                           v-model="institutionName"
+                                           placeholder="Institucion"
+                                           class="form-control"
+                                           readonly
+                                           disabled
+                                           required/>
+                                
+                                    <div class="help-block with-errors" v-if="listErrors.has('institutionName')" v-text="listErrors.get('institutionName')"></div>
+                                </div>
+                                
+                                <div class="form-group" :class="{'has-error': listErrors.has('certificationTitle') }">
+                                    <label> Certification</label>
+                                
+                                    <input type="text" name="certificationTitle"
+                                           v-model="certificationTitle"
+                                           placeholder="Nombre de la certification"
+                                           class="form-control" readonly disabled required/>
+                                
+                                    <div class="help-block with-errors" v-if="listErrors.has('certificationTitle')" v-text="listErrors.get('certificationTitle')"></div>
+                                </div>
+
+                                <div class="form-group" :class="{'has-error': listErrors.has('code') }">
+                                    <label> Id de la certificacion*</label>
+
+                                    <input type="text" name="code"
+                                           v-model="code" placeholder="Id de la certificacion" class="form-control" required/>
+
+                                    <div class="help-block with-errors" v-if="listErrors.has('code')" v-text="listErrors.get('code')"></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label> Fecha de expiracion*</label>
+
+                                    <input type="date"
+                                           name="expirationDate"
+                                           v-model="expirationDate"
+                                           min="2000-01-01"
+                                           class="form-control" required/>
+
+                                    <div    class="help-block with-errors"></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary btn-block">Enviar</button>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+            </div>
+        </section>
+
+            <div th:include="fragmentos/footer :: footer"></div>
+        </div>
+    </div>
+
+
+    <div th:include="fragmentos/scripts :: scripts" ></div>
+    <script th:inline="javascript">let postulant = [[${postulantInfo}]];</script>
+    <script th:inline="javascript">let username = [[${user.getName()}]];</script>
+    <script th:inline="javascript">let code = [[${code}]];</script>
+    <script th:inline="javascript">let certificationId = [[${id}]];</script>
+    <script th:src="@{/assets/js/postulante/editar_certificaciones.js}"></script>
+</body>
+</html>
