@@ -1,5 +1,6 @@
 package com.bolsaTrabajo.configuration;
 
+import com.bolsaTrabajo.model.PostulantPublication;
 import com.bolsaTrabajo.service.*;
 import com.bolsaTrabajo.service.implementations.*;
 import com.bolsaTrabajo.validator.CertificationValidator;
@@ -29,6 +30,13 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     public PostulantCertificationService postulantCertificationService() {
 
         return new PostulantCertificationImpl();
+
+    }
+
+    @Bean
+    public PostulantPublicationService postulantPublicationServiceService() {
+
+        return new PostulantPublicationService();
 
     }
 
