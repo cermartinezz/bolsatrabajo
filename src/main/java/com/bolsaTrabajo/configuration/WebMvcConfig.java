@@ -38,7 +38,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
     @Bean
     public RoleService roleService(){
-        return new RoleService();
+        return new RoleServiceImpl();
     }
 
     @Bean
@@ -79,8 +79,6 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         return new SkillService();
     }
 
-    @Bean
-    public CompanyCatService companyService(){ return new CompanyCatService(); }
 
     @Bean
     public JobCatService jobCatService(){ return new JobCatService(); }
@@ -120,6 +118,10 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         return new PostulantCertification();
     }
 
+    @Bean
+    public CompanyCatService companyCatService(){
+        return new CompanyCatService();
+    }
 
 }
 

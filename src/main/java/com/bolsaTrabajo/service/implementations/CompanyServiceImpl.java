@@ -20,17 +20,10 @@ public class CompanyServiceImpl implements CompanyService {
     private CompanyRepository companyRepository;
 
     @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
     private RoleRepository roleRepository;
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
-
-    public Company findUserByEmail(String email) {
-        return companyRepository.findByEmail(email);
-    }
 
     public void save(Company company) {
         company.setPassword(bCryptPasswordEncoder.encode(company.getPassword()));
@@ -47,10 +40,12 @@ public class CompanyServiceImpl implements CompanyService {
         return companyRepository.findByUsername(username);
     }
 
+    @Override
     public void updateCompany(Company company) {
       companyRepository.save(company);
     }
 
+    @Override
     public Company findById(long id){return companyRepository.findById(id);}
 }
 

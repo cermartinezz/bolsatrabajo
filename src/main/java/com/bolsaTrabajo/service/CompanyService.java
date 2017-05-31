@@ -11,8 +11,6 @@ public interface CompanyService {
     Company findByUsername(String username);
     Company findById(long id);
     void updateCompany(Company company);
-
-
 }
 
 

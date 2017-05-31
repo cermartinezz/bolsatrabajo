@@ -3,14 +3,10 @@ package com.bolsaTrabajo;
 import com.bolsaTrabajo.model.Role;
 import com.bolsaTrabajo.model.catalog.SkillCategory;
 import com.bolsaTrabajo.model.Permission;
-import com.bolsaTrabajo.model.Role;
-import com.bolsaTrabajo.model.SkillCategory;
 import com.bolsaTrabajo.repositories.SkillCategoryRepository;
 import com.bolsaTrabajo.service.RoleService;
 import com.bolsaTrabajo.service.PermissionService;
-import com.bolsaTrabajo.service.RoleService;
 import com.bolsaTrabajo.service.UserService;
-import netscape.security.Privilege;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -42,6 +38,13 @@ public class BolsaTrabajoApplication implements CommandLineRunner {
 		//Permisos, roles y usuario inicial en la aplicacion
 
 
+		Role role = new Role("POSTULANTE");
+		Role role2 = new Role("EMPRESA");
+
+		if(roleService.count()<=1){
+			roleService.save(role);
+			roleService.save(role2);
+		}
 
 		UserService userService;
 
@@ -80,13 +83,6 @@ public class BolsaTrabajoApplication implements CommandLineRunner {
 			skillCategoryRepository.save(category4);
 		}
 
-		Role role = new Role("POSTULANTE");
-		Role role2 = new Role("EMPRESA");
-
-		if(roleService.count()<=0){
-			roleService.save(role);
-			roleService.save(role2);
-		}
 
 	}
 

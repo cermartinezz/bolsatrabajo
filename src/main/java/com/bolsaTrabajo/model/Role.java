@@ -18,23 +18,23 @@ public class Role implements Serializable{
     private Set<Permission> permissions;
 
     public Role(){
-        super();
+
     }
 
     public Role(final String name){
-        super();
         this.name = name;
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
+
 
     public String getName() {
         return name;

@@ -112,6 +112,8 @@ public class RegistrarController {
 
         if (bindingResult.hasErrors()) {
             log.info("company {}", bindingResult.getAllErrors());
+            model.addAttribute("userForm", new Company());
+            model.addAttribute("user", Auth.auth());
             return "registrar/company";
         }
 
