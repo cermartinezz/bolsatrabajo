@@ -1,10 +1,10 @@
-package com.bolsaTrabajo.model;
+package com.bolsaTrabajo.model.catalog;
 
+import com.bolsaTrabajo.model.postulantInfo.AcademicExperience;
 import com.bolsaTrabajo.util.InstitutionType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -15,6 +15,7 @@ public class Institution {
     private String institutionName;
     private InstitutionType institutionType;
     private Set<Certification> certifications;
+    private Set<AcademicExperience> academicExperiences;
 
     public Institution() {
         super();
@@ -22,6 +23,13 @@ public class Institution {
 
     public Institution(int id) {
         this.id = id;
+    }
+
+    public Institution(int id, String institutionCode, String institutionName, InstitutionType institutionType) {
+        this.id = id;
+        this.institutionCode = institutionCode;
+        this.institutionName = institutionName;
+        this.institutionType = institutionType;
     }
 
     @Id
@@ -59,13 +67,23 @@ public class Institution {
         this.institutionType = institutionType;
     }
 
-    @OneToMany(mappedBy = "institution", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnore
+    @OneToMany(mappedBy = "institution", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public Set<Certification> getCertifications() {
         return certifications;
     }
 
     public void setCertifications(Set<Certification> certifications) {
         this.certifications = certifications;
+    }
+
+    @OneToMany(mappedBy = "pk.institution", fetch = FetchType.LAZY)
+    public Set<AcademicExperience> getAcademicExperiences() {
+        return academicExperiences;
+    }
+
+    public void setAcademicExperiences(Set<AcademicExperience> academicExperiences) {
+        this.academicExperiences = academicExperiences;
     }
 
     @Override

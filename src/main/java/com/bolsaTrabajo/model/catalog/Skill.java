@@ -1,26 +1,24 @@
-package com.bolsaTrabajo.model;
+package com.bolsaTrabajo.model.catalog;
+
+import com.bolsaTrabajo.model.postulantInfo.PostulantSkill;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Set;
 
-/**
- * Created by mvip on 04-05-17.
- */
+
 @Entity
 @Table(name = "skill")
-public class Skill {
+public class Skill implements Serializable{
+
     private int id;
     private String titulo;
     private String codigo;
     private SkillCategory skillCategory;
+    private Set<PostulantSkill> postulantSkills;
 
     public Skill() {
-    }
-
-    public Skill(int id, String titulo, String codigo, SkillCategory skillCategory) {
-        this.id = id;
-        this.titulo = titulo;
-        this.codigo = codigo;
-        this.skillCategory = skillCategory;
+        super();
     }
 
     @Id
@@ -52,6 +50,7 @@ public class Skill {
         this.codigo = codigo;
     }
 
+
     @ManyToOne
     @JoinColumn(name = "skillCategory_id")
     public SkillCategory getSkillCategory() {
@@ -59,6 +58,18 @@ public class Skill {
     }
 
     public void setSkillCategory(SkillCategory skillCategory) {
+
         this.skillCategory = skillCategory;
+    }
+
+    @OneToMany( mappedBy = "skill",
+                cascade = CascadeType.ALL,
+                fetch = FetchType.EAGER)
+    public Set<PostulantSkill> getPostulantSkills() {
+        return postulantSkills;
+    }
+
+    public void setPostulantSkills(Set<PostulantSkill> postulantSkills) {
+        this.postulantSkills = postulantSkills;
     }
 }

@@ -1,33 +1,46 @@
 package com.bolsaTrabajo.restController;
 
-import com.bolsaTrabajo.model.Certification;
-import com.bolsaTrabajo.model.Institution;
-import com.bolsaTrabajo.service.CertificationService;
+import com.bolsaTrabajo.model.catalog.Institution;
 import com.bolsaTrabajo.service.InstitutionService;
-import com.bolsaTrabajo.util.CustomErrorType;
-import com.bolsaTrabajo.util.CustomSuccessType;
+import com.bolsaTrabajo.validator.InstitutionValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/instituciones")
+@RequestMapping("/api/instituciones")
 public class InstitutionRestController {
 
     public static final Logger logger = LoggerFactory.getLogger(CertificationRestController.class);
 
+    public InstitutionRestController() {
+        this.headers = new HttpHeaders();
+    }
+
+    private HttpHeaders headers;
+
+    @Autowired
+    private InstitutionValidator institutionValidator;
+
+    @InitBinder
+    protected void initBinder(WebDataBinder binder){
+        binder.setValidator(institutionValidator);
+    }
+
     @Autowired
     public InstitutionService institutionService;
 
-    @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<Institution>> getAll() {
+    @GetMapping
+    public ResponseEntity<List<Institution>> index() {
         List<Institution> institution = institutionService.getAllInstitutions();
 
         if (institution == null || institution.isEmpty()) {
@@ -38,47 +51,46 @@ public class InstitutionRestController {
     }
 
     @RequestMapping(value= "{code}",method = RequestMethod.GET)
-    public ResponseEntity<Institution> get(@PathVariable("code") String code){
-        logger.info("obteniendo institucion");
+    public ResponseEntity<Institution> show(@PathVariable("code") String code){
+
         Institution institution = institutionService.findInstitutionByCode(code);
 
         if(institution == null){
-            return new ResponseEntity<Institution>(HttpStatus.NOT_FOUND);
+            headers.set("message","No se encontraron registros");
+            return new ResponseEntity<Institution>(headers,HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<Institution>(institution, HttpStatus.OK);
+        headers.set("message","Registros Encontrados");
+        return new ResponseEntity<Institution>(institution, headers, HttpStatus.OK);
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<?> store(@RequestBody Institution institution, UriComponentsBuilder ucBuilder) {
-        logger.info("certificacion: {}",institution);
+    @PostMapping
+    public ResponseEntity<?> store(@Valid @RequestBody Institution institution, UriComponentsBuilder ucBuilder) {
 
-        Institution newCertification = institutionService.findInstitutionByCode(institution.getInstitutionCode());
-        if(newCertification != null){
-            logger.info("Ya existe esta certificacion con codigo {}",institution.getInstitutionCode());
-            return new ResponseEntity<>(new CustomErrorType("La institucion ya existe"), HttpStatus.CONFLICT);
-        }
         institutionService.save(institution);
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(ucBuilder.path("/instituciones/{id}").buildAndExpand(institution.getInstitutionCode()).toUri());
-        logger.info("headers {}",headers);
-        return new ResponseEntity<String>(headers, HttpStatus.CREATED);
+        this.headers.setLocation(ucBuilder.path("/instituciones").buildAndExpand(institution.getInstitutionCode()).toUri());
+
+
+        return new ResponseEntity<String>(this.headers, HttpStatus.CREATED);
 
     }
 
     @RequestMapping(value = "/{code}", method = RequestMethod.PUT)
-    public ResponseEntity actualizar(@PathVariable("code") String code, @RequestBody Institution institution) {
-        Institution currentInstitution = institutionService.findInstitutionByCode(code);
+    public ResponseEntity actualizar(@PathVariable("code") String code,
+                                     @Valid @RequestBody Institution institution,
+                                     UriComponentsBuilder uriBuilder) {
 
-        if (currentInstitution == null) {
-            return new ResponseEntity(new CustomErrorType("La certificacion que desea actualizar no existe"), HttpStatus.NOT_FOUND);
-        }
+        Institution currentInstitution = institutionService.findInstitutionByCode(code);
 
         currentInstitution.setInstitutionName(institution.getInstitutionName());
 
         institutionService.update(currentInstitution);
 
-        return new ResponseEntity(new CustomSuccessType("La certificacion se creo con exito!"), HttpStatus.OK);
+        this.headers.set("message","Registro Actualizado con exito");
+
+        this.headers.setLocation(uriBuilder.path("/instituciones").build().toUri());
+
+        return new ResponseEntity(this.headers, HttpStatus.OK);
     }
 
 

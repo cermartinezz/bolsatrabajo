@@ -1,27 +1,45 @@
 package com.bolsaTrabajo.controller;
 
-import com.bolsaTrabajo.model.Institution;
+import com.bolsaTrabajo.service.InstitutionService;
 import com.bolsaTrabajo.util.Auth;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
+@RequestMapping("/instituciones")
 public class InstitutionController {
 
+    @Autowired
+    private InstitutionService institutionService;
 
-    @RequestMapping(value = "/cat/instituciones", method = RequestMethod.GET)
-    public String show(Model model){
+    @GetMapping
+    public String index(Model model){
+
         model.addAttribute("user", Auth.auth());
-        return "instituciones/show_instituciones";
+
+        return "instituciones/index_instituciones";
     }
 
-    @RequestMapping(value = "/cat/instituciones/crear", method = RequestMethod.GET)
+    @GetMapping(value = "/crear")
     public String create(Model model){
+
         model.addAttribute("user", Auth.auth());
-        model.addAttribute("institution",new Institution());
+
         return "instituciones/create_instituciones";
+    }
+
+    @GetMapping(value = "/{code}/editar")
+    public String edit(@PathVariable String code, Model model){
+
+        model.addAttribute("user", Auth.auth());
+
+        model.addAttribute("institution",institutionService.findInstitutionByCode(code));
+
+        return "instituciones/edit_instituciones";
     }
 
 

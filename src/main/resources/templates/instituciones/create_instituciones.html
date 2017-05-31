@@ -6,16 +6,16 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
 
 <body>
-    <div class="site-wrapper" id="app">
+    <div class="site-wrapper" >
         <header class="header header-menu-fullw">
 
             <div th:include="fragmentos/top_bar :: top_bar(${user})" th:remove="tag"></div>
 
-            <div th:include="fragmentos/menu :: menu" th:remove="tag"></div>
+            <div th:include="fragmentos/menu :: menu(${user})" th:remove="tag"></div>
 
         </header>
 
-        <div class="main" role="main">
+        <div class="main" role="main" id="app">
 
             <div th:include="fragmentos/heading :: heading('Ingresar Institucion')"></div>
 
@@ -25,33 +25,9 @@
                     <div class="row">
                         <div class="col-md-6 col-md-offset-3">
                             <div class="box">
-                                <p v-if="success"><span class="alert alert-info ">{{message}}</span></p>
-                                <p v-if="error"><span class="alert alert-danger">{{message}}</span></p>
-                                <form autocomplete="off"
-                                      th:object="${institution}" method="post" class="form-horizontal" v-on:submit.prevent="onSubmit"
-                                      role="form">
 
-                                    <div class="form-group">
-                                        <label class="radio-inline">Tipo de Institucion:</label>
-                                        <label class="radio-inline"><input type="radio" th:field="*{institutionType}" name="institutionType" v-model="institutionType" value="Academica" required/> Academia</label>
-                                        <label class="radio-inline"><input type="radio" th:field="*{institutionType}" name="institutionType" v-model="institutionType" value="Empresa" /> Empresa</label>
-                                    </div>
+                                <div th:include="instituciones/form_instituciones :: form" th:remove="tag"></div>
 
-                                    <div class="form-group">
-                                      <label th:if="${#fields.hasErrors('institutionCode')}" th:errors="*{institutionCode}"></label>
-                                      <input type="text" th:field="*{institutionCode}" name="institutionCode" v-model="institutionCode" placeholder="Codigo de la Institucion" class="form-control" required/>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label th:if="${#fields.hasErrors('institutionName')}" th:errors="*{institutionName}"></label>
-                                        <input type="text" th:field="*{institutionName}" name="institutionName" v-model="institutionName" placeholder="Nombre de la institucion" class="form-control" required/>
-                                    </div>
-
-                                     <div class="form-group">
-                                         <button type="submit" class="btn btn-primary btn-block">Enviar</button>
-                                     </div>
-
-                                </form>
                             </div>
                         </div>
                     </div>

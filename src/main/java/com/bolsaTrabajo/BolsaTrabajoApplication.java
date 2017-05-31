@@ -1,9 +1,12 @@
 package com.bolsaTrabajo;
 
+import com.bolsaTrabajo.model.Role;
+import com.bolsaTrabajo.model.catalog.SkillCategory;
 import com.bolsaTrabajo.model.Permission;
 import com.bolsaTrabajo.model.Role;
 import com.bolsaTrabajo.model.SkillCategory;
 import com.bolsaTrabajo.repositories.SkillCategoryRepository;
+import com.bolsaTrabajo.service.RoleService;
 import com.bolsaTrabajo.service.PermissionService;
 import com.bolsaTrabajo.service.RoleService;
 import com.bolsaTrabajo.service.UserService;
@@ -23,9 +26,10 @@ public class BolsaTrabajoApplication implements CommandLineRunner {
 	private SkillCategoryRepository skillCategoryRepository;
 
 	@Autowired
-	PermissionService permissionService;
+	private RoleService roleService;
+
 	@Autowired
-	RoleService roleService;
+	PermissionService permissionService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(BolsaTrabajoApplication.class, args);
@@ -69,6 +73,21 @@ public class BolsaTrabajoApplication implements CommandLineRunner {
 		SkillCategory category5 = new SkillCategory(
 				"Linguisticas","HLIN"
 		);
+		if (skillCategoryRepository.count()<0){
+			skillCategoryRepository.save(category1);
+			skillCategoryRepository.save(category2);
+			skillCategoryRepository.save(category3);
+			skillCategoryRepository.save(category4);
+		}
+
+		Role role = new Role("POSTULANTE");
+		Role role2 = new Role("EMPRESA");
+
+		if(roleService.count()<=0){
+			roleService.save(role);
+			roleService.save(role2);
+		}
+
 	}
 
 	@Transactional

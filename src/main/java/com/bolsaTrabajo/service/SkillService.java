@@ -1,6 +1,6 @@
 package com.bolsaTrabajo.service;
 
-import com.bolsaTrabajo.model.Skill;
+import com.bolsaTrabajo.model.catalog.Skill;
 import com.bolsaTrabajo.repositories.SkillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -25,5 +25,13 @@ public class SkillService {
 
     public Skill findSkillByCodigo(String code){
         return skillRepository.findByCodigo(code);
+    }
+
+    public void updateSkill(Skill skill){
+        storeSkill(skill);
+    }
+
+    public void deleteSkill(String code){
+        skillRepository.deleteByCodigo(code);
     }
 }

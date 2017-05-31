@@ -1,11 +1,14 @@
 package com.bolsaTrabajo.repositories;
 
-import com.bolsaTrabajo.model.Institution;
+import com.bolsaTrabajo.model.catalog.Institution;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository("institutionRepository")
-public interface InstitutionRepository extends JpaRepository<Institution,Long> {
+public interface InstitutionRepository extends JpaRepository<Institution,Integer> {
     Institution findByInstitutionCode(String code);
-    Institution findById(Long id);
+
+    Optional<Institution> findById(Integer id);
 }

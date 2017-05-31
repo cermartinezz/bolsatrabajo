@@ -1,6 +1,6 @@
 package com.bolsaTrabajo.repositories;
 
-import com.bolsaTrabajo.model.Skill;
+import com.bolsaTrabajo.model.catalog.Skill;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -10,4 +10,5 @@ import org.springframework.stereotype.Repository;
 @Repository("skillRepository")
 public interface SkillRepository extends JpaRepository<Skill,Integer> {
     Skill findByCodigo(String code);
+    Skill deleteByCodigo(String code);
 }

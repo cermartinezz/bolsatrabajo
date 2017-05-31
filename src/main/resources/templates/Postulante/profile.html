@@ -10,12 +10,14 @@
 <div class="site-wrapper">
     <header class="header header-menu-fullw">
 
-        <div th:include="fragmentos/menu :: menu" th:remove="tag"></div>
+        <div th:include="fragmentos/top_bar :: top_bar(${user})" th:remove="tag"></div>
+
+        <div th:include="fragmentos/menu :: menu(${user})" th:remove="tag"></div>
 
     </header>
 
     <!-- Main -->
-    <div class="main" role="main">
+    <div class="main" role="main" id="app">
 
         <!-- Page Heading -->
         <section class="page-heading">
@@ -54,7 +56,7 @@
                                     </div>
                                     <div class="col-md-2">
                                         <div class="icon-box">
-                                            <a href="#" class="btn btn-info">
+                                            <a th:href="@{'/postulante/' + ${username} + '/editar'}" class="btn btn-info">
                                                 Editar
                                             </a>
                                         </div>
@@ -62,11 +64,6 @@
                                 </div>
 
                                 <div class="spacer-lg"></div>
-
-                                <h4>Description</h4>
-                                <p>I am an individual with several years of experience in my line of work. CFC is a trustworthy company with a strong work ethic and excellent communications skills providing our customers with quality workmanship.</p>
-
-                                <p>Some of our previous projects include door preparation, installation, casings around doors and windows, baseboard and shoe molding and hardware installation. We also do custom projects such as wall paneling from applied molding to recessed or raised panels, custom closet organizers, on-site custom cabinetry and fireplace mantels.</p>
 
                                 <ul class="job_listings">
                                     <div class="spacer-lg"></div>
@@ -127,32 +124,41 @@
                                         </div>
 
                                         <div class="col-md-3">
-                                            <a href="#" class="btn btn-sm btn-info">Ver detalle</a>
-                                            <a href="#" class="btn btn-sm btn-success">Agregar</a>
+                                            <a th:href="@{'/postulante/' + ${username} + '/certificaciones/agregar'}" class="btn btn-sm btn-success">Agregar</a>
                                         </div>
                                     </div>
                                     <li class="job_listing">
-                                        <a href="#">
-                                            <div class="job_img">
-                                                <img src="images/samples/person1.jpg" alt="" class="company_logo">
-                                            </div>
-                                            <div class="position">
-                                                <h4>Certificación1</h4>
-
-                                            </div>
-                                            <div class="rating">
-                                                <div class="rating-stars">
-
-                                                </div>
-                                                <div class="reviews-num"></div>
-                                            </div>
-                                            <ul class="meta">
-                                                <li class="job-type">Código</li>
-                                                <li class="date">Fecha
-                                                </li>
-                                            </ul>
-                                        </a>
+                                        <div v-if="certifications.length != 0" class="table-responsive">
+                                            <table class="job-manager-jobs table table-bordered table-stripe">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Certificacion</th>
+                                                        <th>Institucion</th>
+                                                        <th>Codigo</th>
+                                                        <th>Fecha de expiracion</th>
+                                                        <th>Acciones</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr v-for="(certification, index) in certifications">
+                                                        <td>{{ certification.primaryKey.certification.certificationTitle }}</td>
+                                                        <td>{{ certification.primaryKey.certification.institution.institutionName }}</td>
+                                                        <td>{{ certification.code }}</td>
+                                                        <td>{{ dateName(certification.expirationDate) }}</td>
+                                                        <td>
+                                                            <button class="btn btn-info" @click="redirectCertificaciones(certification)">Editar</button>
+                                                            <button class="btn btn-danger"
+                                                                    @click="deleteCertificacion(index,certification)">Eliminar</button>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div v-if="certifications.length == 0" class="message_no_data">
+                                            <p><strong>NO HAY REGISTROS, DEBERIAS INGRESAR ALGUNAS CERTIFICACIONES</strong></p>
+                                        </div>
                                     </li>
+
                                 </ul>
 
                                 <ul class="job_listings">
@@ -215,6 +221,83 @@
                                 <ul class="job_listings">
                                     <div class="spacer-lg"></div>
 
+                                    <div class="row">
+                                        <div class="col-md-9">
+                                            <h4>Experiencia Laboral</h4>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <a href="/empresasCat" class="btn btn-sm btn-info">Ver detalle</a>
+                                            <a th:href="@{'/postulante/'+ ${user.getName()} + '/workExp/agregar'}" class="btn btn-sm btn-success">Agregar</a>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <li class="job_listing">
+                                            <a href="#">
+                                                <div class="job_img">
+                                                    <img src="images/samples/person1.jpg" alt="" class="company_logo">
+                                                </div>
+                                                <div class="position">
+                                                    <h4>Trabajito 1</h4>
+
+                                                </div>
+                                                <div class="rating">
+                                                    <div class="rating-stars">
+
+                                                    </div>
+                                                    <div class="reviews-num"></div>
+                                                </div>
+                                                <ul class="meta">
+                                                    <li class="job-type">Código</li>
+                                                    <li class="date">Fecha
+                                                    </li>
+                                                </ul>
+                                            </a>
+                                        </li>
+                                    </div>
+                                </ul>
+
+                                <ul class="job_listings">
+                                    <div class="spacer-lg"></div>
+                                    <div class="row">
+                                        <div class="col-md-9">
+                                            <h4>Recomendaciones</h4>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <a  th:href="@{'/postulante/'+ ${username} + '/recomendaciones/crear'}"
+                                                class="btn btn-sm btn-success">Agregar</a>
+                                        </div>
+                                    </div>
+                                    <li class="job_listing">
+                                        <div  v-for="(recomendation, index) in recommendations">
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <div class="icon-box">
+                                                        <div class="icon">
+                                                            <i class="fa fa-phone"></i>
+                                                        </div>
+                                                        <div class="icon-box-body">
+                                                            <h6>{{recomendation.name}}</h6>
+                                                            {{recomendation.phoneNumber}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4 action-box">
+                                                    <button  class="btn btn-info" @click="redirectRecomendaciones(recomendation.id)">editar</button>
+                                                    <button class="btn btn-danger" @click="deleteRecomendation(index,recomendation.id)">Eliminar</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div v-if="recommendations.length == 0" class="message_no_data">
+                                            <p><strong>NO HAY REGISTROS, DEBERIAS INGRESAR ALGUNAS RECOMENDACIONES</strong></p>
+                                        </div>
+                                    </li>
+                                </ul>
+
+                                <ul class="job_listings">
+                                    <div class="spacer-lg"></div>
+
                                     <div class="col-md-6">
                                         <li class="job_listing">
 
@@ -229,6 +312,8 @@
                                     </div>
 
                                 </ul>
+
+
 
                             </div>
 
@@ -248,6 +333,7 @@
 </div>
 
 <div th:include="fragmentos/scripts :: scripts" ></div>
-
+<script th:inline="javascript">let username = [[${username}]];</script>
+<script th:src="@{/assets/js/postulante/perfil.js}"></script>
 </body>
 </html>

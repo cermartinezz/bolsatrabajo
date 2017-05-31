@@ -9,7 +9,7 @@
     <header class="header header-menu-fullw">
 
         <div th:include="fragmentos/top_bar :: top_bar(${user})" th:remove="tag"></div>
-        <div th:include="fragmentos/menu :: menu" th:remove="tag"></div>
+        <div th:include="fragmentos/menu :: menu(${user})" th:remove="tag"></div>
 
     </header>
 
@@ -30,7 +30,7 @@
 
                                 <div class="form-group">
                                     <label>Username<span class="required">*</span></label>
-                                    <input type="text" id="username" name="username" placeholder="Username" class="form-control" required/>
+                                    <input type="text" id="username" name="username" placeholder="Username" class="form-control" autofocus required/>
                                     <br/>
                                 </div>
 

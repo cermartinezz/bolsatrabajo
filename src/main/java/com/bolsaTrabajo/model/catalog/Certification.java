@@ -1,31 +1,41 @@
-package com.bolsaTrabajo.model;
+package com.bolsaTrabajo.model.catalog;
 
+import com.bolsaTrabajo.model.postulantInfo.PostulantCertification;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
-@Table(name="certifications")
+@Table(name="certification")
 public class Certification implements Serializable{
 
-    private int id;
+    private Integer id;
     private String certificationCode;
     private String certificationTitle;
     private Institution institution;
+    private Set<PostulantCertification> postulantCertifications;
 
     public Certification() {
         super();
     }
 
+    public Certification(int id) {
+        this.id = id;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "certification_id")
-    public int getCertificationId() {
+    public Integer getCertificationId() {
         return id;
     }
 
-    public void setCertificationId(int certificationId) {
+    public void setCertificationId(Integer certificationId) {
         this.id = certificationId;
     }
 
@@ -47,7 +57,8 @@ public class Certification implements Serializable{
         this.certificationTitle = certificationTitle;
     }
 
-    @ManyToOne
+
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "institution_id")
     public Institution getInstitution() {
         return institution;
@@ -56,6 +67,19 @@ public class Certification implements Serializable{
     public void setInstitution(Institution institution) {
         this.institution = institution;
     }
+
+    @OneToMany( mappedBy = "primaryKey.certification",
+                cascade = CascadeType.ALL,
+                fetch = FetchType.LAZY)
+    @JsonIgnore
+    public Set<PostulantCertification> getPostulantCertifications() {
+        return postulantCertifications;
+    }
+
+    public void setPostulantCertifications(Set<PostulantCertification> postulantCertifications) {
+        this.postulantCertifications = postulantCertifications;
+    }
+
 
     @Override
     public String toString() {

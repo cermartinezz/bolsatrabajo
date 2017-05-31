@@ -1,17 +1,19 @@
 package com.bolsaTrabajo.restController;
 
-import com.bolsaTrabajo.model.Publication;
+import com.bolsaTrabajo.model.postulantInfo.Publication;
 import com.bolsaTrabajo.service.PublicationService;
-import com.bolsaTrabajo.util.CustomErrorType;
+import com.bolsaTrabajo.validator.PublicationValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -23,12 +25,24 @@ public class PublicationRestController {
 
     public static final Logger logger = LoggerFactory.getLogger(PublicationRestController.class);
 
+    private HttpHeaders headers;
+
+    @Autowired
+    private PublicationValidator publicationValidator;
+
     @Autowired
     public PublicationService publicationService;
-/*
-    @Autowired
-    public PublicationRepository publicationRepository;
-*/
+
+    @InitBinder
+    protected void initBinder(WebDataBinder binder){
+        binder.setValidator(publicationValidator);
+    }
+
+
+    public PublicationRestController() {
+        this.headers = new HttpHeaders();
+    }
+
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<Publication>> getAll() {
         List<Publication> publications = publicationService.getAllPublications();
@@ -40,29 +54,31 @@ public class PublicationRestController {
         return new ResponseEntity<List<Publication>>(publications, HttpStatus.OK);
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<?> create(@RequestBody Publication publication, UriComponentsBuilder ucBuilder){
+    @GetMapping(value= "{code}")
+    public ResponseEntity show(@PathVariable("code") String code){
 
-        Publication pub = publicationService.findPublicationByCodigo(publication.getCodigo());
-        if (pub != null){
-            return new ResponseEntity<>(new CustomErrorType("La publicacion ya existe"), HttpStatus.CONFLICT);
+        Publication publication = publicationService.findPublicationByCodigo(code);
+
+        if(publication == null){
+            headers.set("message","No se encontraron registros");
+            return new ResponseEntity(headers,HttpStatus.NOT_FOUND);
         }
+        headers.set("message","Registros Encontrados");
+        return new ResponseEntity(publication,headers, HttpStatus.OK);
+    }
+
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity<?> create(@Valid @RequestBody Publication publication, UriComponentsBuilder ucBuilder){
+
         publicationService.storePublication(publication);
 
-        //publicationRepository.save(publication);
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(ucBuilder.path("/publications/{id}").buildAndExpand(publication.getId()).toUri());
+        this.headers.setLocation(ucBuilder.path("/publicaciones").buildAndExpand(publication.getId()).toUri());
         return new ResponseEntity<String>(headers, HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/{code}", method = RequestMethod.PUT)
-    public ResponseEntity actualizar(@PathVariable("code") String code, @RequestBody Publication publication) {
+    public ResponseEntity actualizar(@PathVariable("code") String code, @Valid @RequestBody Publication publication) {
         Publication current = publicationService.findPublicationByCodigo(code);
-
-        if (current == null) {
-            return new ResponseEntity(new CustomErrorType("La publication que desea actualizar no existe"), HttpStatus.NOT_FOUND);
-        }
 
         current.setTitulo(publication.getTitulo());
         current.setEditorial(publication.getEditorial());
@@ -70,6 +86,17 @@ public class PublicationRestController {
 
         publicationService.updatePublication(current);
 
-        return new ResponseEntity<Publication>(current, HttpStatus.OK);
+        return new ResponseEntity(current, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/{code}",method = RequestMethod.DELETE)
+    public ResponseEntity eliminar(@PathVariable("code") String code){
+        Publication publication = publicationService.findPublicationByCodigo(code);
+        if (publication == null){
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+        publicationService.deletePublication(code);
+
+        return  new ResponseEntity<Publication>(HttpStatus.NO_CONTENT);
     }
 }
