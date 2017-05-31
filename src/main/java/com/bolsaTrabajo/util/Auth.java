@@ -12,7 +12,7 @@ public class Auth {
 
     public static Authentication auth(){
         logger.warn("instanceof AnonymousAuthenticationToken: -----------------: {}", SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken);
-        logger.warn("Authenticated: -----------------: {}", SecurityContextHolder.getContext().getAuthentication());
+        logger.warn("Aut henticated: -----------------: {}", SecurityContextHolder.getContext().getAuthentication());
         return SecurityContextHolder.getContext().getAuthentication();
     }
 
