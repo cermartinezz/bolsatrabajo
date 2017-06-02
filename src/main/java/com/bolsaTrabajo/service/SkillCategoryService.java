@@ -6,15 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-/**
- * Created by mvip on 04-05-17.
- */
-public class SkillCategoryService {
 
-    @Autowired
-    private SkillCategoryRepository skillCategoryRepository;
+public interface SkillCategoryService {
 
-    public List<SkillCategory> getAllSkillsCategory(){
-        return skillCategoryRepository.findAll();
-    }
+    Long count();
+    SkillCategory findById(int id);
+    public List<SkillCategory> getAllSkillsCategory();
+    void save(SkillCategory skillCategory);
 }

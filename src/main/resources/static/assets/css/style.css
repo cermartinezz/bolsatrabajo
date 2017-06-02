@@ -45,9 +45,19 @@
     margin-right: 0px;
 }
 
-.message_no_data{
+.center_block{
     display: flex;
     flex-direction: row;
     justify-content: center;
+}
+
+.badge-info {
+    background-color: #3fcbcb;
+    cursor:pointer
+}
+
+.badge-danger {
+    background-color: #ed5b47;
+    cursor:pointer
 }
 

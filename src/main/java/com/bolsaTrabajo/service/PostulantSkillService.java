@@ -1,14 +1,18 @@
 package com.bolsaTrabajo.service;
 
+import com.bolsaTrabajo.model.Postulant;
+import com.bolsaTrabajo.model.compositeKeys.PostulantSkillId;
 import com.bolsaTrabajo.model.postulantInfo.PostulantSkill;
 
 import java.util.List;
 
 public interface PostulantSkillService {
 
-    public List<PostulantSkill> postulantSkills(Integer postulant_id);
+    PostulantSkill postulantSkill(PostulantSkillId postulantSkillId);
 
-    public void save(PostulantSkill postulantSkill);
+    void save(PostulantSkill postulantSkill);
+
+    void delete(PostulantSkill postulantSkill);
 
 
 }

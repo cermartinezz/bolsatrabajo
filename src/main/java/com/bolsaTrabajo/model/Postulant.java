@@ -152,7 +152,7 @@ public class Postulant extends User{
         this.recommendations = recommendations;
     }
 
-    @OneToMany( mappedBy = "postulant",
+    @OneToMany( mappedBy = "primaryKey.postulant",
                 cascade = CascadeType.ALL)
     public Set<PostulantSkill> getSkills() {
         return skills;

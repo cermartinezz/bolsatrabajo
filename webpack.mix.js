@@ -12,7 +12,8 @@ let mix = require('laravel-mix');
  */
 
 mix.js('resources/js/input-mask.js', 'src/main/resources/static/assets/js/vendor/inputMask.js')
-    .js('resources/js/vue.js', 'src/main/resources/static/assets/js/vendor/vue.js');
+    .js('resources/js/vue.js', 'src/main/resources/static/assets/js/vendor/vue.js')
+    .js('resources/js/axios.js', 'src/main/resources/static/assets/js/vendor/axios.js');
 
 // Full API
 // mix.js(src, output);

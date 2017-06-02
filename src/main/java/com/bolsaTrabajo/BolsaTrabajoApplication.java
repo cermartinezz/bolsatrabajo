@@ -1,9 +1,12 @@
 package com.bolsaTrabajo;
 
 import com.bolsaTrabajo.model.Role;
+import com.bolsaTrabajo.model.catalog.Skill;
 import com.bolsaTrabajo.model.catalog.SkillCategory;
 import com.bolsaTrabajo.repositories.SkillCategoryRepository;
 import com.bolsaTrabajo.service.RoleService;
+import com.bolsaTrabajo.service.SkillCategoryService;
+import com.bolsaTrabajo.service.SkillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -15,10 +18,13 @@ import javax.transaction.Transactional;
 public class BolsaTrabajoApplication implements CommandLineRunner {
 
 	@Autowired
-	private SkillCategoryRepository skillCategoryRepository;
+	private SkillCategoryService skillCategoryService;
 
 	@Autowired
 	private RoleService roleService;
+
+	@Autowired
+	private SkillService skillService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(BolsaTrabajoApplication.class, args);
@@ -46,12 +52,24 @@ public class BolsaTrabajoApplication implements CommandLineRunner {
 		SkillCategory category5 = new SkillCategory(
 				"Linguisticas","HLIN"
 		);
-		if (skillCategoryRepository.count()<0){
-			skillCategoryRepository.save(category1);
-			skillCategoryRepository.save(category2);
-			skillCategoryRepository.save(category3);
-			skillCategoryRepository.save(category4);
+		Skill skill = new Skill("Nose 1", "nose1", category1);
+		Skill skill2 = new Skill("Nose 2", "nose2", category2);
+		Skill skill3 = new Skill("Nose 3", "nose3", category3);
+		Skill skill4 = new Skill("Nose 4", "nose4", category4);
+		Skill skill5 = new Skill("Nose algo", "nose_2", category1);
+
+		if (skillCategoryService.count()<=0){
+			skillCategoryService.save(category1);
+			skillCategoryService.save(category2);
+			skillCategoryService.save(category3);
+			skillCategoryService.save(category4);
+			skillService.storeSkill(skill);
+			skillService.storeSkill(skill2);
+			skillService.storeSkill(skill3);
+			skillService.storeSkill(skill4);
+			skillService.storeSkill(skill5);
 		}
+
 
 		Role role = new Role("POSTULANTE");
 		Role role2 = new Role("EMPRESA");

@@ -59,6 +59,16 @@ function showMessageRedirect(title,text,type,url){
     )
 }
 
+/**
+ *
+ * @param title
+ * @param text
+ * @param type
+ * @param confirmText
+ * @param url
+ * @param requestType
+ * @param data
+ */
 function showMessageConfirmation(title,text,type,confirmText,url,requestType,data= {}){
     swal({
         title: title,

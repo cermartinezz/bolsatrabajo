@@ -154,7 +154,7 @@
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <div v-if="certifications.length == 0" class="message_no_data">
+                                        <div v-if="certifications.length == 0" class="center_block">
                                             <p><strong>NO HAY REGISTROS, DEBERIAS INGRESAR ALGUNAS CERTIFICACIONES</strong></p>
                                         </div>
                                     </li>
@@ -289,7 +289,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div v-if="recommendations.length == 0" class="message_no_data">
+                                        <div v-if="recommendations.length == 0" class="center_block">
                                             <p><strong>NO HAY REGISTROS, DEBERIAS INGRESAR ALGUNAS RECOMENDACIONES</strong></p>
                                         </div>
                                     </li>
@@ -298,21 +298,43 @@
                                 <ul class="job_listings">
                                     <div class="spacer-lg"></div>
 
-                                    <div class="col-md-6">
-                                        <li class="job_listing">
-
+                                    <div class="row">
+                                        <div class="col-md-9">
                                             <h4>Habilidades</h4>
-                                            <ul>
-                                                <li>Comer</li>
-                                                <li>Dormir</li>
-                                                <li>Hablar</li>
-                                                <li>Procastinar</li>
-                                            </ul>
-                                        </li>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <a th:href="@{'/postulante/' + ${username} + '/habilidades/crear'}" class="btn btn-sm btn-success">Agregar</a>
+                                        </div>
                                     </div>
+                                    <li class="job_listing">
+                                        <div v-if="skills.length != 0" class="table-responsive">
+                                            <table class="job-manager-jobs table table-bordered table-stripe">
+                                                <thead>
+                                                <tr>
+                                                    <th>Habilidades</th>
+                                                    <th>Categoria</th>
+                                                    <th>Acciones</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr v-for="(skill, index) in skills">
+                                                    <td>{{ skill.primaryKey.skill.titulo }}</td>
+                                                    <td>{{ skill.primaryKey.skill.skillCategory.titulo }}</td>
+                                                    <td class="center_block">
+                                                        <button class="btn btn-danger"
+                                                                @click="deleteSKill(index,skill)">Eliminar</button>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div v-if="skills.length == 0" class="center_block">
+                                            <p><strong>NO HAY REGISTROS, DEBERIAS INGRESAR ALGUNAS HABILIDADES</strong></p>
+                                        </div>
+                                    </li>
 
                                 </ul>
-
 
 
                             </div>

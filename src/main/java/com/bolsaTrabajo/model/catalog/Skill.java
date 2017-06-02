@@ -1,6 +1,7 @@
 package com.bolsaTrabajo.model.catalog;
 
 import com.bolsaTrabajo.model.postulantInfo.PostulantSkill;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -19,6 +20,16 @@ public class Skill implements Serializable{
 
     public Skill() {
         super();
+    }
+
+    public Skill(String titulo, String codigo, SkillCategory skillCategory) {
+        this.titulo = titulo;
+        this.codigo = codigo;
+        this.skillCategory = skillCategory;
+    }
+
+    public Skill(String codigo) {
+        this.codigo = codigo;
     }
 
     @Id
@@ -62,9 +73,10 @@ public class Skill implements Serializable{
         this.skillCategory = skillCategory;
     }
 
-    @OneToMany( mappedBy = "skill",
+    @OneToMany( mappedBy = "primaryKey.skill",
                 cascade = CascadeType.ALL,
-                fetch = FetchType.EAGER)
+                fetch = FetchType.LAZY)
+    @JsonIgnore
     public Set<PostulantSkill> getPostulantSkills() {
         return postulantSkills;
     }

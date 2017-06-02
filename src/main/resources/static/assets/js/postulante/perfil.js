@@ -8,6 +8,7 @@ new Vue({
     data: {
         recommendations: [],
         certifications: [],
+        skills: [],
         username: username,
     },
     methods: {
@@ -29,28 +30,29 @@ new Vue({
                                     "warning",
                                     "Desea eliminar la certificacion?",url,"delete")
         },
+        deleteSkill: function(index,certification){
+            this.$delete(this.certifications,index);
+            url= "/api/postulante/"+this.username+"/habilidades/"+certification.code+"/eliminar";
+            showMessageConfirmation("Eliminar",
+                                    "Se eliminara la habilidad",
+                                    "warning",
+                                    "Desea eliminar la certificacion?",url,"delete")
+        },
         dateName(date){
             return dateName(date);
         }
     },
     mounted()
     {
-        axios.get('/api/recomendaciones/'+this.username)
-            .then(response => {
-                console.log(response);
-                this.recommendations = response.data;
-            })
-            .catch(error => {
-                console.log(error);
-            });
         axios.get('/api/postulant/'+this.username)
             .then(response => {
-                console.log(response.data.certifications);
+                console.log(response.data);
                 this.certifications = response.data.certifications;
+                this.skills = response.data.skills;
+                this.recommendations = response.data.recommendations;
             })
             .catch(error => {
                 console.log(error);
             })
-
     }
 })

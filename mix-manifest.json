@@ -1,4 +1,5 @@
 {
+  "/src/main/resources/static/assets/js/vendor/axios.js": "/src/main/resources/static/assets/js/vendor/axios.js",
   "/src/main/resources/static/assets/js/vendor/inputMask.js": "/src/main/resources/static/assets/js/vendor/inputMask.js",
   "/src/main/resources/static/assets/js/vendor/vue.js": "/src/main/resources/static/assets/js/vendor/vue.js"
 }
