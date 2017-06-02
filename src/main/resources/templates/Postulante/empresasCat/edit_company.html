@@ -30,7 +30,7 @@
                 </div>
                 <div class="box">
                     <h3> Datos</h3>
-                    <form th:action="@{'/api/cat/empresas/update/'+${company.id}}"
+                    <form th:action="@{'/api/empresasCat/update/'+${company.id}}"
                           th:object="${company}"
                           th:method="PUT"
                           class="form-horizontal" role="form">

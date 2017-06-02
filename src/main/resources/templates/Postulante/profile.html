@@ -221,40 +221,42 @@
                                 <ul class="job_listings">
                                     <div class="spacer-lg"></div>
 
-                                    <div class="row">
+                                    <div class="row" id="exp">
                                         <div class="col-md-9">
                                             <h4>Experiencia Laboral</h4>
                                         </div>
 
                                         <div class="col-md-3">
-                                            <a href="/empresasCat" class="btn btn-sm btn-info">Ver detalle</a>
+                                            <a href="#exp" class="btn btn-sm btn-info" onclick="if(document.getElementById('experiencia') .style.display=='none') {document.getElementById('experiencia') .style.display=''}else{document.getElementById('experiencia') .style.display='none'}">Ver detalle</a>
                                             <a th:href="@{'/postulante/'+ ${user.getName()} + '/workExp/agregar'}" class="btn btn-sm btn-success">Agregar</a>
                                         </div>
                                     </div>
-                                    <div>
-                                        <li class="job_listing">
-                                            <a href="#">
-                                                <div class="job_img">
-                                                    <img src="images/samples/person1.jpg" alt="" class="company_logo">
-                                                </div>
-                                                <div class="position">
-                                                    <h4>Trabajito 1</h4>
-
-                                                </div>
-                                                <div class="rating">
-                                                    <div class="rating-stars">
-
-                                                    </div>
-                                                    <div class="reviews-num"></div>
-                                                </div>
-                                                <ul class="meta">
-                                                    <li class="job-type">Código</li>
-                                                    <li class="date">Fecha
-                                                    </li>
-                                                </ul>
-                                            </a>
-                                        </li>
-                                    </div>
+                                    <li class="job_listing">
+                                        <div id="experiencia" style="display:none" th:if="${postulantInfo.workExperiences.size() !=0}" class="table-responsive">
+                                            <table class="job-manager-jobs table table-bordered table-stripe">
+                                                <thead>
+                                                <tr>
+                                                    <th>Empresa</th>
+                                                    <th>Cargo</th>
+                                                    <th>Acciones</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr th:each="exp : ${postulantInfo.workExperiences}">
+                                                    <td th:text="${exp.pk.getCompanyCat().getCompanyName()}"></td>
+                                                    <td th:text="${exp.getJobCat().getPuesto()}"></td>
+                                                    <td>
+                                                        <button class="btn btn-info" >Editar</button>
+                                                        <button class="btn btn-danger">Eliminar</button>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div th:if="${postulantInfo.workExperiences.size() == 0}">
+                                            <p><strong>NO HAY REGISTROS, DEBERIAS INGRESAR ALGUNAS CERTIFICACIONES</strong></p>
+                                        </div>
+                                    </li>
                                 </ul>
 
                                 <ul class="job_listings">
