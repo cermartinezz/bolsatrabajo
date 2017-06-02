@@ -61,3 +61,38 @@
     cursor:pointer
 }
 
+.center{
+    display: flex;
+    justify-content: center;
+}
+
+.space_between{
+    display: flex;
+    justify-content: space-between;
+}
+
+.space_around{
+    display: flex;
+    justify-content: space-around;
+}
+
+.flex_start{
+    display: flex;
+    justify-content: flex-start;
+}
+
+.center_heigth{
+    justify-content: center;
+    display: flex;
+}
+
+.center_heigth > #info-header{
+    margin-right: 5px;
+}
+
+.box-md{
+    margin: 0;
+    padding: 30px;
+    width: 60%;
+}
+

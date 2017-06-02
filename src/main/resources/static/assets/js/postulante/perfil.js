@@ -9,6 +9,7 @@ new Vue({
         recommendations: [],
         certifications: [],
         skills: [],
+        postulante: {},
         username: username,
     },
     methods: {
@@ -48,6 +49,7 @@ new Vue({
         axios.get('/api/postulant/'+this.username)
             .then(response => {
                 console.log(response.data);
+                this.postulante = response.data;
                 this.certifications = response.data.certifications;
                 this.skills = response.data.skills;
                 this.recommendations = response.data.recommendations;

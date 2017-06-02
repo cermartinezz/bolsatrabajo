@@ -40,25 +40,31 @@
 
                         <div class="box mb-30">
                             <div class="job-profile-info">
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <figure class="alignnone">
-                                            <img src="images/samples/team-member-1-lg.jpg" alt="">
-                                        </figure>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <h2 class="name" th:text="${username}"></h2>
-                                        <i class="tagline">Trabajo o Estudio (Cargo o Profesion)</i>
-                                        <ul class="meta">
-                                            <li>Institución</li>
-                                        </ul>
-
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="icon-box">
-                                            <a th:href="@{'/postulante/' + ${username} + '/editar'}" class="btn btn-info">
+                                <div class="box">
+                                    <div class="center">
+                                        <div class="center_heigth">
+                                            <H1 id="info-header">Informacion general</H1>
+                                        </div>
+                                        <div class="icon-box ">
+                                            <a th:href="@{'/postulante/' + ${username} + '/editar'}" class="btn btn-sm btn-info">
                                                 Editar
                                             </a>
+                                        </div>
+                                    </div>
+                                    </br>
+                                    <div class="info">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <p><Strong>Nombre:</Strong> {{postulante.name }} {{postulante.lastName}}</p>
+                                                <p><Strong>Correo:</Strong> {{postulante.email}}</p>
+                                                <p v-if="postulante.phonenumber != null"><Strong>Telefono:</Strong> {{postulante.phonenumber}}</p>
+                                                <p v-if="postulante.cellphone != null"><Strong>Celular:</Strong> {{postulante.cellphone}}</p>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p><Strong>Fecha de nacimiento:</Strong> {{ dateName(postulante.birthday) }}</p>
+                                                <p><Strong>Genero:</Strong> {{postulante.gender}}</p>
+                                                <p><Strong>Nit:</Strong> {{postulante.nit}}</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
