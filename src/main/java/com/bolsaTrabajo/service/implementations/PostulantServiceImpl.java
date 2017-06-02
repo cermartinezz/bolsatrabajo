@@ -24,7 +24,6 @@ public class PostulantServiceImpl implements PostulantService {
     }
 
 
-
     @Override
     public void save(Postulant postulant) {
 

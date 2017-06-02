@@ -9,19 +9,20 @@ import java.io.Serializable;
 import java.util.Set;
 
 @Entity
-@Table(name = "role")
+@Table(name = "roles")
 public class Role implements Serializable{
 
     private Long id;
     private String name;
     private Set<User> users;
-
-    public Role(String name) {
-        this.name = name;
-    }
+    private Set<Permission> permissions;
 
     public Role(){
 
+    }
+
+    public Role(final String name){
+        this.name = name;
     }
 
     @Id
@@ -33,6 +34,7 @@ public class Role implements Serializable{
     public void setId(Long id) {
         this.id = id;
     }
+
 
     public String getName() {
         return name;
@@ -52,5 +54,13 @@ public class Role implements Serializable{
         this.users = users;
     }
 
+    @ManyToMany
+    @JoinTable(name = "role_permission", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "permission_id"))
+    public Set<Permission> getPermissions() {
+        return permissions;
+    }
 
+    public void setPermissions(Set<Permission> permissions) {
+        this.permissions = permissions;
+    }
 }

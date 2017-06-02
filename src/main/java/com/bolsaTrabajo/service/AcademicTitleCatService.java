@@ -5,7 +5,6 @@ import com.bolsaTrabajo.repositories.AcademicTitleCatRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Created by keepercito on 05-21-17.
@@ -17,9 +16,7 @@ public class AcademicTitleCatService {
 
     public List<AcademicTitleCat> getAllTitles(){return academicTitleCatRepository.findAll();}
 
-    //public Optional<AcademicTitleCat> getTitle(Long id){return academicTitleCatRepository.findById(id);}
-
-    public Optional<AcademicTitleCat> getTitle(Long id){return academicTitleCatRepository.findById(id);}
+    public AcademicTitleCat getTitle(long id){return academicTitleCatRepository.findById(id);}
 
     public AcademicTitleCat getTitle(String nom){return academicTitleCatRepository.findByTitulo(nom);}
 

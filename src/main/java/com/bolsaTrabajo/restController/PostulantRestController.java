@@ -119,7 +119,7 @@ public class PostulantRestController {
 
         Postulant p = postulantService.findByUsername(Auth.auth().getName());
         Institution ins = institutionService.findInstitutionById(institucion).get();
-        AcademicTitleCat acad = academicTitleCatService.getTitle(title).get();
+        AcademicTitleCat acad = academicTitleCatService.getTitle(title);
 
         experience.setInstitution(ins);
         experience.setPostulant(p);

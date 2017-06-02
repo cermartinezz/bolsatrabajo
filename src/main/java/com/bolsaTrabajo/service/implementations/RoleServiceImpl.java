@@ -5,6 +5,8 @@ import com.bolsaTrabajo.repositories.RoleRepository;
 import com.bolsaTrabajo.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+
 public class RoleServiceImpl implements RoleService {
 
     @Autowired
@@ -20,8 +22,12 @@ public class RoleServiceImpl implements RoleService {
         return roleRepository.count();
     }
 
-    @Override
-    public void save(Role role) {
-        roleRepository.save(role);
-    }
+    public Role findById(long id){ return roleRepository.findById(id);}
+
+    public List<Role> getAllRoles(){ return roleRepository.findAll(); }
+
+    public void save(Role role){ roleRepository.save(role); }
+
+    public void delete(long id){ roleRepository.deleteById(id);}
+
 }

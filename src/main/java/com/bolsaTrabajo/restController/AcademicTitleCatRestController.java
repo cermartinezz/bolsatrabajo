@@ -39,7 +39,7 @@ public class AcademicTitleCatRestController {
             attributes.addFlashAttribute("message","Titulo "+ t.getTitulo()+" ya existe");
             return new RedirectView("/cat/titles/editar/"+ academicTitleCat.getId());
         }
-        t = academicTitleCatService.getTitle(academicTitleCat.getId()).get();
+        t = academicTitleCatService.getTitle(academicTitleCat.getId());
         t.setTitulo(academicTitleCat.getTitulo());
         academicTitleCatService.saveTitle(t);
         attributes.addFlashAttribute("message","Registro modificado con exito");
