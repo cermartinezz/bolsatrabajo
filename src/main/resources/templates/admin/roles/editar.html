@@ -38,6 +38,10 @@
                         </div>
 
                     </form>
+                    <h3>Permisos</h3>
+                    <div th:each="rp,iter : ${role.getPermissions()}">
+                        <span th:text="${rp.name}"></span>
+                    </div>
                 </div>
             </div>
         </section>

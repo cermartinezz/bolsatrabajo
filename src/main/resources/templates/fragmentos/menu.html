@@ -35,8 +35,8 @@
                             </li>
                             <li><a href="#">Empresa</a>
                                 <ul>
-                                    <li><a th:href="@{'/company/'+ ${user.getName()} + '/profile'}">Perfil Empresa</a></li>
-                                    <li><a th:href="@{'/company/'+ ${user.getName()} + '/editar'}">Editar Perfil</a></li>
+                                    <li><a th:href="@{'/company/'+ ${u.getName()} + '/profile'}">Perfil Empresa</a></li>
+                                    <li><a th:href="@{'/company/'+ ${u.getName()} + '/editar'}">Editar Perfil</a></li>
                                 </ul>
                             </li>
                             <!--<li><a href="#">Oportunidades</a>
@@ -55,7 +55,7 @@
                             <li><a href="#">Administración</a>
                                 <ul>
                                     <li><a href="/admin/menu">Menú</a></li>
-                                    <li><a href="/users">Usuarios</a></li>
+                                    <li><a href="/usuarios">Usuarios</a></li>
                                     <li><a href="/roles">Roles</a></li>
                                     <li><a href="/permissions">Permisos</a></li>
                                 </ul>

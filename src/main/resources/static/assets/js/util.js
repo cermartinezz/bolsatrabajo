@@ -153,3 +153,35 @@ function monthName(month){
 
     }
 }
+
+/**
+ * Funcion general para borrar un registro
+ * recibe como parametro el id del registro y
+ * la ruta del mapping del controlador rest
+ * Ejemplo de llamada a la funcion desde thymeleaf
+ * th:onclick="'eliminarRegistro(\'' + ${award.id} + '\',\'award\')'"
+ * ormerino
+ */
+function eliminarRegistro(id,ruta){
+    swal({
+      title: 'Eliminar',
+      text: "Esta seguro que desea eliminar este elemento?",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Si, eliminar!',
+    }).then(function () {
+        axios.delete("/"+ruta+"/"+ id)
+                                .then(response => {
+                                })
+      swal(
+        'Borrado!',
+        'El registro ha sido eliminado.',
+        'success'
+      ).then(function () {
+          location.reload();
+        })
+    })
+}

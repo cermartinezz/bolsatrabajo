@@ -39,9 +39,11 @@
                                     <tr th:each="u,iter : ${usuarios}">
                                         <td th:text="${iter.count}"></td>
                                         <td th:text="${u.id}"></td>
-                                        <td th:text="${u.username}"></td>
+                                        <td th:text="${u.getUsername()}"></td>
                                         <td>
-
+                                            <a th:href="@{/usuarios/{username}(username=${u.username})}" style="text-decoration:none;">
+                                                <button class="btn btn-warning btn-xs"><span class="fa fa-pencil"></span> Editar</button>
+                                            </a>
                                         </td>
                                     </tr>
                                     </tbody>

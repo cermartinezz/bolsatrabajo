@@ -55,4 +55,12 @@ public class AwardRestController {
         attributes.addFlashAttribute("messageSuccess","El logro se actualizo correctamente");
         return new RedirectView("/postulante/"+Auth.auth().getName()+"/perfil#logros-premios-etc");
     }
+
+    // -------------------Eliminar Logro-------------------------------------------
+    @RequestMapping(value = "{id}",method = RequestMethod.DELETE)
+    public RedirectView delete(@PathVariable("id") long id,RedirectAttributes attributes) {
+        awardService.deleteById(id);
+        attributes.addFlashAttribute("messageSuccess","El logro se elimino correctamente");
+        return new RedirectView("/postulante/"+Auth.auth().getName()+"/perfil#logros-premios-etc");
+    }
 }

@@ -13,4 +13,5 @@ public class AwardService {
     public Award findByNombre(String name){ return awardRepository.findByNombre(name);}
     public void save(Award award){ awardRepository.save(award); }
     public Award findById(long id){ return awardRepository.findById(id); }
+    public void deleteById(long id){ awardRepository.deleteById(id);}
 }

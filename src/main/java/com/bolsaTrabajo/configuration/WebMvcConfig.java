@@ -41,7 +41,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
     @Bean
     public RoleService roleService(){
-        return new RoleService();
+        return new RoleServiceImpl();
     }
 
     @Bean

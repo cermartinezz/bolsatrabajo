@@ -299,12 +299,12 @@
                                     <div class="spacer-lg"></div>
 
                                     <div class="row" id="logros-premios-etc">
+                                        <div th:if="${messageSuccess!=null}" class="alert alert-success alert-dismissable">
+                                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                            <span th:text="${messageSuccess}"></span>
+                                        </div>
                                         <div class="col-md-9">
                                             <h4>Logros, Premios, Etc.</h4>
-                                            <div th:if="${messageSuccess!=null}" class="alert alert-success alert-dismissable">
-                                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                                <span th:text="${messageSuccess}"></span>
-                                            </div>
                                         </div>
 
                                         <div class="col-md-3">
@@ -328,16 +328,21 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr th:each="award,iter : ${postulant.getAwards()}">
+                                                            <tr th:each="award,iter : ${postulantInfo.getAwards()}">
                                                                 <td> - </td>
                                                                 <td th:text="${award.getNombre()}"></td>
                                                                 <td th:text="${award.getLugar()}"></td>
                                                                 <td th:text="${award.getFecha()}"></td>
                                                                 <td>
-                                                                    <a th:href="@{/logros/{id}(id=${award.id})}" style="text-decoration:none;"><button class="btn btn-warning btn-xs"><span class="fa fa-pencil"></span> Editar</button></a>
+                                                                    <a th:href="@{/logros/{id}(id=${award.id})}" style="text-decoration:none;">
+                                                                        <button class="btn btn-warning btn-xs"><span class="fa fa-pencil"></span> Editar</button>
+                                                                    </a>
                                                                 </td>
                                                                 <td>
-                                                                    <a href="/awards/crear"><button class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Eliminar</button></a>
+                                                                    <a style="text-decoration:none;">
+                                                                            <button th:onclick="'eliminarRegistro(\'' + ${award.id} + '\',\'award\')'"
+                                                                                    class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Eliminar</button>
+                                                                    </a>
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -365,6 +370,7 @@
                                                 <li>Dormir</li>
                                                 <li>Hablar</li>
                                                 <li>Procastinar</li>
+                                                <button onclick="deleteLogro(5);">ssdsd</button>
                                             </ul>
                                         </li>
                                     </div>
