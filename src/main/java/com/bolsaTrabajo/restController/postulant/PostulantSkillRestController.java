@@ -52,7 +52,7 @@ public class PostulantSkillRestController {
         return new ResponseEntity<PostulantSkill>(skill,this.headers,HttpStatus.OK);
     }
 
-    @DeleteMapping("/{code}")
+    @DeleteMapping("/{code}/eliminar")
     public ResponseEntity<?> destroy(@PathVariable String username,@PathVariable String code){
 
         boolean eliminado = postulantSkill.delete(username, code);

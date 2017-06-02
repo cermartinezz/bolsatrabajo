@@ -114,6 +114,7 @@ public class PostulantSkill implements Serializable{
         PostulantSkill postulantSkill = postulantSkillService.postulantSkill(postulantSkillId);
 
         try{
+            postulantSkillService.delete(postulantSkill);
             return true;
         }catch (Exception e){
             return false;

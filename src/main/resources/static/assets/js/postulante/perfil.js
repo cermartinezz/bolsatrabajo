@@ -30,13 +30,14 @@ new Vue({
                                     "warning",
                                     "Desea eliminar la certificacion?",url,"delete")
         },
-        deleteSkill: function(index,certification){
-            this.$delete(this.certifications,index);
-            url= "/api/postulante/"+this.username+"/habilidades/"+certification.code+"/eliminar";
+        deleteSkill: function(index,skill){
+            this.$delete(this.skills,index);
+            console.log(skill);
+            url= "/api/postulante/"+this.username+"/habilidades/"+skill.skill.codigo+"/eliminar";
             showMessageConfirmation("Eliminar",
                                     "Se eliminara la habilidad",
                                     "warning",
-                                    "Desea eliminar la certificacion?",url,"delete")
+                                    "Desea eliminar la habilidad?",url,"delete")
         },
         dateName(date){
             return dateName(date);
