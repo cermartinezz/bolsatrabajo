@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:v-on="http://www.w3.org/1999/xhtml">
+
+<head th:include="fragmentos/head :: head" th:remove="tag"/>
+<title>Bolsa de Trabajo</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+<body>
+<div class="site-wrapper" id="app">
+    <header class="header header-menu-fullw">
+
+        <div th:include="fragmentos/top_bar :: top_bar(${user})" th:remove="tag"></div>
+
+        <div th:include="fragmentos/menu :: menu(${user})" th:remove="tag"></div>
+
+    </header>
+
+
+    <div class="main" role="main">
+
+        <div th:include="fragmentos/heading :: heading('Editar habilidades')"></div>
+
+
+        <!-- Page Content -->
+        <section class="page-content">
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <!-- Job Form -->
+                        <form  th:object="${skill}" th:o method="post" id="submit-skill-form" class="job-manager-form"
+                               v-on:submit.prevent="onSubmit">
+
+                            <input type="hidden"
+                                   th:name="${_csrf.parameterName}"
+                                   th:value="${_csrf.token}" />
+
+                            <!-- Book Information Fields -->
+                            <fieldset class="fieldset-skill_title">
+                                <label for="skill_title">Título</label>
+                                <div class="field">
+                                    <input type="text"  class="form-control" v-model="titulo" th:field="*{titulo}"
+                                           name="skill_title" id="skill_title" placeholder="Facilidad de aprendizaje" />
+                                </div>
+                            </fieldset>
+
+                            <fieldset class="fieldset-skill_code">
+                                <label for="skill_code">Código</label>
+                                <div class="field" v-bind:class="{'has-error': listErrors.has('codigo') }">
+                                    <input type="text"  class="form-control" th:field="*{codigo}" v-model="codigo"
+                                           name="skill_code" id="skill_code" placeholder="FA12" />
+                                    <div class="help-block with-errors" v-if="listErrors.has('codigo')" v-text="listErrors.get('codigo')"></div>
+                                </div>
+                            </fieldset>
+
+                            <label>Categorias</label>
+                            <select class="form-control" id="skillCategory"
+                                v-model.number="skillCategory" type="number" name="skillCategory" required>
+
+                                <option disabled value="">Seleccione una categoria</option>
+                                <option th:each="skillCategory : ${categories}"
+                                        th:value="${skillCategory.id}"
+                                        th:text="${skillCategory.titulo}"></option>
+                            </select>
+
+                            <div class="spacer"></div>
+
+                            <p>
+                                <input type="submit" name="submit_skill" class="btn btn-primary" value="Editar &rarr;" />
+                            </p>
+
+                        </form>
+                        <!-- Job Form / End -->
+                    </div>
+                </div>
+
+            </div>
+        </section>
+        <!-- Page Content / End -->
+
+        <div th:include="fragmentos/footer :: footer"></div>
+    </div>
+</div>
+
+
+<div th:include="fragmentos/scripts :: scripts" ></div>
+<script th:inline="javascript">
+    let code = [[${skill.codigo}]];
+</script>
+<script src="../../static/assets/js/editar_habilidad.js"
+        th:src="@{/assets/js/editar_habilidad.js}"></script>
+
+</body>
+</html>

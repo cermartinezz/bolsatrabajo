@@ -2,6 +2,8 @@ package com.bolsaTrabajo.model;
 
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
@@ -10,29 +12,29 @@ import java.util.Set;
 @Table(name = "roles")
 public class Role implements Serializable{
 
-    private long id;
+    private Long id;
     private String name;
     private Set<User> users;
     private Set<Permission> permissions;
 
     public Role(){
-        super();
+
     }
 
     public Role(final String name){
-        super();
         this.name = name;
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
+
 
     public String getName() {
         return name;
@@ -43,6 +45,7 @@ public class Role implements Serializable{
     }
 
     @ManyToMany(mappedBy = "roles")
+    @JsonIgnore
     public Set<User> getUsers() {
         return users;
     }

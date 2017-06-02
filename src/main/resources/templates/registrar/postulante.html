@@ -22,33 +22,35 @@
         <section class="page-content">
             <div class="container">
 
-                <div class="row">
-                    <div class="col-md-6 col-md-offset-3">
-                        <div class="box">
-                            <span th:utext="${successMessage}"></span>
-                            <form autocomplete="off"
-                                  th:action="@{/registrar/postulante}"
-                                  th:object="${userForm}" method="post" class="form-horizontal"
-                                  role="form">
-
+                <div class="box">
+                    <span th:utext="${successMessage}"></span>
+                    <form autocomplete="off"
+                          th:action="@{/registrar/postulante}"
+                          th:object="${userForm}" method="post" class="form-horizontal"
+                          role="form">
+                        <div class="row">
+                            <div class="col-md-6">
                                 <div class="form-group">
-                                    <label th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></label>
-                                    <input type="text" th:field="*{name}" placeholder="Nombre Postulante" class="form-control" required/>
+                                    <label class="help-block with-errors" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></label>
+                                    <label >Nombre *</label>
+                                    <input type="text" th:field="*{name}" placeholder="Juan" class="form-control" required/>
                                 </div>
 
                                 <div class="form-group">
-                                    <label th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></label>
-                                    <input type="text" th:field="*{lastName}" placeholder="Apellidos del Postulante" class="form-control" required/>
+                                    <label class="help-block with-errors" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></label>
+                                    <label >Apellidos *</label>
+                                    <input type="text" th:field="*{lastName}" placeholder="Perez" class="form-control" required/>
                                 </div>
 
                                 <div class="form-group">
-                                    <label th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></label>
+                                    <label class="help-block with-errors" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></label>
+                                    <label >Nombre de usuario *</label>
                                     <input type="text" th:field="*{username}" placeholder="Nombre de usuario" class="form-control" required/>
                                 </div>
 
                                 <div class="form-group">
-                                    <label th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}" ></label>
-                                    <label for="birthday">Fecha de Nacimiento</label>
+                                    <label class="help-block with-errors" th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}" ></label>
+                                    <label >Fecha de Nacimiento</label>
                                     <input type="date"
                                            name="birthday"
                                            placeholder="fecha de nacimiento"
@@ -58,46 +60,88 @@
 
 
                                 <div class="form-group">
-                                    <label for="gender" class="radio-inline">Genero:</label>
+                                    <label class="radio-inline">Genero:</label>
                                     <label class="radio-inline"><input type="radio" th:field="*{gender}" name="gender" value="Masculino" /> Masculino</label>
                                     <label class="radio-inline"><input type="radio" th:field="*{gender}" name="gender" value="Femenino" /> Femenino</label>
                                 </div>
 
                                 <div class="form-group">
-                                    <label th:if="${#fields.hasErrors('nit')}" th:errors="*{nit}"></label>
-                                    <masked-input type="text" mask="1111-111111-111-1" name="nit" th:field="*{nit}" placeholder="Nit" class="form-control" required/>
+                                    <label class="help-block with-errors" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></label>
+                                    <label >Correo Electronico</label>
+                                    <input type="email"  th:field="*{email}" placeholder="Juan@perez.com" class="form-control" />
                                 </div>
 
                                 <div class="form-group">
-                                    <label th:if="${#fields.hasErrors('dui')}" th:errors="*{dui}" ></label>
-                                    <masked-input type="text" mask="11111111-1" name="dui" th:field="*{dui}" placeholder="DUI" class="form-control" />
+                                    <label class="help-block with-errors" th:if="${#fields.hasErrors('password')}" th:errors="*{password}" ></label>
+                                    <label >Contraseña</label>
+                                    <input type="password"
+                                           th:field="*{password}"
+                                           placeholder="Password" class="form-control" />
                                 </div>
 
                                 <div class="form-group">
-                                    <label th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></label>
-                                    <input type="email" th:field="*{email}" placeholder="Email" class="form-control" />
+                                    <label class="help-block with-errors" th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{passwordConfirm}" ></label>
+                                    <label >Confirmacion de contraseña</label>
+                                    <input type="password"
+                                           th:field="*{passwordConfirm}"
+                                           placeholder="Password Confirm" class="form-control" required/>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <label class="help-block with-errors" th:if="${#fields.hasErrors('nit')}" th:errors="*{nit}"></label>
+                                    <label >Nit *</label>
+                                    <masked-input type="text"
+                                                  mask="1111-111111-111-1"
+                                                  name="nit" th:field="*{nit}" placeholder="Nit" class="form-control" required></masked-input>
                                 </div>
 
                                 <div class="form-group">
-                                    <label th:if="${#fields.hasErrors('password')}" th:errors="*{password}" ></label>
-                                    <input type="password" th:field="*{password}" placeholder="Password" class="form-control" />
+                                    <label class="help-block with-errors" th:if="${#fields.hasErrors('dui')}" th:errors="*{dui}" ></label>
+                                    <label >Dui *</label>
+                                    <masked-input type="text"
+                                                  mask="11111111-1"
+                                                  name="dui" th:field="*{dui}" placeholder="DUI" class="form-control" ></masked-input>
                                 </div>
 
                                 <div class="form-group">
-                                    <label th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{passwordConfirm}" ></label>
-                                    <input type="password" th:field="*{passwordConfirm}" placeholder="Password Confirm" class="form-control" required/>
+                                    <label class="help-block with-errors" th:if="${#fields.hasErrors('nup')}" th:errors="*{nup}" ></label>
+                                    <label >Nup</label>
+                                    <masked-input type="text"
+                                                  mask="111111111111"
+                                                  name="nup" th:field="*{nup}" placeholder="111111111111" class="form-control" ></masked-input>
+                                </div>
+
+                                <div class="form-group" >
+                                    <label class="help-block with-errors" th:if="${#fields.hasErrors('passport')}" th:errors="*{passport}"></label>
+                                    <label >Pasaporte</label>
+                                    <masked-input type="text"
+                                                  mask="A11111111"
+                                                  name="passport" th:field="*{passport}" placeholder="A11111111" class="form-control" ></masked-input>
                                 </div>
 
                                 <div class="form-group">
-                                        <button type="submit" class="btn btn-primary btn-block">Registrar Postulante</button>
+                                    <label th:if="${#fields.hasErrors('phonenumber')}" th:errors="*{phonenumber}" ></label>
+                                    <label >Numero de telefono</label>
+                                    <masked-input type="text" mask="1111-1111" th:field="*{phonenumber}" placeholder="1111-1111" class="form-control" ></masked-input>
                                 </div>
 
-                            </form>
+                                <div class="form-group">
+                                    <label th:if="${#fields.hasErrors('cellphone')}"></label>
+                                    <label >Celular</label>
+                                    <masked-input type="text" mask="1111-1111" th:field="*{cellphone}" placeholder="1111-1111" class="form-control" ></masked-input>
+                                </div>
+
+                            </div>
                         </div>
-                    </div>
+                        <div class="form-group">
+                                <button type="submit" class="btn btn-primary btn-block">Registrar Postulante</button>
+                        </div>
+                    </form>
                 </div>
-
             </div>
+
         </section>
 
         <div th:include="fragmentos/footer :: footer"></div>

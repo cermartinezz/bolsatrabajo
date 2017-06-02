@@ -33,7 +33,12 @@
                                     <li><a href="#">Editar Perfil</a></li> -->
                                 </ul>
                             </li>
-
+                            <li><a href="#">Empresa</a>
+                                <ul>
+                                    <li><a th:href="@{'/company/'+ ${user.getName()} + '/profile'}">Perfil Empresa</a></li>
+                                    <li><a th:href="@{'/company/'+ ${user.getName()} + '/editar'}">Editar Perfil</a></li>
+                                </ul>
+                            </li>
                             <!--<li><a href="#">Oportunidades</a>
                                 <ul>
                                     <li><a href="#">Empleos</a></li>

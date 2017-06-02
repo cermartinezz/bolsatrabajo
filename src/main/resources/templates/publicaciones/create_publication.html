@@ -8,7 +8,9 @@
 <div class="site-wrapper" id="app">
     <header class="header header-menu-fullw">
 
-        <div th:include="fragmentos/menu :: menu" th:remove="tag"></div>
+        <div th:include="fragmentos/top_bar :: top_bar(${user})" th:remove="tag"></div>
+
+        <div th:include="fragmentos/menu :: menu(${user})" th:remove="tag"></div>
 
     </header>
 
@@ -24,10 +26,13 @@
 
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
-                        <JobCat Job Form -->
-                        <form  th:object="${publication}" method="post" id="submit-pub-form" class="job-manager-form"
+
+                        <form  method="post" id="submit-pub-form" class="job-manager-form"
                                v-on:submit.prevent="onSubmit">
 
+                            <input type="hidden"
+                                   th:name="${_csrf.parameterName}"
+                                   th:value="${_csrf.token}" />
 
                             <!-- Book Information Fields -->
                             <fieldset class="fieldset-book_title">
@@ -40,9 +45,11 @@
 
                             <fieldset class="fieldset-book_code">
                                 <label for="book_code">Código</label>
-                                <div class="field">
+                                <div class="field" :class="{'has-error': listErrors.has('codigo') }">
                                     <input type="text"  class="form-control" v-model="codigo"
                                            name="book_code" id="book_code" placeholder="PAD111" />
+                                    <div class="help-block with-errors" v-if="listErrors.has('codigo')" v-text="listErrors.get('codigo')"></div>
+
                                 </div>
                             </fieldset>
 
@@ -64,7 +71,7 @@
                                 <div class="col-md-6">
                                     <div class="radio radio__custom radio__style1">
                                         <label>
-                                            <input type="radio" name="optionsRadios1" id="optRadio11" value="option1" checked>
+                                            <input type="radio" name="optionsRadios1" id="optRadio1" value="1" v-model.number="tipo" checked>
                                             <span>Libro</span>
                                         </label>
                                     </div>
@@ -72,7 +79,7 @@
                                 <div class="col-md-6">
                                     <div class="radio radio__custom radio__style1">
                                         <label>
-                                            <input type="radio" name="optionsRadios1" id="optRadio11" value="option1">
+                                            <input type="radio" name="optionsRadios1" id="optRadio2" value="2" v-model.number="tipo">
                                             <span>Publicación Científica</span>
                                         </label>
                                     </div>
@@ -87,7 +94,7 @@
                             </p>
 
                         </form>
-                        <JobCat Job Form / End -->
+
                     </div>
                 </div>
 
@@ -101,31 +108,7 @@
 
 
 <div th:include="fragmentos/scripts :: scripts" ></div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.0/axios.js" th:src="@{https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.0/axios.js}"></script>
-<script src="https://unpkg.com/vue" th:src="@{https://unpkg.com/vue}"></script>
-<script th:inline="javascript">
+<script th:src="@{/assets/js/crear_publicacion.js}"></script>
 
-    let code = "";
-    let title = "";
-    let editorial = "";
-    new Vue({
-        el: "#app",
-        data: {
-            titulo: title,
-            codigo: code,
-            editorial: editorial,
-        },
-        methods: {
-            onSubmit: function(){
-                axios.post("/publications", this.$data)
-                    .then(response = alert("success"))
-                    .catch(error => {
-                    console.log(error.response);
-            })
-            }
-        }
-    })
-
-</script>
 </body>
 </html>

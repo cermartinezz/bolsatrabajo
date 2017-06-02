@@ -2,12 +2,11 @@ package com.bolsaTrabajo;
 
 import com.bolsaTrabajo.model.Permission;
 import com.bolsaTrabajo.model.Role;
-import com.bolsaTrabajo.model.SkillCategory;
+import com.bolsaTrabajo.model.catalog.SkillCategory;
 import com.bolsaTrabajo.repositories.SkillCategoryRepository;
 import com.bolsaTrabajo.service.PermissionService;
 import com.bolsaTrabajo.service.RoleService;
 import com.bolsaTrabajo.service.UserService;
-import netscape.security.Privilege;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -102,6 +101,14 @@ public class BolsaTrabajoApplication implements CommandLineRunner {
 		SkillCategory category5 = new SkillCategory(
 				"Linguisticas","HLIN"
 		);
+		if (skillCategoryRepository.count()<0){
+			skillCategoryRepository.save(category1);
+			skillCategoryRepository.save(category2);
+			skillCategoryRepository.save(category3);
+			skillCategoryRepository.save(category4);
+		}
+
+
 	}
 
 	@Transactional

@@ -21,80 +21,78 @@
 
             <section class="page-content">
                 <div class="container">
-
-                <div class="col-md-6 col-md-offset-3">
+                    <p><a th:href="@{'/postulante/'+${username}+'/perfil'}" class="btn btn-success"><strong>Perfil</strong></a></p>
                     <div class="box">
                         <div class="row">
 
-                                <form v-on:submit.prevent="onSubmit">
-                                    <input type="hidden"
-                                           th:name="${_csrf.parameterName}"
-                                           th:value="${_csrf.token}" />
-                                    <div class="form-group" th:object="${institution}">
-                                        <label> Institucion</label>
+                            <form @submit.prevent="onSubmit">
+                                <input type="hidden"
+                                       th:name="${_csrf.parameterName}"
+                                       th:value="${_csrf.token}" />
+                                <div class="form-group" th:object="${institution}">
+                                    <label> Institucion</label>
 
-                                        <select class="form-control" id="institution"
-                                                v-model.number="institution"
-                                                v-on:change="getCertifications"
-                                                type="number" name="institution" required>
+                                    <select class="form-control" id="institution"
+                                            v-model.number="institution"
+                                            @change="getCertifications"
+                                            type="number" name="institution" required>
 
-                                            <option disabled value="">Seleccione institucion</option>
+                                        <option disabled value="">Seleccione institucion</option>
 
-                                            <option th:each="institution : ${institutions}"
-                                                    th:value="${institution.id}"
-                                                    th:text="${institution.institutionName}"></option>
-                                        </select>
+                                        <option th:each="institution : ${institutions}"
+                                                th:value="${institution.id}"
+                                                th:text="${institution.institutionName}"></option>
+                                    </select>
 
-                                    </div>
+                                </div>
 
 
-                                    <div class="form-group">
-                                        <label> Certificacion</label>
+                                <div class="form-group">
+                                    <label> Certificacion</label>
 
-                                        <select class="form-control" id="certification"
-                                                v-model="certification"
-                                                v-bind:disabled="certifications_list.length == 0"
-                                                required>
+                                    <select class="form-control" id="certification"
+                                            v-model="certification"
+                                            :disabled="certifications_list.length == 0"
+                                            required>
 
-                                            <option disabled value="">Seleccione Certificacion</option>
+                                        <option disabled value="">Seleccione Certificacion</option>
 
-                                            <option v-for="certification in certifications_list"
-                                                    v-bind:value="certification.certificationId"
-                                                    v-text="certification.certificationTitle">
+                                        <option v-for="certification in certifications_list"
+                                                :value="certification.certificationId"
+                                                v-text="certification.certificationTitle">
 
-                                        </select>
+                                    </select>
 
-                                    </div>
+                                </div>
 
-                                    <div class="form-group">
-                                        <label> Identificador de Certficacion*</label>
+                                <div class="form-group" :class="{'has-error': listErrors.has('code') }">
+                                    <label> Id de la certificacion*</label>
 
-                                        <input type="text" name="certificationCode"
-                                               v-model="certificationCode" placeholder="Identificador de Certficacion" class="form-control" required/>
+                                    <input type="text" name="code"
+                                           v-model="code" placeholder="Id de la certificacion" class="form-control" required/>
 
-                                    </div>
+                                    <div class="help-block with-errors" v-if="listErrors.has('code')" v-text="listErrors.get('code')"></div>
+                                </div>
 
-                                    <div class="form-group">
-                                        <label> Fecha de expiracion*</label>
+                                <div class="form-group">
+                                    <label> Fecha de expiracion*</label>
 
-                                        <input type="date"
-                                               name="expirationDate"
-                                               v-model="expirationDate"
-                                               min="2000-01-01"
-                                               class="form-control" required/>
+                                    <input type="date"
+                                           name="expirationDate"
+                                           v-model="expirationDate"
+                                           min="2000-01-01"
+                                           class="form-control" required/>
 
-                                        <div    class="help-block with-errors"></div>
-                                    </div>
+                                    <div    class="help-block with-errors"></div>
+                                </div>
 
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-primary btn-block">Enviar</button>
-                                    </div>
-                                </form>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary btn-block">Enviar</button>
+                                </div>
+                            </form>
 
                         </div>
                     </div>
-                </div>
-
 
 
                 </div>

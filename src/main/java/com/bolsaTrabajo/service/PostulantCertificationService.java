@@ -1,8 +1,12 @@
 package com.bolsaTrabajo.service;
 
-import com.bolsaTrabajo.model.PostulantCertification;
+import com.bolsaTrabajo.model.compositeKeys.PostulantCertificationId;
+import com.bolsaTrabajo.model.postulantInfo.PostulantCertification;
+
 
 public interface PostulantCertificationService {
 
-    void save(PostulantCertification postulantCertification);
+    PostulantCertification getCertificationOfPostulant(PostulantCertificationId postulantCertificationId);
+    void delete(PostulantCertification postulantCertification);
+
 }

@@ -1,6 +1,6 @@
 package com.bolsaTrabajo.repositories;
 
-import com.bolsaTrabajo.model.CompanyCat;
+import com.bolsaTrabajo.model.catalog.CompanyCat;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

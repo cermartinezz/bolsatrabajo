@@ -72,7 +72,7 @@ public class Company extends User{
 
     @Override
     public String toString() {
-        return "Company{" +
+        return "company{" +
                 "id=" + id +
                 ", nombreC='" + nombreC + '\'' +
                 ", repreLegal=" + repreLegal +

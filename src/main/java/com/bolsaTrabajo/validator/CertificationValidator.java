@@ -1,7 +1,7 @@
 package com.bolsaTrabajo.validator;
 
-import com.bolsaTrabajo.model.Certification;
-import com.bolsaTrabajo.model.Institution;
+import com.bolsaTrabajo.model.catalog.Certification;
+import com.bolsaTrabajo.model.catalog.Institution;
 import com.bolsaTrabajo.service.CertificationService;
 import com.bolsaTrabajo.service.InstitutionService;
 import org.apache.commons.lang3.text.WordUtils;

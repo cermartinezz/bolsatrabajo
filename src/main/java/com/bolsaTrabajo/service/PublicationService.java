@@ -1,6 +1,6 @@
 package com.bolsaTrabajo.service;
 
-import com.bolsaTrabajo.model.Publication;
+import com.bolsaTrabajo.model.postulantInfo.Publication;
 import com.bolsaTrabajo.repositories.PublicationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -23,11 +23,19 @@ public class PublicationService {
         return publicationRepository.findByCodigo(code);
     }
 
+    public Publication findById(int id){
+        return publicationRepository.findById(id);
+    }
+
     public void storePublication(Publication publication){
         publicationRepository.save(publication);
     }
 
     public void updatePublication(Publication publication) {
         storePublication(publication);
+    }
+
+    public void deletePublication(String code){
+        publicationRepository.deleteByCodigo(code);
     }
 }

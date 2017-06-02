@@ -35,3 +35,8 @@ security.basic.enabled=false
 # ==============================================================
 spring.messages.basename=validation,validation_es # Comma-separated list of basenames, each following the ResourceBundle convention.
 
+# ==============================================================
+# = TIME-ZONE AND DATE-FORMAT
+# ==============================================================
+spring.jackson.time-zone=America/El_Salvador
+spring.jackson.date-format=yyyy-MM-dd

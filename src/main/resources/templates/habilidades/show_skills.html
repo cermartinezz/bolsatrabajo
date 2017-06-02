@@ -9,7 +9,9 @@
 <div class="site-wrapper" id="app">
     <header class="header header-menu-fullw">
 
-        <div th:include="fragmentos/menu :: menu" th:remove="tag"></div>
+        <div th:include="fragmentos/top_bar :: top_bar(${user})" th:remove="tag"></div>
+
+        <div th:include="fragmentos/menu :: menu(${user})" th:remove="tag"></div>
 
     </header>
 
@@ -40,17 +42,17 @@
                             <th>Acciones</th>
                         </tr>
                         </thead>
-                        <tr v-for="categoria in skills">
-                            <td >{{ categoria.id }}</td>
-                            <td >{{ categoria.codigo }}</td>
-                            <td >{{ categoria.titulo }}</td>
-                            <td >{{ categoria.skillCategory }}</td>
+                        <tr v-for="habilidad in skills">
+                            <td >{{ habilidad.id }}</td>
+                            <td >{{ habilidad.codigo }}</td>
+                            <td >{{ habilidad.titulo }}</td>
+                            <td >{{ habilidad.skillCategory.titulo }}</td>
 
                             <td>
                                 <div class="row">
                                     <div class="span12 centered-text">
-                                        <a href="/" th:href="@{/}" class="btn btn-success inline">Editar</a>
-                                        <a href="/" th:href="@{/}" class="btn btn-primary inline">Eliminar</a>
+                                        <a v-bind:href="'/habilidad/'+habilidad.codigo+'/editar'"  class="btn btn-success inline">Editar</a>
+                                        <a v-on:click="deleteSkill(habilidad.codigo)"  class="btn btn-primary inline">Eliminar</a>
                                     </div>
                                 </div>
                             </td>
@@ -66,14 +68,36 @@
 
 
 <div th:include="fragmentos/scripts :: scripts"></div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.0/axios.js"></script>
-<script src="https://unpkg.com/vue"></script>
+
 <script th:inline="javascript">
 
     new Vue({
         el: "#app",
         data: {
             skills: []
+        },methods:{
+            deleteSkill: function (codigo) {
+                swal({
+                    title: 'Eliminar',
+                    text:'Esta seguro que desea eliminar este elemento?',
+                    showCancelButton: true,
+                    confirmButtonText: 'Si, eliminar!',
+                    confirmButtonColor: '#d9534f',
+                    closeOnConfirm: false,
+                    type: 'error'
+                },
+                    function () {
+                            axios.delete("/skills/"+ codigo)
+                                .then(response => {
+                                console.log(response);
+                            showMessageTimer("Eliminado", "El registro fue eliminado con exito", 'success', 2500);
+
+                            })
+
+                    });
+
+
+            }
         },
         mounted(){
             axios.get("/skills")

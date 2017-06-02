@@ -1,6 +1,6 @@
 package com.bolsaTrabajo.repositories;
 
-import com.bolsaTrabajo.model.Publication;
+import com.bolsaTrabajo.model.postulantInfo.Publication;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -10,5 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository("publicationRepository")
 public interface PublicationRepository extends JpaRepository<Publication,Integer> {
         Publication findByCodigo(String code);
+        Publication findById(int id);
+        Publication deleteByCodigo(String code);
 
 }

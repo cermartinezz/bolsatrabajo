@@ -31,8 +31,8 @@ public class LoginController {
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Model model, String error, String logout) {
 
-        if(!Auth.auth().getPrincipal().equals("anonymousUser")){
-            return "/";
+        if(Auth.check()){
+            return "redirect:/";
         }else{
             User u = userService.findByUsername(Auth.auth().getName());
             model.addAttribute("user",Auth.auth());

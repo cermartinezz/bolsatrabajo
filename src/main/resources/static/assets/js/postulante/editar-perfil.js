@@ -44,10 +44,10 @@ new Vue({
     },
     methods: {
         onSubmit(){
-            axios.put('/api/postulant/'+ username +'/actualizar',this.$data)
+            axios.put('/api/postulantInfo/'+ username +'/actualizar',this.$data)
                 .then(response => {
                     console.log(response);
-                    showMessageTimer("Actualizado","Informacion Actualizada","success",5000,response.headers.location);
+                    showMessageTimerRedirect("Actualizado","Informacion Actualizada","success",5000,response.headers.location);
                 })
                 .catch(error => {
                     console.log(error)
@@ -55,7 +55,7 @@ new Vue({
         }
     },
     mounted(){
-        axios.get('/api/postulant/'+username)
+        axios.get('/api/postulantInfo/'+username)
             .then(response => {
                 console.log(response);
                 this.name = response.data.name;

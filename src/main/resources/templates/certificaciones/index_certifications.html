@@ -33,20 +33,20 @@
                         <table class="job-manager-jobs table table-bordered table-stripe">
                             <thead>
                             <tr>
-                                <th>Id</th>
                                 <th>Codigo</th>
                                 <th>Titulo</th>
+                                <th>Institucion</th>
                                 <th>Acciones</th>
                             </tr>
                             </thead>
                             <tr v-for="certification in certificaciones">
-                                <td >{{ certification.certificationId }}</td>
                                 <td >{{ certification.certificationCode }}</td>
                                 <td >{{ certification.certificationTitle }}</td>
+                                <td >{{ certification.institution.institutionName }}</td>
                                 <td>
                                     <div class="row">
                                         <div class="span12 centered-text">
-                                            <a v-bind:href="'/certificaciones/' + certification.certificationCode + '/editar'"  class="btn btn-success inline">Editar</a>
+                                            <a :href="'/certificaciones/' + certification.certificationCode + '/editar'"  class="btn btn-success inline">Editar</a>
                                             <a href="/" th:href="@{/}" class="btn btn-primary inline">Eliminar</a>
                                         </div>
                                     </div>

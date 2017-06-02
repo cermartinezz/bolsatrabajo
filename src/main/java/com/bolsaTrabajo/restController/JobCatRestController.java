@@ -1,6 +1,6 @@
 package com.bolsaTrabajo.restController;
 
-import com.bolsaTrabajo.model.JobCat;
+import com.bolsaTrabajo.model.catalog.JobCat;
 import com.bolsaTrabajo.service.JobCatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,41 +18,38 @@ public class JobCatRestController {
     @Autowired
     private JobCatService jobCatService;
 
-    //@RequestMapping(method = RequestMethod.POST)
     @PostMapping
     public RedirectView store(JobCat jobCat, RedirectAttributes attributes){
 
         JobCat jobCat1 = jobCatService.getJob(jobCat.getPuesto());
         if (jobCat1 != null){
             attributes.addFlashAttribute("message","Puesto "+ jobCat1.getPuesto()+" ya existe");
-            return new RedirectView("/jobs/crear");
+            return new RedirectView("/cat/jobs/crear");
         }
 
         jobCatService.saveJob(jobCat);
         attributes.addFlashAttribute("message","Registro se guardo con exito");
-        return new RedirectView("/jobs");
+        return new RedirectView("/cat/jobs");
     }
 
-    //@RequestMapping(value = "/update/{id}",method = RequestMethod.PUT)
     @PutMapping(value = "/update/{id}")
     public RedirectView update(JobCat jobCat, RedirectAttributes attributes){
         JobCat e = jobCatService.getJob(jobCat.getPuesto());
         if (e!=null){
             attributes.addFlashAttribute("message","Puesto "+ e.getPuesto()+" ya existe");
-            return new RedirectView("/jobs/editar/"+ jobCat.getId());
+            return new RedirectView("/cat/jobs/editar/"+ jobCat.getId());
         }
         e = jobCatService.getJob(jobCat.getId());
         e.setPuesto(jobCat.getPuesto());
         jobCatService.saveJob(e);
         attributes.addFlashAttribute("message","Registro modificado con exito");
-        return new RedirectView("/jobs");
+        return new RedirectView("/cat/jobs");
     }
 
-    //@RequestMapping(value = "/delete/{id}",method = RequestMethod.DELETE)
     @DeleteMapping(value = "/delete/{id}")
     public RedirectView delete(JobCat jobCat, RedirectAttributes attributes){
         jobCatService.deleteJob(jobCat);
         attributes.addFlashAttribute("message","Registro se elimino con exito");
-        return new RedirectView("/jobs");
+        return new RedirectView("/cat/jobs");
     }
 }

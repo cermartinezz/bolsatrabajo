@@ -1,6 +1,6 @@
 package com.bolsaTrabajo.restController;
 
-import com.bolsaTrabajo.model.Certification;
+import com.bolsaTrabajo.model.catalog.Certification;
 import com.bolsaTrabajo.service.CertificationService;
 import com.bolsaTrabajo.validator.CertificationValidator;
 import org.slf4j.Logger;

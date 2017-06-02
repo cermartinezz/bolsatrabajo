@@ -1,6 +1,6 @@
 package com.bolsaTrabajo.controller;
 
-import com.bolsaTrabajo.model.CompanyCat;
+import com.bolsaTrabajo.model.catalog.CompanyCat;
 import com.bolsaTrabajo.service.CompanyCatService;
 import com.bolsaTrabajo.util.Auth;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +17,11 @@ import org.springframework.web.servlet.ModelAndView;
  * Created by enan0 on 13/4/2017.
  */
 @Controller
-@RequestMapping("/empresas")
+@RequestMapping("/cat/empresas")
 public class CompanyCatController {
 
-    public static final String CREATE_COMPANY = "empresas/create_company";
-    public static final String EDIT_COMPANY = "empresas/edit_company";
+    public static final String CREATE_COMPANY = "Postulante/empresasCat/create_company";
+    public static final String EDIT_COMPANY = "Postulante/empresasCat/edit_company";
     public static final String COMPANY = "company";
 
     @Autowired
@@ -31,7 +31,7 @@ public class CompanyCatController {
     public String show(Model model){
         model.addAttribute("user", Auth.auth());
         model.addAttribute("companies", companyCatService.getAllCompanies());
-        return "empresas/show_company";
+        return "Postulante/empresasCat/show_company";
     }
 
     @RequestMapping(value = "/crear", method = RequestMethod.GET)
@@ -46,6 +46,7 @@ public class CompanyCatController {
         ModelAndView modelAndView = new ModelAndView();
         CompanyCat e = companyCatService.getCompany(Long.parseLong(code));
         modelAndView.addObject("company",e);
+        modelAndView.addObject("user",Auth.auth());
         modelAndView.setViewName(EDIT_COMPANY);
         return modelAndView;
     }
