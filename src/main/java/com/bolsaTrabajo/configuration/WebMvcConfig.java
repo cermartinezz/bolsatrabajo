@@ -7,7 +7,6 @@ import com.bolsaTrabajo.validator.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @Configuration
@@ -30,6 +29,9 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
     @Bean
     public CompanyService companyService(){ return  new CompanyServiceImpl(); }
+
+    @Bean
+    public JobService jobService(){return new JobServiceImpl();}
 
     @Bean
     public PostulantService postulantService(){
@@ -122,6 +124,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     public CompanyCatService companyCatService(){
         return new CompanyCatService();
     }
+
 
 }
 
