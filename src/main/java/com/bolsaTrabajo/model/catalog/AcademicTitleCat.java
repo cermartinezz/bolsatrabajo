@@ -1,8 +1,11 @@
 package com.bolsaTrabajo.model.catalog;
 
 import com.bolsaTrabajo.model.postulantInfo.AcademicExperience;
+import com.bolsaTrabajo.model.postulantInfo.PostulantPublication;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Set;
 
 /**

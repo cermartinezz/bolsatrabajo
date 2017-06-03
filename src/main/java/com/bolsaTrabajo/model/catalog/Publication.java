@@ -1,5 +1,7 @@
-package com.bolsaTrabajo.model.postulantInfo;
+package com.bolsaTrabajo.model.catalog;
 
+import com.bolsaTrabajo.model.postulantInfo.PostulantPublication;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
@@ -11,7 +13,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "publications")
-public class Publication implements Serializable{
+public class Publication implements Serializable {
 
     private int id;
     private String codigo;
@@ -76,7 +78,10 @@ public class Publication implements Serializable{
         this.tipo = tipo;
     }
 
-    @OneToMany(mappedBy = "publication", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "primaryKey.publication",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY)
+    @JsonIgnore
     public Set<PostulantPublication> getPostulantPublications() {
         return postulantPublications;
     }

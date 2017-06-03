@@ -1,7 +1,6 @@
 package com.bolsaTrabajo;
 
 import com.bolsaTrabajo.model.Language;
-import com.bolsaTrabajo.model.SkillCategory;
 import com.bolsaTrabajo.model.Role;
 import com.bolsaTrabajo.model.catalog.Skill;
 import com.bolsaTrabajo.model.catalog.SkillCategory;
@@ -36,7 +35,6 @@ public class BolsaTrabajoApplication implements CommandLineRunner {
 
 	@Autowired
 	private SkillService skillService;
-	private SkillCategoryService skillCategoryService;
 
 	@Autowired
 	private LanguageService languageService;
@@ -47,32 +45,29 @@ public class BolsaTrabajoApplication implements CommandLineRunner {
 
 	@Override
 	@Transactional
-	public void run(String... strings) throws Exception{
+	public void run(String... strings) throws Exception {
 
 
-		if(languageService.getAllLanguages() == null){
+		if (languageService.getAllLanguages() == null) {
 			insertLanguages();
 
 		}
 
 
-	}
-
-	private void insertCategories(){
 		//Permisos, roles y usuario inicial en la aplicacion
 
 
 		Role role = new Role("POSTULANTE");
 		Role role2 = new Role("EMPRESA");
 
-		if(roleService.count()<=1){
+		if (roleService.count() <= 1) {
 			roleService.save(role);
 			roleService.save(role2);
 		}
 
 		UserService userService;
 
-		if(roleService.findByName("ADMIN")==null) {
+		if (roleService.findByName("ADMIN") == null) {
 			Permission ucpermission = createPermissionIfNotExist("USER.CREATE");
 			Permission urpermission = createPermissionIfNotExist("USER.READ");
 			Permission uepermission = createPermissionIfNotExist("USER.EDIT");
@@ -83,22 +78,22 @@ public class BolsaTrabajoApplication implements CommandLineRunner {
 		}
 
 		SkillCategory category1 = new SkillCategory(
-				"Locomotrices","HLOC"
+				"Locomotrices", "HLOC"
 		);
 
 		SkillCategory category2 = new SkillCategory(
-				"Intelectuales","HINT"
+				"Intelectuales", "HINT"
 		);
 
 		SkillCategory category3 = new SkillCategory(
-				"Sociales","HSOC"
+				"Sociales", "HSOC"
 		);
 
 		SkillCategory category4 = new SkillCategory(
-				"Gerenciales","HGER"
+				"Gerenciales", "HGER"
 		);
 		SkillCategory category5 = new SkillCategory(
-				"Linguisticas","HLIN"
+				"Linguisticas", "HLIN"
 		);
 		Skill skill = new Skill("Nose 1", "nose1", category1);
 		Skill skill2 = new Skill("Nose 2", "nose2", category2);
@@ -106,7 +101,7 @@ public class BolsaTrabajoApplication implements CommandLineRunner {
 		Skill skill4 = new Skill("Nose 4", "nose4", category4);
 		Skill skill5 = new Skill("Nose algo", "nose_2", category1);
 
-		if (skillCategoryService.count()<=0){
+		if (skillCategoryService.count() <= 0) {
 			skillCategoryService.save(category1);
 			skillCategoryService.save(category2);
 			skillCategoryService.save(category3);
@@ -117,6 +112,8 @@ public class BolsaTrabajoApplication implements CommandLineRunner {
 			skillService.storeSkill(skill4);
 			skillService.storeSkill(skill5);
 		}
+
+	}
 
 	private void insertLanguages(){
 		Language language1 = new Language(

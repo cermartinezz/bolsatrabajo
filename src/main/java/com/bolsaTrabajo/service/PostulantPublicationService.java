@@ -1,24 +1,13 @@
 package com.bolsaTrabajo.service;
 
-import com.bolsaTrabajo.model.PostulantPublication;
-import com.bolsaTrabajo.repositories.PostulantPublicationRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.List;
+import com.bolsaTrabajo.model.postulantInfo.PostulantPublication;
+import com.bolsaTrabajo.model.compositeKeys.PostulantPublicationId;
 
 /**
  * Created by mvip on 05-30-17.
  */
-public class PostulantPublicationService {
+public interface PostulantPublicationService {
 
-    @Autowired
-    private PostulantPublicationRepository postulantPublicationRepository;
+    PostulantPublication getPublicationOfPostulant(PostulantPublicationId postulantPublicationId);
 
-    public List<PostulantPublication> getAll(){
-        return postulantPublicationRepository.findAll();
-    }
-
-    public void store(PostulantPublication postulantPublication){
-        postulantPublicationRepository.save(postulantPublication);
-    }
 }

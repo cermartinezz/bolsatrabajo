@@ -1,6 +1,7 @@
 package com.bolsaTrabajo.controller;
 
-import com.bolsaTrabajo.model.postulantInfo.Publication;
+import com.bolsaTrabajo.model.catalog.AcademicTitleCat;
+import com.bolsaTrabajo.model.catalog.Publication;
 import com.bolsaTrabajo.service.PublicationService;
 import com.bolsaTrabajo.util.Auth;
 import org.springframework.beans.factory.annotation.Autowired;

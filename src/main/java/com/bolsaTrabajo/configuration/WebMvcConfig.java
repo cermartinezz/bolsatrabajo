@@ -1,15 +1,14 @@
 package com.bolsaTrabajo.configuration;
 
 import com.bolsaTrabajo.model.postulantInfo.PostulantCertification;
+import com.bolsaTrabajo.model.postulantInfo.PostulantPublication;
 import com.bolsaTrabajo.model.postulantInfo.PostulantSkill;
-import com.bolsaTrabajo.model.PostulantPublication;
 import com.bolsaTrabajo.service.*;
 import com.bolsaTrabajo.service.implementations.*;
 import com.bolsaTrabajo.validator.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @Configuration
@@ -23,6 +22,13 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     public PostulantCertification postulantCertification(){
         return new PostulantCertification();
     }
+
+
+    @Bean
+    public PostulantPublication postulantPublication(){
+        return new PostulantPublication();
+    }
+
 
     @Bean
     public PostulantSkill postulantSkill(){
@@ -41,20 +47,6 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     @Bean
     public CertificationService certificationService(){
         return new CertificationServiceImpl();
-    }
-
-    @Bean
-    public PostulantCertificationService postulantCertificationService() {
-
-        return new PostulantCertificationImpl();
-
-    }
-
-    @Bean
-    public PostulantPublicationService postulantPublicationServiceService() {
-
-        return new PostulantPublicationService();
-
     }
 
     @Bean
@@ -102,6 +94,12 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     }
 
     @Bean
+    PostulantPublicationService postulantPublicationService() {
+        return new PostulantPublicationServiceImpl();
+    }
+
+
+    @Bean
     public PublicationService publicationService(){ return  new PublicationService();}
 
     @Bean
@@ -113,8 +111,6 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         return new SkillServiceImpl();
     }
 
-    @Bean
-    public CompanyCatService companyService(){ return new CompanyCatService(); }
 
     @Bean
     public JobCatService jobCatService(){ return new JobCatService(); }

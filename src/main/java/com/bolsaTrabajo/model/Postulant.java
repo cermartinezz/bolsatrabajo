@@ -1,11 +1,7 @@
 
 package com.bolsaTrabajo.model;
 
-import com.bolsaTrabajo.model.postulantInfo.PostulantCertification;
-import com.bolsaTrabajo.model.postulantInfo.PostulantSkill;
-import com.bolsaTrabajo.model.postulantInfo.Recommendation;
-import com.bolsaTrabajo.model.postulantInfo.AcademicExperience;
-import com.bolsaTrabajo.model.postulantInfo.WorkExperience;
+import com.bolsaTrabajo.model.postulantInfo.*;
 import com.bolsaTrabajo.util.Gender;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -131,15 +127,6 @@ public class Postulant extends User{
         this.cellphone = cellphone;
     }
 
-    @OneToMany(mappedBy = "postulant", cascade = CascadeType.ALL, orphanRemoval = true)
-    public Set<PostulantCertification> getPostulantCertifications() {
-        return postulantCertifications;
-    }
-
-    public void setPostulantCertifications(Set<PostulantCertification> postulantCertifications) {
-        this.postulantCertifications = postulantCertifications;
-    }
-
     /***********RELACIONES**************/
 
     @OneToMany( mappedBy = "primaryKey.postulant",
@@ -191,7 +178,9 @@ public class Postulant extends User{
         this.academicExperiences = academicExperiences;
     }
 
-    @OneToMany(mappedBy = "postulant", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany( mappedBy = "primaryKey.postulant",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
     public Set<PostulantPublication> getPostulantPublications() {
         return postulantPublications;
     }
