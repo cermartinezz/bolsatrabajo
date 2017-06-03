@@ -85,4 +85,13 @@ public class PostulantController {
         return "exp_labo/create_workExp";
     }*/
 
+    @GetMapping("/publicaciones/agregar")
+    public String publicaciones(Model model, @PathVariable String username){
+
+        model.addAttribute("user", Auth.auth());
+
+        model.addAttribute("postulant", postulantService.findByUsername(username));
+
+        return "Postulante/certificaciones/crear";
+    }
 }
