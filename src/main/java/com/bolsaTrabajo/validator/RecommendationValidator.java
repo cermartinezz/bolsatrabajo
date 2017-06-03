@@ -1,6 +1,6 @@
 package com.bolsaTrabajo.validator;
 
-import com.bolsaTrabajo.model.Recommendation;
+import com.bolsaTrabajo.model.postulantInfo.Recommendation;
 import com.bolsaTrabajo.service.RecommendationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.Errors;

@@ -1,37 +1,26 @@
 package com.bolsaTrabajo.service;
 
-import com.bolsaTrabajo.model.Skill;
+import com.bolsaTrabajo.model.catalog.Skill;
+import com.bolsaTrabajo.model.catalog.SkillCategory;
 import com.bolsaTrabajo.repositories.SkillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * Created by mvip on 04-05-17.
- */
-public class SkillService {
+public interface SkillService {
 
-    @Autowired
-    private SkillRepository skillRepository;
+    List<Skill> getAllSkills();
 
-    public List<Skill> getAllSkills()
-    {
-        return skillRepository.findAll();
-    }
+    List<Skill> findSkillsByCategoria(SkillCategory skillCategory);
 
-    public void storeSkill(Skill skill){
-        skillRepository.save(skill);
-    }
+    void storeSkill(Skill skill);
 
-    public Skill findSkillByCodigo(String code){
-        return skillRepository.findByCodigo(code);
-    }
+    void findById(int id);
 
-    public void updateSkill(Skill skill){
-        storeSkill(skill);
-    }
+    Skill findSkillByCodigo(String code);
 
-    public void deleteSkill(String code){
-        skillRepository.deleteByCodigo(code);
-    }
+    void updateSkill(Skill skill);
+
+    void deleteSkill(String code);
 }

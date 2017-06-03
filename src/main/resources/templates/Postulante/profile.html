@@ -40,25 +40,31 @@
 
                         <div class="box mb-30">
                             <div class="job-profile-info">
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <figure class="alignnone">
-                                            <img src="images/samples/team-member-1-lg.jpg" alt="">
-                                        </figure>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <h2 class="name" th:text="${username}"></h2>
-                                        <i class="tagline">Trabajo o Estudio (Cargo o Profesion)</i>
-                                        <ul class="meta">
-                                            <li>Institución</li>
-                                        </ul>
-
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="icon-box">
-                                            <a th:href="@{'/postulante/' + ${username} + '/editar'}" class="btn btn-info">
+                                <div class="box">
+                                    <div class="center">
+                                        <div class="center_heigth">
+                                            <H1 id="info-header">Informacion general</H1>
+                                        </div>
+                                        <div class="icon-box ">
+                                            <a th:href="@{'/postulante/' + ${username} + '/editar'}" class="btn btn-sm btn-info">
                                                 Editar
                                             </a>
+                                        </div>
+                                    </div>
+                                    </br>
+                                    <div class="info">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <p><Strong>Nombre:</Strong> {{postulante.name }} {{postulante.lastName}}</p>
+                                                <p><Strong>Correo:</Strong> {{postulante.email}}</p>
+                                                <p v-if="postulante.phonenumber != null"><Strong>Telefono:</Strong> {{postulante.phonenumber}}</p>
+                                                <p v-if="postulante.cellphone != null"><Strong>Celular:</Strong> {{postulante.cellphone}}</p>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p><Strong>Fecha de nacimiento:</Strong> {{ dateName(postulante.birthday) }}</p>
+                                                <p><Strong>Genero:</Strong> {{postulante.gender}}</p>
+                                                <p><Strong>Nit:</Strong> {{postulante.nit}}</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -124,32 +130,41 @@
                                         </div>
 
                                         <div class="col-md-3">
-                                            <a href="#" class="btn btn-sm btn-info">Ver detalle</a>
                                             <a th:href="@{'/postulante/' + ${username} + '/certificaciones/agregar'}" class="btn btn-sm btn-success">Agregar</a>
                                         </div>
                                     </div>
                                     <li class="job_listing">
-                                        <a href="#">
-                                            <div class="job_img">
-                                                <img src="images/samples/person1.jpg" alt="" class="company_logo">
-                                            </div>
-                                            <div class="position">
-                                                <h4>Certificación1</h4>
-
-                                            </div>
-                                            <div class="rating">
-                                                <div class="rating-stars">
-
-                                                </div>
-                                                <div class="reviews-num"></div>
-                                            </div>
-                                            <ul class="meta">
-                                                <li class="job-type">Código</li>
-                                                <li class="date">Fecha
-                                                </li>
-                                            </ul>
-                                        </a>
+                                        <div v-if="certifications.length != 0" class="table-responsive">
+                                            <table class="job-manager-jobs table table-bordered table-stripe">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Certificacion</th>
+                                                        <th>Institucion</th>
+                                                        <th>Codigo</th>
+                                                        <th>Fecha de expiracion</th>
+                                                        <th>Acciones</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr v-for="(certification, index) in certifications">
+                                                        <td>{{ certification.primaryKey.certification.certificationTitle }}</td>
+                                                        <td>{{ certification.primaryKey.certification.institution.institutionName }}</td>
+                                                        <td>{{ certification.code }}</td>
+                                                        <td>{{ dateName(certification.expirationDate) }}</td>
+                                                        <td>
+                                                            <button class="btn btn-info" @click="redirectCertificaciones(certification)">Editar</button>
+                                                            <button class="btn btn-danger"
+                                                                    @click="deleteCertificacion(index,certification)">Eliminar</button>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div v-if="certifications.length == 0" class="center_block">
+                                            <p><strong>NO HAY REGISTROS, DEBERIAS INGRESAR ALGUNAS CERTIFICACIONES</strong></p>
+                                        </div>
                                     </li>
+
                                 </ul>
 
                                 <ul class="job_listings">
@@ -218,32 +233,34 @@
                                         </div>
 
                                         <div class="col-md-3">
-                                            <a href="/empresas" class="btn btn-sm btn-info">Ver detalle</a>
-                                            <a href="/empresas/crear" class="btn btn-sm btn-success">Agregar</a>
+                                            <a href="/empresasCat" class="btn btn-sm btn-info">Ver detalle</a>
+                                            <a th:href="@{'/postulante/'+ ${user.getName()} + '/workExp/agregar'}" class="btn btn-sm btn-success">Agregar</a>
                                         </div>
                                     </div>
-                                    <li class="job_listing">
-                                        <a href="#">
-                                            <div class="job_img">
-                                                <img src="images/samples/person1.jpg" alt="" class="company_logo">
-                                            </div>
-                                            <div class="position">
-                                                <h4>Trabajito 1</h4>
-
-                                            </div>
-                                            <div class="rating">
-                                                <div class="rating-stars">
+                                    <div>
+                                        <li class="job_listing">
+                                            <a href="#">
+                                                <div class="job_img">
+                                                    <img src="images/samples/person1.jpg" alt="" class="company_logo">
+                                                </div>
+                                                <div class="position">
+                                                    <h4>Trabajito 1</h4>
 
                                                 </div>
-                                                <div class="reviews-num"></div>
-                                            </div>
-                                            <ul class="meta">
-                                                <li class="job-type">Código</li>
-                                                <li class="date">Fecha
-                                                </li>
-                                            </ul>
-                                        </a>
-                                    </li>
+                                                <div class="rating">
+                                                    <div class="rating-stars">
+
+                                                    </div>
+                                                    <div class="reviews-num"></div>
+                                                </div>
+                                                <ul class="meta">
+                                                    <li class="job-type">Código</li>
+                                                    <li class="date">Fecha
+                                                    </li>
+                                                </ul>
+                                            </a>
+                                        </li>
+                                    </div>
                                 </ul>
 
                                 <ul class="job_listings">
@@ -278,27 +295,52 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div v-if="recommendations.length == 0" class="center_block">
+                                            <p><strong>NO HAY REGISTROS, DEBERIAS INGRESAR ALGUNAS RECOMENDACIONES</strong></p>
+                                        </div>
                                     </li>
                                 </ul>
 
                                 <ul class="job_listings">
                                     <div class="spacer-lg"></div>
 
-                                    <div class="col-md-6">
-                                        <li class="job_listing">
-
+                                    <div class="row">
+                                        <div class="col-md-9">
                                             <h4>Habilidades</h4>
-                                            <ul>
-                                                <li>Comer</li>
-                                                <li>Dormir</li>
-                                                <li>Hablar</li>
-                                                <li>Procastinar</li>
-                                            </ul>
-                                        </li>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <a th:href="@{'/postulante/' + ${username} + '/habilidades/crear'}" class="btn btn-sm btn-success">Agregar</a>
+                                        </div>
                                     </div>
+                                    <li class="job_listing">
+                                        <div v-if="skills.length != 0" class="table-responsive">
+                                            <table class="job-manager-jobs table table-bordered table-stripe">
+                                                <thead>
+                                                <tr>
+                                                    <th>Habilidades</th>
+                                                    <th>Categoria</th>
+                                                    <th>Acciones</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr v-for="(skill, index) in skills">
+                                                    <td>{{ skill.primaryKey.skill.titulo }}</td>
+                                                    <td>{{ skill.primaryKey.skill.skillCategory.titulo }}</td>
+                                                    <td class="center_block">
+                                                        <button class="btn btn-danger"
+                                                                @click="deleteSkill(index,skill)">Eliminar</button>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div v-if="skills.length == 0" class="center_block">
+                                            <p><strong>NO HAY REGISTROS, DEBERIAS INGRESAR ALGUNAS HABILIDADES</strong></p>
+                                        </div>
+                                    </li>
 
                                 </ul>
-
 
 
                             </div>

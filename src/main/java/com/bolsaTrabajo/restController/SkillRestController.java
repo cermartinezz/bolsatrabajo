@@ -1,7 +1,7 @@
 package com.bolsaTrabajo.restController;
 
-import com.bolsaTrabajo.model.Skill;
-import com.bolsaTrabajo.model.SkillCategory;
+import com.bolsaTrabajo.model.catalog.Skill;
+import com.bolsaTrabajo.model.catalog.SkillCategory;
 import com.bolsaTrabajo.service.SkillCategoryService;
 import com.bolsaTrabajo.service.SkillService;
 import com.bolsaTrabajo.util.CustomErrorType;
@@ -20,9 +20,6 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by mvip on 04-05-17.
- */
 @RestController
 @RequestMapping(value = "/skills")
 public class SkillRestController {
@@ -57,6 +54,22 @@ public class SkillRestController {
             return new ResponseEntity<List<Skill>>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<List<Skill>>(skills, HttpStatus.OK);
+    }
+
+    @GetMapping("/categoria/{categoriaId}")
+    public ResponseEntity findByCategoria(@PathVariable int categoriaId){
+
+        SkillCategory category = skillCategoryService.findById(categoriaId);
+
+        List<Skill> skillsByCategoria = skillService.findSkillsByCategoria(category);
+
+        if(skillsByCategoria.size() <= 0){
+            this.headers.set("message", "No se encontraron habilidades");
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+
+        this.headers.set("message","Se encontraron :" + skillsByCategoria.size() + "habilidades");
+        return new ResponseEntity(skillsByCategoria,HttpStatus.OK);
     }
 
     @GetMapping(value= "{code}")

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragmentos/head :: head" th:remove="tag"/>
+<title>Agregar Habilidades</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+
+<body>
+    <div class="site-wrapper">
+        <header class="header header-menu-fullw">
+
+            <div th:include="fragmentos/top_bar :: top_bar(${user})" th:remove="tag"></div>
+
+            <div th:include="fragmentos/menu :: menu(${user})" th:remove="tag"></div>
+
+        </header>
+
+
+        <div class="main" role="main" id="app">
+
+            <div th:include="fragmentos/heading :: heading('Agregar Habilidades')"></div>
+
+            <section class="page-content">
+                <div class="container">
+                   <div class="row">
+                       <div class="col-md-6">
+                           <div class="box">
+                               <form @submit.prevent="onSubmit">
+
+                                   <div class="form-group" th:object="${category}">
+                                       <label> Categorias*</label>
+
+                                       <select class="form-control" id="category"
+                                               v-model.number="category"
+                                               @change="getSkills"
+                                               type="number" name="category" required>
+
+                                           <option disabled value="">Seleccione Categorias</option>
+
+                                           <option th:each="category : ${categories}"
+                                                   th:value="${category.id}"
+                                                   th:text="${category.titulo}" required></option>
+                                       </select>
+
+                                   </div>
+                                   <div class="form-group">
+                                       <label> Hablidades</label>
+
+                                       <select class="form-control" id="skill"
+                                               v-model="skill"
+                                               required>
+
+                                           <option disabled value="">Seleccione Hablidades</option>
+
+                                           <option v-for="skill in skill_list"
+                                                   :value="skill.codigo"
+                                                   :disabled="skill_list.length == 0"
+                                                   v-text="skill.titulo">
+
+                                       </select>
+
+                                   </div>
+
+                                   <div class="form-group">
+                                       <div class="row">
+                                           <div class="col-md-6">
+                                               <button type="submit" class="btn btn-info btn-block">Agregar</button>
+                                           </div>
+                                           <div class="col-md-6">
+                                               <a class="btn btn-primary btn-block"
+                                                  th:href="@{'/postulante/'+${user.getName()}+'/perfil'}">Terminar</a>
+                                           </div>
+                                       </div>
+                                   </div>
+
+                               </form>
+                           </div>
+                       </div>
+                       <div class="col-md-6">
+                           <div class="box">
+                               <ul class="list-group" v-if="postulant_skills.length != 0">
+                                   <li class="list-group-item" v-for="(skill,index) in postulant_skills" >
+                                       <strong>Categoria:</strong> {{skill.skillCategory.titulo}}
+                                       <Strong>Habilidad:</Strong> {{skill.titulo}}
+                                   </li>
+                               </ul>
+                           </div>
+                       </div>
+                   </div>
+                </div>
+            </section>
+
+            <div th:include="fragmentos/footer :: footer"></div>
+        </div>
+    </div>
+
+
+    <div th:include="fragmentos/scripts :: scripts" ></div>
+    <script th:inline="javascript">let postulant = [[${user.getName()}]];</script>
+    <script th:src="@{/assets/js/postulante/agregar_habilidades.js}"></script>
+
+</body>
+</html>

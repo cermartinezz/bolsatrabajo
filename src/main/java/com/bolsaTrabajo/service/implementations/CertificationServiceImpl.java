@@ -1,6 +1,6 @@
 package com.bolsaTrabajo.service.implementations;
 
-import com.bolsaTrabajo.model.Certification;
+import com.bolsaTrabajo.model.catalog.Certification;
 import com.bolsaTrabajo.repositories.CertificationRepository;
 import com.bolsaTrabajo.service.CertificationService;
 import com.bolsaTrabajo.service.InstitutionService;

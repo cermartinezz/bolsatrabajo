@@ -1,20 +1,37 @@
 package com.bolsaTrabajo.configuration;
 
+import com.bolsaTrabajo.model.postulantInfo.PostulantCertification;
+import com.bolsaTrabajo.model.postulantInfo.PostulantSkill;
 import com.bolsaTrabajo.model.PostulantPublication;
 import com.bolsaTrabajo.service.*;
 import com.bolsaTrabajo.service.implementations.*;
-import com.bolsaTrabajo.validator.CertificationValidator;
-import com.bolsaTrabajo.validator.InstitutionValidator;
-import com.bolsaTrabajo.validator.PublicationValidator;
-import com.bolsaTrabajo.validator.SkillValidator;
-import com.bolsaTrabajo.validator.RecommendationValidator;
+import com.bolsaTrabajo.validator.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @Configuration
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
+
+    /**
+     *Modelo
+     */
+
+    @Bean
+    public PostulantCertification postulantCertification(){
+        return new PostulantCertification();
+    }
+
+    @Bean
+    public PostulantSkill postulantSkill(){
+        return new PostulantSkill();
+    }
+
+    /**
+     *Servicios, Validadores, etc
+     */
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
@@ -46,6 +63,9 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     }
 
     @Bean
+    public CompanyService companyService(){ return  new CompanyServiceImpl(); }
+
+    @Bean
     public PostulantService postulantService(){
         return new PostulantServiceImpl();
     }
@@ -54,6 +74,9 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     public RoleService roleService(){
         return new RoleServiceImpl();
     }
+
+    @Bean
+    public PermissionService permissionService(){ return new PermissionService(); }
 
     @Bean
     public SecurityService securityService(){
@@ -69,6 +92,15 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         return new RecommendationsServiceImpl();
     }
 
+    @Bean PostulantSkillService postulantSkillService() {
+        return new PostulantSkillServiceImpl();
+    }
+
+    @Bean
+    PostulantCertificationService postulantCertificationService() {
+        return new PostulantCertificationServiceImpl();
+    }
+
     @Bean
     public PublicationService publicationService(){ return  new PublicationService();}
 
@@ -78,7 +110,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     }
     @Bean
     public SkillService skillService(){
-        return new SkillService();
+        return new SkillServiceImpl();
     }
 
     @Bean
@@ -88,8 +120,11 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     public JobCatService jobCatService(){ return new JobCatService(); }
 
     @Bean
+    public AcademicTitleCatService academicTitleCatService(){ return new AcademicTitleCatService(); }
+
+    @Bean
     public SkillCategoryService skillCategoryService(){
-        return new SkillCategoryService();
+        return new SkillCategoryServiceImpl();
     }
 
     @Bean
@@ -119,6 +154,12 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         return new LanguageService();
     }
 
+
+
+    @Bean
+    public CompanyCatService companyCatService(){
+        return new CompanyCatService();
+    }
 
 }
 
