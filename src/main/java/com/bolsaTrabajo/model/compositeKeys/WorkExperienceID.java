@@ -2,6 +2,7 @@ package com.bolsaTrabajo.model.compositeKeys;
 
 import com.bolsaTrabajo.model.catalog.CompanyCat;
 import com.bolsaTrabajo.model.Postulant;
+import com.bolsaTrabajo.model.catalog.JobCat;
 
 import javax.persistence.Embeddable;
 import javax.persistence.ManyToOne;
@@ -18,6 +19,16 @@ public class WorkExperienceID implements Serializable{
 
     private Postulant postulant;
     private CompanyCat companyCat;
+    private JobCat jobCat;
+
+    @ManyToOne
+    public JobCat getJobCat() {
+        return jobCat;
+    }
+
+    public void setJobCat(JobCat jobCat) {
+        this.jobCat = jobCat;
+    }
 
     @ManyToOne
     public Postulant getPostulant() {

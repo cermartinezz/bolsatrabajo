@@ -18,12 +18,13 @@ import java.io.Serializable;
         @AssociationOverride(name = "pk.postulant",
                 joinColumns = @JoinColumn(name = "postulant_id")),
         @AssociationOverride(name = "pk.institution",
-                joinColumns = @JoinColumn(name = "institution_id")) })
+                joinColumns = @JoinColumn(name = "institution_id")),
+        @AssociationOverride(name = "pk.title",
+                joinColumns = @JoinColumn(name = "title_id"))})
 public class AcademicExperience implements Serializable {
 
     private AcademicExperienceID pk = new AcademicExperienceID();
     private int añoGraduacion;
-    private AcademicTitleCat title;
 
     @EmbeddedId
     public AcademicExperienceID getPk() {
@@ -42,14 +43,13 @@ public class AcademicExperience implements Serializable {
         this.añoGraduacion = añoGraduacion;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "title_id")
+    @Transient
     public AcademicTitleCat getTitle() {
-        return title;
+        return getPk().getTitle();
     }
 
     public void setTitle(AcademicTitleCat title) {
-        this.title = title;
+        getPk().setTitle(title);
     }
 
     @Transient

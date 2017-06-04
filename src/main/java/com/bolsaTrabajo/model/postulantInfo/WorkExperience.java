@@ -18,13 +18,14 @@ import java.io.Serializable;
         @AssociationOverride(name = "pk.postulant",
                 joinColumns = @JoinColumn(name = "postulant_id")),
         @AssociationOverride(name = "pk.companyCat",
-                joinColumns = @JoinColumn(name = "company_cat_id")) })
+                joinColumns = @JoinColumn(name = "company_cat_id")),
+        @AssociationOverride(name = "pk.jobCat",
+                joinColumns = @JoinColumn(name = "job_id"))})
 public class WorkExperience implements Serializable{
 
     private WorkExperienceID pk = new WorkExperienceID();
     private int inicio;
     private int fin;
-    private JobCat jobCat;
 
     @EmbeddedId
     public WorkExperienceID getPk() {
@@ -71,13 +72,13 @@ public class WorkExperience implements Serializable{
         this.fin = fin;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "job_id")
+
+    @Transient
     public JobCat getJobCat() {
-        return jobCat;
+        return getPk().getJobCat();
     }
 
     public void setJobCat(JobCat jobCat) {
-        this.jobCat = jobCat;
+        getPk().setJobCat(jobCat);
     }
 }

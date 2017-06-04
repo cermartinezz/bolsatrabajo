@@ -40,7 +40,7 @@ public class AcademicTitleCat {
         this.titulo = titulo;
     }
 
-    @OneToMany(mappedBy = "title", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "pk.title", fetch = FetchType.LAZY)
     public Set<AcademicExperience> getAcademicExperienceSet() {
         return academicExperienceSet;
     }
