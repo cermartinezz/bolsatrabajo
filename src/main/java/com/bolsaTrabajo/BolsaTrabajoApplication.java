@@ -1,18 +1,25 @@
 package com.bolsaTrabajo;
 
 import com.bolsaTrabajo.model.Permission;
+import com.bolsaTrabajo.model.Postulant;
 import com.bolsaTrabajo.model.Role;
 import com.bolsaTrabajo.model.catalog.SkillCategory;
 import com.bolsaTrabajo.repositories.SkillCategoryRepository;
 import com.bolsaTrabajo.service.PermissionService;
+import com.bolsaTrabajo.service.PostulantService;
 import com.bolsaTrabajo.service.RoleService;
 import com.bolsaTrabajo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.transaction.Transactional;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @SpringBootApplication
@@ -20,11 +27,14 @@ public class BolsaTrabajoApplication implements CommandLineRunner {
 
 	@Autowired
 	private SkillCategoryRepository skillCategoryRepository;
-
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	@Autowired
 	PermissionService permissionService;
 	@Autowired
 	RoleService roleService;
+	@Autowired
+	PostulantService postulantService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(BolsaTrabajoApplication.class, args);
@@ -81,6 +91,7 @@ public class BolsaTrabajoApplication implements CommandLineRunner {
 			createRoleIfNotFound("ADMIN", adminPermission);
 			createRoleIfNotFound("POSTULANTE", postulantPermission);
 			createRoleIfNotFound("EMPRESA", companyPermission);
+			createUserIfNotFound("administrador");
 		}
 
 		SkillCategory category1 = new SkillCategory(
@@ -130,5 +141,23 @@ public class BolsaTrabajoApplication implements CommandLineRunner {
 			roleService.save(role);
 		}
 		return role;
+	}
+
+	@Transactional
+	private void createUserIfNotFound(String username) throws ParseException {
+		Postulant postulant = new Postulant();
+		postulant.setName("admin");
+		postulant.setLastName("admin");
+		postulant.setUsername("administrador");
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
+		String dateInString = "31-08-1982 10:20:56";
+		Date date = sdf.parse(dateInString);
+		postulant.setBirthday(date);
+		postulant.setPassword(bCryptPasswordEncoder.encode("12345678"));
+		postulant.setPasswordConfirm("12345678");
+		postulant.setActive(1);
+		HashSet<Role> roleCollection = new HashSet<>(roleService.getAllRoles());
+		postulant.setRoles(roleCollection);
+		postulantService.save(postulant);
 	}
 }

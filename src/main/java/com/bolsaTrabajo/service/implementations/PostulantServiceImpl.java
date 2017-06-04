@@ -71,4 +71,6 @@ public class PostulantServiceImpl implements PostulantService {
         postulantRepository.save(postulant);
     }
 
+    public void delete(Postulant postulant){postulantRepository.delete(postulant);}
+
 }

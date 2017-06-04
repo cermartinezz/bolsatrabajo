@@ -23,7 +23,14 @@
                     <div class="row">
                         <div class="col-md-8 col-md-offset-2">
                             <h3>Lista de Usuarios</h3>
-
+                            <div th:if="${messageSuccess != null}" class="alert alert-success alert-dismissable">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <span th:text="${messageSuccess}"></span>
+                            </div>
+                            <div th:if="${message != null}" class="alert alert-danger alert-dismissable">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <span th:text="${message}"></span>
+                            </div>
 
                             <div class="table-responsive">
                                 <table class="table table-bordered table-stripe">
@@ -44,6 +51,16 @@
                                             <a th:href="@{/usuarios/{username}(username=${u.username})}" style="text-decoration:none;">
                                                 <button class="btn btn-warning btn-xs"><span class="fa fa-pencil"></span> Editar</button>
                                             </a>
+                                            <form th:action="@{'/users/' + ${u.username}}"
+                                                  th:method="DELETE" class="btn">
+
+                                                <div >
+                                                    <button type="submit"
+                                                            class="btn btn-danger btn-xs"
+                                                            onclick="return confirm('Seguro que desea eliminar este registro?')"><span class="fa fa-trash"></span> Eliminar</button>
+                                                </div>
+
+                                            </form>
                                         </td>
                                     </tr>
                                     </tbody>

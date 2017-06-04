@@ -52,6 +52,8 @@ public class UserController {
                 attributes.addFlashAttribute("message","No se pudo determinar el tipo de Usuario");
                 return new RedirectView("/usuarios");
             }
+            model.addAttribute("user", Auth.auth());
+            return new RedirectView("/company/"+username+"/editar");
         }
 
         model.addAttribute("user", Auth.auth());

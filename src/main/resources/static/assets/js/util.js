@@ -162,7 +162,7 @@ function monthName(month){
  * th:onclick="'eliminarRegistro(\'' + ${award.id} + '\',\'award\')'"
  * ormerino
  */
-function eliminarRegistro(id,ruta){
+function eliminarReg(id,ruta){
     swal({
       title: 'Eliminar',
       text: "Esta seguro que desea eliminar este elemento?",
@@ -173,15 +173,15 @@ function eliminarRegistro(id,ruta){
       cancelButtonText: 'Cancelar',
       confirmButtonText: 'Si, eliminar!',
     }).then(function () {
-        axios.delete("/"+ruta+"/"+ id)
-                                .then(response => {
-                                })
+        axios.delete("/"+ruta+"/"+id)
+            .then(response => {
+                })
       swal(
         'Borrado!',
         'El registro ha sido eliminado.',
         'success'
       ).then(function () {
-          location.reload();
+            location.reload();
         })
     })
 }

@@ -1,7 +1,9 @@
 package com.bolsaTrabajo.controller;
 
+import com.bolsaTrabajo.model.Permission;
 import com.bolsaTrabajo.model.Role;
 import com.bolsaTrabajo.model.User;
+import com.bolsaTrabajo.service.PermissionService;
 import com.bolsaTrabajo.service.RoleService;
 import com.bolsaTrabajo.service.UserService;
 import com.bolsaTrabajo.util.Auth;
@@ -15,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.*;
+
 @Controller
 public class RoleController {
 
@@ -23,6 +27,9 @@ public class RoleController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    PermissionService permissionService;
 
     @ModelAttribute("usr")
     public User globalUser(Model model) {
@@ -48,6 +55,12 @@ public class RoleController {
     public ModelAndView show(@PathVariable String id){
         ModelAndView model = new ModelAndView();
         Role role = roleService.findById(Long.parseLong(id));
+
+        //Estableciendo lista de permisos que no son parte del rol
+        HashSet<Permission> permissionsCollection = new HashSet<>(permissionService.getAllPermissions());
+
+        model.addObject("permisos",permissionsCollection);
+        model.addObject("permiso",new Permission());
         model.addObject("user", Auth.auth());
         model.addObject("role",role);
         model.setViewName("admin/roles/editar");

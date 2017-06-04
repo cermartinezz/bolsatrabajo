@@ -28,6 +28,10 @@
                                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                                 <span th:text="${messageSuccess}"></span>
                             </div>
+                            <div th:if="${message != null}" class="alert alert-danger alert-dismissable">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <span th:text="${message}"></span>
+                            </div>
 
                             <div class="table-responsive">
                                 <a th:href="@{/roles/crear}" class="btn btn-success">Nuevo</a>
@@ -50,16 +54,10 @@
                                                     <button class="btn btn-warning btn-xs"><span class="fa fa-pencil"></span> Editar</button>
                                                 </a>
 
-                                                <form th:action="@{'/role/' + ${r.id}}"
-                                                      th:method="DELETE" class="btn">
-
-                                                    <div >
-                                                        <button type="submit"
-                                                                class="btn btn-danger btn-xs"
-                                                                onclick="return confirm('Seguro que desea eliminar este registro?')"><span class="fa fa-trash"></span> Eliminar</button>
-                                                    </div>
-
-                                                </form>
+                                                <a style="text-decoration:none;">
+                                                    <button th:onclick="'eliminarRegistro(\'' + ${r.id} + '\',\'role\')'"
+                                                            class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Eliminar</button>
+                                                </a>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -78,6 +76,6 @@
 
 
 <div th:include="fragmentos/scripts :: scripts"></div>
-<
+<script th:src="@{/assets/js/util.js}"></script>
 </body>
 </html>
