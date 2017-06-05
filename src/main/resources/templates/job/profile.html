@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragmentos/head :: head" th:remove="tag">
+</head>
+<title>Perfil de Puesto</title>
+<div>
+    <div class="site-wrapper" id="app">
+        <header class="header header-menu-fullw">
+
+        </header>
+
+
+        <div class="main" role="main">
+
+            <div th:include="fragmentos/heading :: heading('Perfil de Puesto')"></div>
+            <section class="page-content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 col-md-offset-3">
+                            <div class="box">
+                                <div class="box mb-30">
+                                    <div class="job-profile-info">
+                                        <div class="row">
+                                            <div class="text-right" >
+                                                <div class="icon-box">
+                                                    <a th:href="@{'/puesto/'+${job.id}+'/editar'}" class="btn btn-info">
+                                                        Editar
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="spacer-lg"></div>
+
+                                        <div class="col-md-8">
+                                            <div class="icon-box">
+                                                <em>   <h4> Nombre del Puesto:</h4></em>
+                                                <h4 align="right" class="nombreJ" th:text="${job.nombreJ}"></h4>
+                                            </div>
+                                        </div>
+
+                                        <div class="spacer-lg"></div>
+
+
+                                        <div class="col-md-8">
+                                            <div class="icon-box">
+                                                <em><h4>Salario del Puesto:</h4></em>
+                                                 <h4 align="right" class="salarioJ" th:text="${job.salarioJ}"></h4>
+                                            </div>
+                                        </div>
+                                        <div class="spacer-lg"></div>
+                                        <div class="col-md-8">
+                                            <div class="icon-box">
+                                                <em><h4 > Descripcion de Empresa:</h4></em>
+                                                <h4 align="right" class="descripcionJ" th:text="${job.descripcionJ}"></h4>
+                                            </div>
+
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </div>
+
+
+    <div th:include="fragmentos/footer :: footer"></div>
+</div>
+</div>
+<div th:include="fragmentos/scripts :: scripts" ></div>
+</body>
+</html>

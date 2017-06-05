@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragmentos/head :: head" th:remove="tag">
+    <title>Editar Puesto</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+
+<body>
+<div class="site-wrapper">
+    <header class="header header-menu-fullw">
+
+    </header>
+
+    <div class="main" id="app" role="main">
+
+        <div th:include="fragmentos/heading :: heading('Editar Puesto')"></div>
+
+        <section class="page-content">
+            <div class="container">
+                <div class="box">
+                    <h3> Datos</h3>
+                    <form th:action="@{'/job/'+${job.id}}" th:object="${job}"
+                          th:method="PUT" class="form">
+                    <div class="form-group">
+                        <label>Nombre del puesto:</label>
+                        <input type="text" th:field="*{nombreJ}" name="nombreJ" th:value="${job.nombreJ}" placeholder="Nombre del Puesto" class="form-control" maxlength="16" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Salario del puesto:</label>
+                        <input type="text" th:field="*{salarioJ}" name="salarioJ" th:value="${job.salarioJ}" placeholder="Salario del Puesto" class="form-control" maxlength="16" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Descripcion del puesto:</label>
+                        <input type="text" th:field="*{descripcionJ}" name="descripcionJ" th:value="${job.descripcionJ}" placeholder="Descripcion del Puesto" class="form-control" maxlength="16" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block">Enviar</button>
+                    </div>
+
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <div th:include="fragmentos/footer :: footer"></div>
+    </div>
+</div>
+
+
+<div th:include="fragmentos/scripts :: scripts"></div>
+</body>
+</html>
