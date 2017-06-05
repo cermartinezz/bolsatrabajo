@@ -34,7 +34,7 @@ public class CompanyController {
     @RequestMapping(value= "/company/{user}/profile")
     public String companyProfile(@PathVariable String user, Model model) {
         Company company=companyService.findByUsername(user);
-        model.addAttribute("user", Auth.auth().getName());
+        model.addAttribute("user", Auth.auth());
         model.addAttribute("company",company);
         return "company/profile-company";
     }

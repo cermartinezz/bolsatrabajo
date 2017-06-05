@@ -32,7 +32,7 @@ public class JobRestController {
         job.setCompany(company);
         job.setCodJ(codigo);
         jobService.save(job);
-        return new RedirectView("/puesto/perfil");
+        return new RedirectView("/puesto/"+job.getId()+"/perfil");
     }
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
     public RedirectView update(@PathVariable("id") Long id, Job job, RedirectAttributes attributes) {

@@ -9,6 +9,10 @@
 <div class="site-wrapper">
     <header class="header header-menu-fullw">
 
+        <div th:include="fragmentos/top_bar :: top_bar(${user})" th:remove="tag"></div>
+
+        <div th:include="fragmentos/menu :: menu(${user})" th:remove="tag"></div>
+
     </header>
 
     <div class="main" id="app" role="main">
