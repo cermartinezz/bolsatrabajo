@@ -25,9 +25,11 @@ public class Institution {
         this.id = id;
     }
 
-    public Institution(int id, String institutionCode, String institutionName, InstitutionType institutionType) {
-        this.id = id;
-        this.institutionCode = institutionCode;
+    public Institution(String institutionName) {
+        this.institutionName = institutionName;
+    }
+
+    public Institution(String institutionName, InstitutionType institutionType) {
         this.institutionName = institutionName;
         this.institutionType = institutionType;
     }

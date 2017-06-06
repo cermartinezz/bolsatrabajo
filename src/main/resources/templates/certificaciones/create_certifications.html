@@ -21,60 +21,66 @@
 
         <section class="page-content" >
             <div class="container">
-                <div class="col-md-6 col-md-offset-3">
-                    <div class="box">
-                        <div class="row">
-                            <div class="col-md-8 col-md-offset-2">
-                                <form th:object="${certification}"
-                                      method="POST"
-                                      class="form-horizontal" role="form" @submit.prevent="onSubmit">
+                <div class="box">
+                    <form th:object="${certification}"
+                          method="POST"
+                          class="form-horizontal" role="form" @submit.prevent="onSubmit">
 
-                                    <input type="hidden"
-                                           th:name="${_csrf.parameterName}"
-                                           th:value="${_csrf.token}" />
+                        <input type="hidden"
+                               th:name="${_csrf.parameterName}"
+                               th:value="${_csrf.token}" />
 
-                                    <div class="form-group" :class="{'has-error': listErrors.has('certificationCode') }">
-                                        <label> Codigo*</label>
+                        <div class="form-group" :class="{'has-error': listErrors.has('certificationTitle') }">
 
-                                        <input type="text" name="certificationCode"
-                                               v-model="certificationCode" placeholder="Codigo" class="form-control" required/>
+                            <label> Titulo*</label>
 
-                                        <div class="help-block with-errors" v-if="listErrors.has('certificationCode')" v-text="listErrors.get('certificationCode')"></div>
-                                    </div>
+                            <input type="text" name="certificationTitle"
+                                   v-model="certificationTitle" placeholder="Titulo" class="form-control" required/>
 
-                                    <div class="form-group" :class="{'has-error': listErrors.has('certificationTitle') }">
-                                        <label> Titulo*</label>
+                            <div class="help-block with-errors" v-if="listErrors.has('certificationTitle')" v-text="listErrors.get('certificationTitle')"></div>
 
-                                        <input type="text" name="certificationTitle"
-                                               v-model="certificationTitle" placeholder="Titulo" class="form-control" required/>
-
-                                        <div class="help-block with-errors" v-if="listErrors.has('certificationTitle')" v-text="listErrors.get('certificationTitle')"></div>
-
-                                    </div>
-
-                                    <div class="form-group" th:object="${institution}">
-                                        <label> Institucion responsable*</label>
-
-                                        <select class="form-control" id="institution"
-                                                v-model.number="institution" type="number" name="institution" required>
-
-                                            <option disabled value="">Seleccione institucion</option>
-
-                                            <option th:each="institution : ${institutions}"
-                                                    th:value="${institution.id}"
-                                                    th:text="${institution.institutionName}"></option>
-                                        </select>
-
-                                    </div>
-
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-primary btn-block">Agregar</button>
-                                    </div>
-                                </form>
-
-                            </div>
                         </div>
-                    </div>
+
+                        <div class="form-group" th:object="${institution}" v-if="!mostrar">
+                            <label> Institucion responsable *</label>
+
+                            <select class="form-control" id="institution"
+                                    v-model.number="institution" type="number" name="institution" required>
+
+                                <option disabled value="">Seleccione institucion</option>
+
+                                <option th:each="institution : ${institutions}"
+                                        th:value="${institution.id}"
+                                        th:text="${institution.institutionName}"></option>
+                            </select>
+
+                        </div>
+
+                        <div class="form-group">
+                            <input type="checkbox" v-model="mostrar" id="checkbox">
+                            <label for="checkbox">Otra institucion</label>
+                        </div>
+
+                        <div class="box" v-if="mostrar">
+                            <div>
+                                <div class="form-group">
+                                    <label class="radio-inline">Tipo de Institucion:</label>
+                                    <label class="radio-inline"><input type="radio" name="institutionType" v-model="institution.institutionType" value="Academica" required/> Academia</label>
+                                    <label class="radio-inline"><input type="radio" name="institutionType" v-model="institution.institutionType" value="Empresa" /> Empresa</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="institution_name">Nombre de la institucion*</label>
+                                <input type="text" class="form-control" v-model="institution.institutionName" id="institution_name"
+                                       placeholder="Universidad de El Salvador" required>
+                            </div>
+
+                        </div>
+                        <hr v-if="mostrar">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-block">Agregar</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </section>

@@ -36,11 +36,32 @@ public class CertificationServiceImpl implements CertificationService{
 
     }
 
-
-
     public void storeCertification(Certification certification) {
 
         certificationRepository.save(certification);
+
+    }
+
+    public void spNewCertification(Certification certification){
+
+        if(certification.getInstitution().getInstitutionType() != null){
+            certificationRepository.newCertification(   certification.getCertificationTitle(),
+                    certification.getInstitution().getId(),
+                    certification.getInstitution().getInstitutionName(),
+                    certification.getInstitution().getInstitutionType().name());
+        }else{
+            certificationRepository.newCertification(   certification.getCertificationTitle(),
+                    certification.getInstitution().getId(),
+                    "",
+                    "");
+        }
+
+    }
+
+    @Override
+    public void spUpdateCertification(Certification certification) {
+
+        certificationRepository.updateCertification(certification.getCertificationId(),certification.getCertificationTitle(),certification.getInstitution().getId());
 
     }
 

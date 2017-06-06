@@ -1,10 +1,7 @@
 package com.bolsaTrabajo.model.catalog;
 
 import com.bolsaTrabajo.model.postulantInfo.PostulantCertification;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -12,6 +9,24 @@ import java.util.Set;
 
 @Entity
 @Table(name="certification")
+@NamedStoredProcedureQueries({
+        @NamedStoredProcedureQuery(name = "new_certification",
+                                    procedureName = "new_certification",
+                                    parameters = {
+                                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "C_NOMBRE", type = String.class),
+                                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "I_ID", type = Integer.class),
+                                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "I_NOMBRE", type = String.class),
+                                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "I_TIPO", type = String.class),
+                                    }),
+        @NamedStoredProcedureQuery( name="ACTUALIZAR_CERTIFICACION",
+                                    procedureName ="ACTUALIZAR_CERTIFICACION",
+                                    parameters = {
+                                        @StoredProcedureParameter(mode = ParameterMode.IN,name = "C_ID", type =  Integer.class),
+                                        @StoredProcedureParameter(mode = ParameterMode.IN,name = "C_TITULO" ,type = String.class),
+                                        @StoredProcedureParameter(mode = ParameterMode.IN,name = "I_ID" ,type = Integer.class),
+                                    })
+
+})
 public class Certification implements Serializable{
 
     private Integer id;
@@ -28,6 +43,10 @@ public class Certification implements Serializable{
         this.id = id;
     }
 
+    public Certification(String certificationTitle) {
+        this.certificationTitle = certificationTitle;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "certification_id")
@@ -39,7 +58,7 @@ public class Certification implements Serializable{
         this.id = certificationId;
     }
 
-    @Column(name="certification_code")
+    @Column(name="certification_code",unique = true)
     public String getCertificationCode() {
         return certificationCode;
     }
