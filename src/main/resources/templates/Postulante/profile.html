@@ -194,7 +194,7 @@
                                                 <tbody>
                                                 <tr v-for="(language, index) in postulantLanguages">
                                                     <td>{{ language.primaryKey.language.nombre }}</td>
-                                                    <td>{{language.languageLevel.codigo}}: {{language.languageLevel.titulo}}</td>
+                                                    <td>{{language.languageLevel}}: {{cambiarDescripcion(language.languageLevel)}}</td>
                                                     <td class="center_block">
                                                         <button class="btn btn-danger" @click="deleteLanguage(index, language)">Eliminar</button>
                                                     </td>

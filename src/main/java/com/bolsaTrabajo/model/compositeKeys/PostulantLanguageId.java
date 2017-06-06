@@ -1,6 +1,6 @@
 package com.bolsaTrabajo.model.compositeKeys;
 
-import com.bolsaTrabajo.model.Language;
+import com.bolsaTrabajo.model.catalog.Language;
 import com.bolsaTrabajo.model.Postulant;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

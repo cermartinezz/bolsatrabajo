@@ -1,4 +1,4 @@
-package com.bolsaTrabajo.model;
+package com.bolsaTrabajo.model.catalog;
 
 import com.bolsaTrabajo.model.postulantInfo.PostulantLanguage;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -6,9 +6,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.util.List;
 
-/**
- * Created by mvip on 05-26-17.
- */
 @Entity
 @Table(name="languageLevel")
 public class LanguageLevel {
@@ -59,8 +56,8 @@ public class LanguageLevel {
         this.codigo = codigo;
     }
 
-    @OneToOne(mappedBy = "languageLevel")
-    @JsonIgnore
+    //@OneToOne(mappedBy = "languageLevel")
+    //@JsonIgnore
     public PostulantLanguage getPostulantLanguage() {
         return postulantLanguage;
     }

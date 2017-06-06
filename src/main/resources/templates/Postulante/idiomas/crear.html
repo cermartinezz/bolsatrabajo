@@ -60,9 +60,14 @@
 
                                         <option disabled value="">Seleccione el nivel de su idioma</option>
 
-                                        <option th:each="languageLevel : ${languageLevels}"
-                                                th:value="${languageLevel.id}"
-                                                th:text="${languageLevel.titulo}">
+                                        <option value="A1">Basico</option>
+                                        <option value="A2">Elemental</option>
+                                        <option value="B1">Pre-Intermedio</option>
+                                        <option value="B2">Intermedio Superior</option>
+                                        <option value="C1">Avanzado</option>
+                                        <option value="C2">Superior</option>
+
+
 
                                     </select>
 

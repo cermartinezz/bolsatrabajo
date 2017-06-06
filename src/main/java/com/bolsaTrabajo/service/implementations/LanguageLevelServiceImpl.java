@@ -1,6 +1,6 @@
 package com.bolsaTrabajo.service.implementations;
 
-import com.bolsaTrabajo.model.LanguageLevel;
+import com.bolsaTrabajo.model.catalog.LanguageLevel;
 import com.bolsaTrabajo.repositories.LanguageLevelRepository;
 import com.bolsaTrabajo.service.LanguageLevelService;
 

@@ -62,6 +62,25 @@ new Vue({
         },
         dateName(date){
             return dateName(date);
+        },
+        cambiarDescripcion(descripcion){
+            let valor = '';
+            if(descripcion == 'A1'){
+               return valor = 'Basico';
+            }else if(descripcion == 'A2'){
+               return valor = 'Elemental';
+
+            }else if(descripcion == 'B1'){
+               return valor = 'Pre-Intermedio';
+
+            }else if(descripcion == 'B2'){
+               return valor = 'Intermedio Superior';
+
+            }else if(descripcion == 'C1'){
+                return valor = 'Avanzado';
+            }else{
+                return valor = 'Superior';
+            }
         }
     },
     mounted()

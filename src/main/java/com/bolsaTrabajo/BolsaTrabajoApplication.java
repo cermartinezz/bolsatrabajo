@@ -1,12 +1,11 @@
 package com.bolsaTrabajo;
 
-import com.bolsaTrabajo.model.Language;
-import com.bolsaTrabajo.model.LanguageLevel;
+import com.bolsaTrabajo.model.catalog.Language;
+import com.bolsaTrabajo.model.catalog.LanguageLevel;
 import com.bolsaTrabajo.model.Role;
 import com.bolsaTrabajo.model.catalog.Skill;
 import com.bolsaTrabajo.model.catalog.SkillCategory;
 import com.bolsaTrabajo.model.Permission;
-import com.bolsaTrabajo.repositories.SkillCategoryRepository;
 import com.bolsaTrabajo.service.*;
 import com.bolsaTrabajo.service.SkillCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;

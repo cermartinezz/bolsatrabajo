@@ -1,6 +1,6 @@
 package com.bolsaTrabajo.configuration;
 
-import com.bolsaTrabajo.model.LanguageLevel;
+import com.bolsaTrabajo.model.catalog.LanguageLevel;
 import com.bolsaTrabajo.model.postulantInfo.PostulantCertification;
 import com.bolsaTrabajo.model.postulantInfo.PostulantLanguage;
 import com.bolsaTrabajo.model.postulantInfo.PostulantPublication;

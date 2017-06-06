@@ -1,4 +1,4 @@
-package com.bolsaTrabajo.model;
+package com.bolsaTrabajo.model.catalog;
 
 import com.bolsaTrabajo.model.postulantInfo.PostulantLanguage;
 import com.fasterxml.jackson.annotation.JsonIgnore;

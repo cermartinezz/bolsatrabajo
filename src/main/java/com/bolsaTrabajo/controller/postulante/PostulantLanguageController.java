@@ -1,8 +1,8 @@
 package com.bolsaTrabajo.controller.postulante;
 
 
-import com.bolsaTrabajo.model.Language;
-import com.bolsaTrabajo.model.LanguageLevel;
+import com.bolsaTrabajo.model.catalog.Language;
+import com.bolsaTrabajo.model.catalog.LanguageLevel;
 import com.bolsaTrabajo.service.LanguageLevelService;
 import com.bolsaTrabajo.service.LanguageService;
 import com.bolsaTrabajo.service.PostulantService;

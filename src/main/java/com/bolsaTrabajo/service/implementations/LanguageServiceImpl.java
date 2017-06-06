@@ -1,6 +1,6 @@
 package com.bolsaTrabajo.service.implementations;
 
-import com.bolsaTrabajo.model.Language;
+import com.bolsaTrabajo.model.catalog.Language;
 import com.bolsaTrabajo.repositories.LanguageRepository;
 import com.bolsaTrabajo.service.LanguageService;
 import org.springframework.beans.factory.annotation.Autowired;

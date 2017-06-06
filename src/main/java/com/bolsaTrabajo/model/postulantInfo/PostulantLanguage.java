@@ -1,12 +1,13 @@
 package com.bolsaTrabajo.model.postulantInfo;
 
-import com.bolsaTrabajo.model.Language;
-import com.bolsaTrabajo.model.LanguageLevel;
+import com.bolsaTrabajo.model.catalog.Language;
+import com.bolsaTrabajo.model.catalog.LanguageLevel;
 import com.bolsaTrabajo.model.Postulant;
 import com.bolsaTrabajo.model.compositeKeys.PostulantLanguageId;
 import com.bolsaTrabajo.service.LanguageService;
 import com.bolsaTrabajo.service.PostulantLanguageService;
 import com.bolsaTrabajo.service.PostulantService;
+import com.bolsaTrabajo.util.LanguageLevelType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,7 +41,7 @@ public class PostulantLanguage implements Serializable{
 
     private PostulantLanguageId primaryKey = new PostulantLanguageId();
 
-    private LanguageLevel languageLevel;
+    private LanguageLevelType languageLevel;
 
     @Autowired
     public PostulantLanguage(PostulantLanguageService postulantLanguageService, PostulantService postulantService) {
@@ -79,16 +80,27 @@ public class PostulantLanguage implements Serializable{
         getPrimaryKey().setLanguage(language);
     }
 
-    @OneToOne
-    @JoinColumn(name = "languageLevel_id")
-    public LanguageLevel getLanguageLevel() {
+    @Enumerated(EnumType.STRING)
+    public LanguageLevelType getLanguageLevel() {
         return languageLevel;
     }
 
-    public void setLanguageLevel(LanguageLevel languageLevel) {
+    public void setLanguageLevel(LanguageLevelType languageLevel) {
         this.languageLevel = languageLevel;
     }
 
+    /*
+        @OneToOne
+        @JoinColumn(name = "languageLevel_id")
+        public LanguageLevel getLanguageLevel() {
+            return languageLevel;
+        }
+
+        public void setLanguageLevel(LanguageLevel languageLevel) {
+            this.languageLevel = languageLevel;
+        }
+
+    */
     public PostulantLanguage save(String username, PostulantLanguage postulantLanguageFromRequest){
         Postulant postulant = postulantService.findByUsername(username);
         Language language = languageService.findById(postulantLanguageFromRequest.getLanguage().getId());
