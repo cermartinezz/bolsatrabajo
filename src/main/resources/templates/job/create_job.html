@@ -29,16 +29,23 @@
                                       th:object="${userForm}" method="post" class="form-horizontal"
                                       role="form">
                                     <div class="form-group">
+                                        <label for="nombre">Nombre del puesto</label>
                                         <label th:if="${#fields.hasErrors('nombreJ')}" th:errors="*{nombreJ}"></label>
-                                        <input type="text" th:field="*{nombreJ}" placeholder="Nombre del puesto" class="form-control" required/>
+                                        <input type="text" th:field="*{nombreJ}" id="nombre" placeholder="Nombre del puesto" class="form-control" required/>
                                     </div>
                                     <div class="form-group">
+                                        <label for="salario">Salario del puesto</label>
                                         <label th:if="${#fields.hasErrors('salarioJ')}" th:errors="*{salarioJ}"></label>
-                                        <input type="text" th:field="*{salarioJ}" placeholder="Salario del puesto" class="form-control" required/>
+                                        <input type="number" th:field="*{salarioJ}" id="salario" min="1" placeholder="Salario del puesto" class="form-control" required/>
                                     </div>
                                     <div class="form-group">
+                                        <label for="descripcion">Descripcion del puesto</label>
                                         <label th:if="${#fields.hasErrors('descripcionJ')}" th:errors="*{descripcionJ}"></label>
-                                        <input type="text" th:field="*{descripcionJ}" placeholder="Descripcion de puesto" class="form-control" required>
+                                        <textarea type="text"
+                                                  th:field="*{descripcionJ}"
+                                                  id="descripcion"
+                                                  rows="3"
+                                                  cols="10" placeholder="Descripcion de puesto" class="form-control" required></textarea>
                                     </div>
                                     <div class="form-group">
                                         <button type="submit" class="btn btn-primary btn-block">Registrar Puesto</button>

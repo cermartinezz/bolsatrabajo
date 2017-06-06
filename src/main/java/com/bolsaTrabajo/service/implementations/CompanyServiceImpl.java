@@ -2,13 +2,9 @@ package com.bolsaTrabajo.service.implementations;
 
 import com.bolsaTrabajo.model.Company;
 import com.bolsaTrabajo.model.Role;
-import com.bolsaTrabajo.model.User;
 import com.bolsaTrabajo.repositories.CompanyRepository;
 import com.bolsaTrabajo.repositories.RoleRepository;
-import com.bolsaTrabajo.repositories.UserRepository;
 import com.bolsaTrabajo.service.CompanyService;
-import com.bolsaTrabajo.service.UserService;
-import com.bolsaTrabajo.util.Auth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -29,7 +25,7 @@ public class CompanyServiceImpl implements CompanyService {
         company.setPassword(bCryptPasswordEncoder.encode(company.getPassword()));
         company.setActive(1);
         HashSet<Role> roleCollection = new HashSet<>();
-        roleCollection.add(roleRepository.findByName("COMPANY"));
+        roleCollection.add(roleRepository.findByName("EMPRESA"));
 
         company.setRoles(roleCollection);
         companyRepository.save(company);
