@@ -1,14 +1,13 @@
 package com.bolsaTrabajo.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 
 @Entity
-@Table(name = "company")
 public class Company extends User{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+
     private Long id;
 
     private String nombreC;
@@ -21,7 +20,10 @@ public class Company extends User{
 
     private String informacionC;
 
+    private Set<Job> jobs;
     @Override
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
         return id;
     }
@@ -69,6 +71,16 @@ public class Company extends User{
     public void setInformacionC(String informacionC) {
         this.informacionC = informacionC;
     }
+
+    @OneToMany(mappedBy = "company",cascade= CascadeType.ALL, targetEntity = Job.class)
+    public Set<Job> getJobs() {
+        return jobs;
+    }
+
+    public void setJobs(Set<Job> jobs) {
+        this.jobs = jobs;
+    }
+
 
     @Override
     public String toString() {
