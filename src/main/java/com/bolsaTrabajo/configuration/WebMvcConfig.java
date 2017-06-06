@@ -58,6 +58,9 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     }
 
     @Bean
+    public AwardService awardService(){ return new AwardService();}
+
+    @Bean
     public UserService userService(){
         return new UserServiceImpl();
     }
@@ -125,6 +128,8 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         return new SkillServiceImpl();
     }
 
+    @Bean
+    public CompanyCatService companyCatService(){ return new CompanyCatService(); }
 
     @Bean
     public JobCatService jobCatService(){ return new JobCatService(); }
@@ -160,6 +165,11 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     }
 
     @Bean
+    public PostulantCertification postulantCertification(){
+        return new PostulantCertification();
+    }
+
+    @Bean
     public LanguageService languageService(){
         return new LanguageServiceImpl();
     }
@@ -168,13 +178,5 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     public LanguageLevelService languageLevelService(){
         return new LanguageLevelServiceImpl();
     }
-
-
-    @Bean
-    public CompanyCatService companyCatService(){
-        return new CompanyCatService();
-    }
-
-
 }
 

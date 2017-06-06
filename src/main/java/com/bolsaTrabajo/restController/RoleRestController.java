@@ -1,6 +1,8 @@
 package com.bolsaTrabajo.restController;
 
+import com.bolsaTrabajo.model.Permission;
 import com.bolsaTrabajo.model.Role;
+import com.bolsaTrabajo.service.PermissionService;
 import com.bolsaTrabajo.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +17,9 @@ public class RoleRestController {
 
     @Autowired
     private RoleService roleService;
+
+    @Autowired
+    private PermissionService permissionService;
 
 
     // -------------------Crear Role-------------------------------------------
@@ -53,5 +58,39 @@ public class RoleRestController {
         roleService.delete(id);
         attributes.addFlashAttribute("messageSuccess","El rol se elimino correctamente");
         return new RedirectView("/roles");
+    }
+
+    // -------------------Actualizar Permisos del Rol-------------------------------------------
+    @RequestMapping(value = "/permiso",method = RequestMethod.PUT)
+    public RedirectView updatePermission(@RequestParam("permiso") long permiso, @RequestParam("role") long role,RedirectAttributes attributes) {
+        Permission permission = permissionService.findById(permiso);
+        Role nRole = roleService.findById(role);
+
+        if (nRole.getPermissions().contains(permission)){
+            attributes.addFlashAttribute("message","El rol ya posee el permiso seleccionado");
+            return new RedirectView("/roles/"+role);
+        }
+        else{
+            try {
+                nRole.getPermissions().add(permission);
+                roleService.save(nRole);
+                attributes.addFlashAttribute("messageSuccess","El permiso se agrego correctamente");
+                return new RedirectView("/roles/"+role);
+            }catch (Exception e){
+                attributes.addFlashAttribute("message","El rol ya posee el permiso seleccionado");
+                return new RedirectView("/roles/"+role);
+            }
+        }
+    }
+
+    // -------------------Eliminar Permiso de Rol-------------------------------------------
+    @RequestMapping(value = "/permiso/{id}",method = RequestMethod.DELETE)
+    public RedirectView deletePermission(@PathVariable("id") long id,@RequestParam("permiso") long permiso, RedirectAttributes attributes) {
+        Role nRole = roleService.findById(id);
+        Permission permission = permissionService.findById(permiso);
+        nRole.getPermissions().remove(permission);
+        roleService.save(nRole);
+        attributes.addFlashAttribute("messageSuccess","El permiso fue eliminado del rol correctamente");
+        return new RedirectView("/roles/"+id);
     }
 }

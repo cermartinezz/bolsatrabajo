@@ -1,5 +1,6 @@
 package com.bolsaTrabajo.controller;
 
+import com.bolsaTrabajo.model.User;
 import com.bolsaTrabajo.service.SecurityService;
 import com.bolsaTrabajo.service.UserService;
 import com.bolsaTrabajo.util.Auth;
@@ -33,8 +34,9 @@ public class LoginController {
         if(Auth.check()){
             return "redirect:/";
         }else{
+            User u = userService.findByUsername(Auth.auth().getName());
             model.addAttribute("user",Auth.auth());
-
+            model.addAttribute("u",u);
             if (error != null)
                 model.addAttribute("error", "Your username and password is invalid.");
 

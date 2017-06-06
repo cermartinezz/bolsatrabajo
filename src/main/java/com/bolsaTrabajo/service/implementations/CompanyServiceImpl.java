@@ -43,5 +43,7 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public Company findById(long id){return companyRepository.findById(id);}
+
+    public void delete(Company company){companyRepository.delete(company);}
 }
 

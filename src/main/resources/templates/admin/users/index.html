@@ -3,7 +3,7 @@
 
 <head th:include="fragmentos/head :: head" th:remove="tag">
     <meta charset="UTF-8">
-    <title>Permisos</title>
+    <title>Roles</title>
 </head>
 <body>
 <div class="site-wrapper" id="app">
@@ -15,46 +15,49 @@
 
     <div class="main" role="main">
 
-        <div th:include="fragmentos/heading :: heading('Permisos')"></div>
+        <div th:include="fragmentos/heading :: heading('Roles de Usuarios')"></div>
 
         <section class="page-content">
             <div class="container">
                 <div class="box">
                     <div class="row">
                         <div class="col-md-8 col-md-offset-2">
-                            <h3>Lista de Permisos</h3>
-
-                            <div th:if="${messageSuccess!=null}" class="alert alert-success alert-dismissable">
+                            <h3>Lista de Usuarios</h3>
+                            <div th:if="${messageSuccess != null}" class="alert alert-success alert-dismissable">
                                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                                 <span th:text="${messageSuccess}"></span>
                             </div>
+                            <div th:if="${message != null}" class="alert alert-danger alert-dismissable">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <span th:text="${message}"></span>
+                            </div>
 
                             <div class="table-responsive">
-                                <a th:href="@{/permissions/crear}" class="btn btn-success">Nuevo</a>
                                 <table class="table table-bordered table-stripe">
                                     <thead>
                                     <tr>
                                         <th>#</th>
                                         <th>Id</th>
-                                        <th>Nombre</th>
+                                        <th>Nombre de Usuario</th>
                                         <th></th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr th:each="p,iter : ${permissions}">
+                                    <tr th:each="u,iter : ${usuarios}">
                                         <td th:text="${iter.count}"></td>
-                                        <td th:text="${p.id}"></td>
-                                        <td th:text="${p.name}"></td>
+                                        <td th:text="${u.id}"></td>
+                                        <td th:text="${u.getUsername()}"></td>
                                         <td>
-                                            <a th:href="@{/permissions/{id}(id=${p.id})}" class="btn btn-info">Editar</a>
-
-                                            <form th:action="@{'/permission/' + ${p.id}}"
+                                            <a th:href="@{/usuarios/{username}(username=${u.username})}" style="text-decoration:none;">
+                                                <button class="btn btn-warning btn-xs"><span class="fa fa-pencil"></span> Editar</button>
+                                            </a>
+                                            <form th:action="@{'/users/' + ${u.username}}"
                                                   th:method="DELETE" class="btn">
 
                                                 <div >
                                                     <button type="submit"
-                                                            class="btn btn-danger btn-block"
-                                                            onclick="return confirm("Seguro que desea eliminar este registro?")">Eliminar</button>
+                                                            class="btn btn-danger btn-xs"
+                                                            onclick="return confirm('Seguro que desea eliminar este registro?')"><span class="fa fa-trash"></span> Eliminar</button>
                                                 </div>
 
                                             </form>

@@ -2,6 +2,7 @@ package com.bolsaTrabajo.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Iterator;
 import java.util.Set;
 
 @Entity
@@ -97,6 +98,36 @@ public class User implements Serializable{
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    //Metodos para control de contenido
+    public boolean hasRole(String role){
+        Iterator<Role> i = roles.iterator();            //Creando un iterador para los roles
+        if (i.hasNext()){                               //Si el iterador contiene elementos itera y busca
+            while (i.hasNext()){                        //Iterando cada elemento
+                if (i.next().getName().equals(role))    //Buscando en cada elemento el role
+                    return true;                        //Si encuentra el role retorna true
+            }
+        }
+        return false;                                   //De estar los roles vacios o no encontrarse retorna false
+    }
+
+    public boolean hasPermission(String permission){
+        Iterator<Role> i = roles.iterator();
+        if (i.hasNext()){
+            while (i.hasNext()){
+                Iterator<Permission> ip = i.next().getPermissions().iterator();
+                if (ip.hasNext()){
+                    while (ip.hasNext()){
+                        if (ip.next().getName().equals(permission))
+                            return true;
+                    }
+                }
+                else
+                    return false;
+            }
+        }
+        return false;
     }
 
 }

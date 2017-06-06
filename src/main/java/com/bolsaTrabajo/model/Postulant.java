@@ -1,4 +1,3 @@
-
 package com.bolsaTrabajo.model;
 
 import com.bolsaTrabajo.model.postulantInfo.*;
@@ -28,6 +27,7 @@ public class Postulant extends User{
     private Set<PostulantCertification> certifications;
     private Set<Recommendation> recommendations;
     private Set<PostulantSkill> skills;
+    private Set<Award> awards;
     private Set<PostulantPublication> postulantPublications;
     private Set<PostulantLanguage> postulantLanguages;
 
@@ -36,7 +36,6 @@ public class Postulant extends User{
     public Postulant(String username) {
         this.username = username;
     }
-
 
 
     @OneToMany(mappedBy = "postulant")
@@ -131,8 +130,8 @@ public class Postulant extends User{
     /***********RELACIONES**************/
 
     @OneToMany( mappedBy = "primaryKey.postulant",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true)
+                cascade = CascadeType.ALL,
+                orphanRemoval = true)
     public Set<PostulantCertification> getCertifications() {
         return certifications;
     }
@@ -142,7 +141,7 @@ public class Postulant extends User{
     }
 
     @OneToMany( mappedBy = "postulant",
-            cascade = CascadeType.ALL)
+                cascade = CascadeType.ALL)
     public Set<Recommendation> getRecommendations() {
         return recommendations;
     }
@@ -151,8 +150,8 @@ public class Postulant extends User{
         this.recommendations = recommendations;
     }
 
-    @OneToMany( mappedBy = "primaryKey.postulant",
-            cascade = CascadeType.ALL)
+    @OneToMany( mappedBy = "postulant",
+                cascade = CascadeType.ALL)
     public Set<PostulantSkill> getSkills() {
         return skills;
     }
@@ -177,6 +176,15 @@ public class Postulant extends User{
 
     public void setAcademicExperiences(Set<AcademicExperience> academicExperiences) {
         this.academicExperiences = academicExperiences;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "postulant", cascade = CascadeType.REMOVE)
+    public Set<Award> getAwards() {
+        return awards;
+    }
+
+    public void setAwards(Set<Award> awards) {
+        this.awards = awards;
     }
 
     @OneToMany( mappedBy = "primaryKey.postulant",
@@ -215,5 +223,4 @@ public class Postulant extends User{
                 ", nup='" + nup + '\'' +
                 '}';
     }
-
 }

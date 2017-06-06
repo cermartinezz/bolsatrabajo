@@ -2,6 +2,7 @@ package com.bolsaTrabajo.controller;
 
 import com.bolsaTrabajo.model.Postulant;
 import com.bolsaTrabajo.model.catalog.Institution;
+import com.bolsaTrabajo.model.User;
 import com.bolsaTrabajo.model.postulantInfo.AcademicExperience;
 import com.bolsaTrabajo.model.postulantInfo.WorkExperience;
 import com.bolsaTrabajo.service.*;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -27,6 +29,8 @@ public class PostulantController {
     @Autowired
     private InstitutionService institutionService;
 
+    @Autowired
+    UserService userService;
 
     @Autowired
     private CompanyCatService companyCatService;
@@ -39,6 +43,11 @@ public class PostulantController {
 
     public Postulant postulant;
 
+    @ModelAttribute("usr")
+    public User globalUser(Model model) {
+        User u = userService.findByUsername(Auth.auth().getName());
+        return u;
+    }
 
     @GetMapping("perfil")
     public String profile(Model model, @PathVariable String username){

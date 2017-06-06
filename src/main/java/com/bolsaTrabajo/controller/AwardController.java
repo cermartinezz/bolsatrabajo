@@ -1,8 +1,9 @@
 package com.bolsaTrabajo.controller;
 
-import com.bolsaTrabajo.model.Permission;
+import com.bolsaTrabajo.model.Award;
+import com.bolsaTrabajo.model.Postulant;
 import com.bolsaTrabajo.model.User;
-import com.bolsaTrabajo.service.PermissionService;
+import com.bolsaTrabajo.service.AwardService;
 import com.bolsaTrabajo.service.UserService;
 import com.bolsaTrabajo.util.Auth;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +17,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class PermissionController {
+public class AwardController {
     @Autowired
-    UserService userService;
+    AwardService awardService;
 
     @Autowired
-    PermissionService permissionService;
+    UserService userService;
 
     @ModelAttribute("usr")
     public User globalUser(Model model) {
@@ -29,27 +30,21 @@ public class PermissionController {
         return u;
     }
 
-    @RequestMapping(value = "/permissions", method = RequestMethod.GET)
-    public String index(Model model){
-        model.addAttribute("user", Auth.auth());
-        model.addAttribute("permissions", permissionService.getAllPermissions());
-        return "admin/permissions/index";
-    }
-
-    @RequestMapping(value = "/permissions/crear", method = RequestMethod.GET)
+    @RequestMapping(value = "/logros/crear", method = RequestMethod.GET)
     public String create(ModelMap model){
         model.addAttribute("user", Auth.auth());
-        model.addAttribute("permission",new Permission());
-        return "admin/permissions/crear";
+        model.addAttribute("award",new Award());
+        return "Postulante/logros/crear";
     }
 
-    @RequestMapping(value = "/permissions/{id}", method = RequestMethod.GET)
-    public ModelAndView show(@PathVariable long id){
+    @RequestMapping(value = "/logros/{id}", method = RequestMethod.GET)
+    public ModelAndView show(@PathVariable String id){
         ModelAndView model = new ModelAndView();
-        Permission permission = permissionService.findById(id);
+
+        Award award = awardService.findById(Long.parseLong(id));
         model.addObject("user", Auth.auth());
-        model.addObject("permission",permission);
-        model.setViewName("admin/permissions/editar");
+        model.addObject("award",award);
+        model.setViewName("Postulante/logros/editar");
         return model;
     }
 }

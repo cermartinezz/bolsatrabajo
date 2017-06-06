@@ -21,4 +21,6 @@ public interface PostulantService {
     Postulant findByEmail(String email);
 
     void update(Postulant postulant);
+
+    void delete(Postulant postulant);
 }
