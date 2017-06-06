@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:include="fragmentos/head :: head" th:remove="tag">
-</head>
+<head th:include="fragmentos/head :: head" th:remove="tag"></head>
 <title>Lista de Puestos</title>
+<body>
 <div>
     <div class="site-wrapper" id="app">
         <header class="header header-menu-fullw">
@@ -20,41 +20,38 @@
             <div th:include="fragmentos/heading :: heading('Lista de Puestos')"></div>
             <section class="page-content">
                 <div class="container">
-                    <div class="row">
-                        <div class="col-md-6 col-md-offset-3">
-                            <div class="box">
-                                <span th:utext="${successMessage}"></span>
-                                <div class="table-responsive">
-                                    <a th:href="@{/puesto/crear}" class="btn btn-success">Nuevo</a>
-                                    <table class="table table-bordered table-stripe">
-                                        <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Nombre Puesto</th>
-                                            <th>Salario Puesto</th>
-                                            <th></th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr th:each="j,iter : ${empresa.getJobs()}">
-                                            <td th:text="${iter.count}"></td>
-                                            <td th:text="${j.nombreJ}"></td>
-                                            <td th:text="${j.SalarioJ}"></td>
-                                            <td>
+                    <a th:href="@{/puesto/crear}" class="btn btn-success">Nuevo</a>
+                    <hr>
+                    <div class="box">
+                        <span th:utext="${successMessage}"></span>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-stripe">
+                                <thead>
+                                <tr>
+                                    <th>Nombre Puesto</th>
+                                    <th>Salario Puesto</th>
+                                    <th>Acciones</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="j,iter : ${empresa.getJobs()}">
+                                    <td th:text="${j.nombreJ}"></td>
+                                    <td th:text="${j.SalarioJ}"></td>
+                                    <td >
 
-                                                <a th:href="@{'/puesto/'+${j.id}+'/perfil'}" class="btn btn-info">Perfil</a>
-                                                <form th:action="@{'/job/' + ${j.id}}"
-                                                      th:method="DELETE" class="btn">
-                                                    <div >
-                                                        <button type="submit"
-                                                                class="btn btn-danger btn-block"
-                                                                onclick="return confirm('Seguro que desea eliminar este registro?')">Eliminar</button>
-                                                    </div>
-                                                </form>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                                        <a th:href="@{'/puesto/'+${j.id}+'/perfil'}" class="btn btn-info">Perfil</a>
+                                        <form th:action="@{'/job/' + ${j.id}}"
+                                              th:method="DELETE" class="btn">
+                                            <div >
+                                                <button type="submit"
+                                                        class="btn btn-danger btn-block"
+                                                        onclick="return confirm('Seguro que desea eliminar este registro?')">Eliminar</button>
+                                            </div>
+                                        </form>
+
+                                    </td>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -66,7 +63,7 @@
 
     <div th:include="fragmentos/footer :: footer"></div>
 </div>
-</div>
+// TODO: MOSTRAR MENSAJE SWEET ALERT
 <div th:include="fragmentos/scripts :: scripts" ></div>
 </body>
 </html>

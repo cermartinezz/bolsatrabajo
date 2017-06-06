@@ -3,15 +3,14 @@ package com.bolsaTrabajo.controller;
 import com.bolsaTrabajo.model.Company;
 
 import com.bolsaTrabajo.model.Role;
+import com.bolsaTrabajo.model.User;
 import com.bolsaTrabajo.service.CompanyService;
+import com.bolsaTrabajo.service.UserService;
 import com.bolsaTrabajo.util.Auth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -21,7 +20,16 @@ public class CompanyController {
     @Autowired
     CompanyService companyService;
 
+    @Autowired
+    UserService userService;
+
     public Company company;
+
+    @ModelAttribute("usr")
+    public User globalUser(Model model) {
+        User u = userService.findByUsername(Auth.auth().getName());
+        return u;
+    }
 
     @RequestMapping(value= "/company/{user}/profile")
     public String companyProfile(@PathVariable String user, Model model) {

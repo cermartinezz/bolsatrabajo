@@ -5,7 +5,7 @@
 </head>
 <body>
 
-    <div th:fragment="menu(user)">
+    <div th:fragment="menu(u)">
 
         <div class="header-main">
 
@@ -28,15 +28,15 @@
                             <li class="active"><a href="/">Inicio</a></li>
                             <li><a href="#">Postulante</a>
                                 <ul>
-                                    <li><a th:href="@{'/postulante/'+ ${user.getName()} + '/perfil'}">Mi Perfil</a></li>
+                                    <li><a th:href="@{'/postulante/'+ ${u.getName()} + '/perfil'}">Mi Perfil</a></li>
                                   <!--  <li><a href="#">Mis Aplicaciones</a></li>
                                     <li><a href="#">Editar Perfil</a></li> -->
                                 </ul>
                             </li>
                             <li><a href="#">Empresa</a>
                                 <ul>
-                                    <li><a th:href="@{'/company/'+ ${user.getName()} + '/profile'}">Perfil Empresa</a></li>
-                                    <li><a th:href="@{'/company/'+ ${user.getName()} + '/editar'}">Editar Perfil</a></li>
+                                    <li><a th:href="@{'/company/'+ ${u.getName()} + '/profile'}">Perfil Empresa</a></li>
+                                    <li><a th:href="@{'/company/'+ ${u.getName()} + '/editar'}">Editar Perfil</a></li>
                                 </ul>
                             </li>
                             <li><a href="#">Puesto</a>
@@ -61,9 +61,9 @@
                             <li><a href="#">Administración</a>
                                 <ul>
                                     <li><a href="/admin/menu">Menú</a></li>
-                                    <li><a href="#">Usuarios</a></li>
-                                    <li><a href="#">Roles</a></li>
-                                    <li><a href="#">Permisos</a></li>
+                                    <li><a href="/usuarios">Usuarios</a></li>
+                                    <li><a href="/roles">Roles</a></li>
+                                    <li><a href="/permissions">Permisos</a></li>
                                 </ul>
                             </li>
                         </ul>

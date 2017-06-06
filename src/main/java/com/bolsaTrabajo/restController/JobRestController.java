@@ -25,14 +25,17 @@ public class JobRestController {
 
     @RequestMapping(method= RequestMethod.POST)
     public RedirectView store(Job job, RedirectAttributes attributes) {
-        String nombre=job.getNombreJ();
-        String codigo=StringUtil.toSlug(nombre);
-
         Company company=companyService.findByUsername(Auth.auth().getName());
+        String nombre=job.getNombreJ() + "-" + company.getId();
+        String codigo=StringUtil.toSlug(nombre);
+        Job byCodJ = jobService.findByCodJ(codigo);
+        if(!(byCodJ == null)){
+            return new RedirectView("/puesto/lista");
+        }
         job.setCompany(company);
         job.setCodJ(codigo);
         jobService.save(job);
-        return new RedirectView("/puesto/perfil");
+        return new RedirectView("/puesto/lista");
     }
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
     public RedirectView update(@PathVariable("id") Long id, Job job, RedirectAttributes attributes) {
