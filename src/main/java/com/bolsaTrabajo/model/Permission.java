@@ -1,5 +1,7 @@
 package com.bolsaTrabajo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -38,6 +40,7 @@ public class Permission {
     }
 
     @ManyToMany(mappedBy = "permissions")
+    @JsonIgnore
     public Set<Role> getRoles() {
         return roles;
     }

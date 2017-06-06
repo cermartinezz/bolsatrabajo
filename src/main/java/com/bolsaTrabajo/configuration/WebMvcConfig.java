@@ -164,10 +164,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         return new RecommendationValidator();
     }
 
-    @Bean
-    public PostulantCertification postulantCertification(){
-        return new PostulantCertification();
-    }
+
 
     @Bean
     public LanguageService languageService(){

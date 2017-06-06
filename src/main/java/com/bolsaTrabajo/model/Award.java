@@ -1,6 +1,7 @@
 //Esta entidad guardara los logros, premios, etc. del postulante
 package com.bolsaTrabajo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -53,6 +54,7 @@ public class Award {
     }
 
     @ManyToOne
+    @JsonIgnore
     public Postulant getPostulant() {
         return postulant;
     }
