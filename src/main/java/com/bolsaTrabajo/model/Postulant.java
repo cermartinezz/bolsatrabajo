@@ -1,10 +1,7 @@
+
 package com.bolsaTrabajo.model;
 
-import com.bolsaTrabajo.model.postulantInfo.PostulantCertification;
-import com.bolsaTrabajo.model.postulantInfo.PostulantSkill;
-import com.bolsaTrabajo.model.postulantInfo.Recommendation;
-import com.bolsaTrabajo.model.postulantInfo.AcademicExperience;
-import com.bolsaTrabajo.model.postulantInfo.WorkExperience;
+import com.bolsaTrabajo.model.postulantInfo.*;
 import com.bolsaTrabajo.util.Gender;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -31,13 +28,15 @@ public class Postulant extends User{
     private Set<PostulantCertification> certifications;
     private Set<Recommendation> recommendations;
     private Set<PostulantSkill> skills;
-
+    private Set<PostulantPublication> postulantPublications;
+    private Set<PostulantLanguage> postulantLanguages;
 
     public Postulant() {super();}
 
     public Postulant(String username) {
         this.username = username;
     }
+
 
 
     @OneToMany(mappedBy = "postulant")
@@ -132,8 +131,8 @@ public class Postulant extends User{
     /***********RELACIONES**************/
 
     @OneToMany( mappedBy = "primaryKey.postulant",
-                cascade = CascadeType.ALL,
-                orphanRemoval = true)
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
     public Set<PostulantCertification> getCertifications() {
         return certifications;
     }
@@ -143,7 +142,7 @@ public class Postulant extends User{
     }
 
     @OneToMany( mappedBy = "postulant",
-                cascade = CascadeType.ALL)
+            cascade = CascadeType.ALL)
     public Set<Recommendation> getRecommendations() {
         return recommendations;
     }
@@ -153,7 +152,7 @@ public class Postulant extends User{
     }
 
     @OneToMany( mappedBy = "primaryKey.postulant",
-                cascade = CascadeType.ALL)
+            cascade = CascadeType.ALL)
     public Set<PostulantSkill> getSkills() {
         return skills;
     }
@@ -180,6 +179,27 @@ public class Postulant extends User{
         this.academicExperiences = academicExperiences;
     }
 
+    @OneToMany( mappedBy = "primaryKey.postulant",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    public Set<PostulantPublication> getPostulantPublications() {
+        return postulantPublications;
+    }
+
+    public void setPostulantPublications(Set<PostulantPublication> postulantPublications) {
+        this.postulantPublications = postulantPublications;
+    }
+
+    @OneToMany(mappedBy = "primaryKey.postulant",
+    cascade = CascadeType.ALL, orphanRemoval = true)
+    public Set<PostulantLanguage> getPostulantLanguages() {
+        return postulantLanguages;
+    }
+
+    public void setPostulantLanguages(Set<PostulantLanguage> postulantLanguages) {
+        this.postulantLanguages = postulantLanguages;
+    }
+
     @Override
     public String toString() {
         return "Postulant{" +
@@ -195,4 +215,5 @@ public class Postulant extends User{
                 ", nup='" + nup + '\'' +
                 '}';
     }
+
 }

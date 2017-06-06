@@ -39,7 +39,7 @@
                     <div class="content col-md-12">
 
                         <div class="box mb-30">
-                            <div class="job-profile-info">
+                            <a class="job-profile-info">
                                 <div class="box">
                                     <div class="center">
                                         <div class="center_heigth">
@@ -170,22 +170,42 @@
                                 <ul class="job_listings">
                                     <div class="spacer-lg"></div>
 
-                                    <h4>Idiomas</h4>
-                                    <li class="job_listing">
-                                        <a href="#">
-                                            <div class="job_img">
-                                                <img src="images/samples/person1.jpg" alt="" class="company_logo">
-                                            </div>
-                                            <div class="position">
-                                                <h4>Chino Mandarín</h4>
-                                            </div>
-                                            <div class="rating">
-                                                <div class="rating-stars">
-                                                </div>
-                                                <div class="reviews-num">Nivel 50%</div>
-                                            </div>
+                                    <div class="row">
+                                        <div class="col-md-9">
+                                            <h4>Idiomas</h4>
+                                        </div>
 
-                                        </a>
+                                        <div class="col-md-3">
+                                            <div class="col-md-3">
+                                                <a th:href="@{'/postulante/' + ${username} + '/idiomas/agregar'}" class="btn btn-sm btn-success">Agregar</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <li class="job_listing">
+                                        <div v-if="postulantLanguages.length != 0" class="table-responsive">
+                                            <table class="job-manager-jobs table table-bordered table-stripe">
+                                                <thead>
+                                                <tr>
+                                                    <th>Idioma</th>
+                                                    <th>Nivel</th>
+                                                    <th>Acciones</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr v-for="(language, index) in postulantLanguages">
+                                                    <td>{{ language.primaryKey.language.nombre }}</td>
+                                                    <td>{{language.languageLevel.codigo}}: {{language.languageLevel.titulo}}</td>
+                                                    <td class="center_block">
+                                                        <button class="btn btn-danger" @click="deleteLanguage(index, language)">Eliminar</button>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div v-if="postulantLanguages.length == 0" class="center_block">
+                                            <p><strong>NO HAY REGISTROS, DEBERIAS INGRESAR ALGUN IDIOMA</strong></p>
+                                        </div>
+
                                     </li>
                                 </ul>
 
@@ -197,30 +217,35 @@
                                         </div>
 
                                         <div class="col-md-3">
-                                            <a href="#" class="btn btn-sm btn-info">Ver detalle</a>
-                                            <a href="../publicacion/crear" class="btn btn-sm btn-success">Agregar</a>
+                                            <div class="col-md-3">
+                                                <a th:href="@{'/postulante/' + ${username} + '/publicaciones/agregar'}" class="btn btn-sm btn-success">Agregar</a>
+                                            </div>
                                         </div>
                                     </div>
                                     <li class="job_listing">
-                                        <a href="#">
-                                            <div class="job_img">
-                                                <img src="images/samples/person1.jpg" alt="" class="company_logo">
-                                            </div>
-                                            <div class="position">
-                                                <h4>Librito1</h4>
-                                            </div>
-                                            <div class="rating">
-                                                <div class="rating-stars">
-                                                </div>
-                                                <div class="reviews-num"></div>
-                                            </div>
-                                            <ul class="meta">
-                                                <li class="job-type">Código</li>
-                                                <li class="date">Fecha
-                                                </li>
-                                            </ul>
-
-                                        </a>
+                                        <div v-if="postulantPublications.length != 0" class="table-responsive">
+                                            <table class="job-manager-jobs table table-bordered table-stripe">
+                                                <thead>
+                                                <tr>
+                                                    <th>Publicacion</th>
+                                                    <th>Fecha</th>
+                                                    <th>Acciones</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr v-for="(publication, index) in postulantPublications">
+                                                    <td>{{ publication.primaryKey.publication.titulo }}</td>
+                                                    <td>{{ publication.publicationDate }}</td>
+                                                    <td class="center_block">
+                                                        <button class="btn btn-danger" @click="deletePublication(index,publication)">Eliminar</button>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div v-if="postulantPublications.length == 0" class="center_block">
+                                            <p><strong>NO HAY REGISTROS, DEBERIAS INGRESAR ALGUN LIBRO O PUBLICACION</strong></p>
+                                        </div>
                                     </li>
                                 </ul>
 

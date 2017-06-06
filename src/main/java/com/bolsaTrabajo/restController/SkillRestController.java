@@ -115,7 +115,7 @@ public class SkillRestController {
     }
 
     @RequestMapping(value = "/{code}")
-    public ResponseEntity actualizar(@PathVariable("code") String code, @Valid @RequestBody Skill skill) {
+    public ResponseEntity actualizar(@PathVariable("code") String code, @Valid @RequestBody Skill skill, UriComponentsBuilder ucBuilder) {
         Skill current = skillService.findSkillByCodigo(code);
 
         current.setTitulo(skill.getTitulo());
@@ -123,8 +123,9 @@ public class SkillRestController {
         current.setSkillCategory(skill.getSkillCategory());
 
         skillService.updateSkill(skill);
+        this.headers.setLocation(ucBuilder.path("/habilidades").buildAndExpand(skill.getId()).toUri());
 
-        return new ResponseEntity(current, HttpStatus.OK);
+        return new ResponseEntity(current,headers, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{code}",method = RequestMethod.DELETE)

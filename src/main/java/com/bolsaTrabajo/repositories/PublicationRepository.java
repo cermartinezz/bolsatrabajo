@@ -1,6 +1,7 @@
 package com.bolsaTrabajo.repositories;
 
-import com.bolsaTrabajo.model.postulantInfo.Publication;
+import com.bolsaTrabajo.model.catalog.AcademicTitleCat;
+import com.bolsaTrabajo.model.catalog.Publication;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

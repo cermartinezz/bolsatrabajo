@@ -1,6 +1,9 @@
 package com.bolsaTrabajo.configuration;
 
+import com.bolsaTrabajo.model.LanguageLevel;
 import com.bolsaTrabajo.model.postulantInfo.PostulantCertification;
+import com.bolsaTrabajo.model.postulantInfo.PostulantLanguage;
+import com.bolsaTrabajo.model.postulantInfo.PostulantPublication;
 import com.bolsaTrabajo.model.postulantInfo.PostulantSkill;
 import com.bolsaTrabajo.service.*;
 import com.bolsaTrabajo.service.implementations.*;
@@ -22,10 +25,23 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         return new PostulantCertification();
     }
 
+
+    @Bean
+    public PostulantPublication postulantPublication(){
+        return new PostulantPublication();
+    }
+
+
     @Bean
     public PostulantSkill postulantSkill(){
         return new PostulantSkill();
     }
+
+    @Bean
+    public PostulantLanguage postulantLanguage(){ return new PostulantLanguage(); }
+
+    @Bean
+    public LanguageLevel languageLevel(){ return  new LanguageLevel();}
 
     /**
      *Servicios, Validadores, etc
@@ -89,6 +105,15 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     }
 
     @Bean
+    PostulantPublicationService postulantPublicationService() {
+        return new PostulantPublicationServiceImpl();
+    }
+
+    @Bean
+    PostulantLanguageService postulantLanguageService(){ return  new PostulantLanguageServiceImpl(); }
+
+
+    @Bean
     public PublicationService publicationService(){ return  new PublicationService();}
 
     @Bean
@@ -134,6 +159,15 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         return new RecommendationValidator();
     }
 
+    @Bean
+    public LanguageService languageService(){
+        return new LanguageServiceImpl();
+    }
+
+    @Bean
+    public LanguageLevelService languageLevelService(){
+        return new LanguageLevelServiceImpl();
+    }
 
 
     @Bean
