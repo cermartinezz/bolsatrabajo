@@ -2,14 +2,13 @@ package com.bolsaTrabajo.restController;
 
 import com.bolsaTrabajo.model.catalog.Certification;
 import com.bolsaTrabajo.service.CertificationService;
-import com.bolsaTrabajo.validator.CertificationValidator;
+import com.bolsaTrabajo.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -27,14 +26,6 @@ public class CertificationRestController {
     @Autowired
     private CertificationService certificationService;
 
-
-    @Autowired
-    private CertificationValidator certificationValidator;
-
-    @InitBinder
-    protected void initBinder(WebDataBinder binder){
-        binder.setValidator(certificationValidator);
-    }
 
     public CertificationRestController() {
         this.headers = new HttpHeaders();
@@ -71,30 +62,58 @@ public class CertificationRestController {
 
 
     @PostMapping
-    public ResponseEntity<?> store(@Valid @RequestBody Certification certification, UriComponentsBuilder ucBuilder) {
+    public ResponseEntity<?> store(@Valid @RequestBody Certification certification,
+                                   UriComponentsBuilder ucBuilder) {
 
-        certificationService.storeCertification(certification);
+        try{
+
+            certificationService.spNewCertification(certification);
+
+        }catch(Exception e){
+            // Esto es porq regresa ora-20001 mensaje importante ora-20001 "spring....."
+            // solo deja el mensaje importante
+            String message = StringUtils.clearMessage(e.getCause().getCause().getMessage());
+
+            this.headers.set("message", message);
+
+            return new ResponseEntity<String>(this.headers, HttpStatus.CONFLICT);
+        }
 
         this.headers.setLocation(ucBuilder.path("/certificaciones").build().toUri());
 
-        return new ResponseEntity<String>(headers, HttpStatus.CREATED);
+        this.headers.set("message", "Se guardo la certificacion");
+
+        return new ResponseEntity<String>(this.headers, HttpStatus.CREATED);
 
     }
 
     @PutMapping(value = "/{code}")
     public ResponseEntity update(@PathVariable("code") String code,
-                                 @Valid @RequestBody Certification certification,
+                                 @Valid @RequestBody Certification certificationFromRequest,
                                  UriComponentsBuilder uriBuilder) {
 
-        Certification currentCertification = certificationService.findCertificationByCode(code);
+        Certification certification = certificationService.findCertificationById(certificationFromRequest.getCertificationId());
 
-       currentCertification.setCertificationTitle(certification.getCertificationTitle());
+       certification.setCertificationTitle(certificationFromRequest.getCertificationTitle());
 
-       certificationService.updateCertification(currentCertification);
+       certification.setInstitution(certificationFromRequest.getInstitution());
+
+       try{
+
+           certificationService.spUpdateCertification(certification);
+
+       }catch (Exception e){
+
+           String message = StringUtils.clearMessage(e.getCause().getCause().getMessage());
+
+           this.headers.set("message", message);
+
+           return new ResponseEntity(certification,this.headers, HttpStatus.CONFLICT);
+       }
 
        this.headers.setLocation(uriBuilder.path("/certificaciones").build().toUri());
 
-       return new ResponseEntity(currentCertification,this.headers, HttpStatus.OK);
+       return new ResponseEntity(certification,this.headers, HttpStatus.OK);
     }
 
     @GetMapping("/institucion/{institution}")
@@ -115,6 +134,7 @@ public class CertificationRestController {
 
         return new ResponseEntity<List<Certification>>(certifications,this.headers, HttpStatus.OK);
     }
+
 
 
 

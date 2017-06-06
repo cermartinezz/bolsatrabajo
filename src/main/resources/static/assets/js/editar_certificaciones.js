@@ -35,7 +35,6 @@ new Vue({
     el: "#app",
     data: {
         certificationId: "",
-        certificationCode: "",
         certificationTitle: "",
         institution: "",
         listErrors: new Errors()
@@ -44,25 +43,21 @@ new Vue({
         onSubmit: function(){
             axios.put("/api/certificaciones/"+code, this.$data)
                 .then(response => {
-                    console.log(response);
                     showMessageTimerRedirect("Actualizado","El registro fue actualizado con exito",'success',2500,response.headers.location);
                 })
                 .catch(error => {
-                    console.log(error);
-                    this.listErrors.record(error.response.data.errors);
+                    if(error.response.status >= 400 && error.response.status <= 499){
+                        showMessageTimer("Error",error.response.headers.message,"error",2500);
+                    }
                 })
         }
     },
     mounted(){
         axios.get("/api/certificaciones/"+code)
             .then(response =>{
-                console.log(response.data);
                 this.certificationId = response.data.certificationId;
-                this.certificationCode = response.data.certificationCode;
                 this.certificationTitle = response.data.certificationTitle;
                 this.institution = response.data.institution.id;
-
             })
-            .catch(error => error.log(error))
     }
 })

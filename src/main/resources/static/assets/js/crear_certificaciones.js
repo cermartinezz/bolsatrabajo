@@ -35,10 +35,23 @@ class Errors{
 new Vue({
     el: "#app",
     data: {
-        certificationCode: "",
         certificationTitle: "",
         institution: "",
+        mostrar: false,
         listErrors: new Errors()
+    },
+    watch: {
+        mostrar: function (mostrar) {
+            if(mostrar == false){
+                this.institution = "";
+            }
+            if(mostrar == true){
+                this.institution = {
+                    institutionName: "",
+                    institutionType: "",
+                };
+            }
+        }
     },
     methods: {
         onSubmit: function(){
@@ -49,11 +62,13 @@ new Vue({
                     this.clearData();
                 })
                 .catch(error => {
-                    this.listErrors.record(error.response.data.errors);
+                    console.log(error.response);
+                    if(error.response.status >= 400 && error.response.status <= 499){
+                        showMessageTimer("Error",error.response.headers.message,"error",2500);
+                    }
                 })
         },
         clearData(){
-            this.certificationCode = "";
             this.certificationTitle = "";
             this.institution = "";
             this.listErrors = new Errors();

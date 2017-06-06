@@ -33,14 +33,12 @@
                         <table class="job-manager-jobs table table-bordered table-stripe">
                             <thead>
                             <tr>
-                                <th>Codigo</th>
                                 <th>Titulo</th>
                                 <th>Institucion</th>
                                 <th>Acciones</th>
                             </tr>
                             </thead>
                             <tr v-for="certification in certificaciones">
-                                <td >{{ certification.certificationCode }}</td>
                                 <td >{{ certification.certificationTitle }}</td>
                                 <td >{{ certification.institution.institutionName }}</td>
                                 <td>

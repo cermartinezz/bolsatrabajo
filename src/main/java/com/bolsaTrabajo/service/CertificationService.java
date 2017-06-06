@@ -14,6 +14,10 @@ public interface CertificationService {
 
     public void storeCertification(Certification certification);
 
+    void spNewCertification(Certification certification);
+
+    void spUpdateCertification(Certification certification);
+
     public void updateCertification(Certification certification);
 
     public List<Certification> getCertificationsByInstitution(Integer institution);

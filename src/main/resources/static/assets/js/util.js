@@ -37,7 +37,13 @@ function showMessageTimer(title, text, type, timer){
         text: text,
         type: type,
         timer: timer
-    })
+    }).then(
+            function () {},
+            // handling the promise rejection
+            function (dismiss) {
+
+            }
+        )
 }
 
 /**
