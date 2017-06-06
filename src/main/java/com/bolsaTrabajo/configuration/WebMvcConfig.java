@@ -66,6 +66,9 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     public CompanyService companyService(){ return  new CompanyServiceImpl(); }
 
     @Bean
+    public JobService jobService(){return new JobServiceImpl();}
+
+    @Bean
     public PostulantService postulantService(){
         return new PostulantServiceImpl();
     }
@@ -171,6 +174,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     public CompanyCatService companyCatService(){
         return new CompanyCatService();
     }
+
 
 }
 
