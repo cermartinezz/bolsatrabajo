@@ -9,5 +9,8 @@ import com.bolsaTrabajo.model.compositeKeys.PostulantPublicationId;
 public interface PostulantPublicationService {
 
     PostulantPublication getPublicationOfPostulant(PostulantPublicationId postulantPublicationId);
+    PostulantPublication postulantPublication(PostulantPublicationId postulantPublicationId);
+
+    void delete(PostulantPublication postulantPublication);
 
 }

@@ -9,17 +9,12 @@ import java.util.List;
 /**
  * Created by mvip on 05-30-17.
  */
-public class LanguageService {
+public interface LanguageService {
 
-    @Autowired
-    private LanguageRepository languageRepository;
-
-    public List<Language> getAllLanguages(){
-        return languageRepository.findAll();
-    }
-
-    public void store(Language language){
-        languageRepository.save(language);
-    }
+    Long count();
+    List<Language> getAllLanguages();
+    public void store(Language language);
+    Language findById(int id);
+    Language findByCodigo(String code);
 
 }

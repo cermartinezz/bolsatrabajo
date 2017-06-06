@@ -9,16 +9,11 @@ import java.util.List;
 /**
  * Created by mvip on 05-30-17.
  */
-public class LanguageLevelService {
+public interface LanguageLevelService {
 
-    @Autowired
-    private LanguageLevelRepository languageLevelRepository;
+    Long count();
 
-    public List<LanguageLevel> getAllLanguageLevels(){
-        return languageLevelRepository.findAll();
-    }
+    public List<LanguageLevel> getAllLanguageLevels();
 
-    public void store(LanguageLevel languageLevel){
-        languageLevelRepository.save(languageLevel);
-    }
+    public void store(LanguageLevel languageLevel);
 }

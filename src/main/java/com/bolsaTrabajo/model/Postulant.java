@@ -29,6 +29,7 @@ public class Postulant extends User{
     private Set<Recommendation> recommendations;
     private Set<PostulantSkill> skills;
     private Set<PostulantPublication> postulantPublications;
+    private Set<PostulantLanguage> postulantLanguages;
 
     public Postulant() {super();}
 
@@ -187,6 +188,16 @@ public class Postulant extends User{
 
     public void setPostulantPublications(Set<PostulantPublication> postulantPublications) {
         this.postulantPublications = postulantPublications;
+    }
+
+    @OneToMany(mappedBy = "primaryKey.postulant",
+    cascade = CascadeType.ALL, orphanRemoval = true)
+    public Set<PostulantLanguage> getPostulantLanguages() {
+        return postulantLanguages;
+    }
+
+    public void setPostulantLanguages(Set<PostulantLanguage> postulantLanguages) {
+        this.postulantLanguages = postulantLanguages;
     }
 
     @Override

@@ -6,6 +6,7 @@ import com.bolsaTrabajo.model.catalog.Publication;
 import com.bolsaTrabajo.model.compositeKeys.PostulantPublicationId;
 import com.bolsaTrabajo.service.PostulantPublicationService;
 import com.bolsaTrabajo.service.PostulantService;
+import com.bolsaTrabajo.service.PublicationService;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +18,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
-/**
- * Created by mvip on 05-28-17.
- */
+
 @Entity
 @Table(name="postulants_publications")
 @AssociationOverrides({
@@ -32,16 +31,21 @@ public class PostulantPublication implements Serializable{
 
     @Autowired
     private PostulantPublicationService postulantPublicationService;
+
     @Autowired
     private PostulantService postulantService;
+
+    @Autowired
+    private PublicationService publicationService;
 
     @Autowired
     PostulantPublication postulantPublication;
 
     private PostulantPublicationId primaryKey = new PostulantPublicationId();
+
     private Date publicationDate;
 
-
+    @Autowired
     public PostulantPublication(PostulantPublicationService postulantPublicationService, PostulantService postulantService) {
         this.postulantPublicationService = postulantPublicationService;
         this.postulantService = postulantService;
@@ -59,17 +63,6 @@ public class PostulantPublication implements Serializable{
         this.primaryKey = primaryKey;
     }
 
-    @Transient
-    public String getCode(){
-
-        return primaryKey.getCode();
-    }
-
-    @Transient
-    public void setCode(String certificationCode){
-
-        primaryKey.setCode(certificationCode);
-    }
 
     @Transient
     @JsonIgnore
@@ -101,6 +94,42 @@ public class PostulantPublication implements Serializable{
         this.publicationDate = publicationDate;
     }
 
+
+    public PostulantPublication save(String username, PostulantPublication postulantPublicationFromRequest){
+        Postulant postulant = postulantService.findByUsername(username);
+        Publication publication = publicationService.findById(postulantPublicationFromRequest.getPublication().getId());
+        PostulantPublicationId primaryKey = new PostulantPublicationId(postulant,publication);
+
+        PostulantPublication newPub = new PostulantPublication();
+        newPub.setPostulant(primaryKey.getPostulant());
+        newPub.setPublication(primaryKey.getPublication());
+        newPub.setPublicationDate(postulantPublicationFromRequest.getPublicationDate());
+
+        postulant.getPostulantPublications().add(newPub);
+        postulantService.save(postulant);
+        return newPub;
+    }
+
+    public boolean delete(String username,String code){
+
+        Postulant postulant = postulantService.findByUsername(username);
+
+        Publication publication = publicationService.findPublicationByCodigo(code);
+
+        PostulantPublicationId postulantPublicationId = new PostulantPublicationId();
+
+        postulantPublicationId.setPostulant(postulant);
+        postulantPublicationId.setPublication(publication);
+
+        PostulantPublication postulantPublication = postulantPublicationService.postulantPublication(postulantPublicationId);
+
+        try{
+            postulantPublicationService.delete(postulantPublication);
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+    }
 
     @Override
     public String toString() {

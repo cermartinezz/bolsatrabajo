@@ -18,12 +18,10 @@ public class PostulantPublicationId implements Serializable{
 
     private Postulant postulant;
     private Publication publication;
-    private String code;
 
-    public PostulantPublicationId(Postulant postulant, Publication publication, String code) {
+    public PostulantPublicationId(Postulant postulant, Publication publication) {
         this.postulant = postulant;
         this.publication = publication;
-        this.code = code;
     }
 
     public PostulantPublicationId() {
@@ -48,12 +46,11 @@ public class PostulantPublicationId implements Serializable{
         this.publication = publication;
     }
 
-    @Column(name = "code")
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
+    @Override
+    public String toString() {
+        return "PostulantPublicationId{" +
+                "postulant=" + postulant +
+                ", publication=" + publication +
+                '}';
     }
 }

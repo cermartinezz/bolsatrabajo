@@ -1,18 +1,14 @@
 package com.bolsaTrabajo;
 
 import com.bolsaTrabajo.model.Language;
+import com.bolsaTrabajo.model.LanguageLevel;
 import com.bolsaTrabajo.model.Role;
 import com.bolsaTrabajo.model.catalog.Skill;
 import com.bolsaTrabajo.model.catalog.SkillCategory;
 import com.bolsaTrabajo.model.Permission;
 import com.bolsaTrabajo.repositories.SkillCategoryRepository;
-import com.bolsaTrabajo.service.LanguageService;
+import com.bolsaTrabajo.service.*;
 import com.bolsaTrabajo.service.SkillCategoryService;
-import com.bolsaTrabajo.service.RoleService;
-import com.bolsaTrabajo.service.SkillCategoryService;
-import com.bolsaTrabajo.service.SkillService;
-import com.bolsaTrabajo.service.PermissionService;
-import com.bolsaTrabajo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -39,6 +35,9 @@ public class BolsaTrabajoApplication implements CommandLineRunner {
 	@Autowired
 	private LanguageService languageService;
 
+	@Autowired
+	private LanguageLevelService languageLevelService;
+
 	public static void main(String[] args) {
 		SpringApplication.run(BolsaTrabajoApplication.class, args);
 	}
@@ -48,11 +47,13 @@ public class BolsaTrabajoApplication implements CommandLineRunner {
 	public void run(String... strings) throws Exception {
 
 
-		if (languageService.getAllLanguages() == null) {
+		if (languageService.count() <=0) {
 			insertLanguages();
-
 		}
 
+		if (languageLevelService.count() <=0) {
+			insertLanguageLevels();
+		}
 
 		//Permisos, roles y usuario inicial en la aplicacion
 
@@ -112,6 +113,34 @@ public class BolsaTrabajoApplication implements CommandLineRunner {
 			skillService.storeSkill(skill4);
 			skillService.storeSkill(skill5);
 		}
+
+	}
+
+	private void insertLanguageLevels() {
+		LanguageLevel lvl1 = new LanguageLevel(
+			"Basico","A1"
+		);
+		LanguageLevel lvl2 = new LanguageLevel(
+				"Elemental","A2"
+		);
+		LanguageLevel lvl3 = new LanguageLevel(
+				"Pre-Intermedio","B1"
+		);
+		LanguageLevel lvl4 = new LanguageLevel(
+				"Intermedio Superior","B2"
+		);
+		LanguageLevel lvl5 = new LanguageLevel(
+				"Avanzado","C1"
+		);
+		LanguageLevel lvl6 = new LanguageLevel(
+				"Superior","C2"
+		);
+		languageLevelService.store(lvl1);
+		languageLevelService.store(lvl2);
+		languageLevelService.store(lvl3);
+		languageLevelService.store(lvl4);
+		languageLevelService.store(lvl5);
+		languageLevelService.store(lvl6);
 
 	}
 

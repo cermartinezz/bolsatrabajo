@@ -10,6 +10,8 @@ new Vue({
         certifications: [],
         skills: [],
         postulante: {},
+        postulantPublications: [],
+        postulantLanguages: [],
         username: username,
     },
     methods: {
@@ -40,6 +42,24 @@ new Vue({
                                     "warning",
                                     "Desea eliminar la habilidad?",url,"delete")
         },
+        deletePublication: function(index,publication){
+            this.$delete(this.postulantPublications,index);
+            console.log(publication);
+            url= "/api/postulante/"+this.username+"/publicaciones/"+publication.publication.codigo+"/eliminar";
+            showMessageConfirmation("Eliminar",
+                "Se eliminara la publicacion",
+                "warning",
+                "Desea eliminar la publicacion?",url,"delete")
+        },
+        deleteLanguage: function(index,language){
+            this.$delete(this.postulantLanguages,index);
+            console.log(language);
+            url= "/api/postulante/"+this.username+"/idiomas/"+language.language.codigo+"/eliminar";
+            showMessageConfirmation("Eliminar",
+                "Se eliminara el idioma",
+                "warning",
+                "Desea eliminar este idioma?",url,"delete")
+        },
         dateName(date){
             return dateName(date);
         }
@@ -53,6 +73,8 @@ new Vue({
                 this.certifications = response.data.certifications;
                 this.skills = response.data.skills;
                 this.recommendations = response.data.recommendations;
+                this.postulantPublications = response.data.postulantPublications;
+                this.postulantLanguages = response.data.postulantLanguages;
             })
             .catch(error => {
                 console.log(error);

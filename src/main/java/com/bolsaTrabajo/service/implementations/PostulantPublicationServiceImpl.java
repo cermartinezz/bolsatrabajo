@@ -18,4 +18,14 @@ public class PostulantPublicationServiceImpl implements PostulantPublicationServ
     public PostulantPublication getPublicationOfPostulant(PostulantPublicationId postulantCertificationId) {
         return postulantPublicationRepository.findByPrimaryKey(postulantCertificationId);
     }
+
+    @Override
+    public PostulantPublication postulantPublication(PostulantPublicationId postulantPublicationId) {
+        return postulantPublicationRepository.findByPrimaryKey(postulantPublicationId);
+    }
+
+    @Override
+    public void delete(PostulantPublication postulantPublication) {
+        postulantPublicationRepository.delete(postulantPublication);
+    }
 }

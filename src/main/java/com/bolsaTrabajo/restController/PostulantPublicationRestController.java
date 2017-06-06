@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/postulante/{username}/publicaciones")
@@ -25,6 +26,8 @@ public class PostulantPublicationRestController {
 
     public static final Logger logger = LoggerFactory.getLogger(PostulantPublication.class);
 
+    @Autowired
+    private PostulantPublication postulantPublication;
 
     @Autowired
     private PostulantService postulantService;
@@ -41,30 +44,41 @@ public class PostulantPublicationRestController {
         this.headers= new HttpHeaders();
     }
 
+    @GetMapping
+    public ResponseEntity<List<PostulantPublication>> getPublications(@PathVariable String username){
+        return new ResponseEntity<List<PostulantPublication>>(HttpStatus.OK);
+    }
+
     @PostMapping
-    public ResponseEntity<?> store(@Valid @RequestBody PostulantPublication postulantPublication, @PathVariable String username, UriComponentsBuilder uriBuilder){
+    public ResponseEntity<PostulantPublication> store(@Valid @RequestBody PostulantPublication postulantPublicationFromRequest, @PathVariable String username, UriComponentsBuilder uriBuilder){
 
-
-        Integer id = postulantPublication.getPublication().getId();
-
-        Publication publication = publicationService.findById(id);
-        Postulant user = postulantService.findByUsername(username);
-
-        postulantPublication.setPublication(publication);
-        postulantPublication.setPostulant(user);
-
-        user.getPostulantPublications().add(postulantPublication);
+        PostulantPublication publication;
 
         try{
-            postulantService.save(user);
+            publication = this.postulantPublication.save(username,postulantPublicationFromRequest);
+            //publication = new PostulantPublication().save(username,postulantPublicationFromRequest);
         }catch (InvalidDataAccessApiUsageException e){
-            this.headers.set("message","Ya existe un registro con codigo de publicacion: " + postulantPublication.getCode());
-            return new ResponseEntity<String>(headers, HttpStatus.FORBIDDEN);
+            this.headers.set("message","No se pudo registrar la habilidad, porque ya existe asociada a este usuario");
+            return new ResponseEntity<PostulantPublication>(this.headers,HttpStatus.CONFLICT);
         }
 
         this.headers.set("message","Se guardo el registro");
-        this.headers.setLocation(uriBuilder.path("/postulante/{username}/perfil").buildAndExpand(user.getUsername()).toUri());
-        return new ResponseEntity<String>(headers, HttpStatus.CREATED);
+        this.headers.setLocation(uriBuilder.path("/postulante/{username}/perfil").buildAndExpand(username).toUri());
+        return new ResponseEntity<PostulantPublication>(publication,this.headers, HttpStatus.CREATED);
+
+    }
+    @DeleteMapping("/{code}/eliminar")
+    public ResponseEntity<?> delete(@PathVariable String username,@PathVariable String code){
+
+        boolean eliminado = postulantPublication.delete(username, code);
+
+        if(eliminado){
+            this.headers.set("message","Se elimino la habilidad");
+            return new ResponseEntity(this.headers,HttpStatus.OK);
+        }
+
+        this.headers.set("message","No se elimino la habilidad");
+        return new ResponseEntity(this.headers,HttpStatus.CONFLICT);
 
     }
 }

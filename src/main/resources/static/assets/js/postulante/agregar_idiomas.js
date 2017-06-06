@@ -35,13 +35,13 @@ class Errors{
 new Vue({
     el: '#app',
     data: {
-        publication: "",
-        publicationDate: "",
+        language: "",
+        languageLevel: "",
         postulant: postulant
     },
     methods: {
         onSubmit(){
-            axios.post("/api/postulante/" + this.postulant + "/publicaciones",this.$data)
+            axios.post("/api/postulante/" + this.postulant + "/idiomas",this.$data)
                 .then(response => {
                     console.log(response);
                     if(response.status >= 200 && response.status <= 299) {

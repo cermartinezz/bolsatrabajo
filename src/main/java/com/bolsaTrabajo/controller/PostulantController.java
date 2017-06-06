@@ -132,13 +132,4 @@ public class PostulantController {
         return "Postulante/exp_acad/create_acadExp";
     }
 
-    @GetMapping("/publicaciones/agregar")
-    public String publicaciones(Model model, @PathVariable String username){
-
-        model.addAttribute("user", Auth.auth());
-
-        model.addAttribute("postulant", postulantService.findByUsername(username));
-
-        return "Postulante/certificaciones/crear";
-    }
 }

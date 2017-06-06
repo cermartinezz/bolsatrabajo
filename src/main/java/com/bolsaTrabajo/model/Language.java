@@ -1,22 +1,27 @@
 package com.bolsaTrabajo.model;
 
+import com.bolsaTrabajo.model.postulantInfo.PostulantLanguage;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
-/**
- * Created by mvip on 05-26-17.
- */
 @Entity
 @Table(name="languages")
 public class Language implements Serializable{
     private int id;
     private String codigo;
     private String nombre;
+    private Set<PostulantLanguage> postulantLanguages;
 
     public Language(){
         super();
+    }
+
+    public Language(int id) {
+        this.id = id;
     }
 
     public Language(String codigo, String nombre){
@@ -55,4 +60,15 @@ public class Language implements Serializable{
         this.nombre = nombre;
     }
 
+    @OneToMany(mappedBy = "primaryKey.language",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY)
+    @JsonIgnore
+    public Set<PostulantLanguage> getPostulantLanguages() {
+        return postulantLanguages;
+    }
+
+    public void setPostulantLanguages(Set<PostulantLanguage> postulantLanguages) {
+        this.postulantLanguages = postulantLanguages;
+    }
 }

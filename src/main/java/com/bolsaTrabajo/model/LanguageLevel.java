@@ -1,5 +1,8 @@
 package com.bolsaTrabajo.model;
 
+import com.bolsaTrabajo.model.postulantInfo.PostulantLanguage;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -12,9 +15,14 @@ public class LanguageLevel {
     private int id;
     private String titulo;
     private String codigo;
+    private PostulantLanguage postulantLanguage;
 
     public LanguageLevel(){
         super();
+    }
+
+    public LanguageLevel(int id) {
+        this.id = id;
     }
 
     public LanguageLevel(String titulo, String codigo){
@@ -49,5 +57,15 @@ public class LanguageLevel {
 
     public void setCodigo(String codigo) {
         this.codigo = codigo;
+    }
+
+    @OneToOne(mappedBy = "languageLevel")
+    @JsonIgnore
+    public PostulantLanguage getPostulantLanguage() {
+        return postulantLanguage;
+    }
+
+    public void setPostulantLanguage(PostulantLanguage postulantLanguage) {
+        this.postulantLanguage = postulantLanguage;
     }
 }

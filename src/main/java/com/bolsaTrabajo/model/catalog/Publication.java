@@ -8,9 +8,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
 
-/**
- * Created by mvip on 04-04-17.
- */
+
 @Entity
 @Table(name = "publications")
 public class Publication implements Serializable {
