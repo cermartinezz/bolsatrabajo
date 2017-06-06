@@ -1,19 +1,11 @@
 package com.bolsaTrabajo;
 
-import com.bolsaTrabajo.model.Permission;
-import com.bolsaTrabajo.model.Postulant;
-import com.bolsaTrabajo.model.Language;
-import com.bolsaTrabajo.model.LanguageLevel;
-import com.bolsaTrabajo.model.Role;
+import com.bolsaTrabajo.model.*;
+import com.bolsaTrabajo.model.catalog.Language;
+import com.bolsaTrabajo.model.catalog.LanguageLevel;
 import com.bolsaTrabajo.model.catalog.Skill;
 import com.bolsaTrabajo.model.catalog.SkillCategory;
-import com.bolsaTrabajo.repositories.SkillCategoryRepository;
-import com.bolsaTrabajo.service.PermissionService;
-import com.bolsaTrabajo.service.PostulantService;
-import com.bolsaTrabajo.service.RoleService;
-import com.bolsaTrabajo.service.UserService;
 import com.bolsaTrabajo.service.*;
-import com.bolsaTrabajo.service.SkillCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -23,9 +15,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import javax.transaction.Transactional;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @SpringBootApplication
 public class BolsaTrabajoApplication implements CommandLineRunner {

@@ -345,42 +345,47 @@
 
                                     </div>
                                     <li class="job_listing">
-                                            <div class="position">
-                                                <div id="logros-spoiler" style="display:none" class="table-responsive">
-                                                    <table class="table" style="padding:0px;margin:0px;">
-                                                        <thead>
-                                                            <tr>
-                                                                <th style="background: #99ccff;color: #000;">#</th>
-                                                                <th class="col-md-3" style="background: #99ccff;color: #000;">Nombre del Logro</th>
-                                                                <th class="col-md-3" style="background: #99ccff;color: #000;">Lugar</th>
-                                                                <th class="col-md-3" style="background: #99ccff;color: #000;">Fecha</th>
-                                                                <th style="background: #99ccff;color: #000;"></th>
-                                                                <th style="background: #99ccff;color: #000;"></th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr th:each="award,iter : ${postulantInfo.getAwards()}">
-                                                                <td> - </td>
-                                                                <td th:text="${award.getNombre()}"></td>
-                                                                <td th:text="${award.getLugar()}"></td>
-                                                                <td th:text="${award.getFecha()}"></td>
-                                                                <td>
-                                                                    <a th:href="@{/logros/{id}(id=${award.id})}" style="text-decoration:none;">
-                                                                        <button class="btn btn-warning btn-xs"><span class="fa fa-pencil"></span> Editar</button>
-                                                                    </a>
-                                                                </td>
-                                                                <td>
-                                                                    <a style="text-decoration:none;">
-                                                                            <button th:onclick="'eliminarRegistro(\'' + ${award.id} + '\',\'award\')'"
-                                                                                    class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Eliminar</button>
-                                                                    </a>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
+                                        <div class="position">
+                                            <div id="logros-spoiler" style="display:none" class="table-responsive">
+                                                <table class="table" style="padding:0px;margin:0px;">
+                                                    <thead>
+                                                    <tr>
+                                                        <th style="background: #99ccff;color: #000;">#</th>
+                                                        <th class="col-md-3" style="background: #99ccff;color: #000;">Nombre del Logro</th>
+                                                        <th class="col-md-3" style="background: #99ccff;color: #000;">Lugar</th>
+                                                        <th class="col-md-3" style="background: #99ccff;color: #000;">Fecha</th>
+                                                        <th style="background: #99ccff;color: #000;"></th>
+                                                        <th style="background: #99ccff;color: #000;"></th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr th:each="award,iter : ${postulantInfo.getAwards()}">
+                                                        <td> - </td>
+                                                        <td th:text="${award.getNombre()}"></td>
+                                                        <td th:text="${award.getLugar()}"></td>
+                                                        <td th:text="${award.getFecha()}"></td>
+                                                        <td>
+                                                            <a th:href="@{/logros/{id}(id=${award.id})}" style="text-decoration:none;">
+                                                                <button class="btn btn-warning btn-xs"><span class="fa fa-pencil"></span> Editar</button>
+                                                            </a>
+                                                        </td>
+                                                        <td>
+                                                            <a style="text-decoration:none;">
+                                                                <button th:onclick="'eliminarRegistro(\'' + ${award.id} + '\',\'award\')'"
+                                                                        class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Eliminar</button>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
                                             </div>
+                                        </div>
+                                        <div class="rating">
+                                            <div class="rating-stars">
 
+                                            </div>
+                                            <div class="reviews-num"></div>
+                                        </div>
                                     </li>
                                 </ul>
 
