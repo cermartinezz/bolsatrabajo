@@ -30,7 +30,7 @@
 
                         <div class="form-group">
                             <label>Nombre:</label>
-                            <input type="text" th:field="*{name}" name="name" th:value="${permission.name}" placeholder="Nombre de Rol" class="form-control" maxlength="16" required>
+                            <input type="text" th:field="*{name}" name="name" th:value="${permission.name}" pattern="[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ.]+" placeholder="Nombre de Rol" class="form-control" maxlength="16" required>
                         </div>
 
                         <div class="form-group">

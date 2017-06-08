@@ -137,26 +137,26 @@
                                         <div v-if="certifications.length != 0" class="table-responsive">
                                             <table class="job-manager-jobs table table-bordered table-stripe">
                                                 <thead>
-                                                    <tr>
-                                                        <th>Certificacion</th>
-                                                        <th>Institucion</th>
-                                                        <th>Codigo</th>
-                                                        <th>Fecha de expiracion</th>
-                                                        <th>Acciones</th>
-                                                    </tr>
+                                                <tr>
+                                                    <th>Certificacion</th>
+                                                    <th>Institucion</th>
+                                                    <th>Codigo</th>
+                                                    <th>Fecha de expiracion</th>
+                                                    <th>Acciones</th>
+                                                </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr v-for="(certification, index) in certifications">
-                                                        <td>{{ certification.primaryKey.certification.certificationTitle }}</td>
-                                                        <td>{{ certification.primaryKey.certification.institution.institutionName }}</td>
-                                                        <td>{{ certification.code }}</td>
-                                                        <td>{{ dateName(certification.expirationDate) }}</td>
-                                                        <td>
-                                                            <button class="btn btn-info" @click="redirectCertificaciones(certification)">Editar</button>
-                                                            <button class="btn btn-danger"
-                                                                    @click="deleteCertificacion(index,certification)">Eliminar</button>
-                                                        </td>
-                                                    </tr>
+                                                <tr v-for="(certification, index) in certifications">
+                                                    <td>{{ certification.primaryKey.certification.certificationTitle }}</td>
+                                                    <td>{{ certification.primaryKey.certification.institution.institutionName }}</td>
+                                                    <td>{{ certification.code }}</td>
+                                                    <td>{{ dateName(certification.expirationDate) }}</td>
+                                                    <td>
+                                                        <button class="btn btn-info" @click="redirectCertificaciones(certification)">Editar</button>
+                                                        <button class="btn btn-danger"
+                                                                @click="deleteCertificacion(index,certification)">Eliminar</button>
+                                                    </td>
+                                                </tr>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -194,7 +194,7 @@
                                                 <tbody>
                                                 <tr v-for="(language, index) in postulantLanguages">
                                                     <td>{{ language.primaryKey.language.nombre }}</td>
-                                                    <td>{{language.languageLevel}}: {{cambiarDescripcion(language.languageLevel)}}</td>
+                                                    <td>{{language.languageLevel.codigo}}: {{language.languageLevel.titulo}}</td>
                                                     <td class="center_block">
                                                         <button class="btn btn-danger" @click="deleteLanguage(index, language)">Eliminar</button>
                                                     </td>
@@ -433,19 +433,19 @@
 
                         </div>
 
-                        </div>
-
                     </div>
 
                 </div>
+
             </div>
-        </section>
-        <!-- Page Content / End -->
-
-        <div th:include="fragmentos/footer :: footer"></div>
-
     </div>
-    <!-- Main / End -->
+    </section>
+    <!-- Page Content / End -->
+
+    <div th:include="fragmentos/footer :: footer"></div>
+
+</div>
+<!-- Main / End -->
 </div>
 
 <div th:include="fragmentos/scripts :: scripts" ></div>

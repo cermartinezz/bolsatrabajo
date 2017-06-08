@@ -236,7 +236,7 @@ public class BolsaTrabajoApplication implements CommandLineRunner {
 		postulant.setLastName("admin");
 		postulant.setUsername("administrador");
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
-		String dateInString = "31-08-1982 10:20:56";
+		String dateInString = "01-01-2000 00:00:00";
 		Date date = sdf.parse(dateInString);
 		postulant.setBirthday(date);
 		postulant.setPassword(bCryptPasswordEncoder.encode("12345678"));
