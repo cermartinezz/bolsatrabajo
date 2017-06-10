@@ -4,6 +4,7 @@
 <head th:include="fragmentos/head :: head" th:remove="tag">
 </head>
     <title>Empresa</title>
+<body>
 <div>
     <div class="site-wrapper" id="app">
         <header class="header header-menu-fullw">
@@ -30,58 +31,85 @@
                                   role="form">
                                 <div class="form-group">
                                     <label th:if="${#fields.hasErrors('nombreC')}" th:errors="*{nombreC}"></label>
-                                    <input type="text" th:field="*{nombreC}" placeholder="Nombre Empresa" class="form-control" required/>
+                                    <label >Nombre de la empresa *</label>
+                                    <input type="text" th:field="*{nombreC}" name="nombreC"
+                                           placeholder="Apple" class="form-control" required/>
                                 </div>
                                 <div class="form-group">
                                     <label th:if="${#fields.hasErrors('repreLegal')}" th:errors="*{repreLegal}"></label>
-                                    <input type="text" th:field="*{repreLegal}" placeholder="Representante Legal" class="form-control" required/>
+                                    <label >Representante legal *</label>
+                                    <input type="text"
+                                           th:field="*{repreLegal}"
+                                           name="repreLegal" placeholder="Steve Jobs" class="form-control" required/>
                                 </div>
                                 <div class="form-group">
-                                    <label th:if="${#fields.hasErrors('nitC')}" th:errors="*{nitC}"></label>
-                                    <input type="text" th:field="*{nitC}" placeholder="Nit Empresa" class="form-control" required>
+                                    <label  th:if="${#fields.hasErrors('nitC')}" th:errors="*{nitC}"></label>
+                                    <label >Nit* </label>
+                                    <input  type="text" th:field="*{nitC}" pattern="[0-9]{4}-[0-9]{6}-[0-9]{3}-[0-9]{1}"
+                                            title="Debe coincide con el formato ####-######-###-#"
+                                            min="17"
+                                            name="nitC"
+                                            placeholder="####-######-###-#" class="form-control" required/>
                                 </div>
                                 <div class="form-group">
                                     <label th:if="${#fields.hasErrors('telefonoC')}" th:errors="*{telefonoC}"></label>
-                                    <input type="text" th:field="*{telefonoC}" placeholder="Telefono Empresa" class="form-control" required>
+                                    <label >Telefono *</label>
+                                    <input  type="text" th:field="*{telefonoC}"
+                                            pattern="[0-9]{4}-[0-9]{4}"
+                                            title="Debe coincide con el formato ####-####"
+                                            name="telefonoC"
+                                            min="100"
+                                            placeholder="####-####" class="form-control" required/>
                                 </div>
                                 <div class="form-group">
                                     <label th:if="${#fields.hasErrors('informacionC')}" th:errors="*{informacionC}"></label>
-                                    <input type="text" th:field="*{informacionC}" placeholder="Informacion Empresa" class="form-control" required>
+                                    <label >Informacion de la empresa</label>
+                                    <textarea type="text" th:field="*{informacionC}"
+                                              name="informacionC"
+                                              maxlength="200"
+                                              placeholder="Informacion Empresa" class="form-control" required></textarea>
                                 </div>
                                 <div class="form-group">
                                     <label th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></label>
+                                    <label >Correo</label>
                                     <input type="text" th:field="*{email}" placeholder="Email" class="form-control" required>
                                 </div>
                                 <div class="form-group">
                                     <label th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></label>
-                                    <input type="text" th:field="*{username}" placeholder="Nombre de usuario" class="form-control" required/>
+                                    <label >Nombre de usuario</label>
+                                    <input type="text" th:field="*{username}" minlength="6" placeholder="Nombre de usuario" class="form-control" required/>
                                 </div>
                                 <div class="form-group">
                                     <label th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></label>
-                                    <input type="password" th:field="*{password}" placeholder="password" class="form-control" required>
+                                    <label >Contraseña</label>
+                                    <input type="password" th:field="*{password}" minlength="8" placeholder="password" class="form-control" required>
                                 </div>
                                 <div class="form-group">
                                     <label th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{passwordConfirm}"></label>
-                                    <input type="password" th:field="*{passwordConfirm}" placeholder="passwordConfirm" class="form-control" required>
+                                    <label >Confirmar Contraseña</label>
+                                    <input type="password" th:field="*{passwordConfirm}" minlength="8" placeholder="passwordConfirm" class="form-control" required>
                                 </div>
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-primary btn-block">Registrar Empresa</button>
                                 </div>
 
                             </form>
-
+                        </div>
+                    </div>
+                </div>
             </div>
-
-
         </section>
 
     </div>
 
 </div>
-</section>
 
 <div th:include="fragmentos/footer :: footer"></div>
 </div>
-</div>
-    <div th:include="fragmentos/scripts :: scripts" ></div>
+<div th:include="fragmentos/scripts :: scripts" ></div>
+<script>
+    new Vue({
+        el: "#app"
+    })
+</script>
 </body>
