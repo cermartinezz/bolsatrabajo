@@ -33,9 +33,9 @@ public class CertificationValidator implements Validator {
     public void validate(Object o, Errors errors) {
         Certification certificationFromRequest = (Certification) o;
 
-        Optional<Institution> institution = institutionService.findInstitutionById(certificationFromRequest.getInstitution().getId());
+        Institution institution = institutionService.findInstitutionById(certificationFromRequest.getInstitution().getId());
 
-        String code = certificationFromRequest.getCertificationCode().trim() + '-' + institution.get().getInstitutionCode().trim();
+        String code = certificationFromRequest.getCertificationCode().trim() + '-' + institution.getInstitutionCode().trim();
 
         String title = WordUtils.capitalize(certificationFromRequest.getCertificationTitle().trim());
 

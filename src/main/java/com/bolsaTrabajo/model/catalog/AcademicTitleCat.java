@@ -13,7 +13,7 @@ import java.util.Set;
 @Table(name = "academic_titles")
 public class AcademicTitleCat {
 
-    private Long id;
+    private long id;
     private String titulo;
     private Set<AcademicExperience> academicExperienceSet;
 

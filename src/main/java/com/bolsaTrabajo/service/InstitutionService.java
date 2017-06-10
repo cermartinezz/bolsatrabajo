@@ -1,6 +1,7 @@
 package com.bolsaTrabajo.service;
 
 import com.bolsaTrabajo.model.catalog.Institution;
+import com.bolsaTrabajo.util.InstitutionType;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,7 +11,7 @@ public interface InstitutionService {
 
     void save(Institution institution);
 
-    Optional<Institution> findInstitutionById(int id);
+    Institution findInstitutionById(int id);
 
     Institution findInstitutionByCode(String code);
 
@@ -18,4 +19,6 @@ public interface InstitutionService {
     List<Institution> getAllInstitutions();
 
     void update(Institution currentInstitution);
+
+    List<Institution> getInstitutionsByType(InstitutionType type);
 }

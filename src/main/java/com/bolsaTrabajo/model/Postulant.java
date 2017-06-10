@@ -7,6 +7,7 @@ import com.bolsaTrabajo.model.postulantInfo.AcademicExperience;
 import com.bolsaTrabajo.model.postulantInfo.WorkExperience;
 import com.bolsaTrabajo.util.Gender;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -163,6 +164,7 @@ public class Postulant extends User{
     }
 
     @OneToMany(mappedBy = "pk.postulant", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
     public Set<WorkExperience> getWorkExperiences() {
         return workExperiences;
     }
@@ -172,6 +174,7 @@ public class Postulant extends User{
     }
 
     @OneToMany(mappedBy = "pk.postulant", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
     public Set<AcademicExperience> getAcademicExperiences() {
         return academicExperiences;
     }

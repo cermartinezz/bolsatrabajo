@@ -44,7 +44,7 @@ public class AcademicTitleCatController {
     @RequestMapping(value = "/editar/{code}",method = RequestMethod.GET)
     public ModelAndView update(@PathVariable String code){
         ModelAndView modelAndView = new ModelAndView();
-        AcademicTitleCat t = academicTitleCatService.getTitle(Long.parseLong(code)).get();
+        AcademicTitleCat t = academicTitleCatService.getTitle(Long.parseLong(code));
         modelAndView.addObject("user",Auth.auth());
         modelAndView.addObject("title",t);
         modelAndView.setViewName(EDIT_TITLE);

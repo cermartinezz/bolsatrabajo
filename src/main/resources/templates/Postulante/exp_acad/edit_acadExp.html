@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:v-on="http://www.w3.org/1999/xhtml">
 
 <head th:include="fragmentos/head :: head" th:remove="tag"/>
-    <title>Experiencia Laboral</title>
+    <title>Experiencia Academica</title>
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
 <body>
 <div class="site-wrapper" id="app">
@@ -16,7 +16,7 @@
 
     <div class="main" role="main">
 
-        <div th:include="fragmentos/heading :: heading('Agrega tu Experiencia Laboral')"></div>
+        <div th:include="fragmentos/heading :: heading('Edita tu Experiencia Academica')"></div>
 
         <!-- Page Content -->
         <section class="page-content">
@@ -24,37 +24,36 @@
 
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
-                        <form method="post" th:object="${workExp}" th:action="@{/api/postulant/workExp}" class="job-manager-form">
+                        <form method="post" th:object="${acadExp}" th:action="@{/api/postulant/acadExp}" class="job-manager-form">
 
                             <!-- Book Information Fields -->
-                            <label for="empresas">Empresa</label>
+                            <label for="institution">Institucion</label>
                             <div class="field select-style">
-                                <select name="empresas" id="empresas" class="form-control">
-                                    <option th:each="com : ${companies}" th:value="${com.id}" th:text="${com.companyName}"></option>
+                                <select name="institution" id="institution" class="form-control">
+                                    <option th:each="ins : ${institutions}" th:value="${ins.id}" th:text="${ins.institutionName}"
+                                    th:selected="${ins.institutionName == acadExp.getInstitution().getInstitutionName()}"></option>
                                 </select>
+                                <input type="hidden" name="institucion" th:value="${acadExp.getInstitution().getId()}">
                             </div>
 
                             <div class="spacer"></div>
 
-                            <label for="jobs">Cargo</label>
+                            <label for="titles">Titulo Obtenido</label>
                             <div class="field select-style">
-                                <select name="jobs" id="jobs" class="form-control">
-                                    <option th:each="job : ${jobs}" th:value="${job.id}" th:text="${job.puesto}"></option>
+                                <select name="titles" id="titles" class="form-control">
+                                    <option th:each="title : ${titles}" th:value="${title.id}" th:text="${title.titulo}"
+                                    th:selected="${title.titulo == acadExp.getTitle().getTitulo()}"></option>
                                 </select>
+
+                                <input type="hidden" name="titulo" th:value="${acadExp.getTitle().getId()}">
                             </div>
 
                             <div class="spacer"></div>
 
                             <div class="field input-style">
-                                <label> Inicio de labores*</label>
-                                <input type="date" name="inicio" class="form-control" required />
-                            </div>
-
-                            <div class="spacer"></div>
-
-                            <div class="field input-style">
-                                <label> Finalización de labores*</label>
-                       <!--         <input type="date" th:field="*{fin}" name="fin" class="form-control" required />-->
+                                <label> Año de Graduación*</label>
+                                <input type="text" name="inicio" placeholder="Año que se tituló" class="form-control" th:field="*{añoGraduacion}"
+                                       th:value="acadExp.graduacion" required />
                             </div>
 
                             <div class="spacer"></div>

@@ -4,9 +4,11 @@ import com.bolsaTrabajo.model.Postulant;
 import com.bolsaTrabajo.model.catalog.CompanyCat;
 import com.bolsaTrabajo.model.catalog.JobCat;
 import com.bolsaTrabajo.model.compositeKeys.WorkExperienceID;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Created by keepercito on 04-25-17.
@@ -24,8 +26,7 @@ import java.io.Serializable;
 public class WorkExperience implements Serializable{
 
     private WorkExperienceID pk = new WorkExperienceID();
-    private int inicio;
-    private int fin;
+    private String fin;
 
     @EmbeddedId
     public WorkExperienceID getPk() {
@@ -46,6 +47,7 @@ public class WorkExperience implements Serializable{
     }
 
     @Transient
+    @JsonIgnore
     public Postulant getPostulant() {
         return getPk().getPostulant();
     }
@@ -54,21 +56,21 @@ public class WorkExperience implements Serializable{
         getPk().setPostulant(postulant);
     }
 
-    @Column(name = "start_at")
-    public int getInicio() {
-        return inicio;
+    @Transient
+    public String getInicio() {
+        return getPk().getInicio();
     }
 
-    public void setInicio(int inicio) {
-        this.inicio = inicio;
+    public void setInicio(String inicio) {
+        getPk().setInicio(inicio);
     }
 
     @Column(name = "finish_at")
-    public int getFin() {
+    public String getFin() {
         return fin;
     }
 
-    public void setFin(int fin) {
+    public void setFin(String fin) {
         this.fin = fin;
     }
 

@@ -2,16 +2,17 @@ package com.bolsaTrabajo.controller;
 
 import com.bolsaTrabajo.model.Postulant;
 import com.bolsaTrabajo.model.catalog.Institution;
+import com.bolsaTrabajo.model.compositeKeys.AcademicExperienceID;
+import com.bolsaTrabajo.model.compositeKeys.WorkExperienceID;
 import com.bolsaTrabajo.model.postulantInfo.AcademicExperience;
 import com.bolsaTrabajo.model.postulantInfo.WorkExperience;
 import com.bolsaTrabajo.service.*;
 import com.bolsaTrabajo.util.Auth;
+import com.bolsaTrabajo.util.InstitutionType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +38,12 @@ public class PostulantController {
     @Autowired
     private AcademicTitleCatService titleCatService;
 
+    @Autowired
+    private WorkExperienceService workExperienceService;
+
+    @Autowired
+    private AcademicExperienceService academicExperienceService;
+
     public Postulant postulant;
 
 
@@ -49,7 +56,7 @@ public class PostulantController {
             this.postulant = postulantService.findByUsername(username);
 
             model.addAttribute("postulantInfo", this.postulant);
-
+            model.addAttribute("weID", new WorkExperienceID());
             return "Postulante/profile";
         }
         return "redirect:/";
@@ -115,7 +122,7 @@ public class PostulantController {
     }
 
     @RequestMapping("/workExp/agregar")
-    public String workExperience(Model model){
+    public String workExperienceStore(Model model){
         model.addAttribute("user", Auth.auth());
         model.addAttribute("companies",companyCatService.getAllCompanies());
         model.addAttribute("jobs",jobCatService.getAllJobs());
@@ -123,13 +130,45 @@ public class PostulantController {
         return "Postulante/exp_labo/create_workExp";
     }
 
+    @RequestMapping(value = "/workExp/editar", method = RequestMethod.POST)
+    public String workExperienceEdit(Model model, @RequestParam("inicio") String inicio, @RequestParam("company") long company,
+                                     @RequestParam("job") long job){
+        WorkExperienceID id = new WorkExperienceID();
+        id.setInicio(inicio);
+        id.setPostulant(postulantService.findByUsername(Auth.auth().getName()));
+        id.setJobCat(jobCatService.getJob(job));
+        id.setCompanyCat(companyCatService.getCompany(company));
+        WorkExperience experience = workExperienceService.getWorkExpById(id);
+        model.addAttribute("user", Auth.auth());
+        model.addAttribute("companies",companyCatService.getAllCompanies());
+        model.addAttribute("jobs",jobCatService.getAllJobs());
+        model.addAttribute("workExp", experience);
+        return "Postulante/exp_labo/edit_workExp";
+    }
+
     @RequestMapping("/acadExp/agregar")
     public String academicExperience(Model model){
         model.addAttribute("user", Auth.auth());
-        model.addAttribute("institutions",institutionService.getAllInstitutions());
+        model.addAttribute("institutions",institutionService.getInstitutionsByType(InstitutionType.Academica));
         model.addAttribute("titles",titleCatService.getAllTitles());
         model.addAttribute("acadExp", new AcademicExperience());
         return "Postulante/exp_acad/create_acadExp";
+    }
+
+    //editar para experiencia academica
+    @RequestMapping(value = "/acadExp/editar", method = RequestMethod.POST)
+    public String acadExperienceEdit(Model model, @RequestParam("titulo") int titulo,
+                                     @RequestParam("institucion") int institucion){
+        AcademicExperienceID id = new AcademicExperienceID();
+        id.setPostulant(postulantService.findByUsername(Auth.auth().getName()));
+        id.setInstitution(institutionService.findInstitutionById(institucion));
+        id.setTitle(titleCatService.getTitle(titulo));
+        AcademicExperience experience = academicExperienceService.getAcadExpById(id);
+        model.addAttribute("user", Auth.auth());
+        model.addAttribute("titles",titleCatService.getAllTitles());
+        model.addAttribute("institutions",institutionService.getInstitutionsByType(InstitutionType.Academica));
+        model.addAttribute("acadExp", experience);
+        return "Postulante/exp_acad/edit_acadExp";
     }
 
 }

@@ -4,9 +4,11 @@ import com.bolsaTrabajo.model.catalog.CompanyCat;
 import com.bolsaTrabajo.model.Postulant;
 import com.bolsaTrabajo.model.catalog.JobCat;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.ManyToOne;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -20,6 +22,16 @@ public class WorkExperienceID implements Serializable{
     private Postulant postulant;
     private CompanyCat companyCat;
     private JobCat jobCat;
+    private String inicio;
+
+    @Column(name = "start_at")
+    public String getInicio() {
+        return inicio;
+    }
+
+    public void setInicio(String inicio) {
+        this.inicio = inicio;
+    }
 
     @ManyToOne
     public JobCat getJobCat() {

@@ -4,6 +4,7 @@ import com.bolsaTrabajo.model.Postulant;
 import com.bolsaTrabajo.model.catalog.AcademicTitleCat;
 import com.bolsaTrabajo.model.catalog.Institution;
 import com.bolsaTrabajo.model.compositeKeys.AcademicExperienceID;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -24,7 +25,7 @@ import java.io.Serializable;
 public class AcademicExperience implements Serializable {
 
     private AcademicExperienceID pk = new AcademicExperienceID();
-    private int añoGraduacion;
+    private int graduacion;
 
     @EmbeddedId
     public AcademicExperienceID getPk() {
@@ -36,11 +37,11 @@ public class AcademicExperience implements Serializable {
     }
 
     public int getAñoGraduacion() {
-        return añoGraduacion;
+        return graduacion;
     }
 
     public void setAñoGraduacion(int añoGraduacion) {
-        this.añoGraduacion = añoGraduacion;
+        this.graduacion = añoGraduacion;
     }
 
     @Transient
@@ -53,6 +54,7 @@ public class AcademicExperience implements Serializable {
     }
 
     @Transient
+    @JsonIgnore
     public Postulant getPostulant(){
         return getPk().getPostulant();
     }
@@ -64,6 +66,14 @@ public class AcademicExperience implements Serializable {
         return getPk().getInstitution();
     }
 
-    public void setInstitution(Institution ins){
-        getPk().setInstitution(ins);}
+    public void setInstitution(Institution ins){getPk().setInstitution(ins);}
+
+    @Column(name = "graduation")
+    public int getGraduacion() {
+        return graduacion;
+    }
+
+    public void setGraduacion(int graduacion) {
+        this.graduacion = graduacion;
+    }
 }

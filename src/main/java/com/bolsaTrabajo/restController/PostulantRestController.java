@@ -1,16 +1,15 @@
 package com.bolsaTrabajo.restController;
 
-import com.bolsaTrabajo.model.*;
+import com.bolsaTrabajo.model.Postulant;
 import com.bolsaTrabajo.model.catalog.AcademicTitleCat;
 import com.bolsaTrabajo.model.catalog.CompanyCat;
 import com.bolsaTrabajo.model.catalog.Institution;
 import com.bolsaTrabajo.model.catalog.JobCat;
+import com.bolsaTrabajo.model.compositeKeys.AcademicExperienceID;
+import com.bolsaTrabajo.model.compositeKeys.WorkExperienceID;
 import com.bolsaTrabajo.model.postulantInfo.AcademicExperience;
 import com.bolsaTrabajo.model.postulantInfo.WorkExperience;
 import com.bolsaTrabajo.service.*;
-import com.bolsaTrabajo.service.CompanyCatService;
-import com.bolsaTrabajo.service.PostulantService;
-import com.bolsaTrabajo.service.UserService;
 import com.bolsaTrabajo.util.Auth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -50,6 +49,12 @@ public class PostulantRestController {
 
     @Autowired
     private InstitutionService institutionService;
+
+    @Autowired
+    private WorkExperienceService workExperienceService;
+
+    @Autowired
+    private AcademicExperienceService academicExperienceService;
     private HttpHeaders headers;
 
     public PostulantRestController() {
@@ -97,12 +102,27 @@ public class PostulantRestController {
 
     @PostMapping(value = "/workExp")
     public RedirectView storeWorkExp(WorkExperience experience, @RequestParam("empresas") long empresa,
-                                     @RequestParam("jobs") long job, RedirectAttributes attributes){
+                                     @RequestParam("jobs") long job, @RequestParam("inicio") String inicio,
+                                     @RequestParam("job") String puesto, @RequestParam("empresa") String company,
+                                     @RequestParam("begin") String begin, RedirectAttributes attributes){
+
+        WorkExperienceID id = new WorkExperienceID();
+
+        id.setPostulant(postulantService.findByUsername(Auth.auth().getName()));
+        id.setCompanyCat(companyCatService.getCompany(company));
+        id.setJobCat(jobCatService.getJob(puesto));
+        id.setInicio(begin);
 
         Postulant p = postulantService.findByUsername(Auth.auth().getName());
+
+        if (workExperienceService.getWorkExpById(id)!=null){
+            p.getWorkExperiences().remove(workExperienceService.getWorkExpById(id));
+            workExperienceService.deleteWorkExp(workExperienceService.getWorkExpById(id));
+        }
         CompanyCat c = companyCatService.getCompany(empresa);
         JobCat j = jobCatService.getJob(job);
 
+        experience.getPk().setInicio(inicio);
         experience.setCompanyCat(c);
         experience.setPostulant(p);
         experience.setJobCat(j);
@@ -114,12 +134,24 @@ public class PostulantRestController {
     }
 
     @PostMapping(value = "/acadExp")
-    public RedirectView storeAcadExp(AcademicExperience experience, @RequestParam("institucion") int institucion,
-                                     @RequestParam("titles") long title, RedirectAttributes attributes){
+    public RedirectView storeAcadExp(AcademicExperience experience, @RequestParam("institution") int institution,
+                                     @RequestParam("titles") long title, @RequestParam("institucion") int institucion,
+                                     @RequestParam("titulo") long titulo, RedirectAttributes attributes){
+
+        AcademicExperienceID id = new AcademicExperienceID();
+
+        id.setPostulant(postulantService.findByUsername(Auth.auth().getName()));
+        id.setTitle(academicTitleCatService.getTitle(titulo));
+        id.setInstitution(institutionService.findInstitutionById(institucion));
 
         Postulant p = postulantService.findByUsername(Auth.auth().getName());
-        Institution ins = institutionService.findInstitutionById(institucion).get();
-        AcademicTitleCat acad = academicTitleCatService.getTitle(title).get();
+
+        if (academicExperienceService.getAcadExpById(id)!=null){
+            p.getAcademicExperiences().remove(academicExperienceService.getAcadExpById(id));
+            academicExperienceService.deleteAcadExp(academicExperienceService.getAcadExpById(id));
+        }
+        Institution ins = institutionService.findInstitutionById(institucion);
+        AcademicTitleCat acad = academicTitleCatService.getTitle(title);
 
         experience.setInstitution(ins);
         experience.setPostulant(p);
@@ -130,4 +162,5 @@ public class PostulantRestController {
         //attributes.addFlashAttribute("message","Registro se guardo con exito");
         return new RedirectView("/postulante/"+p.getUsername()+"/perfil");
     }
+
 }
