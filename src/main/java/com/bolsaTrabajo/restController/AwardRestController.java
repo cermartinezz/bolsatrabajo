@@ -1,6 +1,6 @@
 package com.bolsaTrabajo.restController;
 
-import com.bolsaTrabajo.model.Award;
+import com.bolsaTrabajo.model.postulantInfo.Award;
 import com.bolsaTrabajo.service.AwardService;
 import com.bolsaTrabajo.service.PostulantService;
 import com.bolsaTrabajo.util.Auth;

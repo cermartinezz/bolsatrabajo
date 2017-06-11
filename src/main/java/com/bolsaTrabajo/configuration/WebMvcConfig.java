@@ -46,6 +46,8 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     /**
      *Servicios, Validadores, etc
      */
+    @Bean
+    public AreaService areaService(){ return new AreaServiceImpl(); }
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
@@ -127,6 +129,9 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     public SkillService skillService(){
         return new SkillServiceImpl();
     }
+
+    @Bean
+    public SubAreaService subAreaService(){return new SubAreaServiceImpl(); }
 
     @Bean
     public CompanyCatService companyCatService(){ return new CompanyCatService(); }

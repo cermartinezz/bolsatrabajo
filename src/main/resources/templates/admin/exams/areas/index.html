@@ -15,14 +15,14 @@
 
     <div class="main" role="main">
 
-        <div th:include="fragmentos/heading :: heading('Permisos')"></div>
+        <div th:include="fragmentos/heading :: heading('Areas de Evaluación')"></div>
 
         <section class="page-content">
             <div class="container">
                 <div class="box">
                     <div class="row">
                         <div class="col-md-8 col-md-offset-2">
-                            <h3>Lista de Permisos</h3>
+                            <h3>Gestion de Areas de Evaluación</h3>
 
                             <div th:if="${messageSuccess!=null}" class="alert alert-success alert-dismissable">
                                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -30,9 +30,12 @@
                             </div>
 
                             <div class="table-responsive">
+
                                 <menu>
-                                    <a th:href="@{/permissions/crear}" class="btn btn-success">Nuevo</a>
+                                    <a th:href="@{/examenes/areas/crear}" class="btn btn-success">Nueva Area</a>
+                                    <a th:href="@{/examenes/subareas}" class="btn btn-info">Ver SubAreas</a>
                                 </menu>
+
                                 <table class="table table-bordered table-stripe">
                                     <thead>
                                     <tr>
@@ -43,29 +46,24 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr th:each="p,iter : ${permissions}">
+                                    <tr th:each="a,iter : ${areas}">
                                         <td th:text="${iter.count}"></td>
-                                        <td th:text="${p.id}"></td>
-                                        <td th:text="${p.name}"></td>
+                                        <td th:text="${a.id}"></td>
+                                        <td th:text="${a.nombre}"></td>
                                         <td>
-                                            <a th:href="@{/permissions/{id}(id=${p.id})}" class="btn btn-warning btn-xs">Editar</a>
+                                            <a th:href="@{/examenes/areas/{id}(id=${a.id})}" style="text-decoration:none;">
+                                                <button class="btn btn-warning btn-xs"><span class="fa fa-pencil"></span> Editar</button>
+                                            </a>
 
-                                            <form th:action="@{'/permission/' + ${p.id}}"
-                                                  th:method="DELETE" class="btn">
-
-                                                <div >
-                                                    <button type="submit"
-                                                            class="btn btn-danger btn-xs"
-                                                            onclick="return confirm("Seguro que desea eliminar este registro?")">Eliminar</button>
-                                                </div>
-
-                                            </form>
+                                            <a style="text-decoration:none;">
+                                                <button th:onclick="'eliminarRegistro(\'' + ${a.id} + '\',\'area\')'"
+                                                        class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Eliminar</button>
+                                            </a>
                                         </td>
                                     </tr>
                                     </tbody>
                                 </table>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -75,9 +73,6 @@
         <div th:include="fragmentos/footer :: footer"></div>
     </div>
 </div>
-
-
 <div th:include="fragmentos/scripts :: scripts"></div>
-<
 </body>
 </html>

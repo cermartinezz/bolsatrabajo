@@ -1,7 +1,6 @@
-package com.bolsaTrabajo.controller;
+package com.bolsaTrabajo.controller.postulante;
 
-import com.bolsaTrabajo.model.Award;
-import com.bolsaTrabajo.model.Postulant;
+import com.bolsaTrabajo.model.postulantInfo.Award;
 import com.bolsaTrabajo.model.User;
 import com.bolsaTrabajo.service.AwardService;
 import com.bolsaTrabajo.service.UserService;

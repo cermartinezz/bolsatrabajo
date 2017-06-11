@@ -1,6 +1,6 @@
 package com.bolsaTrabajo.repositories;
 
-import com.bolsaTrabajo.model.Award;
+import com.bolsaTrabajo.model.postulantInfo.Award;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 

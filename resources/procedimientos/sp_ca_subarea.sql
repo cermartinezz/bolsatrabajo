@@ -1,0 +1,58 @@
+CREATE OR REPLACE PROCEDURE CA_SUBAREA --CA = CREAR / ACTUALIZAR
+  (
+    SA_ID IN SUB_AREA.ID%TYPE,
+    SA_ID_AREA IN SUB_AREA.AREA_ID%TYPE,
+    SA_NOMBRE IN SUB_AREA.NOMBRE%TYPE
+  )
+IS
+  --SUBAREA NUEVA DESDE LA PETICION - SAN
+  V_SAN_ID      SUB_AREA.ID%TYPE := SA_ID; --N/A
+  V_SAN_ID_AREA SUB_AREA.AREA_ID%TYPE := SA_ID_AREA;
+  V_SAN_NOMBRE  SUB_AREA.NOMBRE%TYPE := SA_NOMBRE;
+
+  --VARIABLES VERIFICACION DE GUARDADO. -G
+  V_G_SA NUMBER;
+  TOTAL NUMBER;
+
+  BEGIN
+
+    --SI El ID ES 0 SE TRATA DE UN NUEVO REGISTRO
+    IF V_SAN_ID = 0 THEN
+
+      -- seguarda el valor de la secuencia en el nuevo valor de la
+      -- subarea
+      SELECT HIBERNATE_SEQUENCE.NEXTVAL INTO V_SAN_ID FROM DUAL;
+
+      -------INSERCION DE LA SUBAREA USANDO LA FUNCION CREAR_SUBAREA---------
+      V_G_SA := CREAR_SUBAREA(V_SAN_ID,V_SAN_ID_AREA,V_SAN_NOMBRE);
+
+      -- 1 significa error desde la funcion
+      IF V_G_SA = 1 THEN
+        RAISE_APPLICATION_ERROR(-20001, 'NO SE PUDO GUARDAR, PORQUE YA EXISTE EL SUBAREA');
+      END IF;
+
+    ELSE --SI SE DIJITA POR EL USUARIO
+        TOTAL := 0;
+        SELECT COUNT(*) INTO TOTAL FROM SUB_AREA WHERE ID = V_SAN_ID;
+
+        IF TOTAL = 0 THEN -- SI EL TOTAL ES 0 NO SE ENCONTRO
+                            --REGISTRO CON ESE ID ENTONCES LO CREA
+            -------INSERCION DEL SUBAREA---------
+            V_G_SA := CREAR_SUBAREA(V_SAN_ID,V_SAN_ID_AREA,V_SAN_NOMBRE);
+
+            -- 1 significa error desde la funcion
+            IF V_G_SA = 1 THEN
+              RAISE_APPLICATION_ERROR(-20001, 'NO SE PUDO GUARDAR, PORQUE YA EXISTE EL SUBAREA');
+            END IF;
+
+        ELSE --SI ENCONTRO REGISTRO ENTONCES LA ACTUALIZA
+
+            V_G_SA :=ACTUALIZAR_SUBAREA(V_SAN_ID,V_SAN_ID_AREA,V_SAN_NOMBRE);
+
+            IF V_G_SA = 1 THEN
+                Raise_Application_Error(-20001, 'La subarea no se pudo actualizar');
+            END IF;
+
+        END IF;
+    END IF;
+  END CA_SUBAREA;
