@@ -1,6 +1,8 @@
 package com.bolsaTrabajo.model.catalog;
 
+import com.bolsaTrabajo.model.jobInfo.WorkExperienceProfile;
 import com.bolsaTrabajo.model.postulantInfo.WorkExperience;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -8,7 +10,6 @@ import java.util.Set;
 /**
  * Created by keepercito on 05-01-17.
  */
-
 @Entity
 @Table(name = "job")
 public class JobCat {
@@ -16,6 +17,7 @@ public class JobCat {
     private long id;
     private String puesto;
     private Set<WorkExperience> workExperience;
+    private Set<WorkExperienceProfile> workExperienceProfiles;
 
     public JobCat() {
     }
@@ -47,5 +49,17 @@ public class JobCat {
 
     public void setWorkExperience(Set<WorkExperience> workExperience) {
         this.workExperience = workExperience;
+    }
+
+    @OneToMany( mappedBy = "primaryKey.job",
+                cascade = CascadeType.ALL,
+                fetch = FetchType.LAZY)
+    @JsonIgnore
+    public Set<WorkExperienceProfile> getWorkExperienceProfiles() {
+        return workExperienceProfiles;
+    }
+
+    public void setWorkExperienceProfiles(Set<WorkExperienceProfile> workExperienceProfiles) {
+        this.workExperienceProfiles = workExperienceProfiles;
     }
 }

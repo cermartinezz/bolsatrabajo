@@ -9,6 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
+import java.util.Set;
 
 @Entity
 @Table(name="job_profiles")
@@ -47,6 +48,7 @@ public class JobProfile {
     private Integer maxAge;
     private Company company;
     private Job job;
+    private Set<WorkExperienceProfile> workExperienceProfile;
 
     @Autowired
     public JobProfile(JobProfileService jobProfileService){
@@ -138,6 +140,18 @@ public class JobProfile {
     public void setJob(Job job) {
         this.job = job;
     }
+
+    @OneToMany(mappedBy = "primaryKey.jobProfile",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    public Set<WorkExperienceProfile> getWorkExperienceProfile() {
+        return workExperienceProfile;
+    }
+
+    public void setWorkExperienceProfile(Set<WorkExperienceProfile> workExperienceProfile) {
+        this.workExperienceProfile = workExperienceProfile;
+    }
+    
 
     public Integer save(JobProfile jobProfile){
         // TODO -- SI HUBIESE UNA LOGICA AQUI P.E ALGUN CALCULO SERIA IMPORTANTE ESTE METODO
