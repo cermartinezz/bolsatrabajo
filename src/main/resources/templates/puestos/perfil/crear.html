@@ -23,9 +23,59 @@
             <section class="page-content">
                 <div class="container">
                     <div class="box">
-                        <form @submit.prevent="onSubmit">
-                            
-                        </form>
+                        <h3 class="inline">Informacion General del perfil</h3>
+                        <div class="box" v-if="mostrarPrincipal">
+                            <form @submit.prevent="onSubmitPrincipal">
+
+                                <input type="hidden"
+                                       th:name="${_csrf.parameterName}"
+                                       th:value="${_csrf.token}" />
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group" :class="{'has-error': listErrors.has('name') }">
+                                            <label> Nombre del Perfil*</label>
+
+                                            <input type="text" name="name"
+                                                   v-model="name" placeholder="Nombre del Perfil" class="form-control" required/>
+
+                                            <div class="help-block with-errors" v-if="listErrors.has('name')" v-text="listErrors.get('name')"></div>
+                                        </div>
+                                        <div class="form-group" :class="{'has-error': listErrors.has('description') }">
+                                            <label> Descripcion del puesto *</label>
+
+                                            <textarea type="text" name="description"
+                                                      v-model="description" placeholder="Descripcion del puesto " class="form-control" required></textarea>
+
+                                            <div class="help-block with-errors" v-if="listErrors.has('description')" v-text="listErrors.get('description')"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group" :class="{'has-error': listErrors.has('minAge') }">
+                                            <label> Edad Minima*</label>
+                                        
+                                            <input type="number" name="minAge"
+                                                   v-model.number="minAge" min="18" max="90" placeholder="Edad Minima" class="form-control" required/>
+                                        
+                                            <div class="help-block with-errors" v-if="listErrors.has('minAge')" v-text="listErrors.get('minAge')"></div>
+                                        </div>
+                                        <div class="form-group" :class="{'has-error': listErrors.has('maxAge') }">
+                                            <label> Edad Maxima*</label>
+                                        
+                                            <input name="maxAge"
+                                                   v-model.model="maxAge"
+                                                   type="number"
+                                                   min="18" max="99" placeholder="Edad Maxima" class="form-control" required/>
+                                        
+                                            <div class="help-block with-errors" v-if="listErrors.has('maxAge')" v-text="listErrors.get('maxAge')"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group flex_start">
+                                    <button type="submit" class="btn btn-info">Guardar</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -36,5 +86,8 @@
 
 
     <div th:include="fragmentos/scripts :: scripts" ></div>
+    <script th:inline="javascript">let id = [[${company.getId()}]];</script>
+    <script th:inline="javascript">let username = [[${company.getUsername()}]];</script>
+    <script th:src="@{/assets/js/puesto/perfil/agregar_perfil.js}"></script>
 </body>
 </html>

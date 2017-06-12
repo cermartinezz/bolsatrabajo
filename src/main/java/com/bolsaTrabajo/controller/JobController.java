@@ -13,8 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -58,6 +56,7 @@ public class JobController {
             return "job/create_job";
         }
     }
+
     @RequestMapping(value="/puesto/lista",method = RequestMethod.GET)
     public String show( Model model){
 
@@ -66,16 +65,8 @@ public class JobController {
         model.addAttribute("empresa", company);
         return "job/lista";
     }
-    @RequestMapping(value="/puesto/{id}/perfil",method = RequestMethod.GET)
-    public String perfil( @PathVariable Long id,Model model){
 
-        Job job=jobService.findById(id);
-        model.addAttribute("user", Auth.auth());
-        Company company=companyService.findByUsername(Auth.auth().getName());
-        model.addAttribute("empresa", company);
-        model.addAttribute("job",job);
-        return "job/profile";
-    }
+
     @RequestMapping(value="/puesto/{id}/editar",method = RequestMethod.GET)
     public String editar( @PathVariable Long id,Model model){
 

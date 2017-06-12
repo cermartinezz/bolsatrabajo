@@ -81,6 +81,11 @@
     justify-content: flex-start;
 }
 
+.flex_end{
+    display: flex;
+    justify-content: flex-end;
+}
+
 .center_heigth{
     justify-content: center;
     display: flex;

@@ -1,5 +1,8 @@
 package com.bolsaTrabajo.model;
 
+import com.bolsaTrabajo.model.jobInfo.JobProfile;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -9,18 +12,22 @@ public class Company extends User{
 
 
     private Long id;
-
     private String nombreC;
-
     private String repreLegal;
-
     private String nitC;
-
     private String telefonoC;
-
     private String informacionC;
-
     private Set<Job> jobs;
+    private Set<JobProfile> profiles;
+
+    public Company(Long id) {
+        this.id = id;
+    }
+
+    public Company() {
+        super();
+    }
+
     @Override
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -72,7 +79,10 @@ public class Company extends User{
         this.informacionC = informacionC;
     }
 
-    @OneToMany(mappedBy = "company",cascade= CascadeType.ALL, targetEntity = Job.class)
+    @OneToMany( mappedBy = "company",
+                cascade= CascadeType.ALL,
+                targetEntity = Job.class,
+                fetch = FetchType.LAZY)
     public Set<Job> getJobs() {
         return jobs;
     }
@@ -81,6 +91,18 @@ public class Company extends User{
         this.jobs = jobs;
     }
 
+    @OneToMany(  mappedBy = "company",
+                cascade = CascadeType.ALL,
+                targetEntity = JobProfile.class,
+                fetch = FetchType.LAZY)
+    @JsonIgnore
+    public Set<JobProfile> getProfiles() {
+        return profiles;
+    }
+
+    public void setProfiles(Set<JobProfile> profiles) {
+        this.profiles = profiles;
+    }
 
     @Override
     public String toString() {

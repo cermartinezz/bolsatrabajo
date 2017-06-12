@@ -42,7 +42,13 @@
                             <li><a href="#">Puesto</a>
                                 <ul>
                                     <li><a th:href="@{'/puesto/crear'}">Registrar Puesto</a></li>
-                                    <li><a th:href="@{'/puesto/lista'}">Puestos</a></li>
+                                    <li><a th:href="@{'/puesto/lista'}">Mis Puestos</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#">Perfiles</a>
+                                <ul>
+                                    <li><a th:href="@{'/empresa/'+${u.getName()}+'/perfiles/crear'}">Registrar perfil</a></li>
+                                    <li><a th:href="@{'/empresa/'+${u.getName()}+'/perfiles'}">Mis perfiles</a></li>
                                 </ul>
                             </li>
                             <!--<li><a href="#">Oportunidades</a>

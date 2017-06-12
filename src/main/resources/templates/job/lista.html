@@ -38,8 +38,7 @@
                                     <td th:text="${j.nombreJ}"></td>
                                     <td th:text="${j.SalarioJ}"></td>
                                     <td >
-
-                                        <a th:href="@{'/puesto/'+${j.id}+'/perfil'}" class="btn btn-info">Perfil</a>
+                                        <a th:href="@{'/empresa/'+${user.getName()}+'/perfiles' }" class="btn btn-info">Perfil</a>
                                         <form th:action="@{'/job/' + ${j.id}}"
                                               th:method="DELETE" class="btn">
                                             <div >

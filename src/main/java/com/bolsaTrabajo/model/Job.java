@@ -1,6 +1,8 @@
 package com.bolsaTrabajo.model;
 
 
+import com.bolsaTrabajo.model.jobInfo.JobProfile;
+
 import javax.persistence.*;
 
 @Entity
@@ -13,6 +15,7 @@ public class Job {
     private float salarioJ;
     private  String descripcionJ;
     private Company company;
+    private JobProfile jobProfile;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -50,7 +53,7 @@ public class Job {
     }
 
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name="company_id")
     public Company getCompany() {
         return company;
@@ -66,6 +69,16 @@ public class Job {
 
     public void setCodJ(String codJ) {
         this.codJ = codJ;
+    }
+
+    @OneToOne(cascade = CascadeType.ALL, optional = true)
+    @JoinColumn(name="job_profile_id")
+    public JobProfile getJobProfile() {
+        return jobProfile;
+    }
+
+    public void setJobProfile(JobProfile jobProfile) {
+        this.jobProfile = jobProfile;
     }
 
     @Override
