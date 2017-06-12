@@ -18,11 +18,70 @@
 
         <div class="main" role="main" id="app">
 
-            <div th:include="fragmentos/heading :: heading('Perfil: '+${profile.getName()})"></div>
+            <div th:include="fragmentos/heading :: heading('Perfil de trabajo')"></div>
 
             <section class="page-content">
                 <div class="container">
+                    <div class="box">
+                        <div>
+                            <h3 class="inline">Informacion General del perfil</h3>
+                            <button class="btn btn-info btn-sm inline" v-if="!mostrarFormulario" @click="cambiarEstado">Editar</button>
+                            <button class="btn btn-danger btn-sm inline" v-if="mostrarFormulario" @click="cambiarEstado">Cancelar</button>
+                        </div>
+                        </br>
+                        <div class="box">
+                            <ul class="group-list" v-if="!mostrarFormulario">
+                                <li class="group-list-item"><strong>Nombre: </strong>{{jobProfile.name}}</li>
+                                <li class="group-list-item"><strong>Descripcion: </strong>{{jobProfile.description}}</li>
+                                <li class="group-list-item"><strong>Edad Minima: </strong>{{jobProfile.minAge}}</li>
+                                <li class="group-list-item"><strong>Edad Maxima: </strong>{{jobProfile.maxAge}}</li>
+                            </ul>
+                            <form @submit.prevent="actualizar" v-if="mostrarFormulario">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group" :class="{'has-error': listErrors.has('name') }">
+                                            <label> Nombre del Perfil*</label>
 
+                                            <input type="text" name="name"
+                                                   v-model="name" placeholder="Nombre del Perfil" class="form-control" required/>
+
+                                            <div class="help-block with-errors" v-if="listErrors.has('name')" v-text="listErrors.get('name')"></div>
+                                        </div>
+                                        <div class="form-group" :class="{'has-error': listErrors.has('description') }">
+                                            <label> Descripcion del puesto *</label>
+
+                                            <textarea type="text" name="description"
+                                                      v-model="description" rows="5" placeholder="Descripcion del puesto " class="form-control" required></textarea>
+
+                                            <div class="help-block with-errors" v-if="listErrors.has('description')" v-text="listErrors.get('description')"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group" :class="{'has-error': listErrors.has('minAge') }">
+                                            <label> Edad Minima*</label>
+
+                                            <input type="number" name="minAge"
+                                                   v-model.number="minAge" min="18" max="90" placeholder="Edad Minima" class="form-control" required/>
+
+                                            <div class="help-block with-errors" v-if="listErrors.has('minAge')" v-text="listErrors.get('minAge')"></div>
+                                        </div>
+                                        <div class="form-group" :class="{'has-error': listErrors.has('maxAge') }">
+                                            <label> Edad Maxima*</label>
+
+                                            <input name="maxAge"
+                                                   v-model.model="maxAge"
+                                                   type="number"
+                                                   min="18" max="99" placeholder="Edad Maxima" class="form-control" required/>
+
+                                            <div class="help-block with-errors" v-if="listErrors.has('maxAge')" v-text="listErrors.get('maxAge')"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-success btn-lg">Actualizar</button>
+
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </section>
 

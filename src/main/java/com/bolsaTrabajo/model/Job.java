@@ -2,6 +2,7 @@ package com.bolsaTrabajo.model;
 
 
 import com.bolsaTrabajo.model.jobInfo.JobProfile;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
@@ -55,6 +56,7 @@ public class Job {
 
     @ManyToOne
     @JoinColumn(name="company_id")
+    @JsonIgnore
     public Company getCompany() {
         return company;
     }

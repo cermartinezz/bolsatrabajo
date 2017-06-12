@@ -22,6 +22,16 @@ import javax.validation.constraints.Size;
                                         @StoredProcedureParameter(mode = ParameterMode.IN,name = "EDAD_MIN", type = Integer.class),
                                         @StoredProcedureParameter(mode = ParameterMode.IN,name = "COMPAÑIA_ID", type = Long.class),
                                         @StoredProcedureParameter(mode = ParameterMode.OUT,name = "ID_JP", type = Integer.class)
+                                    }),
+        @NamedStoredProcedureQuery(name="SP_ACTUALIZAR_PERFIL_TRABAJO",
+                                    procedureName = "SP_ACTUALIZAR_PERFIL_TRABAJO",
+                                    parameters = {
+                                        @StoredProcedureParameter(mode = ParameterMode.IN,name = "ID_JP", type=Integer.class),
+                                        @StoredProcedureParameter(mode = ParameterMode.IN,name = "NOMBRE", type=String.class),
+                                        @StoredProcedureParameter(mode = ParameterMode.IN,name = "DESCRIPCION", type=String.class),
+                                        @StoredProcedureParameter(mode = ParameterMode.IN,name = "EDAD_MAX", type=Integer.class),
+                                        @StoredProcedureParameter(mode = ParameterMode.IN,name = "EDAD_MIN", type=Integer.class),
+                                        @StoredProcedureParameter(mode = ParameterMode.IN,name = "COMPAÑIA_ID", type=Long.class)
                                     })
 })
 public class JobProfile {
@@ -133,5 +143,11 @@ public class JobProfile {
         // TODO -- SI HUBIESE UNA LOGICA AQUI P.E ALGUN CALCULO SERIA IMPORTANTE ESTE METODO
 
         return this.jobProfileService.save(jobProfile); // TODO -- AQUI LLAMO AL SERVICIO QUE ES UN PROCEDIMIENTO EN LA BASE
+    }
+
+    public void update(JobProfile jobProfile){
+        // TODO -- SI HUBIESE UNA LOGICA AQUI P.E ALGUN CALCULO SERIA IMPORTANTE ESTE METODO
+
+        this.jobProfileService.update(jobProfile); // TODO -- AQUI LLAMO AL SERVICIO QUE ES UN PROCEDIMIENTO EN LA BASE
     }
 }
