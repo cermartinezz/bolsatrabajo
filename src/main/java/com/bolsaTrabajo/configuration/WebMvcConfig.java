@@ -1,5 +1,6 @@
 package com.bolsaTrabajo.configuration;
 
+import com.bolsaTrabajo.model.catalog.Department;
 import com.bolsaTrabajo.model.catalog.LanguageLevel;
 import com.bolsaTrabajo.model.jobInfo.JobProfile;
 import com.bolsaTrabajo.model.postulantInfo.PostulantCertification;
@@ -185,5 +186,12 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     public LanguageLevelService languageLevelService(){
         return new LanguageLevelServiceImpl();
     }
+
+
+    @Bean
+    public MunicipalityService municipalityService(){ return  new MunicipalityServiceImpl();}
+
+    @Bean
+    public DepartmentService departmentService(){ return new DepartmentServiceImpl(); }
 }
 

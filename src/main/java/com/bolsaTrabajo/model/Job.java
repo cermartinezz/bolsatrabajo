@@ -1,6 +1,7 @@
 package com.bolsaTrabajo.model;
 
 
+import com.bolsaTrabajo.model.catalog.Department;
 import com.bolsaTrabajo.model.jobInfo.JobProfile;
 
 import javax.persistence.*;
@@ -14,8 +15,11 @@ public class Job {
     private String nombreJ;
     private float salarioJ;
     private  String descripcionJ;
+    private String category;
     private Company company;
     private JobProfile jobProfile;
+    private Department department;
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -52,6 +56,13 @@ public class Job {
         this.descripcionJ = descripcionJ;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
 
     @ManyToOne
     @JoinColumn(name="company_id")
@@ -81,13 +92,26 @@ public class Job {
         this.jobProfile = jobProfile;
     }
 
+    @ManyToOne
+    @JoinColumn(name = "department_id")
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
+
     @Override
     public String toString() {
-        return "job{" +
+        return "Job{" +
                 "id=" + id +
+                ", codJ='" + codJ + '\'' +
                 ", nombreJ='" + nombreJ + '\'' +
                 ", salarioJ=" + salarioJ +
                 ", descripcionJ='" + descripcionJ + '\'' +
+                ", category='" + category + '\'' +
                 '}';
     }
 }

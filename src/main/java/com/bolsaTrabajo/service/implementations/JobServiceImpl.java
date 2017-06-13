@@ -3,6 +3,7 @@ package com.bolsaTrabajo.service.implementations;
 
 import com.bolsaTrabajo.model.Company;
 import com.bolsaTrabajo.model.Job;
+import com.bolsaTrabajo.model.catalog.Department;
 import com.bolsaTrabajo.repositories.JobRepository;
 import com.bolsaTrabajo.repositories.RoleRepository;
 import com.bolsaTrabajo.service.JobService;
@@ -37,6 +38,21 @@ public class JobServiceImpl implements JobService{
     }
 
     @Override
+    public List<Job> findByCategory(String category) {
+        return jobRepository.findByCategory(category);
+    }
+
+    @Override
+    public List<Job> findByDepartment(Department department) {
+        return jobRepository.findByDepartment(department);
+    }
+
+    @Override
+    public List<Job> findByCategoryAndDepartment(String category, Department department) {
+        return jobRepository.findByCategoryAndDepartment(category,department);
+    }
+
+    @Override
     public void updateJob(Job job) {
         jobRepository.save(job);
     }
@@ -46,4 +62,9 @@ public class JobServiceImpl implements JobService{
     public Job findById(long id){return jobRepository.findById(id);}
     @Override
     public void deleteById(long id){ jobRepository.deleteById(id);}
+
+    @Override
+    public List<Job> getAllJobs() {
+        return jobRepository.findAll();
+    }
 }

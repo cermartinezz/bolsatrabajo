@@ -16,10 +16,9 @@ public class HomeController {
 
     @RequestMapping("/")
     public String home(ModelMap modelMap){
-        User u = userService.findByUsername(Auth.auth().getName());
-        modelMap.addAttribute("u",u);
+        /*User u = userService.findByUsername(Auth.auth().getName());
+        modelMap.addAttribute("u",u);*/
         modelMap.addAttribute("user", Auth.auth());
-
         return "home";
     }
 

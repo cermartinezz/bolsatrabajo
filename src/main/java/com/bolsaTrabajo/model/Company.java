@@ -83,6 +83,7 @@ public class Company extends User{
                 cascade= CascadeType.ALL,
                 targetEntity = Job.class,
                 fetch = FetchType.LAZY)
+    @JsonIgnore
     public Set<Job> getJobs() {
         return jobs;
     }

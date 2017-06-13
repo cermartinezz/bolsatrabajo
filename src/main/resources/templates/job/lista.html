@@ -30,13 +30,15 @@
                                 <tr>
                                     <th>Nombre Puesto</th>
                                     <th>Salario Puesto</th>
+                                    <th>Categoria</th>
                                     <th>Acciones</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="j,iter : ${empresa.getJobs()}">
+                                <tr th:each="j,iter : ${jobs}">
                                     <td th:text="${j.nombreJ}"></td>
                                     <td th:text="${j.SalarioJ}"></td>
+                                    <td th:text="${j.category}"></td>
                                     <td >
                                         <a th:href="@{'/empresa/'+${user.getName()}+'/perfiles' }" class="btn btn-info">Perfil</a>
                                         <form th:action="@{'/job/' + ${j.id}}"
