@@ -2,6 +2,7 @@ package com.bolsaTrabajo.model.compositeKeys;
 
 import com.bolsaTrabajo.model.catalog.JobCat;
 import com.bolsaTrabajo.model.jobInfo.JobProfile;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Embeddable;
 import javax.persistence.ManyToOne;
@@ -14,6 +15,7 @@ public class WorkExperienceProfileId implements Serializable{
     private JobCat  job;
 
     @ManyToOne
+    @JsonIgnore
     public JobProfile getJobProfile() {
         return jobProfile;
     }
@@ -23,6 +25,7 @@ public class WorkExperienceProfileId implements Serializable{
     }
 
     @ManyToOne
+    @JsonIgnore
     public JobCat getJob() {
         return job;
     }

@@ -15,25 +15,25 @@ import java.util.Set;
 @Table(name="job_profiles")
 @NamedStoredProcedureQueries({
         @NamedStoredProcedureQuery(name = "SP_CREAR_PERFIL_TRABAJO",
-                                    procedureName = "SP_CREAR_PERFIL_TRABAJO",
-                                    parameters = {
-                                        @StoredProcedureParameter(mode = ParameterMode.IN,name = "NOMBRE", type = String.class),
-                                        @StoredProcedureParameter(mode = ParameterMode.IN,name = "DESCRIPCION", type = String.class),
-                                        @StoredProcedureParameter(mode = ParameterMode.IN,name = "EDAD_MAX", type = Integer.class),
-                                        @StoredProcedureParameter(mode = ParameterMode.IN,name = "EDAD_MIN", type = Integer.class),
-                                        @StoredProcedureParameter(mode = ParameterMode.IN,name = "COMPAÑIA_ID", type = Long.class),
-                                        @StoredProcedureParameter(mode = ParameterMode.OUT,name = "ID_JP", type = Integer.class)
-                                    }),
+        procedureName = "SP_CREAR_PERFIL_TRABAJO",
+        parameters = {
+            @StoredProcedureParameter(mode = ParameterMode.IN,name = "NOMBRE", type = String.class),
+            @StoredProcedureParameter(mode = ParameterMode.IN,name = "DESCRIPCION", type = String.class),
+            @StoredProcedureParameter(mode = ParameterMode.IN,name = "EDAD_MAX", type = Integer.class),
+            @StoredProcedureParameter(mode = ParameterMode.IN,name = "EDAD_MIN", type = Integer.class),
+            @StoredProcedureParameter(mode = ParameterMode.IN,name = "COMPAÑIA_ID", type = Long.class),
+            @StoredProcedureParameter(mode = ParameterMode.OUT,name = "ID_JP", type = Integer.class)
+        }),
         @NamedStoredProcedureQuery(name="SP_ACTUALIZAR_PERFIL_TRABAJO",
-                                    procedureName = "SP_ACTUALIZAR_PERFIL_TRABAJO",
-                                    parameters = {
-                                        @StoredProcedureParameter(mode = ParameterMode.IN,name = "ID_JP", type=Integer.class),
-                                        @StoredProcedureParameter(mode = ParameterMode.IN,name = "NOMBRE", type=String.class),
-                                        @StoredProcedureParameter(mode = ParameterMode.IN,name = "DESCRIPCION", type=String.class),
-                                        @StoredProcedureParameter(mode = ParameterMode.IN,name = "EDAD_MAX", type=Integer.class),
-                                        @StoredProcedureParameter(mode = ParameterMode.IN,name = "EDAD_MIN", type=Integer.class),
-                                        @StoredProcedureParameter(mode = ParameterMode.IN,name = "COMPAÑIA_ID", type=Long.class)
-                                    })
+        procedureName = "SP_ACTUALIZAR_PERFIL_TRABAJO",
+        parameters = {
+            @StoredProcedureParameter(mode = ParameterMode.IN,name = "ID_JP", type=Integer.class),
+            @StoredProcedureParameter(mode = ParameterMode.IN,name = "NOMBRE", type=String.class),
+            @StoredProcedureParameter(mode = ParameterMode.IN,name = "DESCRIPCION", type=String.class),
+            @StoredProcedureParameter(mode = ParameterMode.IN,name = "EDAD_MAX", type=Integer.class),
+            @StoredProcedureParameter(mode = ParameterMode.IN,name = "EDAD_MIN", type=Integer.class),
+            @StoredProcedureParameter(mode = ParameterMode.IN,name = "COMPAÑIA_ID", type=Long.class)
+        })
 })
 public class JobProfile {
 
@@ -43,6 +43,7 @@ public class JobProfile {
     private Integer id;
     private String name;
     private String code;
+    //TODO AGREGAR GENERO
     private String description;
     private Integer minAge;
     private Integer maxAge;
@@ -56,6 +57,10 @@ public class JobProfile {
     }
 
     public JobProfile() {
+    }
+
+    public JobProfile(Integer id) {
+        this.id = id;
     }
 
     public JobProfile(String name, String description, Integer minAge, Integer maxAge) {

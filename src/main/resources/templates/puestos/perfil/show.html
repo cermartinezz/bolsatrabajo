@@ -86,9 +86,72 @@
                     <div class="box">
                         <h3>Experiencia Laboral</h3>
                         <div class="box">
-                            <form @submit.prevent="onSubmitExperienciaLaboral">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <form @submit.prevent="crearExperiencia">
+                                        <div class="form-group" :class="{'has-error': listErrors.has('yearOfExperience') }">
+                                            <label> Años de experiencia requerido*</label>
 
-                            </form>
+                                            <input name="yearOfExperience"
+                                                   v-model.number="yearOfExperience"
+                                                   type="number" placeholder="Años de experiencia requerido" class="form-control" required/>
+
+                                            <div class="help-block with-errors" v-if="listErrors.has('yearOfExperience')" v-text="listErrors.get('yearOfExperience')"></div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div v-if="!mostrarCargo" class="form-group">
+                                                <label> Seleccione Cargo</label>
+
+                                                <select class="form-control" id="job"
+                                                        v-model="jobCatId"
+                                                        required>
+
+                                                    <option disabled value="">Seleccione Cargo</option>
+
+                                                    <option v-for="job in jobs"
+                                                            :value="job.id"
+                                                            v-text="job.puesto">
+
+                                                </select>
+                                            </div>
+
+                                            <div v-if="mostrarCargo" class="form-group" :class="{'has-error': listErrors.has('job') }">
+                                                <label> Ingrese un cargo nuevo*</label>
+
+                                                <input type="text" name="job"
+                                                       v-model="jobCatPuesto" placeholder="Ingrese un cargo nuevo" class="form-control" required/>
+
+                                                <div class="help-block with-errors" v-if="listErrors.has('job')" v-text="listErrors.get('job')"></div>
+                                            </div>
+
+                                            <div>
+                                                <input type="checkbox" id="mostrarCargo" v-model="mostrarCargo">
+                                                <label for="mostrarCargo">Otro cargo</label>
+                                            </div>
+
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-success btn-sm">Agregar</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="col-md-6">
+                                    <div v-if="this.workExperience.length != 0" class="box box-no-border center ">
+                                        <ul class="list-group full-width">
+                                            <li class="list-group-item" v-for="experience in workExperience">
+                                                <span><strong>Cargo: </strong>{{experience.jobCat.puesto}}</span>
+                                                <span><strong>Años de experiencia: </strong>{{experience.yearOfExperience}}</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div v-if="this.workExperience.length == 0" class="box box-no-border center">
+                                        <Strong>No Hay cargos agregados</Strong>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -102,6 +165,7 @@
 
     <div th:include="fragmentos/scripts :: scripts" ></div>
     <script th:inline="javascript">let id = [[${company.getId()}]];</script>
+    <script th:inline="javascript">let username = [[${company.getUsername()}]];</script>
     <script th:inline="javascript">let profile = [[${profile}]];</script>
     <script th:src="@{/assets/js/puesto/perfil/show_perfil.js}"></script>
 </body>

@@ -5,6 +5,7 @@ import com.bolsaTrabajo.model.postulantInfo.WorkExperience;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Set;
 
 /**
@@ -12,7 +13,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "job")
-public class JobCat {
+public class JobCat implements Serializable{
 
     private long id;
     private String puesto;
@@ -20,6 +21,19 @@ public class JobCat {
     private Set<WorkExperienceProfile> workExperienceProfiles;
 
     public JobCat() {
+    }
+
+    public JobCat(long id) {
+        this.id = id;
+    }
+
+    public JobCat(String puesto) {
+        this.puesto = puesto;
+    }
+
+    public JobCat(long id, String puesto) {
+        this.id = id;
+        this.puesto = puesto;
     }
 
     @Id

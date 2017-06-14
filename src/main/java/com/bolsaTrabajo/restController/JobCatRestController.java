@@ -3,9 +3,14 @@ package com.bolsaTrabajo.restController;
 import com.bolsaTrabajo.model.catalog.JobCat;
 import com.bolsaTrabajo.service.JobCatService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
+
+import java.util.List;
 
 /**
  * Created by keepercito on 05-01-17.
@@ -17,6 +22,14 @@ public class JobCatRestController {
 
     @Autowired
     private JobCatService jobCatService;
+
+    private HttpHeaders httpHeaders;
+
+    public JobCatRestController() {
+        this.httpHeaders = new HttpHeaders();
+    }
+
+
 
     @PostMapping
     public RedirectView store(JobCat jobCat, RedirectAttributes attributes){
@@ -51,5 +64,18 @@ public class JobCatRestController {
         jobCatService.deleteJob(jobCat);
         attributes.addFlashAttribute("message","Registro se elimino con exito");
         return new RedirectView("/cat/jobs");
+    }
+
+    @GetMapping
+    public ResponseEntity<List<JobCat>> getAll(){
+        List<JobCat> jobs = jobCatService.getAllJobs();
+
+        if(jobs.equals(null) || jobs.size() == 0){
+            this.httpHeaders.set("message","No se encontraro items");
+            return new ResponseEntity<List<JobCat>>(this.httpHeaders, HttpStatus.NOT_FOUND);
+        }
+
+        this.httpHeaders.set("message","Lista de elementos llena");
+        return new ResponseEntity<List<JobCat>>(jobs,this.httpHeaders, HttpStatus.OK);
     }
 }

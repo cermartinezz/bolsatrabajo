@@ -1,6 +1,9 @@
 package com.bolsaTrabajo;
 
-import com.bolsaTrabajo.model.*;
+import com.bolsaTrabajo.model.Company;
+import com.bolsaTrabajo.model.Permission;
+import com.bolsaTrabajo.model.Postulant;
+import com.bolsaTrabajo.model.Role;
 import com.bolsaTrabajo.model.catalog.Language;
 import com.bolsaTrabajo.model.catalog.LanguageLevel;
 import com.bolsaTrabajo.model.catalog.Skill;
@@ -34,6 +37,8 @@ public class BolsaTrabajoApplication implements CommandLineRunner {
 	RoleService roleService;
 	@Autowired
 	PostulantService postulantService;
+	@Autowired
+    CompanyService companyService;
 
 	@Autowired
 	private SkillService skillService;
@@ -109,7 +114,8 @@ public class BolsaTrabajoApplication implements CommandLineRunner {
 			createRoleIfNotFound("POSTULANTE", postulantPermission);
 			createRoleIfNotFound("EMPRESA", companyPermission);
 			createUserIfNotFound("administrador");
-		}
+            createCompanyIfNotFound("applecito");
+        }
 
 		SkillCategory category1 = new SkillCategory(
 				"Locomotrices", "HLOC"
@@ -246,4 +252,22 @@ public class BolsaTrabajoApplication implements CommandLineRunner {
 		postulant.setRoles(roleCollection);
 		postulantService.save(postulant);
 	}
+    @Transactional
+    private void createCompanyIfNotFound(String username) throws ParseException {
+        Company postulant = new Company();
+        postulant.setName("apple");
+        postulant.setLastName("apple");
+        postulant.setUsername("applecito");
+        postulant.setNitC("1234-123456-123-4");
+        postulant.setInformacionC("Alguna paja sobre la empresa");
+        postulant.setRepreLegal("Steve trabajos");
+        postulant.setTelefonoC("2257-7777");
+        postulant.setPassword(bCryptPasswordEncoder.encode("12345678"));
+        postulant.setPasswordConfirm("12345678");
+        postulant.setActive(1);
+        HashSet<Role> roleCollection = new HashSet<>();
+        roleCollection.add(roleService.findByName("Empresa"));
+        postulant.setRoles(roleCollection);
+        companyService.save(postulant);
+    }
 }
