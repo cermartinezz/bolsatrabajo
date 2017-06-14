@@ -14,7 +14,6 @@ public class Exam {
     private int publicado; //1 - Si, 0 - No
     private Date fecha;
     private SubArea subArea;
-    private Set<ExamResult> examResults;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -58,15 +57,6 @@ public class Exam {
 
     public void setSubArea(SubArea subArea) {
         this.subArea = subArea;
-    }
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "exam", cascade = CascadeType.REMOVE)
-    public Set<ExamResult> getExamResults() {
-        return examResults;
-    }
-
-    public void setExamResults(Set<ExamResult> examResults) {
-        this.examResults = examResults;
     }
 
     public void publicar(){this.publicado = 1;}

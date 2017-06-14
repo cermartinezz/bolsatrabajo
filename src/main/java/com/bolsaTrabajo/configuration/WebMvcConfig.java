@@ -74,6 +74,9 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     public JobService jobService(){return new JobServiceImpl();}
 
     @Bean
+    public QuestionService questionService(){ return new QuestionServiceImpl();}
+
+    @Bean
     public PostulantService postulantService(){
         return new PostulantServiceImpl();
     }

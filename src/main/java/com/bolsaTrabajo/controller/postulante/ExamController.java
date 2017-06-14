@@ -1,7 +1,10 @@
-package com.bolsaTrabajo.controller;
+package com.bolsaTrabajo.controller.postulante;
 
-
+import com.bolsaTrabajo.model.Question;
 import com.bolsaTrabajo.model.User;
+import com.bolsaTrabajo.model.catalog.SubArea;
+import com.bolsaTrabajo.service.QuestionService;
+import com.bolsaTrabajo.service.SubAreaService;
 import com.bolsaTrabajo.service.UserService;
 import com.bolsaTrabajo.util.Auth;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +18,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class ExamController {
     @Autowired
     UserService userService;
+
+    @Autowired
+    SubAreaService subAreaService;
+
+    @Autowired
+    QuestionService questionService;
 
     @ModelAttribute("usr")
     public User globalUser(Model model) {
@@ -30,7 +39,11 @@ public class ExamController {
 
     @RequestMapping(value = "/examenes/crear", method = RequestMethod.GET)
     public String crear(Model model){
-        model.addAttribute("user", Auth.auth());
+        long id = 623;
+        int peso = 1;
+        SubArea subArea = subAreaService.findById(id);
+        Question question = new Question();
+
         return "admin/exams/index";
     }
 }

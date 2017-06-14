@@ -6,6 +6,21 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 
 @Entity
+@NamedStoredProcedureQueries({
+        @NamedStoredProcedureQuery(name = "CA_PREGUNTA",
+                procedureName = "CA_PREGUNTA",
+                parameters = {
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "Q_ID", type = Long.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "Q_D1", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "Q_D2", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "Q_D3", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "Q_D4", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "Q_ENUNCIADO", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "Q_PESO", type = int.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "Q_RESPUESTA", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "Q_SUBAREA_ID", type = Long.class),
+                })
+})
 public class Question {
     private long id;
     private String enunciado;
@@ -13,7 +28,11 @@ public class Question {
     private String d1;
     private String d2;
     private String d3;
+    private String d4;
+    private int peso;
     private SubArea subArea;
+
+    public Question(){}
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -63,6 +82,22 @@ public class Question {
 
     public void setD3(String d3) {
         this.d3 = d3;
+    }
+
+    public String getD4() {
+        return d4;
+    }
+
+    public void setD4(String d4) {
+        this.d4 = d4;
+    }
+
+    public int getPeso() {
+        return peso;
+    }
+
+    public void setPeso(int peso) {
+        this.peso = peso;
     }
 
     @ManyToOne

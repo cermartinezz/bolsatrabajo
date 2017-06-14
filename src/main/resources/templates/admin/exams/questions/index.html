@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragmentos/head :: head" th:remove="tag">
+    <meta charset="UTF-8">
+    <title>Permisos</title>
+</head>
+<body>
+<div class="site-wrapper" id="app">
+    <header class="header header-menu-fullw">
+        <div th:include="fragmentos/top_bar :: top_bar(${user})" th:remove="tag"></div>
+        <div th:include="fragmentos/menu :: menu(${user})" th:remove="tag"></div>
+    </header>
+
+
+    <div class="main" role="main">
+
+        <div th:include="fragmentos/heading :: heading('Preguntas de Evaluación')"></div>
+
+        <section class="page-content">
+            <div class="container">
+                <div class="box">
+                    <div class="row">
+                        <div class="col-md-8 col-md-offset-2">
+                            <h3>Gestion de Preguntas de Evaluación</h3>
+
+                            <div th:if="${messageSuccess!=null}" class="alert alert-success alert-dismissable">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <span th:text="${messageSuccess}"></span>
+                            </div>
+
+                            <div class="table-responsive">
+
+                                <menu>
+                                    <a th:href="@{/examenes/preguntas/crear}" class="btn btn-success">Nueva Pregunta</a>
+                                </menu>
+
+                                <table class="table table-bordered table-stripe">
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Enunciado</th>
+                                        <th>Sub Area</th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="q,iter : ${questions}">
+                                        <td th:text="${iter.count}"></td>
+                                        <td th:text="${q.enunciado}"></td>
+                                        <td th:text="${q.subArea.nombre}"></td>
+                                        <td>
+                                            <a th:href="@{/examenes/preguntas/{id}(id=${q.id})}" style="text-decoration:none;">
+                                                <button class="btn btn-warning btn-xs"><span class="fa fa-pencil"></span> Editar</button>
+                                            </a>
+
+                                            <a style="text-decoration:none;">
+                                                <button th:onclick="'eliminarRegistro(\'' + ${q.id} + '\',\'question\')'"
+                                                        class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Eliminar</button>
+                                            </a>
+
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div th:include="fragmentos/footer :: footer"></div>
+    </div>
+</div>
+<div th:include="fragmentos/scripts :: scripts"></div>
+</body>
+</html>
