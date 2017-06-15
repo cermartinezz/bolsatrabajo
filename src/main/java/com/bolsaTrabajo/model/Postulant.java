@@ -2,6 +2,7 @@ package com.bolsaTrabajo.model;
 
 import com.bolsaTrabajo.model.postulantInfo.*;
 import com.bolsaTrabajo.util.Gender;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -149,7 +150,7 @@ public class Postulant extends User{
     }
 
     @OneToMany( mappedBy = "primaryKey.postulant",
-            cascade = CascadeType.ALL)
+                cascade = CascadeType.ALL)
     public Set<PostulantSkill> getSkills() {
         return skills;
     }
@@ -159,6 +160,7 @@ public class Postulant extends User{
     }
 
     @OneToMany(mappedBy = "pk.postulant", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
     public Set<WorkExperience> getWorkExperiences() {
         return workExperiences;
     }
@@ -168,6 +170,7 @@ public class Postulant extends User{
     }
 
     @OneToMany(mappedBy = "pk.postulant", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
     public Set<AcademicExperience> getAcademicExperiences() {
         return academicExperiences;
     }

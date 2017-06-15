@@ -12,7 +12,7 @@ import org.springframework.web.servlet.view.RedirectView;
  */
 
 @RestController
-@RequestMapping("/api/jobs")
+@RequestMapping("/api/cargos")
 public class JobCatRestController {
 
     @Autowired
@@ -24,12 +24,12 @@ public class JobCatRestController {
         JobCat jobCat1 = jobCatService.getJob(jobCat.getPuesto());
         if (jobCat1 != null){
             attributes.addFlashAttribute("message","Puesto "+ jobCat1.getPuesto()+" ya existe");
-            return new RedirectView("/cat/jobs/crear");
+            return new RedirectView("/cat/cargos/crear");
         }
 
         jobCatService.saveJob(jobCat);
         attributes.addFlashAttribute("message","Registro se guardo con exito");
-        return new RedirectView("/cat/jobs");
+        return new RedirectView("/cat/cargos");
     }
 
     @PutMapping(value = "/update/{id}")
@@ -37,19 +37,19 @@ public class JobCatRestController {
         JobCat e = jobCatService.getJob(jobCat.getPuesto());
         if (e!=null){
             attributes.addFlashAttribute("message","Puesto "+ e.getPuesto()+" ya existe");
-            return new RedirectView("/cat/jobs/editar/"+ jobCat.getId());
+            return new RedirectView("/cat/cargos/editar/"+ jobCat.getId());
         }
         e = jobCatService.getJob(jobCat.getId());
         e.setPuesto(jobCat.getPuesto());
         jobCatService.saveJob(e);
         attributes.addFlashAttribute("message","Registro modificado con exito");
-        return new RedirectView("/cat/jobs");
+        return new RedirectView("/cat/cargos");
     }
 
     @DeleteMapping(value = "/delete/{id}")
     public RedirectView delete(JobCat jobCat, RedirectAttributes attributes){
         jobCatService.deleteJob(jobCat);
         attributes.addFlashAttribute("message","Registro se elimino con exito");
-        return new RedirectView("/cat/jobs");
+        return new RedirectView("/cat/cargos");
     }
 }

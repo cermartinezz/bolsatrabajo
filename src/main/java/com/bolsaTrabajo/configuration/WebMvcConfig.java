@@ -157,6 +157,12 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     }
 
     @Bean
+    public AcademicExperienceService academicExperienceService(){ return new AcademicExperienceService();}
+
+    @Bean
+    public WorkExperienceService workExperienceService(){ return new WorkExperienceService();}
+
+    @Bean
     public SkillValidator skillValidator(){
         return new SkillValidator();
     }
