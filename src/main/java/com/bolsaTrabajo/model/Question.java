@@ -4,6 +4,7 @@ import com.bolsaTrabajo.model.catalog.SubArea;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @NamedStoredProcedureQueries({
@@ -31,6 +32,7 @@ public class Question {
     private String d4;
     private int peso;
     private SubArea subArea;
+    private Set<Questionary> questionaries;
 
     public Question(){}
 
@@ -108,5 +110,15 @@ public class Question {
 
     public void setSubArea(SubArea subArea) {
         this.subArea = subArea;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "question", cascade = CascadeType.REMOVE)
+    @JsonIgnore
+    public Set<Questionary> getQuestionaries() {
+        return questionaries;
+    }
+
+    public void setQuestionaries(Set<Questionary> questionaries) {
+        this.questionaries = questionaries;
     }
 }

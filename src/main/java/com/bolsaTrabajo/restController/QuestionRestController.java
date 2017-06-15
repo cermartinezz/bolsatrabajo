@@ -54,11 +54,12 @@ public class QuestionRestController {
         return new RedirectView("/examenes/preguntas");
     }
 
-    // -------------------Eliminar Area-------------------------------------------
+    // -------------------Eliminar Pregunta-------------------------------------------
     @RequestMapping(value = "{id}",method = RequestMethod.DELETE)
     public RedirectView delete(@PathVariable("id") long id,RedirectAttributes attributes) {
         questionService.deleteById(id);
         attributes.addFlashAttribute("messageSuccess","La se elimino correctamente");
         return new RedirectView("/examenes/preguntas");
+        
     }
 }

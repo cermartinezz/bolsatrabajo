@@ -28,6 +28,7 @@ public class Exam {
     private Date fecha;
     private String instrucciones; //instrucciones del examen
     private SubArea subArea;
+    private Set<Questionary> questionaries;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -81,6 +82,16 @@ public class Exam {
 
     public void setSubArea(SubArea subArea) {
         this.subArea = subArea;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "exam", cascade = CascadeType.REMOVE)
+    @JsonIgnore
+    public Set<Questionary> getQuestionaries() {
+        return questionaries;
+    }
+
+    public void setQuestionaries(Set<Questionary> questionaries) {
+        this.questionaries = questionaries;
     }
 
     public void publicar(){this.publicado = 1;}
