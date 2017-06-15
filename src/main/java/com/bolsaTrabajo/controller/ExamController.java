@@ -1,8 +1,9 @@
-package com.bolsaTrabajo.controller.postulante;
+package com.bolsaTrabajo.controller;
 
 import com.bolsaTrabajo.model.Question;
 import com.bolsaTrabajo.model.User;
 import com.bolsaTrabajo.model.catalog.SubArea;
+import com.bolsaTrabajo.service.ExamService;
 import com.bolsaTrabajo.service.QuestionService;
 import com.bolsaTrabajo.service.SubAreaService;
 import com.bolsaTrabajo.service.UserService;
@@ -23,6 +24,9 @@ public class ExamController {
     SubAreaService subAreaService;
 
     @Autowired
+    ExamService examService;
+
+    @Autowired
     QuestionService questionService;
 
     @ModelAttribute("usr")
@@ -34,6 +38,7 @@ public class ExamController {
     @RequestMapping(value = "/examenes", method = RequestMethod.GET)
     public String index(Model model){
         model.addAttribute("user", Auth.auth());
+        model.addAttribute("examenes",examService.getAll());
         return "admin/exams/index";
     }
 

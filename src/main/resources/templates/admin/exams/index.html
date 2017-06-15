@@ -61,10 +61,21 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Id</th>
-                                        <th>Nombre</th>
+                                        <th>Sub Area Nombre</th>
                                         <th></th>
                                     </tr>
                                     </thead>
+                                    <tbody>
+                                    <tr th:each="e,iter : ${examenes}">
+                                        <td th:text="${iter.count}"></td>
+                                        <td th:text="${e.titulo}"></td>
+                                        <td th:text="${e.subarea.nombre}"></td>
+                                        <td>
+
+
+                                        </td>
+                                    </tr>
+                                    </tbody>
 
                                 </table>
                             </div>

@@ -8,6 +8,17 @@ import java.util.Date;
 import java.util.Set;
 
 @Entity
+@NamedStoredProcedureQueries({
+        @NamedStoredProcedureQuery(name = "CA_EXAM", //Usar el mismo nombre que el procedimiento almacenado
+                procedureName = "CA_EXAM",           ////Usar el mismo nombre que el procedimiento almacenado
+                parameters = {
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "E_ID", type = Long.class),          //Estos parametros los
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "E_FECHA", type = Date.class),     //llamo igual que en el
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "E_PUBLICADO", type = int.class),    //procedimiento
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "E_SUBAREA_ID", type = long.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "E_TITULO", type = String.class),
+                })
+})
 public class Exam {
     private long id;
     private String titulo;

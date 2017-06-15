@@ -14,6 +14,7 @@ IS
     UPDATE EXAM SET
                 FECHA = FECHA_E,
                 PUBLICADO = PUBLICADO_E,
+                SUB_AREA_ID = ID_SUBAREA_E,
                 TITULO = TITULO_E
                 WHERE ID = A_ID;
 
