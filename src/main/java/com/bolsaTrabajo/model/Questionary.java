@@ -5,6 +5,15 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 
 @Entity
+@NamedStoredProcedureQueries({
+        @NamedStoredProcedureQuery(name = "CA_CUESTIONARIO", //Usar el mismo nombre que el procedimiento almacenado
+                procedureName = "CA_CUESTIONARIO",           ////Usar el mismo nombre que el procedimiento almacenado
+                parameters = {
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "CU_ID", type = Long.class),          //Estos parametros los
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "CU_ID_EXAM", type = Long.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "CU_ID_QUESTION", type = Long.class),//llamo igual que en el
+                })
+})
 public class Questionary {
     private long id;
     private Exam exam;

@@ -66,6 +66,9 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     public ExamService examService(){return new ExamServiceImpl();}
 
     @Bean
+    public QuestionaryService questionaryService(){return new QuestionaryServiceImpl();}
+
+    @Bean
     public UserService userService(){
         return new UserServiceImpl();
     }
