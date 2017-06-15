@@ -12,7 +12,7 @@ public class AcademicExperienceProfileServiceImpl implements AcademicExperienceP
 
     @Override
     public void save(AcademicExperienceProfile academicExperienceProfile) {
-
+        academicExperienceProfileRepository.store(academicExperienceProfile.getJobProfile().getId(),academicExperienceProfile.getAcademicTitle().getId().intValue(),academicExperienceProfile.getAcademicTitle().getTitulo());
     }
 
     @Override

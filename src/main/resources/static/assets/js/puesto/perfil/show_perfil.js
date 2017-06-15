@@ -53,6 +53,7 @@ new Vue({
         titles: titles,
         academicTitleId: "",
         academicTitleName: "",
+        academicExperience: [],
 
 
         mostrarFormulario: false,
@@ -65,20 +66,15 @@ new Vue({
         cambiarEstado(){
             this.mostrarFormulario = !this.mostrarFormulario;
         },
-        agregarCargo(){
-          axios.get("/empresa/"+username+"/perfiles/"+this.id)
-              .then(response => {
-                  this.profile = response.data;
-                  this.workExperience = this.profile.workExperienceProfile
-              })
-        },
         actualizarDatos(description,name,minAge,maxAge){
+            //este metodo se llama en el actualizar
             this.jobProfile.name = name;
             this.jobProfile.description = description;
             this.jobProfile.minAge = minAge;
             this.jobProfile.maxAge = maxAge;
         },
         actualizar(){
+            //Actualiza la informacion general del perfil
             profile = {
                 id: this.id,
                 name: this.name,
@@ -125,13 +121,35 @@ new Vue({
             let academicTitleCat={
                 id: this.academicTitleId,
                 titulo: this.academicTitleName
-            }
+            };
             let academicExperienceProfile = {
                 academicTitleCat: academicTitleCat
-            }
-            axios.post("",academicExperienceProfile)
-                .then(response => {})
-                .catch(response => {})
+            };
+            axios.post("/api/perfil/"+this.id+"/academico",academicExperienceProfile)
+                .then(response => {
+                    showMessageTimer("Guardado",response.headers.message,"success",2500);
+                    this.mostrarTitulo = false;
+                    this.agregarTitulo();
+                })
+                .catch(error => {
+                    if(error.response.status >= 400 && error.response.status <= 499){
+                        showMessageTimer("Error",error.response.headers.message,"error",2500);
+                    }
+                })
+        },
+        agregarCargo(){
+            axios.get("/empresa/"+username+"/perfiles/"+this.id)
+                .then(response => {
+                    this.profile = response.data;
+                    this.workExperience = this.profile.workExperienceProfile
+                })
+        },
+        agregarTitulo(){
+            axios.get("/empresa/"+username+"/perfiles/"+this.id)
+                .then(response => {
+                    this.profile = response.data;
+                    this.academicExperience = this.profile.academicExperienceProfile;
+                })
         }
     },
     watch: {
@@ -181,13 +199,11 @@ new Vue({
     mounted(){
         axios.get("/api/jobs")
             .then(response => {
-                console.log(response);
                 this.jobs = response.data;
             })
             .catch(error => {
-                console.log(error.response);
                 if(error.response.status >= 400 && error.response.status <= 499){
-                    console.log("error");
+                    //console.log("No hay cargos");
                 }
             })
 
@@ -199,5 +215,6 @@ new Vue({
         this.company = this.jobProfile.company.id;
         this.stateOfEducation = this.jobProfile.stateOfEducation;
         this.workExperience = profile.workExperienceProfile;
+        this.academicExperience = profile.academicExperienceProfile;
     }
-})
+});

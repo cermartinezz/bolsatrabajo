@@ -1,6 +1,7 @@
 package com.bolsaTrabajo.configuration;
 
 import com.bolsaTrabajo.model.catalog.LanguageLevel;
+import com.bolsaTrabajo.model.jobInfo.AcademicExperienceProfile;
 import com.bolsaTrabajo.model.jobInfo.JobProfile;
 import com.bolsaTrabajo.model.jobInfo.WorkExperienceProfile;
 import com.bolsaTrabajo.model.postulantInfo.PostulantCertification;
@@ -25,6 +26,11 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     @Bean
     public PostulantCertification postulantCertification(){
         return new PostulantCertification();
+    }
+
+    @Bean
+    public AcademicExperienceProfile academicExperienceProfile(){
+        return new AcademicExperienceProfile();
     }
 
 
@@ -58,6 +64,11 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     /**
      *Servicios, Validadores, etc
      */
+
+    @Bean
+    public AcademicExperienceProfileService academicExperienceProfileService(){
+        return new AcademicExperienceProfileServiceImpl();
+    }
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {

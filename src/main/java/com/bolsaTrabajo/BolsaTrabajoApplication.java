@@ -1,6 +1,5 @@
 package com.bolsaTrabajo;
 
-import com.bolsaTrabajo.model.Company;
 import com.bolsaTrabajo.model.Permission;
 import com.bolsaTrabajo.model.Postulant;
 import com.bolsaTrabajo.model.Role;
@@ -114,7 +113,6 @@ public class BolsaTrabajoApplication implements CommandLineRunner {
 			createRoleIfNotFound("POSTULANTE", postulantPermission);
 			createRoleIfNotFound("EMPRESA", companyPermission);
 			createUserIfNotFound("administrador");
-            createCompanyIfNotFound("applecito");
         }
 
 		SkillCategory category1 = new SkillCategory(
@@ -252,22 +250,4 @@ public class BolsaTrabajoApplication implements CommandLineRunner {
 		postulant.setRoles(roleCollection);
 		postulantService.save(postulant);
 	}
-    @Transactional
-    private void createCompanyIfNotFound(String username) throws ParseException {
-        Company postulant = new Company();
-        postulant.setName("apple");
-        postulant.setLastName("apple");
-        postulant.setUsername("applecito");
-        postulant.setNitC("1234-123456-123-4");
-        postulant.setInformacionC("Alguna paja sobre la empresa");
-        postulant.setRepreLegal("Steve trabajos");
-        postulant.setTelefonoC("2257-7777");
-        postulant.setPassword(bCryptPasswordEncoder.encode("12345678"));
-        postulant.setPasswordConfirm("12345678");
-        postulant.setActive(1);
-        HashSet<Role> roleCollection = new HashSet<>();
-        roleCollection.add(roleService.findByName("Empresa"));
-        postulant.setRoles(roleCollection);
-        companyService.save(postulant);
-    }
 }

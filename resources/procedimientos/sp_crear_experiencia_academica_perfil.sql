@@ -22,9 +22,7 @@ create or replace PROCEDURE SP_CREAR_EXP_ACADEMICA_PERFIL
     ELSIF V_RESULTADO = -2 THEN
       RAISE_APPLICATION_ERROR(-20002, 'El perfil no existe');
     elsif v_resultado = -3 THEN
-      RAISE_APPLICATION_ERROR(-20003, 'Ya existe el registro de este cargo para este perfil');
-    elsif v_resultado = -4 THEN
-      RAISE_APPLICATION_ERROR(-20004, 'La experiencia no puede ser negativa o igual a cero');
+      RAISE_APPLICATION_ERROR(-20003, 'Ya existe este requisito academico para este perfil');
     END IF;
 
 
