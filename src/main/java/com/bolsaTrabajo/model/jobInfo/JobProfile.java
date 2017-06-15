@@ -3,6 +3,7 @@ package com.bolsaTrabajo.model.jobInfo;
 import com.bolsaTrabajo.model.Company;
 import com.bolsaTrabajo.model.Job;
 import com.bolsaTrabajo.service.JobProfileService;
+import com.bolsaTrabajo.util.StateOfEducation;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
@@ -22,7 +23,8 @@ import java.util.Set;
             @StoredProcedureParameter(mode = ParameterMode.IN,name = "EDAD_MAX", type = Integer.class),
             @StoredProcedureParameter(mode = ParameterMode.IN,name = "EDAD_MIN", type = Integer.class),
             @StoredProcedureParameter(mode = ParameterMode.IN,name = "COMPAÑIA_ID", type = Long.class),
-            @StoredProcedureParameter(mode = ParameterMode.OUT,name = "ID_JP", type = Integer.class)
+            @StoredProcedureParameter(mode = ParameterMode.IN,name = "EDUC_MIN", type = String.class),
+            @StoredProcedureParameter(mode = ParameterMode.OUT,name = "ID_JP", type = Integer.class),
         }),
         @NamedStoredProcedureQuery(name="SP_ACTUALIZAR_PERFIL_TRABAJO",
         procedureName = "SP_ACTUALIZAR_PERFIL_TRABAJO",
@@ -49,7 +51,9 @@ public class JobProfile {
     private Integer maxAge;
     private Company company;
     private Job job;
+    private StateOfEducation stateOfEducation;
     private Set<WorkExperienceProfile> workExperienceProfile;
+    private Set<AcademicExperienceProfile> academicExperienceProfile;
 
     @Autowired
     public JobProfile(JobProfileService jobProfileService){
@@ -127,6 +131,15 @@ public class JobProfile {
         this.maxAge = maxAge;
     }
 
+    @Enumerated(EnumType.STRING)
+    public StateOfEducation getStateOfEducation() {
+        return stateOfEducation;
+    }
+
+    public void setStateOfEducation(StateOfEducation stateOfEducation) {
+        this.stateOfEducation = stateOfEducation;
+    }
+
     @ManyToOne
     @JoinColumn(name="company_id")
     public Company getCompany() {
@@ -156,7 +169,16 @@ public class JobProfile {
     public void setWorkExperienceProfile(Set<WorkExperienceProfile> workExperienceProfile) {
         this.workExperienceProfile = workExperienceProfile;
     }
-    
+    @OneToMany(mappedBy = "primaryKey.jobProfile",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    public Set<AcademicExperienceProfile> getAcademicExperienceProfile() {
+        return academicExperienceProfile;
+    }
+
+    public void setAcademicExperienceProfile(Set<AcademicExperienceProfile> academicExperienceProfile) {
+        this.academicExperienceProfile = academicExperienceProfile;
+    }
 
     public Integer save(JobProfile jobProfile){
         // TODO -- SI HUBIESE UNA LOGICA AQUI P.E ALGUN CALCULO SERIA IMPORTANTE ESTE METODO

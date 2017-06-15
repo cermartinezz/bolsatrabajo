@@ -42,6 +42,7 @@ new Vue({
         minAge: "",
         maxAge: "",
         company: "",
+        stateOfEducation: "",
 
         yearOfExperience: "",
         jobCatPuesto : "",
@@ -119,6 +120,18 @@ new Vue({
                         showMessageTimer("Error",error.response.headers.message,"error",2500);
                     }
             })
+        },
+        crearExperienciaAcademica(){
+            let academicTitleCat={
+                id: this.academicTitleId,
+                titulo: this.academicTitleName
+            }
+            let academicExperienceProfile = {
+                academicTitleCat: academicTitleCat
+            }
+            axios.post("",academicExperienceProfile)
+                .then(response => {})
+                .catch(response => {})
         }
     },
     watch: {
@@ -131,7 +144,39 @@ new Vue({
                 this.jobCatPuesto = "";
                 this.jobCatId = 0;
             }
+        },
+        mostrarTitulo: function (mostrarTitulo){
+            if(mostrarTitulo == false){
+                this.academicTitleName = "";
+                this.academicTitleId = "";
+            }
+            if(mostrarTitulo == true){
+                this.academicTitleName = "";
+                this.academicTitleId = 0;
+            }
         }
+    },
+    computed: {
+      educMin: function(){
+          if(this.stateOfEducation == "BACHILLER"){
+              return "Bachiller";
+          }if(this.stateOfEducation == "UNIVERSITARIO_1"){
+              return "1er año de universidad";
+          }if(this.stateOfEducation == "UNIVERSITARIO_2"){
+              return "2do año de universidad";
+          }if(this.stateOfEducation == "UNIVERSITARIO_3"){
+              return "3ro año de universidad";
+          }
+          if(this.stateOfEducation == "UNIVERSITARIO_4"){
+              return "4to año de universidad";
+          }if(this.stateOfEducation == "UNIVERSITARIO_5"){
+              return "5to año de universidad";
+          }if(this.stateOfEducation == "EGRESADO"){
+              return "Egresado";
+          }if(this.stateOfEducation == "GRADUADO"){
+              return "Graduado";
+          }
+      }
     },
     mounted(){
         axios.get("/api/jobs")
@@ -152,6 +197,7 @@ new Vue({
         this.minAge = this.jobProfile.minAge;
         this.maxAge = this.jobProfile.maxAge;
         this.company = this.jobProfile.company.id;
+        this.stateOfEducation = this.jobProfile.stateOfEducation;
         this.workExperience = profile.workExperienceProfile;
     }
 })

@@ -21,9 +21,11 @@ public interface JobProfileRepository extends JpaRepository<JobProfile, Integer>
                     @Param("DESCRIPCION") String descripcion,
                     @Param("EDAD_MAX") Integer edadMax,
                     @Param("EDAD_MIN") Integer edadMin,
+                    @Param("EDUC_MIN") String educMin,
                     @Param("COMPAÑIA_ID") Long compañia);
 
     @Procedure(name = "SP_ACTUALIZAR_PERFIL_TRABAJO")
+    //TODO FALTA ACTUALIZAR STATE OF EDUCATION
     void update(  @Param("ID_JP") Integer id,
                      @Param("NOMBRE") String nombre,
                      @Param("DESCRIPCION") String descripcion,

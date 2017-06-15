@@ -1,11 +1,10 @@
 package com.bolsaTrabajo.model.catalog;
 
+import com.bolsaTrabajo.model.jobInfo.AcademicExperienceProfile;
 import com.bolsaTrabajo.model.postulantInfo.AcademicExperience;
-import com.bolsaTrabajo.model.postulantInfo.PostulantPublication;
-import org.hibernate.validator.constraints.NotEmpty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Set;
 
 /**
@@ -19,6 +18,7 @@ public class AcademicTitleCat {
     private Long id;
     private String titulo;
     private Set<AcademicExperience> academicExperienceSet;
+    private Set<AcademicExperienceProfile> academicExperienceProfile;
 
     public AcademicTitleCat() {
     }
@@ -44,11 +44,24 @@ public class AcademicTitleCat {
     }
 
     @OneToMany(mappedBy = "title", fetch = FetchType.LAZY)
+    @JsonIgnore
     public Set<AcademicExperience> getAcademicExperienceSet() {
         return academicExperienceSet;
     }
 
     public void setAcademicExperienceSet(Set<AcademicExperience> academicExperienceSet) {
         this.academicExperienceSet = academicExperienceSet;
+    }
+
+    @OneToMany(mappedBy = "primaryKey.title",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    @JsonIgnore
+    public Set<AcademicExperienceProfile> getAcademicExperienceProfile() {
+        return academicExperienceProfile;
+    }
+
+    public void setAcademicExperienceProfile(Set<AcademicExperienceProfile> academicExperienceProfile) {
+        this.academicExperienceProfile = academicExperienceProfile;
     }
 }

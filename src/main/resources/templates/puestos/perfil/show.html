@@ -35,6 +35,7 @@
                                 <li class="group-list-item"><strong>Descripcion: </strong>{{jobProfile.description}}</li>
                                 <li class="group-list-item"><strong>Edad Minima: </strong>{{jobProfile.minAge}}</li>
                                 <li class="group-list-item"><strong>Edad Maxima: </strong>{{jobProfile.maxAge}}</li>
+                                <li class="group-list-item"><strong>Educacion Minima: </strong>{{educMin}}</li>
                             </ul>
                             <form @submit.prevent="actualizar" v-if="mostrarFormulario">
                                 <div class="row">
@@ -161,21 +162,6 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <form @submit.prevent="agregarExperienciaAcademica">
-                                        <div class="form-group">
-                                            <label for="stateOfEducation">Estado Academico</label>
-                                            <select name="stateOfEducation" id="stateOfEducation" class="form-control">
-                                                <option value="">Seleccione su estado academico</option>
-                                                <option value="BACHILLER">Bachiller</option>
-                                                <option value="TECNICO">Tecnico</option>
-                                                <option value="UNIVERSITARIO_2">Universitario de 1 año</option>
-                                                <option value="UNIVERSITARIO_3">Universitario de 2 año</option>
-                                                <option value="UNIVERSITARIO_4">Universitario de 3 año</option>
-                                                <option value="UNIVERSITARIO_5">Universitario de 4 año</option>
-                                                <option value="UNIVERSITARIO_6">Universitario de 5 año</option>
-                                                <option value="EGRESADO">Egresado</option>
-                                                <option value="GRADUADO">Graduado</option>
-                                            </select>
-                                        </div>
                                         <div v-if="!mostrarTitulo" class="form-group">
                                             <label> Titulo Requerido</label>
                                             
@@ -191,7 +177,6 @@
                                                         v-text="title.titulo">
                                             
                                             </select>
-                                        
                                         </div>
                                         <div>
                                             <input type="checkbox" id="mostrarTitulo" v-model="mostrarTitulo">

@@ -19,6 +19,7 @@ public class JobProfileServiceImpl implements JobProfileService {
                                     jobProfile.getDescription(),
                                     jobProfile.getMaxAge(),
                                     jobProfile.getMinAge(),
+                                    jobProfile.getStateOfEducation().name(),
                                     jobProfile.getCompany().getId());
         return id;
     }

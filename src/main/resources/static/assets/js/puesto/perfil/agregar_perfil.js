@@ -40,6 +40,7 @@ new Vue({
         minAge: "",
         maxAge: "",
         company: id,
+        stateOfEducation: "",
         mostrarPrincipal: true,
         listErrors: new Errors()
     },
