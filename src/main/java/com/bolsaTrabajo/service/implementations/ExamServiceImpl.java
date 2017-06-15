@@ -13,7 +13,8 @@ public class ExamServiceImpl implements ExamService{
 
     public void spSaveExam(Exam exam){
         examRespository.saveExam(exam.getId(), //primero el id
-                exam.getFecha(),  //luego el la fecha
+                exam.getFecha(),
+                exam.getInstrucciones(),
                 exam.getPublicado(),
                 exam.getSubArea().getId(),
                 exam.getTitulo());   //titulo del examen

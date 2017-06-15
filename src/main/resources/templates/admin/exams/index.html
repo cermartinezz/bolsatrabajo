@@ -60,7 +60,7 @@
                                     <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Id</th>
+                                        <th>Titulo</th>
                                         <th>Sub Area Nombre</th>
                                         <th></th>
                                     </tr>
@@ -69,11 +69,18 @@
                                     <tr th:each="e,iter : ${examenes}">
                                         <td th:text="${iter.count}"></td>
                                         <td th:text="${e.titulo}"></td>
-                                        <td th:text="${e.subarea.nombre}"></td>
+                                        <td th:text="${e.subArea.nombre}"></td>
                                         <td>
-
+                                            <a th:href="@{/examenes/{id}(id=${e.id})}" style="text-decoration:none;">
+                                                <button class="btn btn-warning btn-xs"><span class="fa fa-pencil"></span> Editar</button>
+                                            </a>
+                                            <a style="text-decoration:none;">
+                                                <button th:onclick="'eliminarRegistro(\'' + ${e.id} + '\',\'exam\')'"
+                                                        class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Eliminar</button>
+                                            </a>
 
                                         </td>
+
                                     </tr>
                                     </tbody>
 

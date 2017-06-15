@@ -2,6 +2,7 @@ package com.bolsaTrabajo.model;
 
 import com.bolsaTrabajo.model.catalog.SubArea;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -13,7 +14,8 @@ import java.util.Set;
                 procedureName = "CA_EXAM",           ////Usar el mismo nombre que el procedimiento almacenado
                 parameters = {
                         @StoredProcedureParameter(mode = ParameterMode.IN, name = "E_ID", type = Long.class),          //Estos parametros los
-                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "E_FECHA", type = Date.class),     //llamo igual que en el
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "E_FECHA", type = Date.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "E_INSTRUCCIONES", type = String.class),//llamo igual que en el
                         @StoredProcedureParameter(mode = ParameterMode.IN, name = "E_PUBLICADO", type = int.class),    //procedimiento
                         @StoredProcedureParameter(mode = ParameterMode.IN, name = "E_SUBAREA_ID", type = long.class),
                         @StoredProcedureParameter(mode = ParameterMode.IN, name = "E_TITULO", type = String.class),
@@ -24,6 +26,7 @@ public class Exam {
     private String titulo;
     private int publicado; //1 - Si, 0 - No
     private Date fecha;
+    private String instrucciones; //instrucciones del examen
     private SubArea subArea;
 
     @Id
@@ -52,12 +55,22 @@ public class Exam {
         this.publicado = publicado;
     }
 
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(iso= DateTimeFormat.ISO.DATE)
     public Date getFecha() {
         return fecha;
     }
 
     public void setFecha(Date fecha) {
         this.fecha = fecha;
+    }
+
+    public String getInstrucciones() {
+        return instrucciones;
+    }
+
+    public void setInstrucciones(String instrucciones) {
+        this.instrucciones = instrucciones;
     }
 
     @ManyToOne

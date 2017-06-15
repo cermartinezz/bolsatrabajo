@@ -1,5 +1,6 @@
 package com.bolsaTrabajo.controller;
 
+import com.bolsaTrabajo.model.Exam;
 import com.bolsaTrabajo.model.Question;
 import com.bolsaTrabajo.model.User;
 import com.bolsaTrabajo.model.catalog.SubArea;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -44,11 +46,23 @@ public class ExamController {
 
     @RequestMapping(value = "/examenes/crear", method = RequestMethod.GET)
     public String crear(Model model){
-        long id = 623;
+        model.addAttribute("user",Auth.auth());
+        model.addAttribute("examen",new Exam());
+        model.addAttribute("subareas",subAreaService.getAll());
+        /* long id = 623;
         int peso = 1;
         SubArea subArea = subAreaService.findById(id);
         Question question = new Question();
-
-        return "admin/exams/index";
+*/
+        return "admin/exams/crear";
     }
+    @RequestMapping(value = "/examenes/{id}", method = RequestMethod.GET)
+    public String show(@PathVariable Long id, Model model){
+        Exam exam = examService.findById(id);
+        model.addAttribute("user", Auth.auth());
+        model.addAttribute("exam", exam);
+        return "admin/exams/editar";
+    }
+
+
 }
