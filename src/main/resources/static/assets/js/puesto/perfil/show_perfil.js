@@ -36,20 +36,29 @@ new Vue({
     data: {
         jobProfile: profile,
         username: username,
-        listErrors: new Errors(),
         id: "",
         description: "",
         name: "",
         minAge: "",
         maxAge: "",
         company: "",
+
         yearOfExperience: "",
         jobCatPuesto : "",
         jobCatId: "",
         jobs: [],
-        mostrarFormulario: false,
         workExperience: [],
-        mostrarCargo: false
+
+        titles: titles,
+        academicTitleId: "",
+        academicTitleName: "",
+
+
+        mostrarFormulario: false,
+        mostrarCargo: false,
+        mostrarTitulo: false,
+        listErrors: new Errors()
+
     },
     methods: {
         cambiarEstado(){

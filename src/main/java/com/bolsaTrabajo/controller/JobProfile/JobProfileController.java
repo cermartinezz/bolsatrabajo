@@ -2,6 +2,7 @@ package com.bolsaTrabajo.controller.JobProfile;
 
 import com.bolsaTrabajo.model.Company;
 import com.bolsaTrabajo.model.jobInfo.JobProfile;
+import com.bolsaTrabajo.service.AcademicTitleCatService;
 import com.bolsaTrabajo.service.CompanyService;
 import com.bolsaTrabajo.service.JobProfileService;
 import com.bolsaTrabajo.service.JobService;
@@ -29,6 +30,9 @@ public class JobProfileController {
 
     @Autowired
     private JobProfileService jobProfileService;
+
+    @Autowired
+    private AcademicTitleCatService academicTitleCatService;
 
     private Company company;
 
@@ -66,6 +70,7 @@ public class JobProfileController {
             return "redirect:/";
         } else {
             model.addAttribute("profile", jobProfileService.findById(id));
+            model.addAttribute("titles",academicTitleCatService.getAllTitles());
             return "puestos/perfil/show";
         }
     }
