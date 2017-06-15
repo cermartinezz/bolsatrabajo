@@ -60,5 +60,6 @@ public class QuestionRestController {
         questionService.deleteById(id);
         attributes.addFlashAttribute("messageSuccess","La se elimino correctamente");
         return new RedirectView("/examenes/preguntas");
+        
     }
 }
