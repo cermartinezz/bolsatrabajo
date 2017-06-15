@@ -4,12 +4,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
-
+@Entity
 public class Questionary {
     private long id;
     private Exam exam;
     private Question question;
-/*
+
+    public Questionary(){}
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public long getId() {
@@ -39,5 +41,4 @@ public class Questionary {
     public void setQuestion(Question question) {
         this.question = question;
     }
-    */
 }
