@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragmentos/head :: head" th:remove="tag"/>
+<title>Detalles Puesto</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+
+<body>
+
+<div class="site-wrapper">
+    <header class="header header-menu-fullw">
+
+        <div th:include="fragmentos/top_bar :: top_bar(${user})" th:remove="tag"></div>
+
+        <div th:include="fragmentos/menu :: menu(${user})" th:remove="tag"></div>
+
+    </header>
+
+    <!-- Main -->
+    <div class="main" role="main" id="app">
+
+        <!-- Page Heading -->
+        <section class="page-heading">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1>Detalles del puesto</h1>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Page Heading / End -->
+
+        <!-- Page Content -->
+        <section class="page-content">
+            <div class="container">
+
+                <div class="row">
+                    <div class="content col-md-12">
+
+                        <div class="box mb-30">
+                            <div class="job-profile-info">
+                                <div class="row text-center">
+                                        <h3 class="name">{{nombreJ}}</h3>
+                                        <i class="tagline"></i>
+                                        <ul class="meta">
+                                            <li>{{company}}</li>
+                                        </ul>
+                                </div>
+
+                                <div class="spacer-lg"></div>
+
+                                <div class="row text-center">
+                                    <div class="col-md-3">
+                                        <h4>Categoría</h4>
+                                        <p><i class="fa fa-institution"></i> {{category}}</p>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <h4>Ubicación</h4>
+                                        <p><i class="fa fa-location-arrow"></i> {{department}}</p>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <h4>Salario</h4>
+                                        <p><i class="fa fa-dollar"></i>{{salarioJ}}</p>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <h4>Edad</h4>
+                                        <p><i class="fa fa-user"></i> 18 - 28 años</p>
+                                    </div>
+                                </div>
+
+                                <div class="spacer"></div>
+
+                                <h4>Descripción</h4>
+                                <p>{{descripcionJ}}</p>
+
+                                <div class="spacer"></div>
+
+                                <ul class="job_listings">
+                                    <div class="spacer-lg"></div>
+                                    <h4>Educación</h4>
+                                    <li class="job_listing">
+                                        <a href="#">
+
+                                            <div class="position">
+                                                <h4>Universidad</h4>
+
+                                            </div>
+                                            <div class="rating">
+                                                <div class="rating-stars">
+
+                                                </div>
+                                                <div class="reviews-num"></div>
+                                            </div>
+                                            <ul class="meta">
+                                                <li class="job-type">Carrera</li>
+                                                <li class="date">Fecha
+                                                </li>
+                                            </ul>
+                                        </a>
+                                    </li>
+                                    <li class="job_listing">
+                                        <a href="#">
+
+                                            <div class="position">
+                                                <h4>Otro lado</h4>
+
+                                            </div>
+                                            <div class="rating">
+                                                <div class="rating-stars">
+
+                                                </div>
+                                                <div class="reviews-num"></div>
+                                            </div>
+                                            <ul class="meta">
+                                                <li class="job-type">Carrera</li>
+                                                <li class="date">Fecha
+                                                </li>
+                                            </ul>
+                                        </a>
+                                    </li>
+                                </ul>
+
+                                <ul class="job_listings">
+                                    <div class="spacer-lg"></div>
+
+                                    <h4>Idiomas</h4>
+                                    <li class="job_listing">
+                                        <a href="#">
+
+                                            <div class="position">
+                                                <h4>Chino Mandarín</h4>
+                                            </div>
+                                            <div class="rating">
+                                                <div class="rating-stars">
+                                                </div>
+                                                <div class="reviews-num">Nivel 50%</div>
+                                            </div>
+
+                                        </a>
+                                    </li>
+                                </ul>
+
+                                <ul class="job_listings">
+                                    <div class="spacer-lg"></div>
+
+                                    <div class="col-md-6">
+                                        <li class="job_listing">
+
+                                            <h4>Habilidades</h4>
+                                            <ul>
+                                                <li>Comer</li>
+                                                <li>Dormir</li>
+                                                <li>Hablar</li>
+                                                <li>Procastinar</li>
+                                            </ul>
+                                        </li>
+                                    </div>
+
+                                </ul>
+
+
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+            </div>
+
+                <div class="row">
+                    <div class="center">
+                        <a @click="aplicar(userPostulant)" class="btn btn-danger">Aplicar</a>
+                    </div>
+
+    </div>
+    </section>
+    <!-- Page Content / End -->
+
+    <div th:include="fragmentos/footer :: footer"></div>
+
+</div>
+<!-- Main / End -->
+</div>
+
+<div th:include="fragmentos/scripts :: scripts" ></div>
+<script th:inline="javascript">let job_id = [[${id}]];</script>
+<script th:inline="javascript">let userPostulant = [[${userPostulant}]];</script>
+<script th:src="@{/assets/js/puesto/perfil/show_puesto.js}"></script>
+</body>
+</html>

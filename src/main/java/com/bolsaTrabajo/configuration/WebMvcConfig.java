@@ -2,6 +2,7 @@ package com.bolsaTrabajo.configuration;
 
 import com.bolsaTrabajo.model.catalog.Department;
 import com.bolsaTrabajo.model.catalog.LanguageLevel;
+import com.bolsaTrabajo.model.jobInfo.Candidate;
 import com.bolsaTrabajo.model.jobInfo.JobProfile;
 import com.bolsaTrabajo.model.postulantInfo.PostulantCertification;
 import com.bolsaTrabajo.model.postulantInfo.PostulantLanguage;
@@ -49,6 +50,9 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     public JobProfile jobProfile(){
         return new JobProfile();
     }
+
+    @Bean
+    public Candidate candidate(){ return new Candidate(); }
 
     /**
      *Servicios, Validadores, etc
@@ -123,9 +127,13 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     PostulantLanguageService postulantLanguageService(){ return  new PostulantLanguageServiceImpl(); }
 
     @Bean
+    CandidateService candidateService(){ return new CandidateServiceImpl(); }
+
+    @Bean
     JobProfileService jobProfileService(){
         return new JobProfileServiceImpl();
     }
+
 
     @Bean
     public PublicationService publicationService(){ return  new PublicationService();}

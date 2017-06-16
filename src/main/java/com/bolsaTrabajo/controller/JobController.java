@@ -3,6 +3,7 @@ package com.bolsaTrabajo.controller;
 
 import com.bolsaTrabajo.model.Company;
 import com.bolsaTrabajo.model.Job;
+import com.bolsaTrabajo.model.User;
 import com.bolsaTrabajo.model.catalog.Department;
 import com.bolsaTrabajo.service.*;
 import com.bolsaTrabajo.util.Auth;
@@ -71,7 +72,7 @@ public class JobController {
     }
 
     @RequestMapping(value="/puesto/lista",method = RequestMethod.GET)
-    public String show( Model model){
+    public String showAll( Model model){
         model.addAttribute("user", Auth.auth());
         Company company=companyService.findByUsername(Auth.auth().getName());
         List<Job> jobs = jobService.findAllByCompany(company);
@@ -83,7 +84,6 @@ public class JobController {
 
     @RequestMapping(value="/puesto/{id}/editar",method = RequestMethod.GET)
     public String editar( @PathVariable Long id,Model model){
-
         Job job=jobService.findById(id);
         model.addAttribute("user", Auth.auth());
         Company company=companyService.findByUsername(Auth.auth().getName());
@@ -92,7 +92,19 @@ public class JobController {
         return "job/edit";
     }
 
-
+    @RequestMapping(value="/puesto/{id}/ver",method = RequestMethod.GET)
+    public String show( @PathVariable Long id,Model model){
+        Job job=jobService.findById(id);
+        model.addAttribute("user", Auth.auth());
+        Company company=companyService.findByUsername(Auth.auth().getName());
+        User userPostulant = userService.findByUsername(Auth.auth().getName());
+        model.addAttribute("userPostulant",userPostulant);
+        model.addAttribute("empresa", company);
+        model.addAttribute("id",id);
+        model.addAttribute("job",job);
+        return "job/show_job";
     }
+
+}
 
 

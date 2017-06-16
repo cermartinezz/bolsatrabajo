@@ -125,4 +125,18 @@ public class JobRestController {
         return new ResponseEntity<List<Job>>(jobs,HttpStatus.OK);
     }
 
+    @GetMapping(value="/{id}/ver")
+    public ResponseEntity show(@PathVariable Long id){
+        Job job = jobService.findById(id);
+
+        if(job == null){
+            headers.set("message","No se encontraron registros");
+
+            return new ResponseEntity(headers, HttpStatus.NOT_FOUND);
+        }
+        headers.set("message","Registros Encontrados");
+
+        return new ResponseEntity(job,headers,HttpStatus.OK);
+    }
+
 }

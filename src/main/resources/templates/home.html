@@ -101,7 +101,7 @@
 
                         <ul class="job_listings" v-for="puesto in jobs">
                             <li class="job_listing">
-                                <a href="#">
+                                <a @click="redirectJob(puesto.id)">
                                     <div class="position">
                                         <h3>{{puesto.nombreJ}}</h3>
                                         <div class="company">
@@ -185,6 +185,9 @@
                     })
                 }
 
+            },
+            redirectJob(id){
+                window.location.href = "/puesto/"+id+"/ver";
             },
             limpiar: function (event) {
                 if(event){

@@ -130,4 +130,21 @@ public class PostulantRestController {
         //attributes.addFlashAttribute("message","Registro se guardo con exito");
         return new RedirectView("/postulante/"+p.getUsername()+"/perfil");
     }
+
+    @GetMapping("/{username}/applications")
+    public ResponseEntity showApplications(@PathVariable String username){
+        Postulant postulant = postulantService.findByUsername(username);
+        postulant.getCandidates();
+
+        if(postulant == null){
+
+            headers.set("message","No se encontraron registros");
+
+            return new ResponseEntity(headers, HttpStatus.NOT_FOUND);
+        }
+
+        headers.set("message","Registros Encontrados");
+
+        return new ResponseEntity(postulant,headers, HttpStatus.OK);
+    }
 }
