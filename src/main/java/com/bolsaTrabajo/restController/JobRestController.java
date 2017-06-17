@@ -39,6 +39,11 @@ public class JobRestController {
 
     @RequestMapping(method= RequestMethod.POST)
     public RedirectView store(Job job, RedirectAttributes attributes) {
+        Job job1 = jobService.findByProfile(job.getJobProfile());
+        if(! (job1 == null) ){
+            attributes.addFlashAttribute("message","Ya existe un puesto con este perfil, no puede ser asociado");
+            return new RedirectView("/puesto/crear");
+        }
         Company company=companyService.findByUsername(Auth.auth().getName());
         String nombre=job.getNombreJ() + "-" + company.getId();
         String codigo=StringUtil.toSlug(nombre);
@@ -48,13 +53,15 @@ public class JobRestController {
         Department depto = departmentService.findByNombre(nomDept);
         Job byCodJ = jobService.findByCodJ(codigo);
         if(!(byCodJ == null)){
-            return new RedirectView("/puesto/lista");
+            attributes.addFlashAttribute("message","Ya existe un puesto con este perfil, no puede ser asociado");
+            return new RedirectView("/puesto/crear");
         }
         job.setCompany(company);
         job.setCodJ(codigo);
         job.setCategory(category);
         job.setDepartment(depto);
         jobService.save(job);
+        attributes.addFlashAttribute("messageSuccess","Se creo un nuevo puesto de trabajo");
         return new RedirectView("/puesto/lista");
     }
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)

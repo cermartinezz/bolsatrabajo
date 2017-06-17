@@ -21,10 +21,13 @@
                 <div th:include="fragmentos/heading :: heading('Registro Puestos')"></div>
                 <section class="page-content">
                     <div class="container">
+                        <div th:if="${message != null}" class="alert alert-danger alert-dismissable">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            <span th:text="${message}"></span>
+                        </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="box">
-                                    <span th:utext="${successMessage}"></span>
                                     <form autocomplete="off"
                                           th:action="@{/job}"
                                           th:object="${userForm}" method="post" class="form-horizontal"
@@ -49,17 +52,17 @@
                                                       cols="10" placeholder="Descripcion de puesto" class="form-control" required></textarea>
                                         </div>
 
-                                        <div class="form-group" th:object="${profile}" >
-                                            <label for="profile"> Seleccione un perfil*</label>
+                                        <div class="form-group" th:object="${jobProfile}" >
+                                            <label for="jobProfile"> Seleccione un perfil*</label>
 
-                                            <select @change="obtenerPerfil" class="form-control" id="profile"
-                                                    v-model.number="profile" type="number" name="profile" required>
+                                            <select @change="obtenerPerfil" class="form-control" id="jobProfile"
+                                                    v-model.number="profile" type="number" name="jobProfile" required>
 
                                                 <option value="">Seleccione Un perfil</option>
 
-                                                <option th:each="profile : ${profiles}"
-                                                        th:value="${profile.id}"
-                                                        th:text="${profile.name}"></option>
+                                                <option th:each="jobProfile : ${jobProfiles}"
+                                                        th:value="${jobProfile.id}"
+                                                        th:text="${jobProfile.name}"></option>
                                             </select>
 
                                         </div>
@@ -67,7 +70,9 @@
                                         <div class="form-group">
                                             <label for="category">Categoria</label>
                                             <div class="field select-style">
-                                                <select name="category" id="category" class="form-control"  th:field="*{category}">
+                                                <select name="category" id="category" class="form-control"  th:field="*{category}"
+                                                        required>
+                                                    <option value="">Seleccione una Categoria</option>
                                                     <option value="Administracion">Administración</option>
                                                     <option value="Atencion a clientes">Atención a clientes</option>
                                                     <option value="Finanzas">Finanzas</option>
@@ -84,7 +89,9 @@
                                         <div class="form-group">
                                             <label for="department">Departamento</label>
                                             <div class="field select-style">
-                                                <select name="department" id="department" class="form-control"  th:field="*{department}">
+                                                <select name="department" id="department" class="form-control"
+                                                        th:field="*{department}" required>
+                                                    <option value="">Seleccione un departamento</option>
                                                     <option th:each="department : ${departments_list}"
                                                             th:value="${department.id}"
                                                             th:text="${department.nombre}"></option>
@@ -103,7 +110,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="box">
-                                    <div v-if='!profileInfo == "" '>
+                                    <div>
                                         <h3 class="center">Datos del perfil</h3>
                                         <div>
                                             <h5>Informacion general</h5>
@@ -120,11 +127,11 @@
                                         </div>
 
                                         <div>
-                                            <h5>Informacion Academica</h5>
+                                            <h5>Informacion Academica Requerida</h5>
                                             <div class="row">
-                                                <ul class="group-list">
-                                                    <li class="group-list-item" v-for="academica in profileInfo.academicExperienceProfile">
-
+                                                <ul class="list-group">
+                                                    <li class="list-group-item" v-for="academica in profileInfo.academicExperienceProfile">
+                                                        <strong>Titulo: </strong>{{academica.academicTitle.titulo}}
                                                     </li>
                                                 </ul>
                                             </div>
@@ -133,9 +140,10 @@
                                         <div>
                                             <h5>Informacion Laboral</h5>
                                             <div class="row">
-                                                <ul class="group-list">
-                                                    <li class="group-list-item" v-for="laboral in profileInfo.workExperienceProfile">
-
+                                                <ul class="list-group">
+                                                    <li class="list-group-item" v-for="laboral in profileInfo.workExperienceProfile">
+                                                        <strong>Cargo: </strong>{{laboral.jobCat.puesto}}
+                                                        <strong>Años de experiencia: </strong>{{laboral.yearOfExperience}}
                                                     </li>
                                                 </ul>
                                             </div>
@@ -144,28 +152,27 @@
                                         <div>
                                             <h5>Informacion de habilidades</h5>
                                             <div class="row">
-                                                <ul class="group-list">
-                                                    <li class="group-list-item" v-for="skill in profileInfo.skills">
-
+                                                <ul class="list-group">
+                                                    <li class="list-group-item" v-for="skill in profileInfo.skills">
+                                                        <span><strong>Habilidad: </strong>{{skill.skill.titulo}}</span>
+                                                        <span><strong>Categoria: </strong>{{skill.skill.skillCategory.titulo}}</span>
                                                     </li>
                                                 </ul>
                                             </div>
                                         </div>
 
                                         <div>
-                                            <h5>Informacion de idiomas</h5>
+                                            <h5>Idiomas requeridos</h5>
                                             <div class="row">
-                                                <ul class="group-list">
-                                                    <li class="group-list-item" v-for="languages in profileInfo.languages">
-
+                                                <ul class="list-group">
+                                                    <li class="list-group-item" v-for="language in profileInfo.languages">
+                                                        <span><strong>Idioma: </strong>{{language.language.nombre}}</span>
+                                                        <span><strong>Nivel: </strong>{{language.languageLevel.titulo}}</span>
                                                     </li>
                                                 </ul>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div v-if='profileInfo == "" '>
-
                                 </div>
                             </div>
                         </div>

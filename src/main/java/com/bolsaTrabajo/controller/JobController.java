@@ -57,8 +57,8 @@ public class JobController {
             Company company = companyService.findByUsername(Auth.auth().getName());
             List<JobProfile> profiles = jobProfileService.findAllByCompany(company);
             List<JobProfile> profile = new ArrayList<>();
-            model.addAttribute("profiles", profiles);
-            model.addAttribute("profile", profile);
+            model.addAttribute("jobProfiles", profiles);
+            model.addAttribute("jobProfile", profile);
             model.addAttribute("userForm", new Job());
             model.addAttribute("user", Auth.auth());
             model.addAttribute("departments_list",departments_list);

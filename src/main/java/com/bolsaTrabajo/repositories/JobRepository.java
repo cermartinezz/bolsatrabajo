@@ -3,6 +3,7 @@ package com.bolsaTrabajo.repositories;
 import com.bolsaTrabajo.model.Company;
 import com.bolsaTrabajo.model.Job;
 import com.bolsaTrabajo.model.catalog.Department;
+import com.bolsaTrabajo.model.jobInfo.JobProfile;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -17,4 +18,5 @@ public interface JobRepository extends JpaRepository<Job,Long> {
     Job findByCodJ(String cod);
 
     List<Job> findByCategoryAndDepartment(String category,Department department);
+    Job findByJobProfile(JobProfile jobProfile);
 }

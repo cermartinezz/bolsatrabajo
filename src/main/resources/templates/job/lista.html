@@ -22,8 +22,11 @@
                 <div class="container">
                     <a th:href="@{/puesto/crear}" class="btn btn-success">Nuevo</a>
                     <hr>
+                    <div th:if="${messageSuccess != null}" class="alert alert-success alert-dismissable">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <span th:text="${messageSuccess}"></span>
+                    </div>
                     <div class="box">
-                        <span th:utext="${successMessage}"></span>
                         <div class="table-responsive">
                             <table class="table table-bordered table-stripe">
                                 <thead>

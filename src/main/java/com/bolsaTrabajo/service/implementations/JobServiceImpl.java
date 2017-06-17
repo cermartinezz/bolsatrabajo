@@ -4,6 +4,7 @@ package com.bolsaTrabajo.service.implementations;
 import com.bolsaTrabajo.model.Company;
 import com.bolsaTrabajo.model.Job;
 import com.bolsaTrabajo.model.catalog.Department;
+import com.bolsaTrabajo.model.jobInfo.JobProfile;
 import com.bolsaTrabajo.repositories.JobRepository;
 import com.bolsaTrabajo.repositories.RoleRepository;
 import com.bolsaTrabajo.service.JobService;
@@ -66,5 +67,10 @@ public class JobServiceImpl implements JobService{
     @Override
     public List<Job> getAllJobs() {
         return jobRepository.findAll();
+    }
+
+    @Override
+    public Job findByProfile(JobProfile jobProfile) {
+        return jobRepository.findByJobProfile(jobProfile);
     }
 }

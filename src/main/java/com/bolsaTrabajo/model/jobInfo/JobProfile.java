@@ -4,6 +4,7 @@ import com.bolsaTrabajo.model.Company;
 import com.bolsaTrabajo.model.Job;
 import com.bolsaTrabajo.service.JobProfileService;
 import com.bolsaTrabajo.util.StateOfEducation;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
@@ -153,6 +154,7 @@ public class JobProfile {
     }
 
     @OneToOne(mappedBy = "jobProfile")
+    @JsonIgnore
     public Job getJob() {
         return job;
     }
