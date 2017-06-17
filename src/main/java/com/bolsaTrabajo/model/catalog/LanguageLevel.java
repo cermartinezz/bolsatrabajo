@@ -1,10 +1,11 @@
 package com.bolsaTrabajo.model.catalog;
 
+import com.bolsaTrabajo.model.jobInfo.JobProfileLanguage;
 import com.bolsaTrabajo.model.postulantInfo.PostulantLanguage;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name="languageLevel")
@@ -13,6 +14,8 @@ public class LanguageLevel {
     private String titulo;
     private String codigo;
     private PostulantLanguage postulantLanguage;
+    private Set<JobProfileLanguage> languages;
+
 
     public LanguageLevel(){
         super();
@@ -64,5 +67,18 @@ public class LanguageLevel {
 
     public void setPostulantLanguage(PostulantLanguage postulantLanguage) {
         this.postulantLanguage = postulantLanguage;
+    }
+
+    @OneToMany(mappedBy = "primaryKey.languageLevel",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY)
+    @JsonIgnore
+    public Set<JobProfileLanguage> getLanguages() {
+        return languages;
+    }
+
+
+    public void setLanguages(Set<JobProfileLanguage> languages) {
+        this.languages = languages;
     }
 }

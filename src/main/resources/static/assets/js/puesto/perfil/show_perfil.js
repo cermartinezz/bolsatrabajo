@@ -55,10 +55,23 @@ new Vue({
         academicTitleName: "",
         academicExperience: [],
 
+        skillCategoryId: "",
+        skillId: "",
+        skillName: "",
+        categories: [],
+        skills: [],
+        jobProfileSkills: [],
+
+        levels: levels,
+        languages: languages,
+        languageId: "",
+        levelId: "",
+        jobProfilesLanguages: [],
 
         mostrarFormulario: false,
         mostrarCargo: false,
         mostrarTitulo: false,
+        mostrarHablidad: false,
         listErrors: new Errors()
 
     },
@@ -95,6 +108,13 @@ new Vue({
                     if(error.response.status >= 400 && error.response.status <= 499){
                         showMessageTimer("Error",error.response.headers.message,"error",2500);
                     }
+                })
+        },
+        cambiarHabilidades(){
+           axios.get("/skills/categoria/"+this.skillCategoryId)
+                .then(response => {
+                    this.skills = response.data;
+                    this.skillId = "";
                 })
         },
         crearExperiencia(){
@@ -137,6 +157,54 @@ new Vue({
                     }
                 })
         },
+        agregarHabilidades(){
+            let skillCategory = {
+                id : this.skillCategoryId
+            };
+            let skill={
+                id: this.skillId,
+                titulo: this.skillName,
+                skillCategory: skillCategory
+            };
+            let jobProfileSkill = {
+                skill: skill
+            };
+            axios.post("/api/perfil/"+this.id+"/hablidades",jobProfileSkill)
+                .then(response => {
+                    showMessageTimer("Guardado",response.headers.message,"success",2500);
+                    this.mostrarHablidad = false;
+                    this.agregarHabilidad();
+                })
+                .catch(error => {
+                    if(error.response.status >= 400 && error.response.status <= 499){
+                        showMessageTimer("Error",error.response.headers.message,"error",2500);
+                    }
+                })
+        },
+        crearIdiomas(){
+            let languageLevel = {
+                id: this.levelId
+            };
+            let language = {
+                id: this.languageId
+            };
+            let jobProfileLanguage = {
+                languageLevel: languageLevel,
+                language: language
+            };
+            axios.post("/api/perfil/"+this.id+"/languajes",jobProfileLanguage)
+                .then(response => {
+                    showMessageTimer("Guardado",response.headers.message,"success",2500);
+                    this.languageId = "";
+                    this.languageLevel = "";
+                    this.agregarLenguaje();
+                })
+                .catch(error => {
+                    if(error.response.status >= 400 && error.response.status <= 499){
+                        showMessageTimer("Error",error.response.headers.message,"error",2500);
+                    }
+                })
+        },
         agregarCargo(){
             axios.get("/empresa/"+username+"/perfiles/"+this.id)
                 .then(response => {
@@ -149,6 +217,20 @@ new Vue({
                 .then(response => {
                     this.profile = response.data;
                     this.academicExperience = this.profile.academicExperienceProfile;
+                })
+        },
+        agregarHabilidad(){
+            axios.get("/empresa/"+username+"/perfiles/"+this.id)
+                .then(response => {
+                    this.profile = response.data;
+                    this.jobProfileSkills = this.profile.skills;
+                })
+        },
+        agregarLenguaje(){
+            axios.get("/empresa/"+username+"/perfiles/"+this.id)
+                .then(response => {
+                    this.profile = response.data;
+                    this.jobProfilesLanguages = this.profile.languages;
                 })
         }
     },
@@ -171,6 +253,16 @@ new Vue({
             if(mostrarTitulo == true){
                 this.academicTitleName = "";
                 this.academicTitleId = 0;
+            }
+        },
+        mostrarHablidad: function (mostrarHablidad){
+            if(mostrarHablidad == false){
+                this.skillName= "";
+                this.skillId= "";
+            }
+            if(mostrarHablidad == true){
+                this.skillName= "";
+                this.skillId= 0;
             }
         }
     },
@@ -200,12 +292,7 @@ new Vue({
         axios.get("/api/jobs")
             .then(response => {
                 this.jobs = response.data;
-            })
-            .catch(error => {
-                if(error.response.status >= 400 && error.response.status <= 499){
-                    //console.log("No hay cargos");
-                }
-            })
+            });
 
         this.id = this.jobProfile.id;
         this.description = this.jobProfile.description;
@@ -216,5 +303,8 @@ new Vue({
         this.stateOfEducation = this.jobProfile.stateOfEducation;
         this.workExperience = profile.workExperienceProfile;
         this.academicExperience = profile.academicExperienceProfile;
+        this.jobProfileSkills = profile.skills;
+        this.jobProfilesLanguages = profile.languages;
+        this.categories = categories;
     }
 });

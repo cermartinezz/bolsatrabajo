@@ -215,6 +215,150 @@
                             </div>
                         </div>
                     </div>
+                    <div class="spacer-lg"></div>
+                    <div class="box">
+                        <h3>Habilidades requeridas</h3>
+                        <div class="box">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <form @submit.prevent="agregarHabilidades">
+                                        <div class="form-group">
+                                            <label> Categorias</label>
+                                            
+                                            <div class="form-group">
+                                                <label for="skillCategory"> Seleccione la categoria de la habilidad</label>
+
+                                                <select @Change="cambiarHabilidades" class="form-control" id="skillCategory"
+                                                        type="number"
+                                                        v-model.number="skillCategoryId"
+                                                        required>
+
+                                                    <option disabled value="">Seleccione Categorias</option>
+
+                                                    <option v-for="category in categories"
+                                                            :value="category.id"
+                                                            v-text="category.titulo">
+
+                                                </select>
+                                            
+                                            </div>
+
+                                            <div v-if="!mostrarHablidad" class="form-group">
+                                                <label for="skillId"> Seleccione la habilidad requerida</label>
+                                                
+                                                <select class="form-control" id="skillId"
+                                                        :disabled="skills.length == 0"
+                                                        v-model="skillId"
+                                                        required>
+                                                
+                                                    <option disabled value="">Seleccione Seleccione la habilidad requerida</option>
+                                                
+                                                    <option v-for="skill in skills"
+                                                            :value="skill.id"
+                                                            v-text="skill.titulo">
+                                                
+                                                </select>
+                                            
+                                            </div>
+                                            
+                                            <div v-if="mostrarHablidad" class="form-group" :class="{'has-error': listErrors.has('skillName') }">
+                                                <label> Ingrese habilidad*</label>
+                                            
+                                                <input type="text" name="skillName"
+                                                       v-model="skillName" placeholder="Ingrese habilidad" class="form-control" required/>
+                                            
+                                                <div class="help-block with-errors" v-if="listErrors.has('skillName')" v-text="listErrors.get('skillName')"></div>
+                                            </div>
+
+                                            <div>
+                                                <input type="checkbox" id="mostrarHablidad" v-model="mostrarHablidad">
+                                                <label for="mostrarHablidad">Agregar Titulo academico</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-success">Agregar</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="col-md-6">
+                                    <div v-if="this.jobProfileSkills.length != 0" class="box box-no-border center ">
+                                        <ul class="list-group full-width">
+                                            <li class="list-group-item" v-for="skilss in jobProfileSkills">
+                                                <span><strong>Titulo de habilidad: </strong>{{skilss.skill.titulo}}</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div v-if="this.jobProfileSkills.length == 0" class="box box-no-border center">
+                                        <Strong>No se han requerido habilidades para este perfil</Strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="spacer-lg"></div>
+                    <div class="box">
+                        <h3>Idiomas y niveles requeridos</h3>
+                        <div class="box">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <form @submit.prevent="crearIdiomas">
+                                        <div class="form-group">
+                                            <label for="language"> Seleccion un idioma</label>
+
+                                            <select class="form-control" id="language"
+                                                    type="number"
+                                                    v-model.number="languageId"
+                                                    required>
+
+                                                <option disabled value="">Seleccione el idioma</option>
+
+                                                <option v-for="language in languages"
+                                                        :value="language.id"
+                                                        v-text="language.nombre">
+
+                                            </select>
+
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="level"> Seleccione el nivel requerido</label>
+
+                                            <select class="form-control" id="level"
+                                                    v-model="levelId"
+                                                    required>
+
+                                                <option disabled value="">Seleccione Seleccione la habilidad requerida</option>
+
+                                                <option v-for="level in levels"
+                                                        :value="level.id"
+                                                        v-text="level.titulo">
+
+                                            </select>
+
+                                        </div>
+
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-success">Agregar</button>
+                                        </div>
+
+                                    </form>
+                                </div>
+                                <div class="col-md-6">
+                                    <div v-if="this.jobProfilesLanguages.length != 0" class="box box-no-border center ">
+                                        <ul class="list-group full-width">
+                                            <li class="list-group-item" v-for="languaje in jobProfilesLanguages">
+                                                <span><strong>Idioma: </strong>{{languaje.language.nombre}}</span>
+                                                <span><strong>nivel: </strong>{{languaje.languageLevel.titulo}}</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div v-if="this.jobProfilesLanguages.length == 0" class="box box-no-border center">
+                                        <Strong>No se han requerido idiomas para este perfil</Strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
             </section>
@@ -229,6 +373,9 @@
     <script th:inline="javascript">let username = [[${company.getUsername()}]];</script>
     <script th:inline="javascript">let profile = [[${profile}]];</script>
     <script th:inline="javascript">let titles = [[${titles}]];</script>
+    <script th:inline="javascript">let categories = [[${categories}]];</script>
+    <script th:inline="javascript">let levels = [[${levels}]];</script>
+    <script th:inline="javascript">let languages = [[${languages}]];</script>
     <script th:src="@{/assets/js/puesto/perfil/show_perfil.js}"></script>
 </body>
 </html>

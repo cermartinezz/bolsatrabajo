@@ -2,10 +2,7 @@ package com.bolsaTrabajo.controller.JobProfile;
 
 import com.bolsaTrabajo.model.Company;
 import com.bolsaTrabajo.model.jobInfo.JobProfile;
-import com.bolsaTrabajo.service.AcademicTitleCatService;
-import com.bolsaTrabajo.service.CompanyService;
-import com.bolsaTrabajo.service.JobProfileService;
-import com.bolsaTrabajo.service.JobService;
+import com.bolsaTrabajo.service.*;
 import com.bolsaTrabajo.util.Auth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -32,7 +29,16 @@ public class JobProfileController {
     private JobProfileService jobProfileService;
 
     @Autowired
+    private SkillCategoryService skillCategoryService;
+
+    @Autowired
     private AcademicTitleCatService academicTitleCatService;
+
+    @Autowired
+    private LanguageService languageService;
+
+    @Autowired
+    private LanguageLevelService languageLevelService;
 
     private Company company;
 
@@ -69,8 +75,13 @@ public class JobProfileController {
         if (!logeado) {
             return "redirect:/";
         } else {
+
             model.addAttribute("profile", jobProfileService.findById(id));
             model.addAttribute("titles",academicTitleCatService.getAllTitles());
+            model.addAttribute("categories",skillCategoryService.getAllSkillsCategory());
+            model.addAttribute("levels", languageLevelService.getAllLanguageLevels());
+            model.addAttribute("languages", languageService.getAllLanguages());
+
             return "puestos/perfil/show";
         }
     }

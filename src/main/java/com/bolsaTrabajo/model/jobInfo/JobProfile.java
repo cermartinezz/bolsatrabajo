@@ -54,6 +54,8 @@ public class JobProfile {
     private StateOfEducation stateOfEducation;
     private Set<WorkExperienceProfile> workExperienceProfile;
     private Set<AcademicExperienceProfile> academicExperienceProfile;
+    private Set<JobProfileSkill> skills;
+    private Set<JobProfileLanguage> languages;
 
     @Autowired
     public JobProfile(JobProfileService jobProfileService){
@@ -180,15 +182,33 @@ public class JobProfile {
         this.academicExperienceProfile = academicExperienceProfile;
     }
 
-    public Integer save(JobProfile jobProfile){
-        // TODO -- SI HUBIESE UNA LOGICA AQUI P.E ALGUN CALCULO SERIA IMPORTANTE ESTE METODO
+    @OneToMany(mappedBy = "primaryKey.jobProfile",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    public Set<JobProfileSkill> getSkills() {
+        return skills;
+    }
 
-        return this.jobProfileService.save(jobProfile); // TODO -- AQUI LLAMO AL SERVICIO QUE ES UN PROCEDIMIENTO EN LA BASE
+    public void setSkills(Set<JobProfileSkill> skills) {
+        this.skills = skills;
+    }
+
+    @OneToMany(mappedBy = "primaryKey.jobProfile",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    public Set<JobProfileLanguage> getLanguages() {
+        return languages;
+    }
+    
+    public void setLanguages(Set<JobProfileLanguage> languages) {
+        this.languages = languages;
+    }
+
+    public Integer save(JobProfile jobProfile){
+        return this.jobProfileService.save(jobProfile);
     }
 
     public void update(JobProfile jobProfile){
-        // TODO -- SI HUBIESE UNA LOGICA AQUI P.E ALGUN CALCULO SERIA IMPORTANTE ESTE METODO
-
-        this.jobProfileService.update(jobProfile); // TODO -- AQUI LLAMO AL SERVICIO QUE ES UN PROCEDIMIENTO EN LA BASE
+        this.jobProfileService.update(jobProfile);
     }
 }
