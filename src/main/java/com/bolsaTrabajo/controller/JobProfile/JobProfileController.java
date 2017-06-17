@@ -1,6 +1,7 @@
 package com.bolsaTrabajo.controller.JobProfile;
 
 import com.bolsaTrabajo.model.Company;
+import com.bolsaTrabajo.model.User;
 import com.bolsaTrabajo.model.jobInfo.JobProfile;
 import com.bolsaTrabajo.service.*;
 import com.bolsaTrabajo.util.Auth;
@@ -41,6 +42,15 @@ public class JobProfileController {
     private LanguageLevelService languageLevelService;
 
     private Company company;
+
+    @Autowired
+    private UserService userService;
+
+    @ModelAttribute("usr")
+    public User globalUser(Model model) {
+        User u = userService.findByUsername(Auth.auth().getName());
+        return u;
+    }
 
     /*
         Sirve para pasarle a todas las vista la misma variable

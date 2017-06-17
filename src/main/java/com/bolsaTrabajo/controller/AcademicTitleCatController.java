@@ -1,12 +1,15 @@
 package com.bolsaTrabajo.controller;
 
+import com.bolsaTrabajo.model.User;
 import com.bolsaTrabajo.model.catalog.AcademicTitleCat;
 import com.bolsaTrabajo.service.AcademicTitleCatService;
+import com.bolsaTrabajo.service.UserService;
 import com.bolsaTrabajo.util.Auth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,6 +29,15 @@ public class AcademicTitleCatController {
 
     @Autowired
     private AcademicTitleCatService academicTitleCatService;
+
+    @Autowired
+    private UserService userService;
+
+    @ModelAttribute("usr")
+    public User globalUser(Model model) {
+        User u = userService.findByUsername(Auth.auth().getName());
+        return u;
+    }
 
     @RequestMapping
     public String show(Model model){

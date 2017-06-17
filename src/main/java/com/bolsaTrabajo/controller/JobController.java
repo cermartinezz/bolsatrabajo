@@ -5,6 +5,7 @@ import com.bolsaTrabajo.model.Company;
 import com.bolsaTrabajo.model.Job;
 import com.bolsaTrabajo.model.User;
 import com.bolsaTrabajo.model.catalog.Department;
+import com.bolsaTrabajo.model.jobInfo.Candidate;
 import com.bolsaTrabajo.model.jobInfo.JobProfile;
 import com.bolsaTrabajo.service.*;
 import com.bolsaTrabajo.util.Auth;
@@ -14,12 +15,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class JobController {
@@ -45,6 +48,15 @@ public class JobController {
     @Autowired
     private DepartmentService departmentService;
 
+    @Autowired
+    private CandidateService candidateService;
+
+    @ModelAttribute("usr")
+    public User globalUser(Model model) {
+        User u = userService.findByUsername(Auth.auth().getName());
+        return u;
+    }
+
     @RequestMapping(value = "/puesto/crear", method = RequestMethod.GET)
     public String registrationC(Model model) {
 
@@ -57,8 +69,8 @@ public class JobController {
             Company company = companyService.findByUsername(Auth.auth().getName());
             List<JobProfile> profiles = jobProfileService.findAllByCompany(company);
             List<JobProfile> profile = new ArrayList<>();
-            model.addAttribute("profiles", profiles);
-            model.addAttribute("profile", profile);
+            model.addAttribute("jobProfiles", profiles);
+            model.addAttribute("jobProfile", profile);
             model.addAttribute("userForm", new Job());
             model.addAttribute("user", Auth.auth());
             model.addAttribute("departments_list",departments_list);
@@ -104,9 +116,9 @@ public class JobController {
     public String showAspirants(@PathVariable Long id, Model model){
         model.addAttribute("user", Auth.auth());
         Job job = jobService.findById(id);
-        job.getCandidates();
-        
-        model.addAttribute("job",job);
+        Set<Candidate> candidates = job.getCandidates();
+        //List<Candidate> postulantsForJob = candidateService.getPostulantForJob(job);
+        model.addAttribute("candidates",candidates);
         return "job/lista_aspirantes";
     }
 

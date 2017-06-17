@@ -1,10 +1,10 @@
 package com.bolsaTrabajo.service.implementations;
 
 import com.bolsaTrabajo.model.Job;
+import com.bolsaTrabajo.model.Postulant;
 import com.bolsaTrabajo.model.compositeKeys.CandidateId;
 import com.bolsaTrabajo.model.jobInfo.Candidate;
 import com.bolsaTrabajo.repositories.CandidateRepository;
-import com.bolsaTrabajo.repositories.JobRepository;
 import com.bolsaTrabajo.service.CandidateService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -23,11 +23,14 @@ public class CandidateServiceImpl implements CandidateService {
         return candidateRepository.findByPrimaryKey(candidateId);
     }
 
-    /*
     @Override
-    public List<Candidate> getCandidatesOfJob(Job job) {
-        return candidateRepository.findByJob(job);
-    }*/
+    public List<Candidate> getJobForPostulant(Postulant postulant) {
+        return candidateRepository.findByPrimaryKey_Postulant(postulant);
+    }
 
+    @Override
+    public List<Candidate> getPostulantForJob(Job job) {
+        return candidateRepository.findByPrimaryKey_Job(job);
+    }
 
 }

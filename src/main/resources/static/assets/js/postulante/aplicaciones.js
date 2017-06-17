@@ -7,7 +7,7 @@ new Vue({
     el:'#app',
     data: {
         username: username,
-        candidate: candidate,
+        jobs: jobs,
         job_list: [],
         candidateInfo: [],
     },

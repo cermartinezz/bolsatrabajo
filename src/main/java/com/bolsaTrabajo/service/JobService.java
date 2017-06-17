@@ -3,6 +3,7 @@ package com.bolsaTrabajo.service;
 import com.bolsaTrabajo.model.Company;
 import com.bolsaTrabajo.model.Job;
 import com.bolsaTrabajo.model.catalog.Department;
+import com.bolsaTrabajo.model.jobInfo.JobProfile;
 
 import java.util.List;
 
@@ -20,5 +21,5 @@ public interface JobService {
     void updateJob(Job job);
     void deleteById(long id);
     List<Job> getAllJobs();
-
+    Job findByProfile(JobProfile jobProfile);
 }

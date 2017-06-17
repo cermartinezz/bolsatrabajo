@@ -3,9 +3,7 @@ package com.bolsaTrabajo.model;
 import com.bolsaTrabajo.model.jobInfo.Candidate;
 import com.bolsaTrabajo.model.postulantInfo.*;
 import com.bolsaTrabajo.util.Gender;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -212,8 +210,9 @@ public class Postulant extends User{
     }
 
     @OneToMany(mappedBy = "primaryKey.postulant",
-            cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY, orphanRemoval = true)
+    @JsonIgnore
     public Set<Candidate> getCandidates() {
         return candidates;
     }

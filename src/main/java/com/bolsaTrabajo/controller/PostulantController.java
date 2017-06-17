@@ -2,8 +2,8 @@ package com.bolsaTrabajo.controller;
 
 import com.bolsaTrabajo.model.Job;
 import com.bolsaTrabajo.model.Postulant;
-import com.bolsaTrabajo.model.catalog.Institution;
 import com.bolsaTrabajo.model.User;
+import com.bolsaTrabajo.model.catalog.Institution;
 import com.bolsaTrabajo.model.compositeKeys.CandidateId;
 import com.bolsaTrabajo.model.jobInfo.Candidate;
 import com.bolsaTrabajo.model.postulantInfo.AcademicExperience;
@@ -147,18 +147,28 @@ public class PostulantController {
         return "Postulante/exp_acad/create_acadExp";
     }
 
-    @GetMapping("aplicaciones")
+    @GetMapping("/aplicaciones")
     public String applications(Model model, @PathVariable String username){
 
         Postulant postulantFromRequest = postulantService.findByUsername(username);
-        postulantFromRequest.getCandidates();
+        CandidateId candidatos = new CandidateId();
+        candidatos.setPostulant(postulantFromRequest);
 
-        //List<Candidate> candidate = candidateService.getJobOfPostulant()
+        List<Candidate> candidates = candidateService.getJobForPostulant(postulantFromRequest);
+        List<Job> jobs = new ArrayList<>();
+
+        for (Candidate candidate :
+                candidates) {
+            jobs.add(candidate.getPrimaryKey().getJob());
+        }
+        // si no te funciona del otro lado, hace lo mismo, en el server si salen, pero no se porq no
+        // se pasan a la vista
+
         if( !username.equals("anonymousUser") ){
             model.addAttribute("user", Auth.auth());
             this.postulant = postulantService.findByUsername(username);
             model.addAttribute("postulantInfo", this.postulant);
-            model.addAttribute("candidate",postulantFromRequest);
+            model.addAttribute("jobs",jobs);
             return "Postulante/aplicaciones";
         }
         return "redirect:/";

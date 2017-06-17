@@ -13,7 +13,6 @@ import java.io.Serializable;
  */
 @Embeddable
 public class CandidateId implements Serializable{
-
     private Postulant postulant;
     private Job job;
 
@@ -26,7 +25,6 @@ public class CandidateId implements Serializable{
     }
 
     @ManyToOne
-    @JsonIgnore
     public Postulant getPostulant() {
         return postulant;
     }
