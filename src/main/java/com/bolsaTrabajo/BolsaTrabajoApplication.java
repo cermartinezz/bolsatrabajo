@@ -1,6 +1,8 @@
 package com.bolsaTrabajo;
 
-import com.bolsaTrabajo.model.*;
+import com.bolsaTrabajo.model.Permission;
+import com.bolsaTrabajo.model.Postulant;
+import com.bolsaTrabajo.model.Role;
 import com.bolsaTrabajo.model.catalog.*;
 import com.bolsaTrabajo.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -212,21 +214,21 @@ public class BolsaTrabajoApplication implements CommandLineRunner {
 
 	}
 
-	private void insertDepartments(){
-		Department department1 = new Department("San Salvador","ss");
-		Department department2 = new Department("La Libertad","ll");
-		Department department3 = new Department("Cuscatlán","cu");
-		Department department4 = new Department("Chalatenango","ch");
-		Department department5 = new Department("Ahuachapán","ah");
-		Department department6 = new Department("Santa Ana","sa");
-		Department department7 = new Department("Sonsonate","so");
-		Department department8 = new Department("Usulután","us");
-		Department department9 = new Department("San Miguel","sm");
-		Department department10 = new Department("Morazán","mo");
-		Department department11 = new Department("La Unión","lu");
-		Department department12 = new Department("La Paz","lp");
-		Department department13 = new Department("Cabañas","ca");
-		Department department14 = new Department("San Vicente","sv");
+	private void insertDepartments() {
+		Department department1 = new Department("San Salvador", "ss");
+		Department department2 = new Department("La Libertad", "ll");
+		Department department3 = new Department("Cuscatlán", "cu");
+		Department department4 = new Department("Chalatenango", "ch");
+		Department department5 = new Department("Ahuachapán", "ah");
+		Department department6 = new Department("Santa Ana", "sa");
+		Department department7 = new Department("Sonsonate", "so");
+		Department department8 = new Department("Usulután", "us");
+		Department department9 = new Department("San Miguel", "sm");
+		Department department10 = new Department("Morazán", "mo");
+		Department department11 = new Department("La Unión", "lu");
+		Department department12 = new Department("La Paz", "lp");
+		Department department13 = new Department("Cabañas", "ca");
+		Department department14 = new Department("San Vicente", "sv");
 
 		departmentService.store(department1);
 		departmentService.store(department2);
@@ -243,7 +245,7 @@ public class BolsaTrabajoApplication implements CommandLineRunner {
 		departmentService.store(department13);
 		departmentService.store(department14);
 
-
+	}
 
 	@Transactional
 	private Permission createPermissionIfNotExist(String name){
