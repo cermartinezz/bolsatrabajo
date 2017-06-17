@@ -111,7 +111,8 @@ public class RegistrarController {
         companyValidator.validate(userForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
-            model.addAttribute("userForm", new Company());
+            log.info("company {}", bindingResult.getAllErrors());
+            //model.addAttribute("userForm", new Company());
             model.addAttribute("user", Auth.auth());
             return "registrar/company";
         }
