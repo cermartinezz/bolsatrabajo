@@ -6,7 +6,6 @@ import com.bolsaTrabajo.model.compositeKeys.CandidateId;
 import com.bolsaTrabajo.service.CandidateService;
 import com.bolsaTrabajo.service.JobService;
 import com.bolsaTrabajo.service.PostulantService;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +23,7 @@ import java.io.Serializable;
         @AssociationOverride(name = "primaryKey.postulant", joinColumns = @JoinColumn(name = "id")),
         @AssociationOverride(name = "primaryKey.job", joinColumns = @JoinColumn(name = "id_job"))
 })
+
 public class Candidate implements Serializable{
     private Logger logger = LoggerFactory.getLogger(Candidate.class);
 
@@ -62,7 +62,6 @@ public class Candidate implements Serializable{
     }
 
     @Transient
-    @JsonBackReference
     public Postulant getPostulant(){
         return getPrimaryKey().getPostulant();
     }
@@ -72,6 +71,7 @@ public class Candidate implements Serializable{
     }
 
     @Transient
+    @JsonIgnore
     public Job getJob(){
         return getPrimaryKey().getJob();
     }

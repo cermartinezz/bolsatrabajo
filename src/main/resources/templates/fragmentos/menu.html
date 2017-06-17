@@ -5,7 +5,7 @@
 </head>
 <body>
 
-    <div th:fragment="menu(u)">
+    <div th:fragment="menu(u,user)">
 
         <div class="header-main">
 
@@ -26,45 +26,33 @@
                     <div class="nav-main-inner">
                         <ul data-breakpoint="992" class="flexnav">
                             <li class="active"><a href="/">Inicio</a></li>
-                            <li><a href="#">Postulante</a>
+                            <li th:if="${user.hasRole('POSTULANTE')}"><a href="#">Postulante</a>
                                 <ul>
                                     <li><a th:href="@{'/postulante/'+ ${u.getName()} + '/perfil'}">Mi Perfil</a></li>
                                     <li><a th:href="@{'/postulante/'+ ${u.getName()} + '/aplicaciones'}">Mis Aplicaciones</a></li>
                                     <!--  <li><a href="#">Editar Perfil</a></li> -->
                                 </ul>
                             </li>
-                            <li><a href="#">Empresa</a>
+                            <li th:if="${user.hasRole('EMPRESA')}"><a href="#">Empresa</a>
                                 <ul>
                                     <li><a th:href="@{'/company/'+ ${u.getName()} + '/profile'}">Perfil Empresa</a></li>
                                     <li><a th:href="@{'/company/'+ ${u.getName()} + '/editar'}">Editar Perfil</a></li>
                                 </ul>
                             </li>
-                            <li><a href="#">Puesto</a>
+                            <li th:if="${user.hasRole('EMPRESA')}"><a href="#">Puesto</a>
                                 <ul>
                                     <li><a th:href="@{'/puesto/crear'}">Registrar Puesto</a></li>
                                     <li><a th:href="@{'/puesto/lista'}">Mis Puestos</a></li>
                                 </ul>
                             </li>
-                            <li><a href="#">Perfiles</a>
-                                <ul>
-                                    <li><a th:href="@{'/empresa/'+${u.getName()}+'/perfiles/crear'}">Registrar perfil</a></li>
-                                    <li><a th:href="@{'/empresa/'+${u.getName()}+'/perfiles'}">Mis perfiles</a></li>
-                                </ul>
-                            </li>
-                            <!--<li><a href="#">Oportunidades</a>
-                                <ul>
-                                    <li><a href="#">Empleos</a></li>
-                                    <li><a href="#">No sé que más</a></li>
-                                </ul>
-                            </li>
+                            <li th:if="${user.hasRole('EMPRESA')}"><a href="#">Perfiles</a>
+                                    <ul>
+                                        <li><a th:href="@{'/empresa/'+${u.getName()}+'/perfiles/crear'}">Registrar perfil</a></li>
+                                        <li><a th:href="@{'/empresa/'+${u.getName()}+'/perfiles'}">Mis perfiles</a></li>
+                                    </ul>
+                                </li>
 
-                            <li><a href="#">Empresa</a>
-                                <ul>
-                                    <li><a href="#">Perfil</a></li>
-                                    <li><a href="#">Publicar Empleo</a></li>
-                                </ul>
-                            </li>-->
-                            <li><a href="#">Administración</a>
+                            <li th:if="${user.hasRole('ADMIN')}"><a href="#">Administración</a>
                                 <ul>
                                     <li><a href="/admin/menu">Menú</a></li>
                                     <li><a href="/usuarios">Usuarios</a></li>
@@ -72,6 +60,8 @@
                                     <li><a href="/permissions">Permisos</a></li>
                                 </ul>
                             </li>
+
+
                         </ul>
                     </div>
                 </nav>

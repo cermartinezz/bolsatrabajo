@@ -4,10 +4,8 @@ package com.bolsaTrabajo.controller;
 import com.bolsaTrabajo.model.Company;
 import com.bolsaTrabajo.model.Postulant;
 import com.bolsaTrabajo.model.Role;
-import com.bolsaTrabajo.service.CompanyService;
-import com.bolsaTrabajo.service.PostulantService;
-import com.bolsaTrabajo.service.RoleService;
-import com.bolsaTrabajo.service.SecurityService;
+import com.bolsaTrabajo.model.User;
+import com.bolsaTrabajo.service.*;
 import com.bolsaTrabajo.util.Auth;
 import com.bolsaTrabajo.validator.CompanyValidator;
 import com.bolsaTrabajo.validator.PostulantValidator;
@@ -23,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.HashSet;
+import java.util.Set;
 
 @Controller
 public class RegistrarController {
@@ -50,6 +49,23 @@ public class RegistrarController {
 
     @Autowired
     private CompanyValidator companyValidator;
+
+    UserService userService;
+
+    @ModelAttribute("usr")
+    public User globalUser(Model model) {
+        User u = userService.findByUsername(Auth.auth().getName());
+        if(u == null){
+            u = new User();
+            Set<Role> roles = new HashSet<>();
+            Role role = new Role();
+            role.setName("INVITADO");
+            roles.add(role);
+            u.setRoles(roles);
+            return u;
+        }
+        return u;
+    }
 
     @RequestMapping(value = "/registrar/postulante", method = RequestMethod.GET)
     public String registration(Model model) {

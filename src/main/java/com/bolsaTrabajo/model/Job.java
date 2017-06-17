@@ -4,7 +4,6 @@ package com.bolsaTrabajo.model;
 import com.bolsaTrabajo.model.catalog.Department;
 import com.bolsaTrabajo.model.jobInfo.Candidate;
 import com.bolsaTrabajo.model.jobInfo.JobProfile;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -77,7 +76,6 @@ public class Job {
 
     @ManyToOne
     @JoinColumn(name="company_id")
-    @JsonIgnore
     public Company getCompany() {
         return company;
     }
@@ -118,7 +116,6 @@ public class Job {
     @OneToMany(mappedBy = "primaryKey.job",
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY)
-    @JsonIgnore
     public Set<Candidate> getCandidates() {
         return candidates;
     }

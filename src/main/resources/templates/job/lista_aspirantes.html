@@ -10,7 +10,7 @@
 
             <div th:include="fragmentos/top_bar :: top_bar(${user})" th:remove="tag"></div>
 
-            <div th:include="fragmentos/menu :: menu(${user})" th:remove="tag"></div>
+            <div th:include="fragmentos/menu :: menu(${user},${usr})" th:remove="tag"></div>
 
         </header>
 
@@ -80,7 +80,19 @@
 
     <div th:include="fragmentos/footer :: footer"></div>
 </div>
-// TODO: MOSTRAR MENSAJE SWEET ALERT
+
 <div th:include="fragmentos/scripts :: scripts" ></div>
+<script th:inline="javascript">let candidates = [[${candidates}]];</script>
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            candidates: candidates,
+        },
+        methods: {
+            
+        }
+    })
+</script>
 </body>
 </html>
