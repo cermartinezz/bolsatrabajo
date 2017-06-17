@@ -1,8 +1,11 @@
 package com.bolsaTrabajo.controller;
 
+import com.bolsaTrabajo.model.Job;
 import com.bolsaTrabajo.model.Postulant;
 import com.bolsaTrabajo.model.catalog.Institution;
 import com.bolsaTrabajo.model.User;
+import com.bolsaTrabajo.model.compositeKeys.CandidateId;
+import com.bolsaTrabajo.model.jobInfo.Candidate;
 import com.bolsaTrabajo.model.postulantInfo.AcademicExperience;
 import com.bolsaTrabajo.model.postulantInfo.WorkExperience;
 import com.bolsaTrabajo.service.*;
@@ -40,6 +43,9 @@ public class PostulantController {
 
     @Autowired
     private AcademicTitleCatService titleCatService;
+
+    @Autowired
+    private CandidateService candidateService;
 
     public Postulant postulant;
 
@@ -139,6 +145,23 @@ public class PostulantController {
         model.addAttribute("titles",titleCatService.getAllTitles());
         model.addAttribute("acadExp", new AcademicExperience());
         return "Postulante/exp_acad/create_acadExp";
+    }
+
+    @GetMapping("aplicaciones")
+    public String applications(Model model, @PathVariable String username){
+
+        Postulant postulantFromRequest = postulantService.findByUsername(username);
+        postulantFromRequest.getCandidates();
+
+        //List<Candidate> candidate = candidateService.getJobOfPostulant()
+        if( !username.equals("anonymousUser") ){
+            model.addAttribute("user", Auth.auth());
+            this.postulant = postulantService.findByUsername(username);
+            model.addAttribute("postulantInfo", this.postulant);
+            model.addAttribute("candidate",postulantFromRequest);
+            return "Postulante/aplicaciones";
+        }
+        return "redirect:/";
     }
 
 }

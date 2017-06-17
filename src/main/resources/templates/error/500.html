@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragmentos/head :: head" th:remove="tag"/>
+<title>Bolsa Trabajo</title>
+
+<body>
+<div class="site-wrapper">
+    <header class="header header-menu-fullw">
+
+    </header>
+
+
+    <div class="main" role="main">
+
+        <div th:include="fragmentos/heading :: heading('¡Solicitud no completada!')"></div>
+
+        <section class="page-content">
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2 text-center">
+                        <h2 class="error-title">500</h2>
+                        <h4>Error interno del servidor.</h4>
+                        <p class="error-desc">El servidor no pudo completar su solicitud por un error inesperado.</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="center">
+                        <a href="/" class="btn btn-danger">Inicio</a>
+                    </div>
+                </div>
+                <div class="spacer-lg"></div>
+
+            </div>
+        </section>
+
+        <div th:include="fragmentos/footer :: footer"></div>
+    </div>
+</div>
+
+
+<div th:include="fragmentos/scripts :: scripts" ></div>
+</body>
+</html>

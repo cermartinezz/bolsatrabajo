@@ -30,24 +30,29 @@
                                 <tr>
                                     <th>Nombre Puesto</th>
                                     <th>Salario Puesto</th>
+                                    <th>Categoria</th>
+                                    <th>Número de Aspirantes</th>
                                     <th>Acciones</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="j,iter : ${empresa.getJobs()}">
+                                <tr th:each="j,iter : ${jobs}">
                                     <td th:text="${j.nombreJ}"></td>
                                     <td th:text="${j.SalarioJ}"></td>
+                                    <td th:text="${j.category}"></td>
+                                    <td th:text="${j.numAspirante}"></td>
                                     <td >
-                                        <a th:href="@{'/empresa/'+${user.getName()}+'/perfiles' }" class="btn btn-info">Perfil</a>
+                                        <a th:href="@{'/empresa/'+${user.getName()}+'/perfiles' }" class="btn btn-sm btn-info">Perfil</a>
+                                        <a th:href="@{'/puesto/'+${j.id}+'/aspirantes' }" class="btn btn-sm btn-success">Ver Aspirantes</a>
+
                                         <form th:action="@{'/job/' + ${j.id}}"
                                               th:method="DELETE" class="btn">
                                             <div >
                                                 <button type="submit"
-                                                        class="btn btn-danger btn-block"
+                                                        class="btn btn-sm btn-danger btn-block"
                                                         onclick="return confirm('Seguro que desea eliminar este registro?')">Eliminar</button>
                                             </div>
                                         </form>
-
                                     </td>
                                 </tbody>
                             </table>

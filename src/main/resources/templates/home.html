@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:v-on="http://www.w3.org/1999/xhtml">
 
 <head th:include="fragmentos/head :: head" th:remove="tag"/>
 <title>Bolsa Trabajo</title>
 
 <body>
-    <div class="site-wrapper">
+    <div class="site-wrapper" >
         <header class="header header-menu-fullw">
 
             <div th:include="fragmentos/top_bar :: top_bar(${user})" th:remove="tag"></div>
@@ -15,22 +15,126 @@
         </header>
 
 
-        <div class="main" role="main">
+        <div class="main" role="main" id="app">
 
             <div th:include="fragmentos/heading :: heading('¡Bienvenido!')"></div>
 
             <section class="page-content">
                 <div class="container">
-                    <h4 class="text-center">El mejor lugar para encontrar un trabajo mejor</h4>
+                    <h3 class="text-center">El mejor lugar para encontrar tu trabajo ideal</h3>
+                    <div class="spacer"></div>
+                    <div class="box">
+                        <h4>Sobre Nosotros</h4>
+                        <p>
+                            Te damos la bienvenida a nuestra página, en donde podrás encontrar las mejores ofertas de trabajo que estén dentro de tu alcance.
+                            A nuestras empresas le brindamos los aspirantes que se adecúen a sus necesidades, todo para realizar una mejor contratación.
+                            Promovemos oportunidades de empleabilidad, ayudando a que todas las personas que se acerquen a nuestro sitio puedan lograr sus metas personales.
+                        </p>
+                    </div>
+
                     <div class="spacer-lg"></div>
-                    <label>Sobre Nosotros</label>
-                    <p>
-                        Te damos la bienvenida a nuestra página, en donde podrás encontrar las mejores ofertas de trabajo que estén dentro de tu alcance.
-                        A nuestras empresas le brindamos el mejor talento humano posible, todo para realizar una mejor contratación.
-                        Promovemos oportunidades de empleabilidad, ayudando a que todas las personas que se acerquen a nuestro sitio puedan lograr sus metas personales.
-                    </p>
+                    <div class="title-bordered">
+                        <h2>Ofertas de trabajo <small>Últimas agregadas</small></h2>
+                    </div>
+                    <div class="job_listings">
+
+                        <form class="job_filters" th:object="${filter}" th:o method="get"
+                              v-on:submit.prevent="onSubmit">
+
+                            <div class="search_jobs center_block">
+
+                                <div class="search_location">
+
+                                    <label for="location">Ubicación</label>
+                                    <span class="select-style">
+										<select class="form-control" name="location" id="location"
+                                                    v-model="location">
+                                            <option disabled value="" selected>Ubicación</option>
+											<option value="ss">San Salvador</option>
+											<option value="ll">La Libertad</option>
+											<option value="cu">Cuscatlán</option>
+											<option value="ch">Chalatenango</option>
+                                            <option value="ah">Ahuachapán</option>
+											<option value="sa">Santa Ana</option>
+                                            <option value="so">Sonsonate</option>
+											<option value="us">Usulután</option>
+											<option value="sm">San Miguel</option>
+											<option value="mo">Morazán</option>
+											<option value="lu">La Unión</option>
+											<option value="lp">La Paz</option>
+											<option value="ca">Cabañas</option>
+											<option value="sv">San Vicente</option>
+
+										</select>
+									</span>
+                                </div>
+
+                                <div class="search_type">
+                                    <label>Categoria</label>
+                                    <span class="select-style">
+										<select name="category" id="category" class="form-control"
+                                                v-model="category">
+                                                <option disabled value="" selected>Categoria</option>
+											    <option value="Administracion">Administración</option>
+                                                <option value="Atencion a clientes">Atención a clientes</option>
+                                                <option value="Finanzas">Finanzas</option>
+                                                <option value="Informatica">Informática</option>
+                                                <option value="Manufactura">Manufactura</option>
+                                                <option value="Medicina">Medicina</option>
+                                                <option value="Publicidad">Publicidad</option>
+                                                <option value="Turismo">Turismo</option>
+                                                <option value="Ventas">Ventas</option>
+										</select>
+									</span>
+                                </div>
+
+                                <div class="search_submit">
+                                    <label>Submit</label>
+                                    <button class="btn btn-block btn-primary"><i class="fa fa-search"></i></button>
+                                </div>
+                                <div class="search_submit">
+                                    <label>Submit</label>
+                                    <button class="btn btn-block btn-primary" v-on:click="limpiar"><i class="fa fa-eraser"></i></button>
+                                </div>
+                            </div>
+                        </form>
+
+                        <ul class="job_listings" v-for="puesto in jobs">
+                            <li class="job_listing">
+                                <a @click="redirectJob(puesto.id)">
+                                    <div class="position">
+                                        <h3>{{puesto.nombreJ}}</h3>
+                                        <div class="company">
+                                            <strong>{{puesto.company.nombreC}}</strong>
+                                        </div>
+                                    </div>
+                                    <div class="location">
+                                        <i class="fa fa-location-arrow"></i> {{puesto.department.nombre}}
+                                    </div>
+                                    <div class="rating">
+                                        <div class="reviews-num">
+                                            <i class="fa fa-dollar"></i>{{puesto.salarioJ}}
+                                        </div>
+                                    </div>
+                                    <ul class="meta">
+                                        <li class="job-type">{{puesto.category}}</li>
+                                        <li class="date">
+                                            {{puesto.descripcionJ}}
+                                        </li>
+                                    </ul>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="spacer"></div>
+
+
                 </div>
+
             </section>
+
+
 
             <div th:include="fragmentos/footer :: footer"></div>
         </div>
@@ -38,5 +142,67 @@
 
 
     <div th:include="fragmentos/scripts :: scripts" ></div>
+<script th:inline="javascript">
+    new Vue({
+        el: "#app",
+        data: {
+            category: "",
+            location: "",
+            jobs: []
+        },
+        methods: {
+            onSubmit: function(){
+                if(this.location.length != 0 && this.category.length != 0){
+                    axios.get('/job/list/cat/'+this.category+'/dept/'+this.location)
+                        .then(response =>{
+                            this.jobs = response.data
+                        })
+                        .catch(error => {
+                            console.log(error);
+                            showMessageTimer("Error","No se encontraron puestos de trabajo que cumplan ambos filtros","error",5000);
+                        })                }
+                if(this.category.length !=0){
+                    console.log('/job/list/'+this.category);
+                    axios.get('/job/list/cat/'+this.category)
+                        .then(response =>{
+                            console.log(response.data);
+                               this.jobs = response.data;
+                        })
+                        .catch(error => {
+                        console.log(error);
+                        showMessageTimer("Error","No se encontraron puestos de trabajo de esta categoria","error",5000);
+                    })
+                }
+                if(this.location.length != 0){
+                    console.log('/job/list/dept/'+this.location);
+                    axios.get('/job/list/dept/'+this.location)
+                        .then(response =>{
+                            this.jobs = response.data
+                        })
+                        .catch(error => {
+                        console.log(error);
+                        showMessageTimer("Error","No se encontraron puestos de trabajo de este departamento","error",5000);
+                    })
+                }
+
+            },
+            redirectJob(id){
+                window.location.href = "/puesto/"+id+"/ver";
+            },
+            limpiar: function (event) {
+                if(event){
+                    this.category= "";
+                    this.location= "";
+                    axios.get('/job/list')
+                        .then(response =>this.jobs = response.data)
+                }
+            }
+        },
+        mounted(){
+            axios.get('/job/list')
+                .then(response =>this.jobs = response.data)
+        }
+    })
+</script>
 </body>
 </html>

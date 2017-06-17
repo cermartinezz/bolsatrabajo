@@ -47,6 +47,36 @@
                                                   rows="3"
                                                   cols="10" placeholder="Descripcion de puesto" class="form-control" required></textarea>
                                     </div>
+
+                                    <div class="form-group">
+                                        <label for="category">Categoria</label>
+                                        <div class="field select-style">
+                                            <select name="category" id="category" class="form-control"  th:field="*{category}">
+                                                <option value="Administracion">Administración</option>
+                                                <option value="Atencion a clientes">Atención a clientes</option>
+                                                <option value="Finanzas">Finanzas</option>
+                                                <option value="Informatica">Informática</option>
+                                                <option value="Manufactura">Manufactura</option>
+                                                <option value="Medicina">Medicina</option>
+                                                <option value="Publicidad">Publicidad</option>
+                                                <option value="Turismo">Turismo</option>
+                                                <option value="Ventas">Ventas</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="department">Departamento</label>
+                                        <div class="field select-style">
+                                            <select name="department" id="department" class="form-control"  th:field="*{department}">
+                                                <option th:each="department : ${departments_list}"
+                                                        th:value="${department.id}"
+                                                        th:text="${department.nombre}"></option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+
                                     <div class="form-group">
                                         <button type="submit" class="btn btn-primary btn-block">Registrar Puesto</button>
                                     </div>

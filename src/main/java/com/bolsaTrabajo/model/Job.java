@@ -1,10 +1,13 @@
 package com.bolsaTrabajo.model;
 
 
+import com.bolsaTrabajo.model.catalog.Department;
+import com.bolsaTrabajo.model.jobInfo.Candidate;
 import com.bolsaTrabajo.model.jobInfo.JobProfile;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "jobs")
@@ -15,8 +18,12 @@ public class Job {
     private String nombreJ;
     private float salarioJ;
     private  String descripcionJ;
+    private String category;
+    private int numAspirante;
     private Company company;
     private JobProfile jobProfile;
+    private Department department;
+    private Set<Candidate> candidates;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -31,7 +38,6 @@ public class Job {
     public String getNombreJ() {
         return nombreJ;
     }
-
 
     public void setNombreJ(String nombreJ) {
         this.nombreJ = nombreJ;
@@ -53,6 +59,21 @@ public class Job {
         this.descripcionJ = descripcionJ;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public int getNumAspirante() {
+        return numAspirante;
+    }
+
+    public void setNumAspirante(int numAspirante) {
+        this.numAspirante = numAspirante;
+    }
 
     @ManyToOne
     @JoinColumn(name="company_id")
@@ -83,13 +104,38 @@ public class Job {
         this.jobProfile = jobProfile;
     }
 
+    @ManyToOne
+    @JoinColumn(name = "department_id")
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
+
+    @OneToMany(mappedBy = "primaryKey.job",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY)
+    @JsonIgnore
+    public Set<Candidate> getCandidates() {
+        return candidates;
+    }
+
+    public void setCandidates(Set<Candidate> candidates) {
+        this.candidates = candidates;
+    }
+
     @Override
     public String toString() {
-        return "job{" +
+        return "Job{" +
                 "id=" + id +
+                ", codJ='" + codJ + '\'' +
                 ", nombreJ='" + nombreJ + '\'' +
                 ", salarioJ=" + salarioJ +
                 ", descripcionJ='" + descripcionJ + '\'' +
+                ", category='" + category + '\'' +
                 '}';
     }
 }

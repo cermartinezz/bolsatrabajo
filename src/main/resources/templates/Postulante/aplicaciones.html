@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragmentos/head :: head" th:remove="tag"/>
+<title>Perfil Postulante</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+
+<body>
+
+<div class="site-wrapper">
+    <header class="header header-menu-fullw">
+
+        <div th:include="fragmentos/top_bar :: top_bar(${user})" th:remove="tag"></div>
+
+        <div th:include="fragmentos/menu :: menu(${user})" th:remove="tag"></div>
+
+    </header>
+
+    <!-- Main -->
+    <div class="main" role="main" id="app">
+
+        <!-- Page Heading -->
+        <section class="page-heading">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1>Mis aplicaciones</h1>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Page Heading / End -->
+
+
+        <!-- Page Content -->
+        <section class="page-content">
+            <div class="container">
+
+                <div class="job_listings">
+                    <ul class="job_listings" v-for="puesto in job_list">
+                        <li class="job_listing">
+                            <a href="#">
+                                <div class="position">
+                                    <h3>{{puesto.job.nombreJ}}</h3>
+                                    <div class="company">
+                                        <strong>{{puesto.job.company.nombreC}}</strong>
+                                    </div>
+                                </div>
+                                <div class="location">
+                                    <i class="fa fa-location-arrow"></i>
+                                    {{puesto.job.department.nombre}}
+                                </div>
+                                <div class="rating">
+                                    <div class="reviews-num">
+                                        <i class="fa fa-dollar"></i>
+                                        {{puesto.job.salarioJ}}
+                                    </div>
+                                </div>
+                                <ul class="meta">
+                                    <li class="job-type">
+                                        {{puesto.job.category}}
+                                    </li>
+                                    <li class="date">
+                                        {{puesto.job.descripcionJ}}
+                                    </li>
+                                </ul>
+                            </a>
+
+                    </ul>
+
+                    <div v-if="job_list.length == 0" class="call-to-action centered">
+                        <div class="spacer"></div>
+                        <div class="cta-txt">
+                            <h2>No has aplicado a ningún puesto todavía</h2>
+                            <p>¡Aplica al puesto de trabajo que más te conviene!</p>
+                        </div>
+
+                        <div class="spacer"></div>
+                    </div>
+                </div>
+
+                <div class="spacer"></div>
+
+            </div>
+        </section>
+        <!-- Page Content / End -->
+
+    <div th:include="fragmentos/footer :: footer"></div>
+
+</div>
+<!-- Main / End -->
+</div>
+
+<div th:include="fragmentos/scripts :: scripts" ></div>
+<script th:inline="javascript">let username = [[${username}]];</script>
+<script th:inline="javascript">let postulantInfo = [[${postulantInfo}]];</script>
+<script th:inline="javascript">let candidate = [[${candidate}]];</script>
+<script th:src="@{/assets/js/postulante/aplicaciones.js}"></script>
+</body>
+</html>

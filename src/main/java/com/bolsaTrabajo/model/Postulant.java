@@ -1,8 +1,10 @@
 package com.bolsaTrabajo.model;
 
+import com.bolsaTrabajo.model.jobInfo.Candidate;
 import com.bolsaTrabajo.model.postulantInfo.*;
 import com.bolsaTrabajo.util.Gender;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -30,6 +32,7 @@ public class Postulant extends User{
     private Set<Award> awards;
     private Set<PostulantPublication> postulantPublications;
     private Set<PostulantLanguage> postulantLanguages;
+    private Set<Candidate> candidates;
 
     public Postulant() {super();}
 
@@ -206,6 +209,17 @@ public class Postulant extends User{
 
     public void setPostulantLanguages(Set<PostulantLanguage> postulantLanguages) {
         this.postulantLanguages = postulantLanguages;
+    }
+
+    @OneToMany(mappedBy = "primaryKey.postulant",
+            cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    public Set<Candidate> getCandidates() {
+        return candidates;
+    }
+
+    public void setCandidates(Set<Candidate> candidates) {
+        this.candidates = candidates;
     }
 
     @Override
