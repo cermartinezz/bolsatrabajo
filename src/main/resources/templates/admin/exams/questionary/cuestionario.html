@@ -20,6 +20,14 @@
         <section class="page-content">
             <div class="container">
                 <div class="box">
+                    <div th:if="${message!=null}" class="alert alert-danger alert-dismissable">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <span th:text="${message}"></span>
+                    </div>
+                    <div th:if="${messageSuccess!=null}" class="alert alert-success alert-dismissable">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <span th:text="${messageSuccess}"></span>
+                    </div>
                     <div class="row">
                         <div class="col-md-8 col-md-offset-2">
                             <h3>Exámen - Cuestionario</h3>
@@ -44,7 +52,7 @@
                                             <div class="form-group">
                                                 <select class="form-control" type="number" name="idPreg" required>
                                                     <option disabled value="">Seleccione una:</option>
-                                                    <option th:each="sa : ${examen.subArea.questions}"
+                                                    <option th:each="sa : ${questions}"
                                                             th:value="${sa.id}"
                                                             th:text="${sa.enunciado}"></option>
                                                 </select>
