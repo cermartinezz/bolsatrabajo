@@ -69,6 +69,21 @@
                                         
                                             <div class="help-block with-errors" v-if="listErrors.has('maxAge')" v-text="listErrors.get('maxAge')"></div>
                                         </div>
+                                        <div class="form-group">
+                                            <label for="stateOfEducation">Estado Academico</label>
+                                            <select name="stateOfEducation" v-model="stateOfEducation"
+                                                    id="stateOfEducation" class="form-control" required>
+                                                <option value="">Seleccione su estado academico</option>
+                                                <option value="BACHILLER">Bachiller</option>
+                                                <option value="UNIVERSITARIO_1">Universitario de 1 año</option>
+                                                <option value="UNIVERSITARIO_2">Universitario de 2 año</option>
+                                                <option value="UNIVERSITARIO_3">Universitario de 3 año</option>
+                                                <option value="UNIVERSITARIO_4">Universitario de 4 año</option>
+                                                <option value="UNIVERSITARIO_5">Universitario de 5 año</option>
+                                                <option value="EGRESADO">Egresado</option>
+                                                <option value="GRADUADO">Graduado</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group flex_start">

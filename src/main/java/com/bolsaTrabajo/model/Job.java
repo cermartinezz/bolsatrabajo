@@ -78,6 +78,7 @@ public class Job {
 
     @ManyToOne
     @JoinColumn(name="company_id")
+    @JsonIgnore
     public Company getCompany() {
         return company;
     }

@@ -59,4 +59,18 @@ public class JobProfileRestController {
         return new ResponseEntity<JobProfile>(jobProfile1,this.headers, HttpStatus.OK);
     }
 
+    @PutMapping("/editar/{id}")
+    public ResponseEntity<JobProfile> update(@RequestBody JobProfile jobProfileFromRequest){
+
+        try{
+            this.profile.update(jobProfileFromRequest);
+        }catch(Exception e){
+            String message = StringUtils.clearMessage(e.getCause().getCause().getMessage());
+            this.headers.set("message", message);
+            return new ResponseEntity<JobProfile>(this.headers,HttpStatus.CONFLICT);
+        }
+        this.headers.set("message", "Se actualizo la informacion del perfil");
+        return new ResponseEntity<JobProfile>(this.headers,HttpStatus.OK);
+    }
+
 }

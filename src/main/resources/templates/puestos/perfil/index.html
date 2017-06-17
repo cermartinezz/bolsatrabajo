@@ -22,7 +22,21 @@
 
             <section class="page-content">
                 <div class="container">
-
+                   <div class="col-md-6 col-md-offset-3">
+                       <div class="box">
+                           <div class="row">
+                               <ul class="list-group">
+                                   <li class="list-group-item space_between" v-for="profile in profiles">
+                                       <p style="margin: 0"><strong>Nombre del perfil: </strong> {{profile.name}}</p>
+                                       <div class="flex_end">
+                                           <span><a :href="'/empresa/'+profile.company.nombreC+'/perfiles/codigo/'+profile.id" class="btn btn-info btn-xs r-margin">Ver</a></span>
+                                           <span><button class="btn btn-danger btn-xs">eliminar <i class="fa fa-times"></i></button></span>
+                                       </div>
+                                   </li>
+                               </ul>
+                           </div>
+                       </div>
+                   </div>
                 </div>
             </section>
 
@@ -32,5 +46,7 @@
 
 
     <div th:include="fragmentos/scripts :: scripts" ></div>
+    <script th:inline="javascript">let profiles = [[${profiles}]];</script>
+    <script th:src="@{/assets/js/puesto/perfil/index_perfil.js}"></script>
 </body>
 </html>

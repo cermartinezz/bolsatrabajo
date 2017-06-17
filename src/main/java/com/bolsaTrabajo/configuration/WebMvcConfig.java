@@ -2,8 +2,7 @@ package com.bolsaTrabajo.configuration;
 
 import com.bolsaTrabajo.model.catalog.Department;
 import com.bolsaTrabajo.model.catalog.LanguageLevel;
-import com.bolsaTrabajo.model.jobInfo.Candidate;
-import com.bolsaTrabajo.model.jobInfo.JobProfile;
+import com.bolsaTrabajo.model.jobInfo.*;
 import com.bolsaTrabajo.model.postulantInfo.PostulantCertification;
 import com.bolsaTrabajo.model.postulantInfo.PostulantLanguage;
 import com.bolsaTrabajo.model.postulantInfo.PostulantPublication;
@@ -28,10 +27,25 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         return new PostulantCertification();
     }
 
+    @Bean
+    public AcademicExperienceProfile academicExperienceProfile(){
+        return new AcademicExperienceProfile();
+    }
+
 
     @Bean
     public PostulantPublication postulantPublication(){
         return new PostulantPublication();
+    }
+
+    @Bean
+    public JobProfileSkill jobProfileSkill(){
+        return new JobProfileSkill();
+    }
+
+    @Bean
+    public JobProfileLanguage jobProfileLanguage(){
+        return new JobProfileLanguage();
     }
 
 
@@ -52,11 +66,31 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     }
 
     @Bean
+    public WorkExperienceProfile workExperienceProfile(){
+        return new WorkExperienceProfile();
+    }
+
+    @Bean
     public Candidate candidate(){ return new Candidate(); }
 
     /**
      *Servicios, Validadores, etc
      */
+
+    @Bean
+    public AcademicExperienceProfileService academicExperienceProfileService(){
+        return new AcademicExperienceProfileServiceImpl();
+    }
+
+    @Bean
+    public JobProfileSkillService jobProfileSkillService(){
+        return new JobProfileSkillServiceImpl();
+    }
+
+    @Bean
+    public JobProfileLanguageService jobProfileLanguageService(){
+        return new JobProfileLanguageServiceImpl();
+    }
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
@@ -134,7 +168,11 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         return new JobProfileServiceImpl();
     }
 
-
+    @Bean
+    WorkExperienceProfileService workExperienceProfileService(){
+        return new WorkExperienceProfileServiceImpl();
+    }
+    
     @Bean
     public PublicationService publicationService(){ return  new PublicationService();}
 

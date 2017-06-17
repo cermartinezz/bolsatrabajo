@@ -1,5 +1,6 @@
 package com.bolsaTrabajo.model.catalog;
 
+import com.bolsaTrabajo.model.jobInfo.JobProfileLanguage;
 import com.bolsaTrabajo.model.postulantInfo.PostulantLanguage;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -15,6 +16,8 @@ public class Language implements Serializable{
     private String codigo;
     private String nombre;
     private Set<PostulantLanguage> postulantLanguages;
+    private Set<JobProfileLanguage> languages;
+
 
     public Language(){
         super();
@@ -70,5 +73,17 @@ public class Language implements Serializable{
 
     public void setPostulantLanguages(Set<PostulantLanguage> postulantLanguages) {
         this.postulantLanguages = postulantLanguages;
+    }
+
+    @OneToMany(mappedBy = "primaryKey.language",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY)
+    @JsonIgnore
+    public Set<JobProfileLanguage> getLanguages() {
+        return languages;
+    }
+
+    public void setLanguages(Set<JobProfileLanguage> languages) {
+        this.languages = languages;
     }
 }

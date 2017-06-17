@@ -102,3 +102,13 @@
     width: 60%;
 }
 
+div.box.box-no-border{
+    border: none;
+    padding: 2em 0 0 0;
+}
+
+.full-width{
+    width: 100%;
+}
+
+

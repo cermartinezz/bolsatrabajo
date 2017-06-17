@@ -19,13 +19,19 @@ public class JobProfileServiceImpl implements JobProfileService {
                                     jobProfile.getDescription(),
                                     jobProfile.getMaxAge(),
                                     jobProfile.getMinAge(),
+                                    jobProfile.getStateOfEducation().name(),
                                     jobProfile.getCompany().getId());
         return id;
     }
 
     @Override
     public void update(JobProfile jobProfile) {
-
+        jobProfileRepository.update(jobProfile.getId(),
+                jobProfile.getName(),
+                jobProfile.getDescription(),
+                jobProfile.getMaxAge(),
+                jobProfile.getMinAge(),
+                jobProfile.getCompany().getId());
     }
 
     @Override

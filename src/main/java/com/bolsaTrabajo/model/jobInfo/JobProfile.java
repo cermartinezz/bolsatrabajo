@@ -3,26 +3,39 @@ package com.bolsaTrabajo.model.jobInfo;
 import com.bolsaTrabajo.model.Company;
 import com.bolsaTrabajo.model.Job;
 import com.bolsaTrabajo.service.JobProfileService;
+import com.bolsaTrabajo.util.StateOfEducation;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
+import java.util.Set;
 
 @Entity
 @Table(name="job_profiles")
 @NamedStoredProcedureQueries({
         @NamedStoredProcedureQuery(name = "SP_CREAR_PERFIL_TRABAJO",
-                                    procedureName = "SP_CREAR_PERFIL_TRABAJO",
-                                    parameters = {
-                                        @StoredProcedureParameter(mode = ParameterMode.IN,name = "NOMBRE", type = String.class),
-                                        @StoredProcedureParameter(mode = ParameterMode.IN,name = "DESCRIPCION", type = String.class),
-                                        @StoredProcedureParameter(mode = ParameterMode.IN,name = "EDAD_MAX", type = Integer.class),
-                                        @StoredProcedureParameter(mode = ParameterMode.IN,name = "EDAD_MIN", type = Integer.class),
-                                        @StoredProcedureParameter(mode = ParameterMode.IN,name = "COMPAÑIA_ID", type = Long.class),
-                                        @StoredProcedureParameter(mode = ParameterMode.OUT,name = "ID_JP", type = Integer.class)
-                                    })
+        procedureName = "SP_CREAR_PERFIL_TRABAJO",
+        parameters = {
+            @StoredProcedureParameter(mode = ParameterMode.IN,name = "NOMBRE", type = String.class),
+            @StoredProcedureParameter(mode = ParameterMode.IN,name = "DESCRIPCION", type = String.class),
+            @StoredProcedureParameter(mode = ParameterMode.IN,name = "EDAD_MAX", type = Integer.class),
+            @StoredProcedureParameter(mode = ParameterMode.IN,name = "EDAD_MIN", type = Integer.class),
+            @StoredProcedureParameter(mode = ParameterMode.IN,name = "COMPAÑIA_ID", type = Long.class),
+            @StoredProcedureParameter(mode = ParameterMode.IN,name = "EDUC_MIN", type = String.class),
+            @StoredProcedureParameter(mode = ParameterMode.OUT,name = "ID_JP", type = Integer.class),
+        }),
+        @NamedStoredProcedureQuery(name="SP_ACTUALIZAR_PERFIL_TRABAJO",
+        procedureName = "SP_ACTUALIZAR_PERFIL_TRABAJO",
+        parameters = {
+            @StoredProcedureParameter(mode = ParameterMode.IN,name = "ID_JP", type=Integer.class),
+            @StoredProcedureParameter(mode = ParameterMode.IN,name = "NOMBRE", type=String.class),
+            @StoredProcedureParameter(mode = ParameterMode.IN,name = "DESCRIPCION", type=String.class),
+            @StoredProcedureParameter(mode = ParameterMode.IN,name = "EDAD_MAX", type=Integer.class),
+            @StoredProcedureParameter(mode = ParameterMode.IN,name = "EDAD_MIN", type=Integer.class),
+            @StoredProcedureParameter(mode = ParameterMode.IN,name = "COMPAÑIA_ID", type=Long.class)
+        })
 })
 public class JobProfile {
 
@@ -32,11 +45,17 @@ public class JobProfile {
     private Integer id;
     private String name;
     private String code;
+    //TODO AGREGAR GENERO
     private String description;
     private Integer minAge;
     private Integer maxAge;
     private Company company;
     private Job job;
+    private StateOfEducation stateOfEducation;
+    private Set<WorkExperienceProfile> workExperienceProfile;
+    private Set<AcademicExperienceProfile> academicExperienceProfile;
+    private Set<JobProfileSkill> skills;
+    private Set<JobProfileLanguage> languages;
 
     @Autowired
     public JobProfile(JobProfileService jobProfileService){
@@ -44,6 +63,10 @@ public class JobProfile {
     }
 
     public JobProfile() {
+    }
+
+    public JobProfile(Integer id) {
+        this.id = id;
     }
 
     public JobProfile(String name, String description, Integer minAge, Integer maxAge) {
@@ -110,6 +133,15 @@ public class JobProfile {
         this.maxAge = maxAge;
     }
 
+    @Enumerated(EnumType.STRING)
+    public StateOfEducation getStateOfEducation() {
+        return stateOfEducation;
+    }
+
+    public void setStateOfEducation(StateOfEducation stateOfEducation) {
+        this.stateOfEducation = stateOfEducation;
+    }
+
     @ManyToOne
     @JoinColumn(name="company_id")
     public Company getCompany() {
@@ -129,9 +161,54 @@ public class JobProfile {
         this.job = job;
     }
 
-    public Integer save(JobProfile jobProfile){
-        // TODO -- SI HUBIESE UNA LOGICA AQUI P.E ALGUN CALCULO SERIA IMPORTANTE ESTE METODO
+    @OneToMany(mappedBy = "primaryKey.jobProfile",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    public Set<WorkExperienceProfile> getWorkExperienceProfile() {
+        return workExperienceProfile;
+    }
 
-        return this.jobProfileService.save(jobProfile); // TODO -- AQUI LLAMO AL SERVICIO QUE ES UN PROCEDIMIENTO EN LA BASE
+    public void setWorkExperienceProfile(Set<WorkExperienceProfile> workExperienceProfile) {
+        this.workExperienceProfile = workExperienceProfile;
+    }
+    @OneToMany(mappedBy = "primaryKey.jobProfile",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    public Set<AcademicExperienceProfile> getAcademicExperienceProfile() {
+        return academicExperienceProfile;
+    }
+
+    public void setAcademicExperienceProfile(Set<AcademicExperienceProfile> academicExperienceProfile) {
+        this.academicExperienceProfile = academicExperienceProfile;
+    }
+
+    @OneToMany(mappedBy = "primaryKey.jobProfile",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    public Set<JobProfileSkill> getSkills() {
+        return skills;
+    }
+
+    public void setSkills(Set<JobProfileSkill> skills) {
+        this.skills = skills;
+    }
+
+    @OneToMany(mappedBy = "primaryKey.jobProfile",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    public Set<JobProfileLanguage> getLanguages() {
+        return languages;
+    }
+    
+    public void setLanguages(Set<JobProfileLanguage> languages) {
+        this.languages = languages;
+    }
+
+    public Integer save(JobProfile jobProfile){
+        return this.jobProfileService.save(jobProfile);
+    }
+
+    public void update(JobProfile jobProfile){
+        this.jobProfileService.update(jobProfile);
     }
 }
