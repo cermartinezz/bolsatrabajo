@@ -3,13 +3,9 @@ package com.bolsaTrabajo.controller;
 
 import com.bolsaTrabajo.model.Company;
 import com.bolsaTrabajo.model.Job;
-import com.bolsaTrabajo.model.jobInfo.JobProfile;
-import com.bolsaTrabajo.service.CompanyService;
-import com.bolsaTrabajo.service.JobProfileService;
-import com.bolsaTrabajo.service.JobService;
-import com.bolsaTrabajo.service.UserService;
 import com.bolsaTrabajo.model.User;
 import com.bolsaTrabajo.model.catalog.Department;
+import com.bolsaTrabajo.model.jobInfo.JobProfile;
 import com.bolsaTrabajo.service.*;
 import com.bolsaTrabajo.util.Auth;
 import com.bolsaTrabajo.validator.CompanyValidator;
@@ -22,9 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.util.List;
-
-import javax.validation.OverridesAttribute;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -62,7 +56,9 @@ public class JobController {
         } else {
             Company company = companyService.findByUsername(Auth.auth().getName());
             List<JobProfile> profiles = jobProfileService.findAllByCompany(company);
+            List<JobProfile> profile = new ArrayList<>();
             model.addAttribute("profiles", profiles);
+            model.addAttribute("profile", profile);
             model.addAttribute("userForm", new Job());
             model.addAttribute("user", Auth.auth());
             model.addAttribute("departments_list",departments_list);

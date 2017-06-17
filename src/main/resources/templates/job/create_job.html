@@ -4,98 +4,202 @@
 <head th:include="fragmentos/head :: head" th:remove="tag">
 </head>
 <title>Puesto</title>
-<div>
-    <div class="site-wrapper" id="app">
-        <header class="header header-menu-fullw">
+<body>
+    <div>
+        <div class="site-wrapper">
+            <header class="header header-menu-fullw">
 
-            <div th:include="fragmentos/top_bar :: top_bar(${user})" th:remove="tag"></div>
+                <div th:include="fragmentos/top_bar :: top_bar(${user})" th:remove="tag"></div>
 
-            <div th:include="fragmentos/menu :: menu(${user})" th:remove="tag"></div>
+                <div th:include="fragmentos/menu :: menu(${user})" th:remove="tag"></div>
 
-        </header>
+            </header>
 
 
-        <div class="main" role="main">
+            <div class="main" role="main" id="app">
 
-            <div th:include="fragmentos/heading :: heading('Registro Puestos')"></div>
-            <section class="page-content">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-6 col-md-offset-3">
-                            <div class="box">
-                                <span th:utext="${successMessage}"></span>
-                                <form autocomplete="off"
-                                      th:action="@{/job}"
-                                      th:object="${userForm}" method="post" class="form-horizontal"
-                                      role="form">
-                                    <div class="form-group">
-                                        <label for="nombre">Nombre del puesto</label>
-                                        <label th:if="${#fields.hasErrors('nombreJ')}" th:errors="*{nombreJ}"></label>
-                                        <input type="text" th:field="*{nombreJ}" id="nombre" placeholder="Nombre del puesto" class="form-control" required/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="salario">Salario del puesto</label>
-                                        <label th:if="${#fields.hasErrors('salarioJ')}" th:errors="*{salarioJ}"></label>
-                                        <input type="number" th:field="*{salarioJ}" id="salario" min="1" placeholder="Salario del puesto" class="form-control" required/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="descripcion">Descripcion del puesto</label>
-                                        <label th:if="${#fields.hasErrors('descripcionJ')}" th:errors="*{descripcionJ}"></label>
-                                        <textarea type="text"
-                                                  th:field="*{descripcionJ}"
-                                                  id="descripcion"
-                                                  rows="3"
-                                                  cols="10" placeholder="Descripcion de puesto" class="form-control" required></textarea>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="category">Categoria</label>
-                                        <div class="field select-style">
-                                            <select name="category" id="category" class="form-control"  th:field="*{category}">
-                                                <option value="Administracion">Administración</option>
-                                                <option value="Atencion a clientes">Atención a clientes</option>
-                                                <option value="Finanzas">Finanzas</option>
-                                                <option value="Informatica">Informática</option>
-                                                <option value="Manufactura">Manufactura</option>
-                                                <option value="Medicina">Medicina</option>
-                                                <option value="Publicidad">Publicidad</option>
-                                                <option value="Turismo">Turismo</option>
-                                                <option value="Ventas">Ventas</option>
-                                            </select>
+                <div th:include="fragmentos/heading :: heading('Registro Puestos')"></div>
+                <section class="page-content">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="box">
+                                    <span th:utext="${successMessage}"></span>
+                                    <form autocomplete="off"
+                                          th:action="@{/job}"
+                                          th:object="${userForm}" method="post" class="form-horizontal"
+                                          role="form">
+                                        <div class="form-group">
+                                            <label for="nombre">Nombre del puesto</label>
+                                            <label th:if="${#fields.hasErrors('nombreJ')}" th:errors="*{nombreJ}"></label>
+                                            <input type="text" th:field="*{nombreJ}" id="nombre" placeholder="Nombre del puesto" class="form-control" required/>
                                         </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="department">Departamento</label>
-                                        <div class="field select-style">
-                                            <select name="department" id="department" class="form-control"  th:field="*{department}">
-                                                <option th:each="department : ${departments_list}"
-                                                        th:value="${department.id}"
-                                                        th:text="${department.nombre}"></option>
-
-                                            </select>
+                                        <div class="form-group">
+                                            <label for="salario">Salario del puesto</label>
+                                            <label th:if="${#fields.hasErrors('salarioJ')}" th:errors="*{salarioJ}"></label>
+                                            <input type="number" th:field="*{salarioJ}" id="salario" min="1" placeholder="Salario del puesto" class="form-control" required/>
                                         </div>
-                                    </div>
+                                        <div class="form-group">
+                                            <label for="descripcion">Descripcion del puesto</label>
+                                            <label th:if="${#fields.hasErrors('descripcionJ')}" th:errors="*{descripcionJ}"></label>
+                                            <textarea type="text"
+                                                      th:field="*{descripcionJ}"
+                                                      id="descripcion"
+                                                      rows="3"
+                                                      cols="10" placeholder="Descripcion de puesto" class="form-control" required></textarea>
+                                        </div>
 
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-primary btn-block">Registrar Puesto</button>
-                                    </div>
+                                        <div class="form-group" th:object="${profile}" >
+                                            <label for="profile"> Seleccione un perfil*</label>
 
-                                </form>
+                                            <select @change="obtenerPerfil" class="form-control" id="profile"
+                                                    v-model.number="profile" type="number" name="profile" required>
 
+                                                <option value="">Seleccione Un perfil</option>
+
+                                                <option th:each="profile : ${profiles}"
+                                                        th:value="${profile.id}"
+                                                        th:text="${profile.name}"></option>
+                                            </select>
+
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="category">Categoria</label>
+                                            <div class="field select-style">
+                                                <select name="category" id="category" class="form-control"  th:field="*{category}">
+                                                    <option value="Administracion">Administración</option>
+                                                    <option value="Atencion a clientes">Atención a clientes</option>
+                                                    <option value="Finanzas">Finanzas</option>
+                                                    <option value="Informatica">Informática</option>
+                                                    <option value="Manufactura">Manufactura</option>
+                                                    <option value="Medicina">Medicina</option>
+                                                    <option value="Publicidad">Publicidad</option>
+                                                    <option value="Turismo">Turismo</option>
+                                                    <option value="Ventas">Ventas</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="department">Departamento</label>
+                                            <div class="field select-style">
+                                                <select name="department" id="department" class="form-control"  th:field="*{department}">
+                                                    <option th:each="department : ${departments_list}"
+                                                            th:value="${department.id}"
+                                                            th:text="${department.nombre}"></option>
+
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-primary btn-block">Registrar Puesto</button>
+                                        </div>
+
+                                    </form>
+
+                                </div>
                             </div>
+                            <div class="col-md-6">
+                                <div class="box">
+                                    <div v-if='!profileInfo == "" '>
+                                        <h3 class="center">Datos del perfil</h3>
+                                        <div>
+                                            <h5>Informacion general</h5>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <p><strong>Nombre: </strong>{{profileInfo.name}}</p>
+                                                    <p><strong>Descripcion: </strong>{{profileInfo.description}}</p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p><strong>Edad minima: </strong>{{profileInfo.minAge}}</p>
+                                                    <p><strong>Edad Maxima: </strong>{{profileInfo.maxAge}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
 
+                                        <div>
+                                            <h5>Informacion Academica</h5>
+                                            <div class="row">
+                                                <ul class="group-list">
+                                                    <li class="group-list-item" v-for="academica in profileInfo.academicExperienceProfile">
 
-            </section>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <h5>Informacion Laboral</h5>
+                                            <div class="row">
+                                                <ul class="group-list">
+                                                    <li class="group-list-item" v-for="laboral in profileInfo.workExperienceProfile">
+
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <h5>Informacion de habilidades</h5>
+                                            <div class="row">
+                                                <ul class="group-list">
+                                                    <li class="group-list-item" v-for="skill in profileInfo.skills">
+
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <h5>Informacion de idiomas</h5>
+                                            <div class="row">
+                                                <ul class="group-list">
+                                                    <li class="group-list-item" v-for="languages in profileInfo.languages">
+
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div v-if='profileInfo == "" '>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
 
         </div>
 
+        <div th:include="fragmentos/footer :: footer"></div>
     </div>
-    </section>
 
-    <div th:include="fragmentos/footer :: footer"></div>
-</div>
-</div>
-<div th:include="fragmentos/scripts :: scripts" ></div>
-</body>
+    <div th:include="fragmentos/scripts :: scripts" ></div>
+    <script th:inline="javascript">let profiles = [[${profiles}]];</script>
+    <script th:inline="javascript">let username = [[${user.getName()}]];</script>
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                username: username,
+                profile: "",
+                profiles: profiles,
+                profileInfo: "",
+            },
+            methods: {
+                obtenerPerfil(){
+                    axios.get("/empresa/"+this.username+"/perfiles/"+this.profile)
+                        .then(response => {
+                            this.profileInfo = response.data;
+                        })
+                }
+            }
+        })
+    </script>
+    </body>
 </html>
