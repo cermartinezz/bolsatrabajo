@@ -5,7 +5,7 @@
 <title>Lista de Aspirantes</title>
 <body>
 <div>
-    <div class="site-wrapper" id="app">
+    <div class="site-wrapper" >
         <header class="header header-menu-fullw">
 
             <div th:include="fragmentos/top_bar :: top_bar(${user})" th:remove="tag"></div>
@@ -15,63 +15,54 @@
         </header>
 
 
-        <div class="main" role="main">
+        <div class="main" role="main" id="app">
 
             <div th:include="fragmentos/heading :: heading('Lista de Aspirantes')"></div>
             <section class="page-content">
                 <div class="container">
 
-
-                    <div class="title-bordered">
-                        <h2>Featured Services<small>The most popular services</small></h2>
-                    </div>
-
+                    <div class="spacer-lg"></div>
                     <div class="row">
                         <div class="col-sm-4 col-md-4">
                             <div class="service-box">
-                                <figure class="service-img">
-                                    <img src="images/samples/service1.jpg" alt="">
-                                </figure>
                                 <div class="service-body">
                                     <div class="service-icon">
-                                        <i class="fa fa-paint-brush fa-3x"></i>
+                                        <i class="fa fa-user fa-3x"></i>
                                     </div>
-                                    <h4 class="service-title">Painting</h4>
-                                    <p>We've painted thousands of living rooms, kitchens and everything in between.</p>
+                                    <h4>Aspirante1</h4>
+                                    <p>asdfasdf</p>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-4 col-md-4">
                             <div class="service-box">
-                                <figure class="service-img">
-                                    <img src="images/samples/service2.jpg" alt="">
-                                </figure>
+
                                 <div class="service-body">
                                     <div class="service-icon">
-                                        <i class="fa fa-bolt fa-3x"></i>
+                                        <i class="fa fa-user fa-3x"></i>
                                     </div>
-                                    <h4 class="service-title">Electrical</h4>
+                                    <h4 >Aspirante2</h4>
                                     <p>Providing a first class reliable service in all fields of electrical.</p>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-4 col-md-4">
                             <div class="service-box">
-                                <figure class="service-img">
-                                    <img src="images/samples/service3.jpg" alt="">
-                                </figure>
+
                                 <div class="service-body">
                                     <div class="service-icon">
-                                        <i class="fa fa-wrench fa-3x"></i>
+                                        <i class="fa fa-user fa-3x"></i>
                                     </div>
-                                    <h4 class="service-title">Carpentry</h4>
-                                    <p>Carpenters maintain and repair interior and exterior wood components.</p>
+                                    <h4 >Aspirante 3</h4>
+                                    <p>Carpenters </p>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                 </div>
+                <div class="spacer-lg"></div>
+
             </section>
         </div>
 
@@ -80,7 +71,10 @@
 
     <div th:include="fragmentos/footer :: footer"></div>
 </div>
-// TODO: MOSTRAR MENSAJE SWEET ALERT
 <div th:include="fragmentos/scripts :: scripts" ></div>
+<script th:inline="javascript">let user = [[${user}]];</script>
+<script th:inline="javascript">let job = [[${job}]];</script>
+
+<script th:src="@{/assets/js/puesto/perfil/show_aspirantes.js}"></script>
 </body>
 </html>

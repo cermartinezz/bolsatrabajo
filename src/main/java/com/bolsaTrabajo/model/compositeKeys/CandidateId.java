@@ -36,7 +36,6 @@ public class CandidateId implements Serializable{
     }
 
     @ManyToOne
-    @JsonIgnore
     public Job getJob() {
         return job;
     }

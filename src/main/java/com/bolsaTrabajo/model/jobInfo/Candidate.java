@@ -8,6 +8,7 @@ import com.bolsaTrabajo.service.JobService;
 import com.bolsaTrabajo.service.PostulantService;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,6 +73,7 @@ public class Candidate implements Serializable{
     }
 
     @Transient
+    @JsonManagedReference
     public Job getJob(){
         return getPrimaryKey().getJob();
     }

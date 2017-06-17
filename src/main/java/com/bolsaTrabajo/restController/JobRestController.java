@@ -3,6 +3,7 @@ package com.bolsaTrabajo.restController;
 import com.bolsaTrabajo.model.Company;
 import com.bolsaTrabajo.model.Job;
 import com.bolsaTrabajo.model.catalog.Department;
+import com.bolsaTrabajo.model.jobInfo.Candidate;
 import com.bolsaTrabajo.service.CompanyService;
 import com.bolsaTrabajo.service.DepartmentService;
 import com.bolsaTrabajo.service.JobService;
@@ -128,6 +129,21 @@ public class JobRestController {
     @GetMapping(value="/{id}/ver")
     public ResponseEntity show(@PathVariable Long id){
         Job job = jobService.findById(id);
+
+        if(job == null){
+            headers.set("message","No se encontraron registros");
+
+            return new ResponseEntity(headers, HttpStatus.NOT_FOUND);
+        }
+        headers.set("message","Registros Encontrados");
+
+        return new ResponseEntity(job,headers,HttpStatus.OK);
+    }
+
+    @GetMapping(value="/{id}/candidates")
+    public ResponseEntity showCandidates(@PathVariable Long id){
+        Job job = jobService.findById(id);
+
 
         if(job == null){
             headers.set("message","No se encontraron registros");

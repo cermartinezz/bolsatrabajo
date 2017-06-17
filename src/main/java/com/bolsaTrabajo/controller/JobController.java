@@ -110,7 +110,8 @@ public class JobController {
         model.addAttribute("user", Auth.auth());
         Job job = jobService.findById(id);
         job.getCandidates();
-        model.addAttribute("job_candidates",job);
+        
+        model.addAttribute("job",job);
         return "job/lista_aspirantes";
     }
 
