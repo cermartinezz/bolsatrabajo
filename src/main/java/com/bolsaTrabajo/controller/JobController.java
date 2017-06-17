@@ -105,6 +105,15 @@ public class JobController {
         return "job/show_job";
     }
 
+    @RequestMapping(value = "/puesto/{id}/aspirantes",method = RequestMethod.GET)
+    public String showAspirants(@PathVariable Long id, Model model){
+        model.addAttribute("user", Auth.auth());
+        Job job = jobService.findById(id);
+        job.getCandidates();
+        model.addAttribute("job_candidates",job);
+        return "job/lista_aspirantes";
+    }
+
 }
 
 

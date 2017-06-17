@@ -40,9 +40,10 @@
                                     <td th:text="${j.nombreJ}"></td>
                                     <td th:text="${j.SalarioJ}"></td>
                                     <td th:text="${j.category}"></td>
+                                    <td th:text="${j.numAspirante}"></td>
                                     <td >
                                         <a th:href="@{'/empresa/'+${user.getName()}+'/perfiles' }" class="btn btn-sm btn-info">Perfil</a>
-                                        <a th:href="@{'/empresa/'+${user.getName()}+'/perfiles' }" class="btn btn-sm btn-success">Ver Aspirantes</a>
+                                        <a th:href="@{'/puesto/'+${j.id}+'/aspirantes' }" class="btn btn-sm btn-success">Ver Aspirantes</a>
 
                                         <form th:action="@{'/job/' + ${j.id}}"
                                               th:method="DELETE" class="btn">
