@@ -5,7 +5,7 @@
     <title>Experiencia Laboral</title>
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
 <body>
-<div class="site-wrapper" id="app">
+<div class="site-wrapper">
     <header class="header header-menu-fullw">
 
         <div th:include="fragmentos/top_bar :: top_bar(${user})" th:remove="tag"></div>
@@ -14,7 +14,7 @@
 
     </header>
 
-    <div class="main" role="main">
+    <div class="main" role="main" id="app">
 
         <div th:include="fragmentos/heading :: heading('Agrega tu Experiencia Laboral')"></div>
 
@@ -24,7 +24,7 @@
 
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
-                        <form method="post" th:object="${workExp}" th:action="@{/api/postulant/workExp}" class="job-manager-form">
+                        <form method="post" th:object="${workExp}" th:action="@{/api/postulant/ExpLabo}" class="job-manager-form">
 
                             <!-- Book Information Fields -->
                             <label for="empresas">Empresa</label>
@@ -54,7 +54,7 @@
 
                             <div class="field input-style">
                                 <label> Finalización de labores*</label>
-                       <!--         <input type="date" th:field="*{fin}" name="fin" class="form-control" required />-->
+                                <input type="date" th:field="*{fin}" name="fin" class="form-control" required />
                             </div>
 
                             <div class="spacer"></div>

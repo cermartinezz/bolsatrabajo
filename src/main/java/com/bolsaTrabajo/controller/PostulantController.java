@@ -70,7 +70,6 @@ public class PostulantController {
             this.postulant = postulantService.findByUsername(username);
 
             model.addAttribute("postulantInfo", this.postulant);
-            model.addAttribute("weID", new WorkExperienceID());
             return "Postulante/profile";
         }
         return "redirect:/";
@@ -135,7 +134,7 @@ public class PostulantController {
         return "Postulante/certificaciones/editar";
     }
 
-    @RequestMapping("/workExp/agregar")
+    @RequestMapping("/ExpLabo/agregar")
     public String workExperienceStore(Model model){
         model.addAttribute("user", Auth.auth());
         model.addAttribute("companies",companyCatService.getAllCompanies());
@@ -144,7 +143,7 @@ public class PostulantController {
         return "Postulante/exp_labo/create_workExp";
     }
 
-    @RequestMapping(value = "/workExp/editar", method = RequestMethod.POST)
+    @RequestMapping(value = "/ExpLabo/editar", method = RequestMethod.POST)
     public String workExperienceEdit(Model model, @RequestParam("inicio") String inicio, @RequestParam("company") long company,
                                      @RequestParam("job") long job){
         WorkExperienceID id = new WorkExperienceID();
@@ -160,7 +159,7 @@ public class PostulantController {
         return "Postulante/exp_labo/edit_workExp";
     }
 
-    @RequestMapping("/acadExp/agregar")
+    @RequestMapping("/ExpAcad/agregar")
     public String academicExperience(Model model){
         model.addAttribute("user", Auth.auth());
         model.addAttribute("institutions",institutionService.getInstitutionsByType(InstitutionType.Academica));
@@ -170,7 +169,7 @@ public class PostulantController {
     }
 
     //editar para experiencia academica
-    @RequestMapping(value = "/acadExp/editar", method = RequestMethod.POST)
+    @RequestMapping(value = "/ExpAcad/editar", method = RequestMethod.POST)
     public String acadExperienceEdit(Model model, @RequestParam("titulo") int titulo,
                                      @RequestParam("institucion") int institucion){
         AcademicExperienceID id = new AcademicExperienceID();

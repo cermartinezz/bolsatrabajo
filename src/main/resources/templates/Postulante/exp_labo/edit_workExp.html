@@ -5,7 +5,7 @@
     <title>Experiencia Laboral</title>
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
 <body>
-<div class="site-wrapper" id="app">
+<div class="site-wrapper">
     <header class="header header-menu-fullw">
 
         <div th:include="fragmentos/top_bar :: top_bar(${user})" th:remove="tag"></div>
@@ -14,7 +14,7 @@
 
     </header>
 
-    <div class="main" role="main">
+    <div class="main" role="main" id="app">
 
         <div th:include="fragmentos/heading :: heading('Edita tu Experiencia Laboral')"></div>
 
@@ -24,7 +24,7 @@
 
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
-                        <form method="post" th:object="${workExp}" th:action="@{/api/postulant/workExp}" class="job-manager-form">
+                        <form method="post" th:object="${workExp}" th:action="@{/api/postulant/ExpLabo/actualizar}" class="job-manager-form">
 
                             <!-- Book Information Fields -->
                             <label for="empresas">Empresa</label>
@@ -33,7 +33,7 @@
                                     <option th:each="com : ${companies}" th:value="${com.id}" th:text="${com.companyName}"
                                             th:selected="${com.companyName == workExp.getCompanyCat().getCompanyName()}"></option>
                                 </select>
-                                <input type="hidden" name="empresa" th:value="${workExp.getCompanyCat().getCompanyName()}">
+                                <input type="hidden" name="empresa" th:value="${workExp.getCompanyCat().getId()}">
                             </div>
 
                             <div class="spacer"></div>
@@ -44,14 +44,14 @@
                                     <option th:each="job : ${jobs}" th:value="${job.id}" th:text="${job.puesto}"
                                             th:selected="${job.puesto == workExp.getJobCat().getPuesto()}"></option>
                                 </select>
-                                <input type="hidden" name="job" th:value="${workExp.getJobCat().getPuesto()}">
+                                <input type="hidden" name="job" th:value="${workExp.getJobCat().getId()}">
                             </div>
 
                             <div class="spacer"></div>
 
                             <div class="field input-style">
                                 <label> Inicio de labores*</label>
-                                <input type="date" name="inicio" class="form-control" th:field="*{inicio}" th:value="${workExp.getInicio()}" required />
+                                <input type="date" name="inicio" class="form-control" th:value="${workExp.getInicio()}" required />
                                 <input type="hidden" name="begin" th:value="${workExp.getInicio()}"/>
                             </div>
 
@@ -59,7 +59,7 @@
 
                             <div class="field input-style">
                                 <label> Finalización de labores*</label>
-                                <input type="date" th:field="*{fin}" name="fin" class="form-control" th:value="${workExp.getFin()}"required />
+                                <input type="date" th:field="*{fin}" name="fin" class="form-control" th:value="${workExp.getFin()}" required/>
                             </div>
 
                             <div class="spacer"></div>

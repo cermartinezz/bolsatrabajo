@@ -24,7 +24,7 @@ public class AcademicTitleCatRestController {
         AcademicTitleCat academicTitleCat1 = academicTitleCatService.getTitle(academicTitleCat.getTitulo());
         if (academicTitleCat1 != null){
             attributes.addFlashAttribute("message","Titulo "+ academicTitleCat1.getTitulo()+" ya existe");
-            return new RedirectView("/cat/tituos/crear");
+            return new RedirectView("/cat/titulos/crear");
         }
 
         academicTitleCatService.saveTitle(academicTitleCat);
