@@ -39,18 +39,20 @@
                     <div class="content col-md-12">
 
                         <div class="box mb-30">
-                            <a class="job-profile-info">
+                           <div class="job-profile-info">
                                 <div class="box">
                                     <div class="center">
                                         <div class="center_heigth">
                                             <H1 id="info-header">Informacion general</H1>
                                         </div>
-                                        <div class="icon-box ">
+                                    </div>
+                                        <div th:if="${usr.hasRole('POSTULANTE')}" class="center">
+                                        <div class="icon-box" >
                                             <a th:href="@{'/postulante/' + ${username} + '/editar'}" class="btn btn-sm btn-info">
                                                 Editar
                                             </a>
                                         </div>
-                                    </div>
+                                        </div>
                                     </br>
                                     <div class="info">
                                         <div class="row">
@@ -125,7 +127,7 @@
                                             <h4>Certificaciones</h4>
                                         </div>
 
-                                        <div class="col-md-3">
+                                        <div class="col-md-3" th:if="${usr.hasRole('POSTULANTE')}">
                                             <a th:href="@{'/postulante/' + ${username} + '/certificaciones/agregar'}" class="btn btn-sm btn-success">Agregar</a>
                                         </div>
                                     </div>
@@ -138,7 +140,7 @@
                                                         <th>Institucion</th>
                                                         <th>Codigo</th>
                                                         <th>Fecha de expiracion</th>
-                                                        <th>Acciones</th>
+                                                        <th th:if="${usr.hasRole('POSTULANTE')}">Acciones</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -147,7 +149,8 @@
                                                         <td>{{ certification.primaryKey.certification.institution.institutionName }}</td>
                                                         <td>{{ certification.code }}</td>
                                                         <td>{{ dateName(certification.expirationDate) }}</td>
-                                                        <td>
+
+                                                        <td th:if="${usr.hasRole('POSTULANTE')}">
                                                             <button class="btn btn-info" @click="redirectCertificaciones(certification)">Editar</button>
                                                             <button class="btn btn-danger"
                                                                     @click="deleteCertificacion(index,certification)">Eliminar</button>
@@ -157,7 +160,8 @@
                                             </table>
                                         </div>
                                         <div v-if="certifications.length == 0" class="center_block">
-                                            <p><strong>NO HAY REGISTROS, DEBERIAS INGRESAR ALGUNAS CERTIFICACIONES</strong></p>
+                                            <p th:if="${usr.hasRole('POSTULANTE')}"><strong>NO HAY REGISTROS, DEBERIAS INGRESAR ALGUNAS CERTIFICACIONES</strong></p>
+                                            <p th:if="${usr.hasRole('EMPRESA')}"><strong>ESTE ASPIRANTE NO HA PUBLICADO NINGÚN LIBRO</strong></p>
                                         </div>
                                     </li>
 
@@ -172,7 +176,7 @@
                                         </div>
 
                                         <div class="col-md-3">
-                                            <div class="col-md-3">
+                                            <div class="col-md-3" th:if="${usr.hasRole('POSTULANTE')}">
                                                 <a th:href="@{'/postulante/' + ${username} + '/idiomas/agregar'}" class="btn btn-sm btn-success">Agregar</a>
                                             </div>
                                         </div>
@@ -184,14 +188,14 @@
                                                 <tr>
                                                     <th>Idioma</th>
                                                     <th>Nivel</th>
-                                                    <th>Acciones</th>
+                                                    <th th:if="${usr.hasRole('POSTULANTE')}">Acciones</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
                                                 <tr v-for="(language, index) in postulantLanguages">
                                                     <td>{{ language.primaryKey.language.nombre }}</td>
                                                     <td>{{language.languageLevel}}: {{cambiarDescripcion(language.languageLevel)}}</td>
-                                                    <td class="center_block">
+                                                    <td class="center_block" th:if="${usr.hasRole('POSTULANTE')}">
                                                         <button class="btn btn-danger" @click="deleteLanguage(index, language)">Eliminar</button>
                                                     </td>
                                                 </tr>
@@ -199,7 +203,9 @@
                                             </table>
                                         </div>
                                         <div v-if="postulantLanguages.length == 0" class="center_block">
-                                            <p><strong>NO HAY REGISTROS, DEBERIAS INGRESAR ALGUN IDIOMA</strong></p>
+                                            <p th:if="${usr.hasRole('POSTULANTE')}"><strong>NO HAY REGISTROS, DEBERIAS INGRESAR ALGUN IDIOMA</strong></p>
+                                            <p th:if="${usr.hasRole('EMPRESA')}"><strong>ESTE ASPIRANTE NO HA AGREGADO NINGÚN IDIOMA</strong></p>
+
                                         </div>
 
                                     </li>
@@ -213,7 +219,7 @@
                                         </div>
 
                                         <div class="col-md-3">
-                                            <div class="col-md-3">
+                                            <div class="col-md-3" th:if="${usr.hasRole('POSTULANTE')}">
                                                 <a th:href="@{'/postulante/' + ${username} + '/publicaciones/agregar'}" class="btn btn-sm btn-success">Agregar</a>
                                             </div>
                                         </div>
@@ -232,7 +238,7 @@
                                                 <tr v-for="(publication, index) in postulantPublications">
                                                     <td>{{ publication.primaryKey.publication.titulo }}</td>
                                                     <td>{{ publication.publicationDate }}</td>
-                                                    <td class="center_block">
+                                                    <td class="center_block" th:if="${usr.hasRole('POSTULANTE')}">
                                                         <button class="btn btn-danger" @click="deletePublication(index,publication)">Eliminar</button>
                                                     </td>
                                                 </tr>
@@ -240,7 +246,8 @@
                                             </table>
                                         </div>
                                         <div v-if="postulantPublications.length == 0" class="center_block">
-                                            <p><strong>NO HAY REGISTROS, DEBERIAS INGRESAR ALGUN LIBRO O PUBLICACION</strong></p>
+                                            <p th:if="${usr.hasRole('POSTULANTE')}"><strong>NO HAY REGISTROS, DEBERIAS INGRESAR ALGUN LIBRO O PUBLICACION</strong></p>
+                                            <p th:if="${usr.hasRole('EMPRESA')}"><strong>ESTE ASPIRANTE NO HA PUBLICADO NINGÚN LIBRO</strong></p>
                                         </div>
                                     </li>
                                 </ul>
@@ -289,7 +296,7 @@
                                             <h4>Recomendaciones</h4>
                                         </div>
 
-                                        <div class="col-md-3">
+                                        <div class="col-md-3" th:if="${usr.hasRole('POSTULANTE')}">
                                             <a  th:href="@{'/postulante/'+ ${username} + '/recomendaciones/crear'}"
                                                 class="btn btn-sm btn-success">Agregar</a>
                                         </div>
@@ -308,14 +315,15 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-4 action-box">
+                                                <div class="col-md-4 action-box" th:if="${usr.hasRole('POSTULANTE')}">
                                                     <button  class="btn btn-info" @click="redirectRecomendaciones(recomendation.id)">editar</button>
                                                     <button class="btn btn-danger" @click="deleteRecomendation(index,recomendation.id)">Eliminar</button>
                                                 </div>
                                             </div>
                                         </div>
                                         <div v-if="recommendations.length == 0" class="center_block">
-                                            <p><strong>NO HAY REGISTROS, DEBERIAS INGRESAR ALGUNAS RECOMENDACIONES</strong></p>
+                                            <p th:if="${usr.hasRole('POSTULANTE')}"><strong>NO HAY REGISTROS, DEBERIAS INGRESAR ALGUNAS RECOMENDACIONES</strong></p>
+                                            <p th:if="${usr.hasRole('EMPRESA')}"><strong>ESTE ASPIRANTE NO HA AGREGADO RECOMENDACIONES PERSONALES</strong></p>
                                         </div>
                                     </li>
                                 </ul>
@@ -332,9 +340,9 @@
                                             <h4>Logros, Premios, Etc.</h4>
                                         </div>
 
-                                        <div class="col-md-3">
+                                        <div class="col-md-3" th:if="${usr.hasRole('POSTULANTE')}">
                                             <a href="#logros-premios-etc" class="btn btn-sm btn-info" onclick="if(document.getElementById('logros-spoiler') .style.display=='none') {document.getElementById('logros-spoiler') .style.display=''}else{document.getElementById('logros-spoiler') .style.display='none'}">Ver detalle</a>
-                                            <a href="/logros/crear" class="btn btn-sm btn-success">Agregar</a>
+                                            <a href="/logros/crear" class="btn btn-sm btn-success" >Agregar</a>
                                         </div>
 
                                     </div>
@@ -391,7 +399,7 @@
                                             <h4>Habilidades</h4>
                                         </div>
 
-                                        <div class="col-md-3">
+                                        <div class="col-md-3" th:if="${usr.hasRole('POSTULANTE')}">
                                             <a th:href="@{'/postulante/' + ${username} + '/habilidades/crear'}" class="btn btn-sm btn-success">Agregar</a>
                                         </div>
                                     </div>
@@ -402,14 +410,14 @@
                                                 <tr>
                                                     <th>Habilidades</th>
                                                     <th>Categoria</th>
-                                                    <th>Acciones</th>
+                                                    <th th:if="${usr.hasRole('POSTULANTE')}">Acciones</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
                                                 <tr v-for="(skill, index) in skills">
                                                     <td>{{ skill.primaryKey.skill.titulo }}</td>
                                                     <td>{{ skill.primaryKey.skill.skillCategory.titulo }}</td>
-                                                    <td class="center_block">
+                                                    <td class="center_block" th:if="${usr.hasRole('POSTULANTE')}">
                                                         <button class="btn btn-danger"
                                                                 @click="deleteSkill(index,skill)">Eliminar</button>
                                                     </td>
@@ -418,15 +426,18 @@
                                             </table>
                                         </div>
                                         <div v-if="skills.length == 0" class="center_block">
-                                            <p><strong>NO HAY REGISTROS, DEBERIAS INGRESAR ALGUNAS HABILIDADES</strong></p>
+                                            <p th:if="${usr.hasRole('POSTULANTE')}"><strong>NO HAY REGISTROS, DEBERIAS INGRESAR ALGUNAS HABILIDADES</strong></p>
+                                            <p th:if="${usr.hasRole('EMPRESA')}"><strong>NO HAY REGISTROS, DEBERIAS INGRESAR ALGUNAS HABILIDADES</strong></p>
                                         </div>
                                     </li>
 
                                 </ul>
 
 
-                        </div>
-
+                            </div>
+                            <div class="center" th:if="${usr.hasRole('EMPRESA')}">
+                                <a @click="redirectBack" class="btn btn-primary">Regresar a lista aspirantes</a>
+                            </div>
                         </div>
 
                     </div>

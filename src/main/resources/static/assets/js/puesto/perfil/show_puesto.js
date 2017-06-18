@@ -13,6 +13,13 @@ new Vue({
         category: "",
         company: "",
         department: "",
+        idiomas: [],
+        estadoEducacion: "",
+        expAcademica: [],
+        edadMin: "",
+        edadMax: "",
+        expLaboral: [],
+        habilidades: [],
         userPostulant: userPostulant,
     },
     methods:{
@@ -39,6 +46,13 @@ new Vue({
                 this.category = response.data.category;
                 this.company = response.data.company.nombreC;
                 this.department = response.data.department.nombre;
+                this.idiomas = response.data.jobProfile.languages;
+                this.expAcademica = response.data.jobProfile.academicExperienceProfile;
+                this.estadoEducacion = response.data.jobProfile.stateOfEducation;
+                this.expLaboral = response.data.jobProfile.workExperienceProfile;
+                this.edadMin = response.data.jobProfile.minAge;
+                this.edadMax = response.data.jobProfile.maxAge;
+                this.habilidades = response.data.jobProfile.skills;
             })
     }
 })

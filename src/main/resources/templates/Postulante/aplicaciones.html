@@ -37,38 +37,38 @@
             <div class="container">
 
                 <div class="job_listings">
-                    <ul class="job_listings" v-for="puesto in job_list">
+                    <ul class="job_listings" v-for="puesto in jobs">
                         <li class="job_listing">
                             <a href="#">
                                 <div class="position">
-                                    <h3>{{puesto.job.nombreJ}}</h3>
+                                    <h3>{{puesto.nombreJ}}</h3>
                                     <div class="company">
-                                        <strong>{{puesto.job.company.nombreC}}</strong>
+                                        <strong>{{puesto.company.nombreC}}</strong>
                                     </div>
                                 </div>
                                 <div class="location">
                                     <i class="fa fa-location-arrow"></i>
-                                    {{puesto.job.department.nombre}}
+                                    {{puesto.department.nombre}}
                                 </div>
                                 <div class="rating">
                                     <div class="reviews-num">
                                         <i class="fa fa-dollar"></i>
-                                        {{puesto.job.salarioJ}}
+                                        {{puesto.salarioJ}}
                                     </div>
                                 </div>
                                 <ul class="meta">
                                     <li class="job-type">
-                                        {{puesto.job.category}}
+                                        {{puesto.category}}
                                     </li>
                                     <li class="date">
-                                        {{puesto.job.descripcionJ}}
+                                        {{puesto.descripcionJ}}
                                     </li>
                                 </ul>
                             </a>
 
                     </ul>
 
-                    <div v-if="job_list.length == 0" class="call-to-action centered">
+                    <div v-if="jobs.length == 0" class="call-to-action centered">
                         <div class="spacer"></div>
                         <div class="cta-txt">
                             <h2>No has aplicado a ningún puesto todavía</h2>

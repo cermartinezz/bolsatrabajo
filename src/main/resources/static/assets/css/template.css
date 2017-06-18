@@ -5314,6 +5314,7 @@ label.error {
 .call-to-action .cta-txt {
   display: block;
   margin-bottom: 20px;
+    color: #6d6d6d;
 }
 @media (min-width: 992px) {
   .call-to-action .cta-txt {
@@ -5338,6 +5339,15 @@ label.error {
     width: 30%;
   }
 }
+@media (min-width: 992px) {
+    .call-to-action .cta-btn-candidato{
+        display: table-cell;
+        padding-left: 200px;
+        text-align: right;
+        width: 30%;
+    }
+}
+
 .call-to-action h2 {
   text-transform: none;
   margin-bottom: .25em;

@@ -31,7 +31,7 @@
                         </br>
                         <div class="box">
                             <ul class="group-list" v-if="!mostrarFormulario">
-                                <li class="group-list-item"><strong>Nombre: </strong>{{jobProfile.name}}</li>
+                                <li class="group-list-item" style="text-transform: capitalize"><strong>Nombre: </strong>{{jobProfile.name}}</li>
                                 <li class="group-list-item"><strong>Descripcion: </strong>{{jobProfile.description}}</li>
                                 <li class="group-list-item"><strong>Edad Minima: </strong>{{jobProfile.minAge}}</li>
                                 <li class="group-list-item"><strong>Edad Maxima: </strong>{{jobProfile.maxAge}}</li>
@@ -203,7 +203,7 @@
                                     <div v-if="this.academicExperience.length != 0" class="box box-no-border center ">
                                         <ul class="list-group full-width">
                                             <li class="list-group-item" v-for="experience in academicExperience">
-                                                <span><strong>Titulo: </strong>{{experience.academicTitle.titulo}}</span>
+                                                <span style="text-transform: capitalize;"><strong>Titulo: </strong>{{experience.academicTitle.titulo}}</span>
                                             </li>
                                         </ul>
                                     </div>
@@ -222,9 +222,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <form @submit.prevent="agregarHabilidades">
-                                        <div class="form-group">
-                                            <label> Categorias</label>
-                                            
+
                                             <div class="form-group">
                                                 <label for="skillCategory"> Seleccione la categoria de la habilidad</label>
 
@@ -272,19 +270,19 @@
 
                                             <div>
                                                 <input type="checkbox" id="mostrarHablidad" v-model="mostrarHablidad">
-                                                <label for="mostrarHablidad">Agregar Titulo academico</label>
+                                                <label for="mostrarHablidad">Agregar Habilidad</label>
                                             </div>
                                             <div class="form-group">
                                                 <button type="submit" class="btn btn-success">Agregar</button>
                                             </div>
-                                        </div>
+
                                     </form>
                                 </div>
                                 <div class="col-md-6">
                                     <div v-if="this.jobProfileSkills.length != 0" class="box box-no-border center ">
                                         <ul class="list-group full-width">
                                             <li class="list-group-item" v-for="skilss in jobProfileSkills">
-                                                <span><strong>Titulo de habilidad: </strong>{{skilss.skill.titulo}}</span>
+                                                <span style="text-transform: capitalize"><strong>Titulo de habilidad: </strong>{{skilss.skill.titulo}}</span>
                                             </li>
                                         </ul>
                                     </div>

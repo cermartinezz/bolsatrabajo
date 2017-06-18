@@ -54,17 +54,13 @@ public class RegistrarController {
 
     @ModelAttribute("usr")
     public User globalUser(Model model) {
-        User u = userService.findByUsername(Auth.auth().getName());
-        if(u == null){
-            u = new User();
+            User u = new User();
             Set<Role> roles = new HashSet<>();
             Role role = new Role();
             role.setName("INVITADO");
             roles.add(role);
             u.setRoles(roles);
             return u;
-        }
-        return u;
     }
 
     @RequestMapping(value = "/registrar/postulante", method = RequestMethod.GET)

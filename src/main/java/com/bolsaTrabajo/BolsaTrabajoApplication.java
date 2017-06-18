@@ -69,6 +69,10 @@ public class BolsaTrabajoApplication implements CommandLineRunner {
 			insertDepartments();
 		}
 
+		if(skillCategoryService.count() <= 0){
+			insertSkills();
+		}
+
 		//Permisos, roles y usuario inicial en la aplicacion
 
 		UserService userService;
@@ -119,6 +123,10 @@ public class BolsaTrabajoApplication implements CommandLineRunner {
 			createUserIfNotFound("administrador");
         }
 
+
+	}
+
+	private void insertSkills() {
 		SkillCategory category1 = new SkillCategory(
 				"Locomotrices", "HLOC"
 		);
@@ -135,13 +143,13 @@ public class BolsaTrabajoApplication implements CommandLineRunner {
 				"Gerenciales", "HGER"
 		);
 		SkillCategory category5 = new SkillCategory(
-				"Linguisticas", "HLIN"
+				"Tecnicas", "HTEC"
 		);
-		Skill skill = new Skill("Nose 1", "nose1", category1);
-		Skill skill2 = new Skill("Nose 2", "nose2", category2);
-		Skill skill3 = new Skill("Nose 3", "nose3", category3);
-		Skill skill4 = new Skill("Nose 4", "nose4", category4);
-		Skill skill5 = new Skill("Nose algo", "nose_2", category1);
+		Skill skill = new Skill("Facilidad de Aprendizaje", "nose1", category2);
+		Skill skill2 = new Skill("Administración de Tiempo", "nose2", category4);
+		Skill skill3 = new Skill("Trabajo en equipo", "nose3", category3);
+		Skill skill4 = new Skill("Proactivo", "nose4", category2);
+		Skill skill5 = new Skill("Conocimientos de office avanzado", "nose_2", category5);
 
 		if (skillCategoryService.count() <= 0) {
 			skillCategoryService.save(category1);
@@ -154,7 +162,6 @@ public class BolsaTrabajoApplication implements CommandLineRunner {
 			skillService.storeSkill(skill4);
 			skillService.storeSkill(skill5);
 		}
-
 	}
 
 	private void insertLanguageLevels() {

@@ -21,47 +21,61 @@
             <section class="page-content">
                 <div class="container">
 
-                    <div class="spacer-lg"></div>
-                    <div class="row">
-                        <div class="col-sm-4 col-md-4">
-                            <div class="service-box">
-                                <div class="service-body">
-                                    <div class="service-icon">
-                                        <i class="fa fa-user fa-3x"></i>
-                                    </div>
-                                    <h4>Aspirante1</h4>
-                                    <p>asdfasdf</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-4 col-md-4">
-                            <div class="service-box">
+                    <div class="row" v-for="aspirante in candidates">
+                        <div class="call-to-action" >
+                            <div class="cta-txt">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                    <h3>{{aspirante.postulant.name}} {{aspirante.postulant.lastName}} </h3>
+                                    <p>Correo: {{aspirante.postulant.email}}</p>
+                                    <p>Teléfono: {{aspirante.postulant.phonenumber}}</p>
+                                    <p>Fecha de Nacimiento: {{aspirante.postulant.birthday}}</p>
 
-                                <div class="service-body">
-                                    <div class="service-icon">
-                                        <i class="fa fa-user fa-3x"></i>
                                     </div>
-                                    <h4 >Aspirante2</h4>
-                                    <p>Providing a first class reliable service in all fields of electrical.</p>
+                                    <div class="cold-md-2">
+                                        <div v-if="aspirante.postulant.academicExperiences.length !=0">
+                                            <h5>Educación:</h5>
+                                            <ul>
+                                                <li></li>
+                                            </ul>
+                                        </div>
+                                        <div v-if="aspirante.postulant.postulantLanguages.length !=0">
+                                            <h5>Idiomas:</h5>
+                                            <ul v-for="idioma in aspirante.postulant.postulantLanguages">
+                                                <li>{{idioma.language.nombre}} -> Nivel: {{idioma.languageLevel}}</li>
+                                            </ul>
+                                        </div>
+                                        <div v-if="aspirante.postulant.skills.length !=0">
+                                            <h5>Habilidades:</h5>
+                                            <ul v-for="habilidad in aspirante.postulant.skills">
+                                                <li>{{habilidad.skill.titulo}}</li>
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-sm-4 col-md-4">
-                            <div class="service-box">
+                            <div class="cta-btn-candidato">
+                                <a @click="redirectPerfil(aspirante.postulant.username)" class="btn btn-primary">Perfil</a>
+                                <br><br>
+                            </div>
 
-                                <div class="service-body">
-                                    <div class="service-icon">
-                                        <i class="fa fa-user fa-3x"></i>
-                                    </div>
-                                    <h4 >Aspirante 3</h4>
-                                    <p>Carpenters </p>
-                                </div>
-                            </div>
                         </div>
+
+                        <div class="spacer"></div>
                     </div>
 
                 </div>
                 <div class="spacer-lg"></div>
+
+                <div v-if="candidates.length == 0" class="call-to-action centered">
+                    <div class="spacer"></div>
+                    <div class="cta-txt">
+                        <h2>Ninguna persona ha aplicado a este puesto</h2>
+                        <p>¡Aplica al puesto de trabajo que más te conviene!</p>
+                    </div>
+
+                    <div class="spacer"></div>
+                </div>
 
             </section>
         </div>
@@ -73,10 +87,7 @@
 </div>
 
 <div th:include="fragmentos/scripts :: scripts" ></div>
-<script th:inline="javascript">let user = [[${user}]];</script>
-<script th:inline="javascript">let job = [[${job}]];</script>
 
-<script th:src="@{/assets/js/puesto/perfil/show_aspirantes.js}"></script>
 <script th:inline="javascript">let candidates = [[${candidates}]];</script>
 <script>
     new Vue({
@@ -85,9 +96,12 @@
             candidates: candidates,
         },
         methods: {
-
+            redirectPerfil(user){
+                window.location.href = "/postulante/"+user+"/perfil";
+            }
         }
     })
 </script>
 </body>
 </html>
+

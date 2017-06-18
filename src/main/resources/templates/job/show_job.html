@@ -65,58 +65,57 @@
                                     </div>
                                     <div class="col-md-3">
                                         <h4>Edad</h4>
-                                        <p><i class="fa fa-user"></i> 18 - 28 años</p>
+                                        <p><i class="fa fa-user"></i> {{edadMin}} - {{edadMax}} años</p>
                                     </div>
                                 </div>
 
                                 <div class="spacer"></div>
+                                <div class="center">
+                                    <h4>Descripción</h4>
+                                </div>
+                                <div class="center">
+                                    <p>{{descripcionJ}}</p>
 
-                                <h4>Descripción</h4>
-                                <p>{{descripcionJ}}</p>
-
+                                </div>
                                 <div class="spacer"></div>
 
                                 <ul class="job_listings">
-                                    <div class="spacer-lg"></div>
+                                    <div class="spacer"></div>
                                     <h4>Educación</h4>
+                                    <div v-if="expAcademica.length == 0" class="center">
+                                        <p>No se requieren estudios academicos.</p>
+                                    </div>
                                     <li class="job_listing">
                                         <a href="#">
 
-                                            <div class="position">
-                                                <h4>Universidad</h4>
+                                            <div class="position" style="text-transform: capitalize" v-for="edu in expAcademica">
+                                                <h4>{{edu.academicTitle.titulo}}</h4>
 
-                                            </div>
-                                            <div class="rating">
-                                                <div class="rating-stars">
-
-                                                </div>
-                                                <div class="reviews-num"></div>
                                             </div>
                                             <ul class="meta">
-                                                <li class="job-type">Carrera</li>
-                                                <li class="date">Fecha
-                                                </li>
+                                                <li class="job-type">{{estadoEducacion}}</li>
                                             </ul>
                                         </a>
                                     </li>
-                                    <li class="job_listing">
+                                </ul>
+
+                                <ul class="job_listings">
+                                    <div class="spacer"></div>
+                                    <h4>Experiencia Laboral</h4>
+                                    <div v-if="expLaboral.length == 0" class="center">
+                                        <p>No se requiere experiencia laboral</p>
+                                    </div>
+                                    <li class="job_listing" v-for="trab in expLaboral">
                                         <a href="#">
 
-                                            <div class="position">
-                                                <h4>Otro lado</h4>
+                                            <div class="position" style="text-transform: capitalize">
+                                                <h4>{{trab.jobCat.puesto}}</h4>
 
-                                            </div>
-                                            <div class="rating">
-                                                <div class="rating-stars">
-
-                                                </div>
-                                                <div class="reviews-num"></div>
                                             </div>
                                             <ul class="meta">
-                                                <li class="job-type">Carrera</li>
-                                                <li class="date">Fecha
-                                                </li>
+                                                <li class="job-type">{{trab.yearOfExperience}} años de experiencia</li>
                                             </ul>
+
                                         </a>
                                     </li>
                                 </ul>
@@ -125,17 +124,19 @@
                                     <div class="spacer-lg"></div>
 
                                     <h4>Idiomas</h4>
-                                    <li class="job_listing">
+
+                                    <div v-if="idiomas.length == 0" class="center">
+                                        <p>No se requieren idiomas adicionales</p>
+                                    </div>
+                                    <li class="job_listing" v-for="lang in idiomas">
                                         <a href="#">
 
                                             <div class="position">
-                                                <h4>Chino Mandarín</h4>
+                                                <h4>{{lang.language.nombre}}</h4>
                                             </div>
-                                            <div class="rating">
-                                                <div class="rating-stars">
-                                                </div>
-                                                <div class="reviews-num">Nivel 50%</div>
-                                            </div>
+                                            <ul class="meta">
+                                                <li class="job-type">{{lang.languageLevel.titulo}}: {{lang.languageLevel.codigo}}</li>
+                                            </ul>
 
                                         </a>
                                     </li>
@@ -148,11 +149,11 @@
                                         <li class="job_listing">
 
                                             <h4>Habilidades</h4>
-                                            <ul>
-                                                <li>Comer</li>
-                                                <li>Dormir</li>
-                                                <li>Hablar</li>
-                                                <li>Procastinar</li>
+                                            <div v-if="habilidades.length == 0" class="center">
+                                                <p>No se requieren habilidades especiales</p>
+                                            </div>
+                                            <ul v-for="skills in habilidades">
+                                                <li style="text-transform: capitalize">{{skills.skill.titulo}}</li>
                                             </ul>
                                         </li>
                                     </div>

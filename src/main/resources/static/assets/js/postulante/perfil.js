@@ -81,6 +81,9 @@ new Vue({
             }else{
                 return valor = 'Superior';
             }
+        },
+        redirectBack(){
+            history.back();
         }
     },
     mounted()

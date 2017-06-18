@@ -10,17 +10,5 @@ new Vue({
         jobs: jobs,
         job_list: [],
         candidateInfo: [],
-    },
-    mounted(){
-        axios.get('/api/postulant/'+this.username+'/applications')
-            .then(response =>{
-                console.log(response.data);
-                this.candidateInfo = response.data;
-                this.job_list = response.data.candidates;
-
-            })
-            .catch(error =>{
-                console.log(error);
-            })
     }
 })

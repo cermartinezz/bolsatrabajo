@@ -47,9 +47,9 @@
                                     <td >
                                         <a th:href="@{'/empresa/'+${user.getName()}+'/perfiles' }" class="btn btn-sm btn-info">Perfil</a>
                                         <a th:href="@{'/puesto/'+${j.id}+'/aspirantes' }" class="btn btn-sm btn-success">Ver Aspirantes</a>
-
+                                        <br><br>
                                         <form th:action="@{'/job/' + ${j.id}}"
-                                              th:method="DELETE" class="btn">
+                                              th:method="DELETE" class="inline">
                                             <div >
                                                 <button type="submit"
                                                         class="btn btn-sm btn-danger btn-block"
