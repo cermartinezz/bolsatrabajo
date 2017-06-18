@@ -9,6 +9,7 @@ import com.bolsaTrabajo.service.QuestionaryService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 public class QuestionaryServiceImpl implements QuestionaryService {
     @Autowired
@@ -26,4 +27,5 @@ public class QuestionaryServiceImpl implements QuestionaryService {
 
     public void deleteById(long id){ questionaryRespository.deleteById(id);}
 
+    //public Stream<Questionary> findQuestionsIdsForExam(long examId){ return  questionaryRespository.findQuestionsIdsForExam(examId);}
 }

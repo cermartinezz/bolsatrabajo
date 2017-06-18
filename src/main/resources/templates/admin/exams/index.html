@@ -78,7 +78,7 @@
                                                 <button th:onclick="'eliminarRegistro(\'' + ${e.id} + '\',\'exam\')'"
                                                         class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Eliminar</button>
                                             </a>
-                                            <a th:href="@{/examenes/cuestionario/}" style="text-decoration:none;">
+                                            <a th:href="@{/examenes/cuestionario/{id}(id=${e.id})}" style="text-decoration:none;">
                                                 <button class="btn btn-primary2 btn-xs"><span class="fa fa-star"></span>Cuestionario</button>
                                             </a>
 
