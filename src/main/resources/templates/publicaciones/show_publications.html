@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
 
 <body>
-<div class="site-wrapper" id="app">
+<div class="site-wrapper" >
     <header class="header header-menu-fullw">
 
         <div th:include="fragmentos/top_bar :: top_bar(${user})" th:remove="tag"></div>
@@ -16,7 +16,7 @@
     </header>
 
 
-    <div class="main" role="main">
+    <div class="main" role="main" id="app">
 
         <div th:include="fragmentos/heading :: heading('Publicaciones / Libros')"></div>
 
@@ -40,7 +40,6 @@
                             <th>Titulo</th>
                             <th>Editorial</th>
                             <th>Tipo</th>
-                            <th>Acciones</th>
                         </tr>
                         </thead>
                         <tr v-for="publication in publications">
@@ -48,15 +47,6 @@
                             <td >{{ publication.titulo }}</td>
                             <td >{{ publication.editorial }}</td>
                             <td >{{ publication.tipo }}</td>
-
-                            <td>
-                                <div class="row">
-                                    <div class="span12 centered-text">
-                                        <a v-bind:href="'/publicacion/'+publication.codigo+'/editar'" class="btn btn-success inline">Editar</a>
-                                        <a v-on:click="deletePub(publication.codigo)" class="btn btn-primary inline">Eliminar</a>
-                                    </div>
-                                </div>
-                            </td>
                         </tr>
                     </table>
                 </div>

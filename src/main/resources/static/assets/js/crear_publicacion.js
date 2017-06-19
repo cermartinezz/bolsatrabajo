@@ -47,7 +47,9 @@ new Vue({
                 .then(response => {
                 console.log(response);
             showMessageTimerRedirect("Guardado","El registro fue guardado con exito",'success',2500,response.headers.location);
-        })
+                    window.history.back()
+
+                })
             .catch(error => {
                 console.log(error);
                 this.listErrors.record(error.response.data.errors);

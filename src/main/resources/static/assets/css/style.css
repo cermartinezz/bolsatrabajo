@@ -111,4 +111,12 @@ div.box.box-no-border{
     width: 100%;
 }
 
+.flex_start .btn{
+    height: 50%;
+    margin-left: auto;
+}
+
+.table thead tr .table-color-bonito{
+    background: #99ccff;color: #000;
+}
 

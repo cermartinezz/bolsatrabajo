@@ -18,4 +18,6 @@ public interface InstitutionService {
     List<Institution> getAllInstitutions();
 
     void update(Institution currentInstitution);
+
+    void delete(Optional<Institution> institutionById);
 }

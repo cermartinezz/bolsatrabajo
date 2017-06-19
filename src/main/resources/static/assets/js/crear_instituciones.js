@@ -35,7 +35,6 @@ class Errors{
 new Vue({
     el: "#app",
     data: {
-        institutionCode: "",
         institutionName: "",
         institutionType: "",
         listErrors: new Errors()
@@ -53,7 +52,6 @@ new Vue({
                 })
         },
         clearData(){
-            this.institutionCode = "";
             this.institutionName = "";
             this.institutionType = "";
             this.listErrors = new Errors();
