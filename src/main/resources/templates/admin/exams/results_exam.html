@@ -30,7 +30,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-8 col-md-offset-2">
-                            <h3><titulo th:text="${examen.titulo}"></titulo> <nota th:text="${now}"></nota></h3>
+                            <h3><titulo th:text="${examen.titulo}"></titulo> - Calificacion: <nota th:text="${calificacion}"></nota></h3>
 
                             <div class="table-responsive">
                                 <table class="table table-condensed tablita">
@@ -52,30 +52,15 @@
                                             <td rowspan="3" style="background:#b8d1f9;text-align:left;">
                                                 <fieldset disabled>
                                                     <legend th:text="${r.questionary.question.enunciado}"></legend>
-                                                    <div th:if="${r.respuesta==r.questionary.question.d1}">
-                                                        <input type="radio" value="${r.questionary.question.d1}" th:text="${r.questionary.question.d1}" checked><br />
-                                                    </div>
-                                                    <div th:if="${!(r.respuesta==r.questionary.question.d1)}">
-                                                        <input type="radio" value="${r.questionary.question.d1}" th:text="${r.questionary.question.d1}"><br />
-                                                    </div>
-                                                    <div th:if="${r.respuesta==r.questionary.question.d2}">
-                                                        <input type="radio" value="${r.questionary.question.d2}" th:text="${r.questionary.question.d2}" checked><br />
-                                                    </div>
-                                                    <div th:if="${!(r.respuesta==r.questionary.question.d2)}">
-                                                        <input type="radio" value="${r.questionary.question.d2}" th:text="${r.questionary.question.d2}"><br />
-                                                    </div>
-                                                    <div th:if="${r.respuesta==r.questionary.question.d3}">
-                                                        <input type="radio" value="${r.questionary.question.d3}" th:text="${r.questionary.question.d3}" checked><br />
-                                                    </div>
-                                                    <div th:if="${!(r.respuesta==r.questionary.question.d3)}">
-                                                        <input type="radio" value="${r.questionary.question.d3}" th:text="${r.questionary.question.d3}"><br />
-                                                    </div>
-                                                    <div th:if="${r.respuesta==r.questionary.question.d4}">
-                                                        <input type="radio" value="${r.questionary.question.d4}" th:text="${r.questionary.question.d4}" checked ><br />
-                                                    </div>
-                                                    <div th:if="${!(r.respuesta==r.questionary.question.d4)}">
-                                                        <input type="radio" value="${r.questionary.question.d4}" th:text="${r.questionary.question.d4}" ><br />
-                                                    </div>
+
+                                                        <input type="radio" value="${r.questionary.question.d1}" th:text="${r.questionary.question.d1}" th:checked="${r.respuesta==r.questionary.question.d1}"><br />
+
+                                                        <input type="radio" value="${r.questionary.question.d2}" th:text="${r.questionary.question.d2}" th:checked="${r.respuesta==r.questionary.question.d2}"><br />
+
+                                                        <input type="radio" value="${r.questionary.question.d3}" th:text="${r.questionary.question.d3}" th:checked="${r.respuesta==r.questionary.question.d3}"><br />
+
+                                                        <input type="radio" value="${r.questionary.question.d4}" th:text="${r.questionary.question.d4}" th:checked="${r.respuesta==r.questionary.question.d4}"><br />
+
                                                 </fieldset>
                                             </td>
                                         </tr>

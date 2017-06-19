@@ -56,7 +56,7 @@
                                         <button class="btn btn-xs" type="submit">Confirm</button>
                                     </menu>
                                 </dialog>
-                                <table class="table table-bordered table-stripe">
+                                <table class="table table-bordered table-stripe tablita">
                                     <thead>
                                     <tr>
                                         <th>Titulo</th>
@@ -86,7 +86,7 @@
 
                                     </tr>
                                     </tbody>
-
+                                    <tr th:if="${examenes.size()==0}"><td colspan="4"><span>No hay registros que mostrar</span></td></tr>
                                 </table>
                             </div>
 

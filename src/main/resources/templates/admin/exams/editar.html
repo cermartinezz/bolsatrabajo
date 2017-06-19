@@ -15,7 +15,7 @@
 
     <div class="main" role="main">
 
-        <div th:include="fragmentos/heading :: heading('Actualizar SubArea')"></div>
+        <div th:include="fragmentos/heading :: heading('Actualizar Exámen')"></div>
 
         <section class="page-content" >
             <div class="container">
@@ -31,7 +31,8 @@
 
                                 <div class="form-group">
                                     <label>Sub Area de Conocimiento:</label>
-                                  <input type="text" th:value="*{subArea.id}" name="ids" class="form-control" readonly>
+                                    <input type="text" th:value="*{subArea.nombre}" class="form-control" readonly>
+                                    <input type="hidden" th:value="*{subArea.id}" name="ids">
                                 </div>
 
                                 <div class="form-group">

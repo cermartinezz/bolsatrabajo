@@ -37,7 +37,7 @@
 
                                     <select class="form-control" id="publication"
                                             v-model.number="publication"
-                                            type="number" name="category"
+                                            type="number" name="category" th:disabled="${publications.size()==0}"
                                             required>
 
                                         <option disabled value="">Seleccione una Publicacion</option>
@@ -53,7 +53,7 @@
                                 <div class="form-group">
                                     <label> Fecha de publicacion*</label>
 
-                                    <input type="date"
+                                    <input type="date" id="date-input"
                                            name="publicationDate"
                                            v-model="publicationDate"
                                            min="2000-01-01"
@@ -84,5 +84,22 @@
 <div th:include="fragmentos/scripts :: scripts" ></div>
 <script th:inline="javascript">let postulant = [[${user.getName()}]];</script>
 <script th:src="@{/assets/js/postulante/agregar_publicacion.js}"></script>
+<script>
+    $(function(){
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+    var yyyy = today.getFullYear();
+     if(dd<10){
+            dd='0'+dd
+        }
+        if(mm<10){
+            mm='0'+mm
+        }
+
+    today = yyyy+'-'+mm+'-'+dd;
+   $("#date-input").prop('max',today);
+});
+</script>
 </body>
 </html>
