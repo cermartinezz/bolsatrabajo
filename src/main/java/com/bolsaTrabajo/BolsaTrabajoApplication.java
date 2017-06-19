@@ -1,10 +1,13 @@
 package com.bolsaTrabajo;
 
+import com.bolsaTrabajo.model.Company;
 import com.bolsaTrabajo.model.Permission;
 import com.bolsaTrabajo.model.Postulant;
 import com.bolsaTrabajo.model.Role;
 import com.bolsaTrabajo.model.catalog.*;
 import com.bolsaTrabajo.service.*;
+import com.bolsaTrabajo.util.Gender;
+import com.github.javafaker.Faker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -13,11 +16,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.transaction.Transactional;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.time.Instant;
+import java.util.*;
 
 @SpringBootApplication
 public class BolsaTrabajoApplication implements CommandLineRunner {
@@ -47,6 +47,8 @@ public class BolsaTrabajoApplication implements CommandLineRunner {
 
 	@Autowired
 	private DepartmentService departmentService;
+
+	Faker faker = new Faker();
 
 	public static void main(String[] args) {
 		SpringApplication.run(BolsaTrabajoApplication.class, args);
@@ -120,8 +122,17 @@ public class BolsaTrabajoApplication implements CommandLineRunner {
 			createRoleIfNotFound("ADMIN", adminPermission);
 			createRoleIfNotFound("POSTULANTE", postulantPermission);
 			createRoleIfNotFound("EMPRESA", companyPermission);
-			createUserIfNotFound("administrador");
-        }
+			createAdminIfNotFound("administrador");
+			createUserIfNotFound("cesarito");
+			createUserIfNotFound("merino");
+			createUserIfNotFound("marito");
+			createUserIfNotFound("luisito");
+			createUserIfNotFound("karina");
+			createCompanyIfNotFound("applecito","Apple co","Steve Trabajos");
+			createCompanyIfNotFound("microsoft","Microsoft co","Bill Puertas");
+			createCompanyIfNotFound("amazon","Amazon co","Jeff Bezos");
+			createCompanyIfNotFound("google","Google co","Larry Pagina");
+		}
 
 
 	}
@@ -156,6 +167,7 @@ public class BolsaTrabajoApplication implements CommandLineRunner {
 			skillCategoryService.save(category2);
 			skillCategoryService.save(category3);
 			skillCategoryService.save(category4);
+			skillCategoryService.save(category5);
 			skillService.storeSkill(skill);
 			skillService.storeSkill(skill2);
 			skillService.storeSkill(skill3);
@@ -278,18 +290,59 @@ public class BolsaTrabajoApplication implements CommandLineRunner {
 	@Transactional
 	private void createUserIfNotFound(String username) throws ParseException {
 		Postulant postulant = new Postulant();
-		postulant.setName("admin");
-		postulant.setLastName("admin");
-		postulant.setUsername("administrador");
-		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
-		String dateInString = "31-08-1982 10:20:56";
-		Date date = sdf.parse(dateInString);
-		postulant.setBirthday(date);
-		postulant.setPassword(bCryptPasswordEncoder.encode("12345678"));
-		postulant.setPasswordConfirm("12345678");
+		postulant.setName(username);
+		postulant.setLastName(username);
+		postulant.setUsername(username);
+		postulant.setEmail(username+"@gmail.com");
+		postulant.setBirthday(Date.from(Instant.now()));
+		postulant.setNit("1234-123456-123-1");
+		postulant.setDui("12345678-1");
+		Gender gender = (Objects.equals(username, "karina")) ? Gender.Femenino : Gender.Masculino;
+		postulant.setGender(gender);
+		postulant.setPassword(bCryptPasswordEncoder.encode(username));
+		postulant.setPasswordConfirm(username);
 		postulant.setActive(1);
-		HashSet<Role> roleCollection = new HashSet<>(roleService.getAllRoles());
+		HashSet<Role> roleCollection = new HashSet<>();
+		roleCollection.add(roleService.findByName("POSTULANTE"));
 		postulant.setRoles(roleCollection);
 		postulantService.save(postulant);
+	}
+
+	@Transactional
+	private void createAdminIfNotFound(String username) throws ParseException {
+		Postulant postulant = new Postulant();
+		postulant.setName(username);
+		postulant.setLastName(username);
+		postulant.setUsername(username);
+		postulant.setEmail(username+"@gmail.com");
+		postulant.setBirthday(Date.from(Instant.now()));
+		postulant.setNit("1234-123456-123-1");
+		postulant.setDui("12345678-1");
+		postulant.setPassword(bCryptPasswordEncoder.encode("administrador"));
+		Gender gender = (Objects.equals(username, "karina")) ? Gender.Femenino : Gender.Masculino;
+		postulant.setGender(gender);
+		postulant.setPasswordConfirm("adminsitrador");
+		postulant.setActive(1);
+		HashSet<Role> roleCollection = new HashSet<>();
+		roleCollection.add(roleService.findByName("ADMIN"));
+		postulant.setRoles(roleCollection);
+		postulantService.save(postulant);
+	}
+
+	@Transactional
+	private void createCompanyIfNotFound(String username,String compañia,String representante) throws ParseException {
+		Company company = new Company();
+		company.setName(this.faker.name().firstName());
+		company.setLastName(this.faker.name().lastName());
+		company.setUsername(username);
+		company.setNombreC(compañia);
+		company.setRepreLegal(representante);
+		company.setInformacionC(this.faker.company().bs());
+		company.setNitC("1234-123456-123-1");
+		company.setTelefonoC(this.faker.phoneNumber().phoneNumber());
+		company.setPassword(username);
+		company.setPasswordConfirm(username);
+		company.setActive(1);
+		companyService.save(company);
 	}
 }
