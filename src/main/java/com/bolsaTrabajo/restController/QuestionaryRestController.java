@@ -50,9 +50,12 @@ public class QuestionaryRestController {
     public RedirectView addQuestion(@RequestParam("idPreg") long idPreg, @RequestParam("idExam") long idExam,RedirectAttributes attributes){
         Exam exam = examService.findById(idExam);
         Question question = questionService.findById(idPreg);
+
         Questionary questionary = new Questionary();
+
         questionary.setExam(exam);
         questionary.setQuestion(question);
+
         try{
             questionaryService.spSaveQues(questionary);
         }catch (Exception e){

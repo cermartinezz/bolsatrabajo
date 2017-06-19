@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
@@ -52,8 +54,13 @@ public class ExamController {
 
     @RequestMapping(value = "/examenes/crear", method = RequestMethod.GET)
     public String crear(Model model){
+        Calendar cal = Calendar.getInstance();
+        Date date=cal.getTime();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String formattedDate=dateFormat.format(date);
         model.addAttribute("user",Auth.auth());
         model.addAttribute("examen",new Exam());
+        model.addAttribute("date",formattedDate);
         model.addAttribute("subareas",subAreaService.getAll());
         return "admin/exams/crear";
     }

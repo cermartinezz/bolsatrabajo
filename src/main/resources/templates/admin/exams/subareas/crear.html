@@ -37,7 +37,7 @@
 
                                 <div class="form-group">
                                     <label>Area:</label>
-                                    <select class="form-control" th:field="*{area}" type="number" name="area" required>
+                                    <select class="form-control" th:field="*{area}" type="number" name="area" th:disabled="${areas.size()==0}" required>
 
                                         <option disabled value="">Seleccione el area</option>
 

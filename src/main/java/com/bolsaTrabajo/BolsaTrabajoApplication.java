@@ -13,12 +13,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.transaction.Transactional;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+
+import static com.bolsaTrabajo.util.Gender.Masculino;
 
 @SpringBootApplication
 public class BolsaTrabajoApplication implements CommandLineRunner {
@@ -235,12 +238,20 @@ public class BolsaTrabajoApplication implements CommandLineRunner {
 		postulant.setName("admin");
 		postulant.setLastName("admin");
 		postulant.setUsername("administrador");
+
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
 		String dateInString = "01-01-2000 00:00:00";
 		Date date = sdf.parse(dateInString);
 		postulant.setBirthday(date);
+		postulant.setDui("22222222-0");
+		postulant.setNit("2222-222222-222-2");
+		postulant.setGender(Masculino);
+		postulant.setNup("111111111111");
+		postulant.setPassport("A22222222");
 		postulant.setPassword(bCryptPasswordEncoder.encode("12345678"));
 		postulant.setPasswordConfirm("12345678");
+		postulant.setEmail("admin@correo.com");
+
 		postulant.setActive(1);
 		HashSet<Role> roleCollection = new HashSet<>(roleService.getAllRoles());
 		postulant.setRoles(roleCollection);

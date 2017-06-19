@@ -30,14 +30,10 @@
                     </div>
                     <div class="row">
                         <div class="col-md-8 col-md-offset-2">
-                            <h3>Exámen - Cuestionario  Nota: <nota th:text="${calificacion}"></nota></h3>
+                            <h3><titulo th:text="${examen.titulo}"></titulo> <nota th:text="${now}"></nota></h3>
 
                             <div class="table-responsive">
                                 <table class="table table-condensed tablita">
-                                    <tr>
-                                        <td><h5>Titulo:</h5></td>
-                                        <td><p th:text="${examen.titulo}"></p></td>
-                                    </tr>
                                     <tr>
                                         <td><h5>Instrucciones:</h5></td>
                                         <td><p th:text="${examen.instrucciones}"></p></td>

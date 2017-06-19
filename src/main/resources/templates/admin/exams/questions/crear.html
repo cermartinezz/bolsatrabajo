@@ -37,7 +37,7 @@
 
                                 <div class="form-group">
                                     <label>Sub Area de Conocimiento:</label>
-                                    <select class="form-control" th:field="*{subArea}" type="number" name="subArea" required>
+                                    <select class="form-control" th:field="*{subArea}" type="number" name="subArea" th:disabled="${subAreas.size()==0}" required>
 
                                         <option disabled value="">Seleccione una</option>
 

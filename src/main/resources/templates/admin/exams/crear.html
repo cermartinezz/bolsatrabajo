@@ -37,7 +37,7 @@ tml>
 
                                 <div class="form-group">
                                     <label>Sub Area de Conocimiento:</label>
-                                    <select class="form-control" th:field="*{subArea}" type="number" name="subArea" required>
+                                    <select class="form-control" th:field="*{subArea}" type="number" name="subArea" th:disabled="${subareas.size()==0}" required>
 
                                         <option disabled value="">Seleccione una:</option>
 
@@ -57,11 +57,8 @@ tml>
                                 </div>
                                 <div class="form-group">
                                     <label>Fecha de Examen:</label>
-                                    <input type="date" th:field="*{fecha}" name="fecha" class="form-control" required/>
+                                    <input type="date" th:field="*{fecha}" name="fecha" class="form-control" id="date-input" required/>
                                 </div>
-
-
-
 
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-primary btn-block">Crear</button>
@@ -79,6 +76,23 @@ tml>
 
 
 <div th:include="fragmentos/scripts :: scripts" ></div>
+<script>
+    $(function(){
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+    var yyyy = today.getFullYear();
+     if(dd<10){
+            dd='0'+dd
+        }
+        if(mm<10){
+            mm='0'+mm
+        }
+
+    today = yyyy+'-'+mm+'-'+dd;
+   $("#date-input").prop('max',today);
+});
+</script>
 
 </body>
 </html>

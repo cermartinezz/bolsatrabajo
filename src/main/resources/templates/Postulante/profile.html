@@ -347,7 +347,7 @@
                                     <li class="job_listing">
                                         <div class="position">
                                             <div id="logros-spoiler" style="display:none" class="table-responsive">
-                                                <table class="table" style="padding:0px;margin:0px;">
+                                                <table class="table table-bordered tablita" style="padding:0px;margin:0px;">
                                                     <thead>
                                                     <tr>
                                                         <th style="background: #99ccff;color: #000;">#</th>
@@ -376,6 +376,7 @@
                                                             </a>
                                                         </td>
                                                     </tr>
+                                                    <tr th:if="${postulantInfo.getAwards().size()==0}"><td colspan="4"><span>No hay registros que mostrar</span></td></tr>
                                                     </tbody>
                                                 </table>
                                             </div>

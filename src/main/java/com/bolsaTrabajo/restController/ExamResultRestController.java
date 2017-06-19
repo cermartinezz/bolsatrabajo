@@ -63,7 +63,7 @@ public class ExamResultRestController {
             //Guardando el resultado
             examResultService.save(examResult);
         }
-        attributes.addFlashAttribute("messageSuccess","Se creo el examen correctamente");
+        attributes.addFlashAttribute("messageSuccess","Se guardaron sus resultados correctamente");
         return new RedirectView("/examenes/postulante");
     }
 }
