@@ -1,11 +1,16 @@
 package com.bolsaTrabajo.service.implementations;
 
 import com.bolsaTrabajo.model.Postulant;
+import com.bolsaTrabajo.model.catalog.Language;
+import com.bolsaTrabajo.model.postulantInfo.PostulantLanguage;
+import com.bolsaTrabajo.repositories.PostulantLanguageRepository;
 import com.bolsaTrabajo.repositories.PostulantRepository;
 import com.bolsaTrabajo.repositories.UserRepository;
 import com.bolsaTrabajo.service.PostulantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import java.util.List;
 
 public class PostulantServiceImpl implements PostulantService {
 
@@ -13,7 +18,7 @@ public class PostulantServiceImpl implements PostulantService {
     private PostulantRepository postulantRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    private PostulantLanguageRepository postulantLanguageRepository;
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -72,5 +77,16 @@ public class PostulantServiceImpl implements PostulantService {
     }
 
     public void delete(Postulant postulant){postulantRepository.delete(postulant);}
+
+    @Override
+    public List<Postulant> getAll() {
+        return postulantRepository.findAll();
+    }
+
+    @Override
+    public List<PostulantLanguage> getPostulantForLanguage(Language language) {
+        return postulantLanguageRepository.findByPrimaryKey_Language(language);
+    }
+
 
 }

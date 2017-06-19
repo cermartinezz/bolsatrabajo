@@ -36,7 +36,7 @@
                             <li th:if="${user.hasRole('EMPRESA')}"><a href="#">Empresa</a>
                                 <ul>
                                     <li><a th:href="@{'/company/'+ ${u.getName()} + '/profile'}">Perfil Empresa</a></li>
-                                    <li><a th:href="@{'/company/'+ ${u.getName()} + '/editar'}">Editar Perfil</a></li>
+                                    <li><a th:href="@{'/buscar-candidatos'}">Buscar Candidatos</a></li>
                                 </ul>
                             </li>
                             <li th:if="${user.hasRole('EMPRESA')}"><a href="#">Puesto</a>

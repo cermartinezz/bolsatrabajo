@@ -1,7 +1,11 @@
 package com.bolsaTrabajo.service;
 
 import com.bolsaTrabajo.model.Postulant;
+import com.bolsaTrabajo.model.catalog.Language;
 import com.bolsaTrabajo.model.postulantInfo.PostulantCertification;
+import com.bolsaTrabajo.model.postulantInfo.PostulantLanguage;
+
+import java.util.List;
 
 public interface PostulantService {
     void save(Postulant postulant);
@@ -23,4 +27,8 @@ public interface PostulantService {
     void update(Postulant postulant);
 
     void delete(Postulant postulant);
+
+    List<Postulant> getAll();
+
+    List<PostulantLanguage> getPostulantForLanguage(Language language);
 }
