@@ -59,6 +59,7 @@ new Vue({
                 .then(response => {
                     console.log(response);
                     showMessageTimerRedirect("Guardado","El registro fue guardado con exito",'success',2500,response.headers.location);
+                    window.history.back();
                     this.clearData();
                 })
                 .catch(error => {

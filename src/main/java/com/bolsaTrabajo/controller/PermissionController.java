@@ -52,4 +52,10 @@ public class PermissionController {
         model.setViewName("admin/permissions/editar");
         return model;
     }
+
+    @RequestMapping(value = "/admin/catalogos", method = RequestMethod.GET)
+    public String showMenu(Model model){
+        model.addAttribute("user", Auth.auth());
+        return "admin/menu_admin";
+    }
 }

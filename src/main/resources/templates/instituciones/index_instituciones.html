@@ -34,21 +34,19 @@
                         <table class="job-manager-jobs table table-bordered table-stripe">
                             <thead>
                             <tr>
-                                <th>Codigo</th>
                                 <th>Titulo</th>
                                 <th>Tipo de institucion</th>
                                 <th>Acciones</th>
                             </tr>
                             </thead>
-                            <tr v-for="institucion in instituciones">
-                                <td >{{ institucion.institutionCode }}</td>
+                            <tr v-for="(institucion, index) in instituciones">
                                 <td >{{ institucion.institutionName }}</td>
                                 <td >{{ institucion.institutionType }}</td>
                                 <td>
                                     <div class="row">
                                         <div class="span12 centered-text">
                                             <a :href="'/instituciones/' + institucion.institutionCode + '/editar'"  class="btn btn-success inline">Editar</a>
-                                            <a href="/" th:href="@{/}" class="btn btn-primary inline">Eliminar</a>
+                                            <button @click="eliminar(index,institucion.id)" class="btn btn-primary inline">Eliminar</button>
                                         </div>
                                     </div>
                                 </td>
@@ -70,6 +68,19 @@
             el: '#app',
             data: {
                 instituciones: [],
+            },
+            methods: {
+                eliminar: (index,inst_id) => {
+                    showMessageConfirmation(
+                        "Confirmar!",
+                        "Eliminar Institucion",
+                        "warning",
+                        "Eliminar?",
+                        "/api/instituciones/"+inst_id+"/eliminar",
+                        "delete"
+                    );
+
+                }
             },
             mounted(){
                 axios.get("/api/instituciones")

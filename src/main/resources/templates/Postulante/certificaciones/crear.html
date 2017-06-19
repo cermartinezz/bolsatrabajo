@@ -21,7 +21,18 @@
 
             <section class="page-content">
                 <div class="container">
-                    <p><a th:href="@{'/postulante/'+${username}+'/perfil'}" class="btn btn-success"><strong>Perfil</strong></a></p>
+                    <a th:href="@{'/postulante/'+${username}+'/perfil'}" class="btn btn-success"><strong>Perfil</strong></a>
+
+                    <div class="spacer"></div>
+                    <div class="box">
+                        <h5 class="center">Si no encuentra los datos en las opciones, agréguelos usted mismo!</h5>
+                        <div class="center">
+                            <a href="/certificaciones/crear" class="btn btn-info" style="margin: 5px">Crear Certificacion</a>
+                        </div>
+                    </div>
+
+                    <br><br>
+
                     <div class="box">
                         <div class="row">
 

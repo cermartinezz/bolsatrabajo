@@ -133,14 +133,14 @@
                                     </div>
                                     <li class="job_listing">
                                         <div v-if="certifications.length != 0" class="table-responsive">
-                                            <table class="job-manager-jobs table table-bordered table-stripe">
+                                            <table class="table">
                                                 <thead>
                                                     <tr>
-                                                        <th>Certificacion</th>
-                                                        <th>Institucion</th>
-                                                        <th>Codigo</th>
-                                                        <th>Fecha de expiracion</th>
-                                                        <th th:if="${usr.hasRole('POSTULANTE')}">Acciones</th>
+                                                        <th class="table-color-bonito">Certificacion</th>
+                                                        <th class="table-color-bonito">Institucion</th>
+                                                        <th class="table-color-bonito">Codigo</th>
+                                                        <th class="table-color-bonito">Fecha de expiracion</th>
+                                                        <th class="table-color-bonito" th:if="${usr.hasRole('POSTULANTE')}">Acciones</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -151,8 +151,8 @@
                                                         <td>{{ dateName(certification.expirationDate) }}</td>
 
                                                         <td th:if="${usr.hasRole('POSTULANTE')}">
-                                                            <button class="btn btn-info" @click="redirectCertificaciones(certification)">Editar</button>
-                                                            <button class="btn btn-danger"
+                                                            <button class="btn btn-warning btn-xs" @click="redirectCertificaciones(certification)">Editar</button>
+                                                            <button class="btn btn-danger btn-xs"
                                                                     @click="deleteCertificacion(index,certification)">Eliminar</button>
                                                         </td>
                                                     </tr>
@@ -183,12 +183,12 @@
                                     </div>
                                     <li class="job_listing">
                                         <div v-if="postulantLanguages.length != 0" class="table-responsive">
-                                            <table class="job-manager-jobs table table-bordered table-stripe">
+                                            <table class="table">
                                                 <thead>
                                                 <tr>
-                                                    <th>Idioma</th>
-                                                    <th>Nivel</th>
-                                                    <th th:if="${usr.hasRole('POSTULANTE')}">Acciones</th>
+                                                    <th class="table-color-bonito">Idioma</th>
+                                                    <th class="table-color-bonito">Nivel</th>
+                                                    <th th:if="${usr.hasRole('POSTULANTE')}" class="table-color-bonito">Acciones</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -196,7 +196,7 @@
                                                     <td>{{ language.primaryKey.language.nombre }}</td>
                                                     <td>{{language.languageLevel}}: {{cambiarDescripcion(language.languageLevel)}}</td>
                                                     <td class="center_block" th:if="${usr.hasRole('POSTULANTE')}">
-                                                        <button class="btn btn-danger" @click="deleteLanguage(index, language)">Eliminar</button>
+                                                        <button class="btn btn-danger btn-xs" @click="deleteLanguage(index, language)">Eliminar</button>
                                                     </td>
                                                 </tr>
                                                 </tbody>
@@ -215,7 +215,7 @@
                                     <div class="spacer-lg"></div>
                                     <div class="row">
                                         <div class="col-md-9">
-                                            <h4>Libros</h4>
+                                            <h4>Libros o Publicaciones</h4>
                                         </div>
 
                                         <div class="col-md-3">
@@ -226,12 +226,12 @@
                                     </div>
                                     <li class="job_listing">
                                         <div v-if="postulantPublications.length != 0" class="table-responsive">
-                                            <table class="job-manager-jobs table table-bordered table-stripe">
+                                            <table class="table" style="padding:0px;margin:0px;">
                                                 <thead>
                                                 <tr>
-                                                    <th>Publicacion</th>
-                                                    <th>Fecha</th>
-                                                    <th>Acciones</th>
+                                                    <th class="table-color-bonito">Publicacion</th>
+                                                    <th class="table-color-bonito">Fecha</th>
+                                                    <th class="table-color-bonito">Acciones</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -239,7 +239,7 @@
                                                     <td>{{ publication.primaryKey.publication.titulo }}</td>
                                                     <td>{{ publication.publicationDate }}</td>
                                                     <td class="center_block" th:if="${usr.hasRole('POSTULANTE')}">
-                                                        <button class="btn btn-danger" @click="deletePublication(index,publication)">Eliminar</button>
+                                                        <button class="btn btn-danger btn-xs" @click="deletePublication(index,publication)">Eliminar</button>
                                                     </td>
                                                 </tr>
                                                 </tbody>
@@ -261,7 +261,6 @@
                                         </div>
 
                                         <div class="col-md-3">
-                                            <a href="/empresasCat" class="btn btn-sm btn-info">Ver detalle</a>
                                             <a th:href="@{'/postulante/'+ ${user.getName()} + '/workExp/agregar'}" class="btn btn-sm btn-success">Agregar</a>
                                         </div>
                                     </div>
@@ -316,8 +315,8 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4 action-box" th:if="${usr.hasRole('POSTULANTE')}">
-                                                    <button  class="btn btn-info" @click="redirectRecomendaciones(recomendation.id)">editar</button>
-                                                    <button class="btn btn-danger" @click="deleteRecomendation(index,recomendation.id)">Eliminar</button>
+                                                    <button  class="btn btn-warning btn-xs" @click="redirectRecomendaciones(recomendation.id)">editar</button>
+                                                    <button class="btn btn-danger btn-xs" @click="deleteRecomendation(index,recomendation.id)">Eliminar</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -341,14 +340,13 @@
                                         </div>
 
                                         <div class="col-md-3" th:if="${usr.hasRole('POSTULANTE')}">
-                                            <a href="#logros-premios-etc" class="btn btn-sm btn-info" onclick="if(document.getElementById('logros-spoiler') .style.display=='none') {document.getElementById('logros-spoiler') .style.display=''}else{document.getElementById('logros-spoiler') .style.display='none'}">Ver detalle</a>
                                             <a href="/logros/crear" class="btn btn-sm btn-success" >Agregar</a>
                                         </div>
 
                                     </div>
                                     <li class="job_listing">
                                         <div class="position">
-                                            <div id="logros-spoiler" style="display:none" class="table-responsive">
+                                            <div v-if="awards.length != 0" id="logros-spoiler" class="table-responsive">
                                                 <table class="table" style="padding:0px;margin:0px;">
                                                     <thead>
                                                     <tr>
@@ -381,6 +379,9 @@
                                                     </tbody>
                                                 </table>
                                             </div>
+                                            <div v-if="awards.length == 0" class="center_block">
+                                                <p th:if="${usr.hasRole('POSTULANTE')}"><strong>NO HAY REGISTROS, DEBERIAS INGRESAR TUS LOGROS</strong></p>
+                                            </div>
                                         </div>
                                         <div class="rating">
                                             <div class="rating-stars">
@@ -405,12 +406,12 @@
                                     </div>
                                     <li class="job_listing">
                                         <div v-if="skills.length != 0" class="table-responsive">
-                                            <table class="job-manager-jobs table table-bordered table-stripe">
+                                            <table class="table" style="padding:0px;margin:0px;">
                                                 <thead>
                                                 <tr>
-                                                    <th>Habilidades</th>
-                                                    <th>Categoria</th>
-                                                    <th th:if="${usr.hasRole('POSTULANTE')}">Acciones</th>
+                                                    <th class="table-color-bonito">Habilidades</th>
+                                                    <th class="table-color-bonito">Categoria</th>
+                                                    <th th:if="${usr.hasRole('POSTULANTE')} "class="table-color-bonito">Acciones</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -418,7 +419,7 @@
                                                     <td>{{ skill.primaryKey.skill.titulo }}</td>
                                                     <td>{{ skill.primaryKey.skill.skillCategory.titulo }}</td>
                                                     <td class="center_block" th:if="${usr.hasRole('POSTULANTE')}">
-                                                        <button class="btn btn-danger"
+                                                        <button class="btn btn-danger btn-xs"
                                                                 @click="deleteSkill(index,skill)">Eliminar</button>
                                                     </td>
                                                 </tr>
@@ -455,6 +456,7 @@
 
 <div th:include="fragmentos/scripts :: scripts" ></div>
 <script th:inline="javascript">let username = [[${username}]];</script>
+<script th:inline="javascript">let awards = [[${postulantInfo.getAwards()}]];</script>
 <script th:src="@{/assets/js/postulante/perfil.js}"></script>
 </body>
 </html>

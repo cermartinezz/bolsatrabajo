@@ -45,6 +45,9 @@ new Vue({
         listErrors: new Errors()
     },
     methods: {
+        atras(){
+            window.history.back();
+        },
         onSubmitPrincipal(){
             axios.post("/empresa/"+username+"/perfiles",this.$data)
                 .then(response => {

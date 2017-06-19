@@ -64,7 +64,7 @@ public class InstitutionRestController {
     }
 
     @PostMapping
-    public ResponseEntity<?> store(@Valid @RequestBody Institution institution, UriComponentsBuilder ucBuilder) {
+    public ResponseEntity<?> store(@RequestBody Institution institution, UriComponentsBuilder ucBuilder) {
 
         institutionService.save(institution);
 
@@ -90,6 +90,20 @@ public class InstitutionRestController {
 
         this.headers.setLocation(uriBuilder.path("/instituciones").build().toUri());
 
+        return new ResponseEntity(this.headers, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}/eliminar")
+    public ResponseEntity delete(@PathVariable Integer id){
+
+        try{
+            institutionService.delete(institutionService.findInstitutionById(id));
+        }catch (Exception e){
+            String message = e.getMessage();
+            this.headers.set("message",message);
+            return new ResponseEntity(this.headers, HttpStatus.CONFLICT);
+        }
+        this.headers.set("message","Se elimino");
         return new ResponseEntity(this.headers, HttpStatus.OK);
     }
 

@@ -7,6 +7,7 @@ new Vue({
     el: "#app",
     data: {
         recommendations: [],
+        awards: awards,
         certifications: [],
         skills: [],
         postulante: {},

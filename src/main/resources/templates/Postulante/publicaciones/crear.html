@@ -25,12 +25,20 @@
                 <div class="col-md-6 col-md-offset-3">
                     <div class="box">
                         <div class="row">
+                            <div class="spacer"></div>
+                            <div class="box">
+                                <h5 class="center">Si no encuentra los datos en las opciones, agréguelos usted mismo!</h5>
+                                <div class="center">
+                                    <a href="/publicaciones" class="btn btn-info" style="margin: 5px">Crear Publicacion</a>
+                                </div>
+                            </div>
+
+                            <br><br>
 
                             <form @submit.prevent="onSubmit">
                                 <input type="hidden"
                                        th:name="${_csrf.parameterName}"
                                        th:value="${_csrf.token}" />
-
 
                                 <div class="form-group">
                                     <label>Publicacion</label>

@@ -3,6 +3,8 @@ package com.bolsaTrabajo.service.implementations;
 import com.bolsaTrabajo.model.catalog.Institution;
 import com.bolsaTrabajo.repositories.InstitutionRepository;
 import com.bolsaTrabajo.service.InstitutionService;
+import com.bolsaTrabajo.util.StringUtils;
+import org.apache.commons.lang3.text.WordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -37,5 +39,10 @@ public class InstitutionServiceImpl implements InstitutionService {
     @Override
     public void update(Institution currentInstitution) {
         this.save(currentInstitution);
+    }
+
+    @Override
+    public void delete(Optional<Institution> institutionById) {
+        institutionRepository.delete(institutionById.get());
     }
 }

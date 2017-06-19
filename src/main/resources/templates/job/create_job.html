@@ -25,6 +25,10 @@
                             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                             <span th:text="${message}"></span>
                         </div>
+                        <div class="flex_start">
+                            <span  ><h6>NOTA: Para el ingreso de un puesto es encesario haber creado un perfil para este puesto</h6></span>
+                            <a :href="'/empresa/'+username+'/perfiles/crear'" class="btn btn-success btn-xs">Crear perfil</a>
+                        </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="box">
