@@ -1,6 +1,7 @@
 package com.bolsaTrabajo.repositories;
 
 
+import com.bolsaTrabajo.model.Exam;
 import com.bolsaTrabajo.model.Question;
 import com.bolsaTrabajo.model.Questionary;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -20,6 +21,8 @@ public interface QuestionaryRespository extends JpaRepository<Questionary,Long> 
                   @Param("CU_ID_QUESTION") long cu_id_question);
 
     Questionary findById(long id);
+
+    List<Questionary> findAllByExam(Exam exam);
 
     //@Query("select Q from Questionary Q where Q.exam = :EXAM_ID")
     //Stream<Questionary> findQuestionsIdsForExam(@Param("EXAM_ID") long examId);

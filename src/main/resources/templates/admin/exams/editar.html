@@ -48,6 +48,17 @@
                                 </div>
 
                                 <div class="form-group">
+                                    <label>Publicado:</label>
+                                    <select class="form-control" name="publicado" required>
+
+                                        <option disabled value="">Seleccione una:</option>
+
+                                        <option th:field="*{publicado}" value="1">Si</option>
+                                        <option th:field="*{publicado}" value="0">No</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
                                     <button type="submit" class="btn btn-primary btn-block">Enviar</button>
                                 </div>
                             </form>

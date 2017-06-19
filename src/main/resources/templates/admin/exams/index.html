@@ -59,17 +59,17 @@
                                 <table class="table table-bordered table-stripe">
                                     <thead>
                                     <tr>
-                                        <th>#</th>
                                         <th>Titulo</th>
                                         <th>Sub Area Nombre</th>
+                                        <th>Publicado</th>
                                         <th></th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr th:each="e,iter : ${examenes}">
-                                        <td th:text="${iter.count}"></td>
                                         <td th:text="${e.titulo}"></td>
                                         <td th:text="${e.subArea.nombre}"></td>
+                                        <td><span th:if="${e.publicado==0}">No</span><span th:if="${e.publicado==1}">Si</span></td>
                                         <td>
                                             <a th:href="@{/examenes/{id}(id=${e.id})}" style="text-decoration:none;">
                                                 <button class="btn btn-warning btn-xs"><span class="fa fa-pencil"></span> Editar</button>

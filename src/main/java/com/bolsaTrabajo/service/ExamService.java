@@ -9,4 +9,5 @@ public interface ExamService {
     List<Exam> getAll();
     Exam findById(long id);
     void deleteById(long id);
+    List<Exam> findByPublicado(int publicado);
 }

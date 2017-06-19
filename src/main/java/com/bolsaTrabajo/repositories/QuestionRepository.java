@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+
 public interface QuestionRepository extends JpaRepository<Question,Long>{
     @Procedure(name="CA_PREGUNTA") //el mismo nombre que el proc.
     void saveQuestion(@Param("Q_ID") long q_id,
@@ -17,4 +19,5 @@ public interface QuestionRepository extends JpaRepository<Question,Long>{
                      @Param("Q_RESPUESTA") String q_respuesta,
                      @Param("Q_SUBAREA_ID") long q_subarea_id);
     Question findById(long id);
+    List<Question> findAllByOrderByIdAsc();
 }

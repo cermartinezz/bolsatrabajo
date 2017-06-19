@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragmentos/head :: head" th:remove="tag">
+    <meta charset="UTF-8">
+    <title>Permisos</title>
+</head>
+<body>
+<div class="site-wrapper" id="app">
+    <header class="header header-menu-fullw">
+        <div th:include="fragmentos/top_bar :: top_bar(${user})" th:remove="tag"></div>
+        <div th:include="fragmentos/menu :: menu(${user})" th:remove="tag"></div>
+    </header>
+
+
+    <div class="main" role="main">
+
+        <div th:include="fragmentos/heading :: heading('Resultados del Exámen')"></div>
+
+        <section class="page-content">
+            <div class="container">
+                <div class="box">
+                    <div th:if="${message!=null}" class="alert alert-danger alert-dismissable">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <span th:text="${message}"></span>
+                    </div>
+                    <div th:if="${messageSuccess!=null}" class="alert alert-success alert-dismissable">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <span th:text="${messageSuccess}"></span>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8 col-md-offset-2">
+                            <h3>Exámen - Cuestionario  Nota: <nota th:text="${calificacion}"></nota></h3>
+
+                            <div class="table-responsive">
+                                <table class="table table-condensed tablita">
+                                    <tr>
+                                        <td><h5>Titulo:</h5></td>
+                                        <td><p th:text="${examen.titulo}"></p></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h5>Instrucciones:</h5></td>
+                                        <td><p th:text="${examen.instrucciones}"></p></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h5>Sub Area:</h5></td>
+                                        <td><p th:text="${examen.subArea.nombre}"></p></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <h3>Preguntas:</h3>
+                            <table class="table tablita">
+                                    <div th:each="r,iter : ${resultados}">
+                                        <tr>
+                                            <td style="background:#dee0e2;font-weight:bold;">Pregunta: <span th:text="${iter.count}"></span></td>
+                                            <td rowspan="3" style="background:#b8d1f9;text-align:left;">
+                                                <fieldset disabled>
+                                                    <legend th:text="${r.questionary.question.enunciado}"></legend>
+                                                    <div th:if="${r.respuesta==r.questionary.question.d1}">
+                                                        <input type="radio" value="${r.questionary.question.d1}" th:text="${r.questionary.question.d1}" checked><br />
+                                                    </div>
+                                                    <div th:if="${!(r.respuesta==r.questionary.question.d1)}">
+                                                        <input type="radio" value="${r.questionary.question.d1}" th:text="${r.questionary.question.d1}"><br />
+                                                    </div>
+                                                    <div th:if="${r.respuesta==r.questionary.question.d2}">
+                                                        <input type="radio" value="${r.questionary.question.d2}" th:text="${r.questionary.question.d2}" checked><br />
+                                                    </div>
+                                                    <div th:if="${!(r.respuesta==r.questionary.question.d2)}">
+                                                        <input type="radio" value="${r.questionary.question.d2}" th:text="${r.questionary.question.d2}"><br />
+                                                    </div>
+                                                    <div th:if="${r.respuesta==r.questionary.question.d3}">
+                                                        <input type="radio" value="${r.questionary.question.d3}" th:text="${r.questionary.question.d3}" checked><br />
+                                                    </div>
+                                                    <div th:if="${!(r.respuesta==r.questionary.question.d3)}">
+                                                        <input type="radio" value="${r.questionary.question.d3}" th:text="${r.questionary.question.d3}"><br />
+                                                    </div>
+                                                    <div th:if="${r.respuesta==r.questionary.question.d4}">
+                                                        <input type="radio" value="${r.questionary.question.d4}" th:text="${r.questionary.question.d4}" checked ><br />
+                                                    </div>
+                                                    <div th:if="${!(r.respuesta==r.questionary.question.d4)}">
+                                                        <input type="radio" value="${r.questionary.question.d4}" th:text="${r.questionary.question.d4}" ><br />
+                                                    </div>
+                                                </fieldset>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="background:#dee0e2;">Puntua como: <span th:text="${r.questionary.question.peso}">peso</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="background:#dee0e2;">Estado: <span th:if="${r.respuesta.equals(r.questionary.question.respuesta)}" style="color:blue;font-weight:bold;">Correcta</span><span th:if="${!(r.respuesta==r.questionary.question.respuesta)}" style="color:red;font-weight:bold;">Incorrecta</span></td>
+                                        </tr>
+
+                                        <tr><td></td></tr>
+                                    </div>
+                                    <tr>
+                                    </tr>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div th:include="fragmentos/footer :: footer"></div>
+    </div>
+</div>
+<div th:include="fragmentos/scripts :: scripts"></div>
+</body>
+</html>

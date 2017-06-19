@@ -25,5 +25,7 @@ public class ExamServiceImpl implements ExamService{
     public Exam findById(long id){return examRespository.findById(id);}
 
     public void deleteById(long id){ examRespository.deleteById(id);}
+
+    public List<Exam> findByPublicado(int publicado){return examRespository.findByPublicado(publicado); }
 }
 

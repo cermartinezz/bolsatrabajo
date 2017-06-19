@@ -2,6 +2,7 @@ package com.bolsaTrabajo.model;
 
 import com.bolsaTrabajo.model.postulantInfo.*;
 import com.bolsaTrabajo.util.Gender;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -28,6 +29,7 @@ public class Postulant extends User{
     private Set<Award> awards;
     private Set<PostulantPublication> postulantPublications;
     private Set<PostulantLanguage> postulantLanguages;
+    private Set<ExamResult> examResults;
 
     public Postulant() {super();}
 
@@ -204,6 +206,16 @@ public class Postulant extends User{
 
     public void setPostulantLanguages(Set<PostulantLanguage> postulantLanguages) {
         this.postulantLanguages = postulantLanguages;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "postulant", cascade = CascadeType.REMOVE)
+    @JsonIgnore
+    public Set<ExamResult> getExamResults() {
+        return examResults;
+    }
+
+    public void setExamResults(Set<ExamResult> examResults) {
+        this.examResults = examResults;
     }
 
     @Override

@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.query.Param;
 
 import java.util.Date;
+import java.util.List;
 
 public interface ExamRespository extends JpaRepository<Exam,Long> {
     @Procedure(name="CA_EXAM") //el mismo nombre que el proc.
@@ -16,4 +17,6 @@ public interface ExamRespository extends JpaRepository<Exam,Long> {
                      @Param("E_SUBAREA_ID") long e_subarea_id,
                      @Param("E_TITULO") String e_titulo);
     Exam findById(long id);
+
+    List<Exam> findByPublicado(int publicado);
 }

@@ -26,7 +26,7 @@ public class QuestionServiceImpl implements QuestionService {
     }
     //public void save(Question question){ questionRepository.save(question); }
 
-    public List<Question> getAll(){ return questionRepository.findAll();}
+    public List<Question> getAll(){ return questionRepository.findAllByOrderByIdAsc();}
 
     public Question findById(long id){ return questionRepository.findById(id);}
 

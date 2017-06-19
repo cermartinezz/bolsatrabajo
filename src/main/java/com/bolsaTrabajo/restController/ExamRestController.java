@@ -46,9 +46,7 @@ public class ExamRestController {
             attributes.addFlashAttribute("message","No se pudo actualizar el examen");
             return new RedirectView("/examenes/"+id);
         }
-
         try{
-
             exam.setSubArea(subAreaService.findById(ids));
             examService.spSaveExam(exam);
         }catch(Exception e){
@@ -67,5 +65,4 @@ public class ExamRestController {
         attributes.addFlashAttribute("messageSuccess","El Examen se elimino correctamente");
         return new RedirectView("/examenes");
     }
-
 }

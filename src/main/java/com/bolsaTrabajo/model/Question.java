@@ -59,7 +59,7 @@ public class Question {
     }
 
     public void setRespuesta(String respuesta) {
-        this.respuesta = respuesta;
+        this.respuesta = respuesta.toLowerCase();
     }
 
     public String getD1() {
@@ -67,7 +67,7 @@ public class Question {
     }
 
     public void setD1(String d1) {
-        this.d1 = d1;
+        this.d1 = d1.toLowerCase();
     }
 
     public String getD2() {
@@ -75,7 +75,7 @@ public class Question {
     }
 
     public void setD2(String d2) {
-        this.d2 = d2;
+        this.d2 = d2.toLowerCase();
     }
 
     public String getD3() {
@@ -83,7 +83,7 @@ public class Question {
     }
 
     public void setD3(String d3) {
-        this.d3 = d3;
+        this.d3 = d3.toLowerCase();
     }
 
     public String getD4() {
@@ -91,7 +91,7 @@ public class Question {
     }
 
     public void setD4(String d4) {
-        this.d4 = d4;
+        this.d4 = d4.toLowerCase();
     }
 
     public int getPeso() {

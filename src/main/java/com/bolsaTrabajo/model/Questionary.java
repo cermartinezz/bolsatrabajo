@@ -3,6 +3,7 @@ package com.bolsaTrabajo.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @NamedStoredProcedureQueries({
@@ -18,6 +19,7 @@ public class Questionary {
     private long id;
     private Exam exam;
     private Question question;
+    private Set<ExamResult> examResults;
 
     public Questionary(){}
 
@@ -49,5 +51,15 @@ public class Questionary {
 
     public void setQuestion(Question question) {
         this.question = question;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "questionary", cascade = CascadeType.REMOVE)
+    @JsonIgnore
+    public Set<ExamResult> getExamResults() {
+        return examResults;
+    }
+
+    public void setExamResults(Set<ExamResult> examResults) {
+        this.examResults = examResults;
     }
 }

@@ -97,4 +97,5 @@ public class Exam {
     public void publicar(){this.publicado = 1;}
 
     public void desPublicar(){this.publicado = 0;}
+
 }

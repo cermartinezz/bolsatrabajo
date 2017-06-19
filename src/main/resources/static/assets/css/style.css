@@ -132,3 +132,8 @@
     width: 60%;
 }
 
+/*tabla*/
+.tablita tr{
+    color:#000;
+    text-align:center;
+}

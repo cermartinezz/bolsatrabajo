@@ -2,6 +2,7 @@ package com.bolsaTrabajo.service.implementations;
 
 
 
+import com.bolsaTrabajo.model.Exam;
 import com.bolsaTrabajo.model.Questionary;
 import com.bolsaTrabajo.repositories.QuestionaryRespository;
 import com.bolsaTrabajo.service.QuestionService;
@@ -27,5 +28,6 @@ public class QuestionaryServiceImpl implements QuestionaryService {
 
     public void deleteById(long id){ questionaryRespository.deleteById(id);}
 
+    public List<Questionary> findAllByExam(Exam exam){ return questionaryRespository.findAllByExam(exam);}
     //public Stream<Questionary> findQuestionsIdsForExam(long examId){ return  questionaryRespository.findQuestionsIdsForExam(examId);}
 }

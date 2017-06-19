@@ -4,9 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
-
+@Entity
 public class ExamResult {
-    /*
     private long id;
     private Questionary questionary;
     private Postulant postulant;
@@ -47,7 +46,7 @@ public class ExamResult {
     }
 
     public void setRespuesta(String respuesta) {
-        this.respuesta = respuesta;
+        this.respuesta = respuesta.toLowerCase();
     }
-    */
+
 }
