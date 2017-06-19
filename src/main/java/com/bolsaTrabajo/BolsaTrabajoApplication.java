@@ -69,10 +69,6 @@ public class BolsaTrabajoApplication implements CommandLineRunner {
 			insertDepartments();
 		}
 
-		if(skillCategoryService.count() <= 0){
-			insertSkills();
-		}
-
 		//Permisos, roles y usuario inicial en la aplicacion
 
 		UserService userService;
@@ -123,12 +119,8 @@ public class BolsaTrabajoApplication implements CommandLineRunner {
 			createUserIfNotFound("administrador");
         }
 
-
-	}
-
-	private void insertSkills() {
 		SkillCategory category1 = new SkillCategory(
-				"Locomotrices", "HLOC"
+				"Comunicación", "HCOM"
 		);
 
 		SkillCategory category2 = new SkillCategory(
@@ -136,7 +128,7 @@ public class BolsaTrabajoApplication implements CommandLineRunner {
 		);
 
 		SkillCategory category3 = new SkillCategory(
-				"Sociales", "HSOC"
+				"Sociales", "HMAN"
 		);
 
 		SkillCategory category4 = new SkillCategory(
@@ -145,23 +137,36 @@ public class BolsaTrabajoApplication implements CommandLineRunner {
 		SkillCategory category5 = new SkillCategory(
 				"Tecnicas", "HTEC"
 		);
-		Skill skill = new Skill("Facilidad de Aprendizaje", "nose1", category2);
-		Skill skill2 = new Skill("Administración de Tiempo", "nose2", category4);
-		Skill skill3 = new Skill("Trabajo en equipo", "nose3", category3);
-		Skill skill4 = new Skill("Proactivo", "nose4", category2);
-		Skill skill5 = new Skill("Conocimientos de office avanzado", "nose_2", category5);
+
+		Skill skill = new Skill("Facilidad de Aprendizaje", "FA", category2);
+		Skill skill2 = new Skill("Administración de Tiempo", "AT", category2);
+		Skill skill3 = new Skill("Trabajo en equipo", "TE", category3);
+		Skill skill4 = new Skill("Toma de decisiones", "TD", category4);
+		Skill skill5 = new Skill("Conocimientos de office", "OFF", category5);
+		Skill skill6 = new Skill("Comunicación asertiva","CS",category1);
+		Skill skill7 = new Skill("Buenas relaciones interpersonales", "REL", category3);
+		Skill skill8 = new Skill("Solucion de problemas","SP",category4);
+		Skill skill9 = new Skill("Dominio sistemas LINUX", "LIN", category5);
+		Skill skill10 = new Skill("Conocimientos PL/SQL", "PL", category5);
 
 		if (skillCategoryService.count() <= 0) {
 			skillCategoryService.save(category1);
 			skillCategoryService.save(category2);
 			skillCategoryService.save(category3);
 			skillCategoryService.save(category4);
+			skillCategoryService.save(category5);
 			skillService.storeSkill(skill);
 			skillService.storeSkill(skill2);
 			skillService.storeSkill(skill3);
 			skillService.storeSkill(skill4);
 			skillService.storeSkill(skill5);
+			skillService.storeSkill(skill6);
+			skillService.storeSkill(skill7);
+			skillService.storeSkill(skill8);
+			skillService.storeSkill(skill9);
+			skillService.storeSkill(skill10);
 		}
+
 	}
 
 	private void insertLanguageLevels() {
