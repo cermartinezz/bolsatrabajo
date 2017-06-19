@@ -14,4 +14,5 @@ public interface PostulantRepository extends JpaRepository<Postulant,Integer> {
     Postulant findByPassport(String passport);
     Postulant findByNup(String nup);
     Postulant findById(Long id);
+    
 }

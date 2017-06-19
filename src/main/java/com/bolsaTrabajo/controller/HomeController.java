@@ -43,10 +43,9 @@ public class HomeController {
         return "home";
     }
 
-
-
-    @RequestMapping("/admin/menu")
-    public String adminMenu(){
-        return "admin/menu_admin";
+    @RequestMapping("/buscar-candidatos")
+    public String adminMenu(Model model){
+        model.addAttribute("user", Auth.auth());
+        return "company/searchCandidates";
     }
 }

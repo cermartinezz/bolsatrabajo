@@ -1,11 +1,9 @@
 package com.bolsaTrabajo.restController;
 
 import com.bolsaTrabajo.model.*;
-import com.bolsaTrabajo.model.catalog.AcademicTitleCat;
-import com.bolsaTrabajo.model.catalog.CompanyCat;
-import com.bolsaTrabajo.model.catalog.Institution;
-import com.bolsaTrabajo.model.catalog.JobCat;
+import com.bolsaTrabajo.model.catalog.*;
 import com.bolsaTrabajo.model.postulantInfo.AcademicExperience;
+import com.bolsaTrabajo.model.postulantInfo.PostulantLanguage;
 import com.bolsaTrabajo.model.postulantInfo.WorkExperience;
 import com.bolsaTrabajo.service.*;
 import com.bolsaTrabajo.service.CompanyCatService;
@@ -22,6 +20,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * Created by keepercito on 05-01-17.
@@ -50,10 +49,35 @@ public class PostulantRestController {
 
     @Autowired
     private InstitutionService institutionService;
+
+    @Autowired
+    private LanguageService languageService;
+
     private HttpHeaders headers;
 
     public PostulantRestController() {
         this.headers = new HttpHeaders();
+    }
+
+    @GetMapping("/getAll")
+    public ResponseEntity<List<Postulant>> getAll(){
+        List<Postulant> postulants = postulantService.getAll();
+        if(postulants == null || postulants.isEmpty()){
+            return new ResponseEntity<List<Postulant>>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<List<Postulant>>(postulants, HttpStatus.OK);
+
+    }
+
+    @GetMapping("/language/{lang}")
+    public ResponseEntity<List<PostulantLanguage>> getAllByLanguage(@PathVariable String lang){
+        Language language = languageService.findByCodigo(lang);
+        List<PostulantLanguage> postulants = postulantService.getPostulantForLanguage(language);
+        if(postulants == null || postulants.isEmpty()){
+            return new ResponseEntity<List<PostulantLanguage>>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<List<PostulantLanguage>>(postulants, HttpStatus.OK);
+
     }
 
     @GetMapping("/{username}")

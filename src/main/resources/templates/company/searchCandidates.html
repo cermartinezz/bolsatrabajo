@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:v-on="http://www.w3.org/1999/xhtml">
+
+<head th:include="fragmentos/head :: head" th:remove="tag"/>
+<title>Bolsa Trabajo</title>
+
+<body>
+<div class="site-wrapper" >
+    <header class="header header-menu-fullw">
+
+        <div th:include="fragmentos/top_bar :: top_bar(${user})" th:remove="tag"></div>
+
+        <div th:include="fragmentos/menu :: menu(${user},${usr})" th:remove="tag"></div>
+
+    </header>
+
+
+    <div class="main" role="main" id="app">
+
+        <div th:include="fragmentos/heading :: heading('Buscar Aspirantes')"></div>
+
+        <section class="page-content">
+            <div class="container">
+                <h3 class="title-bordered">Busca a los postulantes que más se adecúen a tus necesidades</h3>
+
+
+                <h4 class="center">Filtrar por idioma</h4>
+
+                <form class="job_filters" th:object="${filter}" th:o method="get"
+                      v-on:submit.prevent="onSubmit">
+
+                    <div class="search_jobs center_block">
+
+                        <div class="search_location">
+                            <label for="location">I</label>
+                            <span class="select-style">
+										<select class="form-control" name="location" id="location"
+                                                v-model="language">
+                                            <option disabled value="" selected>Idioma</option>
+											<option value="EN">Inglés</option>
+											<option value="IT">Italiano</option>
+                                            <option value="DE">Alemán</option>
+											<option value="JA">Japonés</option>
+										</select>
+                            </span>
+                        </div>
+
+                        <div class="search_type">
+                            <label>Educación</label>
+                            <span class="select-style">
+										<select name="category" id="category" class="form-control"
+                                                v-model="level">
+                                                <option disabled value="" selected>Educación</option>
+											    <option value="A1">Basico</option>
+                                                <option value="A2">Elemental</option>
+                                                <option value="B1">Pre-Intermedio</option>
+                                                <option value="B2">Intermedio Superior</option>
+                                                <option value="C1">Avanzado</option>
+                                                <option value="C2">Superior</option>
+										</select>
+									</span>
+                        </div>
+
+
+                        <div class="search_submit">
+                            <label>Submit</label>
+                            <button class="btn btn-block btn-primary"><i class="fa fa-search"></i></button>
+                        </div>
+                        <div class="search_submit">
+                            <label>Submit</label>
+                            <button class="btn btn-block btn-primary" v-on:click="limpiar"><i class="fa fa-eraser"></i></button>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="row" v-for="post in postulants">
+                    <div class="call-to-action" >
+                        <div class="cta-txt">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <h3>{{post.name}} {{post.lastName}} </h3>
+                                    <p>Correo: {{post.email}}</p>
+                                    <p>Teléfono: {{post.phonenumber}}</p>
+                                    <p>Fecha de Nacimiento: {{post.birthday}}</p>
+
+                                </div>
+                                <div class="cold-md-2">
+                                    <div v-if="post.academicExperiences.length !=0">
+                                        <h5>Educación:</h5>
+                                        <ul>
+                                            <li></li>
+                                        </ul>
+                                    </div>
+
+                                    <div v-if="post.postulantLanguages !=0">
+                                        <h5>Idiomas:</h5>
+                                        <ul v-for="idioma in post.postulantLanguages">
+                                            <li>{{idioma.language.nombre}} -> Nivel: {{idioma.languageLevel}}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cta-btn-candidato">
+                            <a @click="redirectPerfil(post.username)" class="btn btn-primary">Perfil</a>
+                            <br><br>
+                        </div>
+
+                    </div>
+
+                    <div class="spacer"></div>
+                </div>
+
+            </div>
+            <div class="spacer-lg"></div>
+
+            <div v-if="postulants.length == 0" class="call-to-action centered">
+                <div class="spacer"></div>
+                <div class="cta-txt">
+                    <h2>No hay aspirantes</h2>
+                </div>
+
+                <div class="spacer"></div>
+            </div>
+
+            </div>
+        </section>
+
+        <div th:include="fragmentos/footer :: footer"></div>
+    </div>
+</div>
+
+
+<div th:include="fragmentos/scripts :: scripts" ></div>
+<script th:inline="javascript">
+    new Vue({
+        el: "#app",
+        data: {
+            language: "",
+            level: "",
+            postulants: []
+        },
+        methods: {
+            onSubmit: function(){
+                if(this.language.length != 0 ){
+                    axios.get('api/postulant/language/'+this.language)
+                        .then(response =>{
+                            console.log(response.data);
+                            this.postulants = response.data;
+                        })
+                        .catch(error => {
+                            console.log(error);
+                            showMessageTimer("Error","No se encontraron puestos de trabajo que cumplan ambos filtros","error",5000);
+                        })
+                }
+
+
+            },
+            limpiar: function (event) {
+                if(event){
+                    this.language= "";
+                    this.level= "";
+                    axios.get('/api/postulant/getAll')
+                        .then(response =>{
+                            console.log(response.data);
+
+                            this.postulants = response.data
+                        })
+
+                }
+            },
+            redirectPerfil(user){
+                window.location.href = "/postulante/"+user+"/perfil";
+            }
+        },
+        mounted(){
+            axios.get('/api/postulant/getAll')
+                .then(response =>this.postulants = response.data)
+        }
+    })
+</script>
+</body>
+</html>
