@@ -82,4 +82,9 @@ public class CandidateRestController {
 
     }
 
+    @GetMapping("/{job_id}/idioma/{id_idioma}")
+    public ResponseEntity<Postulant> filtroIdiomas(){
+        return new ResponseEntity<Postulant>(HttpStatus.OK);
+    }
+
 }

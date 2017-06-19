@@ -7,7 +7,7 @@ import com.bolsaTrabajo.model.Role;
 import com.bolsaTrabajo.model.catalog.*;
 import com.bolsaTrabajo.service.*;
 import com.bolsaTrabajo.util.Gender;
-import com.github.javafaker.Faker;
+import org.apache.commons.lang3.text.WordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -47,8 +47,6 @@ public class BolsaTrabajoApplication implements CommandLineRunner {
 
 	@Autowired
 	private DepartmentService departmentService;
-
-	Faker faker = new Faker();
 
 	public static void main(String[] args) {
 		SpringApplication.run(BolsaTrabajoApplication.class, args);
@@ -336,14 +334,14 @@ public class BolsaTrabajoApplication implements CommandLineRunner {
 	@Transactional
 	private void createCompanyIfNotFound(String username,String compañia,String representante) throws ParseException {
 		Company company = new Company();
-		company.setName(this.faker.name().firstName());
-		company.setLastName(this.faker.name().lastName());
+		company.setName(WordUtils.capitalize(compañia) + "Co.");
+		company.setLastName(WordUtils.capitalize(compañia) + "Co.");
 		company.setUsername(username);
 		company.setNombreC(compañia);
 		company.setRepreLegal(representante);
-		company.setInformacionC(this.faker.company().bs());
+		company.setInformacionC("Curabitur porta congue leo ornare luctus. Praesent iaculis posuere diam elementum pellentesque. Proin quis egestas ligula. Cras id auctor diam, nec maximus lectus. Curabitur sagittis, odio in dapibus maximus, nulla turpis malesuada nunc, vel sodales neque lacus vel diam. Morbi velit elit, feugiat vel velit vitae, ultrices ultricies nulla. Curabitur rhoncus consectetur magna, vitae mollis nunc convallis in. In quis purus vel libero vulputate consectetur.");
 		company.setNitC("1234-123456-123-1");
-		company.setTelefonoC(this.faker.phoneNumber().phoneNumber());
+		company.setTelefonoC("(503) 2257-7777");
 		company.setPassword(username);
 		company.setPasswordConfirm(username);
 		company.setActive(1);
