@@ -21,6 +21,53 @@
             <section class="page-content">
                 <div class="container">
 
+                    <form class="job_filters" th:object="${filter}" th:o method="get"
+                          @submit.prevent="onSubmit">
+
+                        <div class="search_jobs center_block">
+
+                            <div class="search_location">
+                                <label for="location">I</label>
+                                <span class="select-style">
+										<select class="form-control" name="location" id="location"
+                                                v-model="language">
+                                            <option disabled value="" selected>Idioma</option>
+											<option value="EN">Inglés</option>
+											<option value="IT">Italiano</option>
+                                            <option value="DE">Alemán</option>
+											<option value="JA">Japonés</option>
+										</select>
+                            </span>
+                            </div>
+
+                            <div class="search_type">
+                                <label>Educación</label>
+                                <span class="select-style">
+										<select name="category" id="category" class="form-control"
+                                                v-model="level">
+                                                <option disabled value="" selected>Educación</option>
+											    <option value="A1">Basico</option>
+                                                <option value="A2">Elemental</option>
+                                                <option value="B1">Pre-Intermedio</option>
+                                                <option value="B2">Intermedio Superior</option>
+                                                <option value="C1">Avanzado</option>
+                                                <option value="C2">Superior</option>
+										</select>
+									</span>
+                            </div>
+
+
+                            <div class="search_submit">
+                                <label>Submit</label>
+                                <button class="btn btn-block btn-primary"><i class="fa fa-search"></i></button>
+                            </div>
+                            <div class="search_submit">
+                                <label>Submit</label>
+                                <button class="btn btn-block btn-primary" v-on:click="limpiar"><i class="fa fa-eraser"></i></button>
+                            </div>
+                        </div>
+                    </form>
+
                     <div class="row" v-for="aspirante in candidates">
                         <div class="call-to-action" >
                             <div class="cta-txt">
@@ -93,6 +140,8 @@
     new Vue({
         el: "#app",
         data: {
+            language: "",
+            level: "",
             candidates: candidates,
         },
         methods: {

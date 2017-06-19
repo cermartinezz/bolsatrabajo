@@ -44,10 +44,10 @@
                                             <div class="help-block with-errors" v-if="listErrors.has('name')" v-text="listErrors.get('name')"></div>
                                         </div>
                                         <div class="form-group" :class="{'has-error': listErrors.has('description') }">
-                                            <label> Descripcion del puesto *</label>
+                                            <label> Descripcion del perfil *</label>
 
                                             <textarea type="text" name="description"
-                                                      v-model="description" placeholder="Descripcion del puesto " class="form-control" required></textarea>
+                                                      v-model="description" placeholder="Descripcion del perfil " class="form-control" required></textarea>
 
                                             <div class="help-block with-errors" v-if="listErrors.has('description')" v-text="listErrors.get('description')"></div>
                                         </div>

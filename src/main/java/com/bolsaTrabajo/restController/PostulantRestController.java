@@ -20,6 +20,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -70,13 +71,20 @@ public class PostulantRestController {
     }
 
     @GetMapping("/language/{lang}")
-    public ResponseEntity<List<PostulantLanguage>> getAllByLanguage(@PathVariable String lang){
+    public ResponseEntity<List<Postulant>> getAllByLanguage(@PathVariable String lang){
         Language language = languageService.findByCodigo(lang);
-        List<PostulantLanguage> postulants = postulantService.getPostulantForLanguage(language);
-        if(postulants == null || postulants.isEmpty()){
-            return new ResponseEntity<List<PostulantLanguage>>(HttpStatus.NO_CONTENT);
+        List<PostulantLanguage> elegidos = postulantService.getPostulantForLanguage(language);
+        List<Postulant> postulants = new ArrayList(); //Esta lista es la que se regresará
+        // Si no te lo regresa por el json ignore, filtralos aqui mismo
+        // y eso es lo que tenes que regresar!
+        for (PostulantLanguage elegido : elegidos) {
+            postulants.add(elegido.getPostulant());
         }
-        return new ResponseEntity<List<PostulantLanguage>>(postulants, HttpStatus.OK);
+        if(postulants == null || postulants.isEmpty()){
+            return new ResponseEntity<List<Postulant>>(HttpStatus.NO_CONTENT);
+        }
+        // En lugar de regresar el compuesto, regresa el hijo
+        return new ResponseEntity<List<Postulant>>(postulants, HttpStatus.OK);
 
     }
 
