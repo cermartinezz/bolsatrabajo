@@ -80,6 +80,7 @@ public class Institution {
     }
 
     @OneToMany(mappedBy = "pk.institution", fetch = FetchType.LAZY)
+    @JsonIgnore
     public Set<AcademicExperience> getAcademicExperiences() {
         return academicExperiences;
     }

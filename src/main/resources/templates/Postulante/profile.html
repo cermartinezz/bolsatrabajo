@@ -103,15 +103,18 @@
                                                     <td th:text="${title.pk.getTitle().getTitulo()}"></td>
                                                     <td th:text="${title.getInstitution().getInstitutionName()}"></td>
                                                     <td th:text="${title.graduacion}"></td>
-                                                    <td>
-                                                        <form method="post" th:action="@{'/postulante/'+ ${user.getName()} + '/ExpAcad/editar'}">
+                                                    <td class="row">
+                                                        <form method="post" th:action="@{'/postulante/'+ ${user.getName()} + '/ExpAcad/editar'}" class="col-md-5">
                                                             <input type="hidden" name="titulo" th:value="${title.pk.getTitle().getId()}">
                                                             <input type="hidden" name="institucion" th:value="${title.getInstitution().getId()}">
                                                             <button class="btn btn-warning btn-xs"><span class="fa fa-pencil"></span> Editar</button>
                                                         </form>
-                                                        <button th:onclick="'eliminarRegistroExpAcad('+${title.pk.getTitle().getId()}+',
+                                                        <div class="">
+                                                            <button th:onclick="'eliminarRegistroExpAcad('+${title.pk.getTitle().getId()}+',
                                                         '+${title.getInstitution().getId()}+')'"
-                                                                class="btn btn-danger btn-xs inline"><span class="fa fa-trash"></span> Eliminar</button>
+                                                                    class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Eliminar</button>
+                                                        </div>
+
                                                     </td>
                                                 </tr>
                                                 </tbody>
@@ -279,16 +282,18 @@
                                                 <tr th:each="exp : ${postulantInfo.workExperiences}">
                                                     <td th:text="${exp.pk.getCompanyCat().getCompanyName()}"></td>
                                                     <td th:text="${exp.getJobCat().getPuesto()}"></td>
-                                                    <td>
-                                                        <form method="post" th:action="@{'/postulante/'+ ${user.getName()} + '/ExpLabo/editar'}" class="in-line">
+                                                    <td class="row">
+                                                        <form method="post" th:action="@{'/postulante/'+ ${user.getName()} + '/ExpLabo/editar'}" class="col-md-1">
                                                             <input type="hidden" name="inicio" th:value="${exp.getPk().getInicio()}">
                                                             <input type="hidden" name="company" th:value="${exp.getPk().getCompanyCat().getId()}">
                                                             <input type="hidden" name="job" th:value="${exp.getPk().getJobCat().getId()}">
                                                             <button class="btn btn-warning btn-xs"><span class="fa fa-pencil"></span> Editar</button>
                                                         </form>
-                                                        <button th:onclick="'eliminarRegistroExpLabo('+${exp.getPk().getCompanyCat().getId()}+',
+                                                        <div class="col-md-1 col-md-push-1">
+                                                            <button th:onclick="'eliminarRegistroExpLabo('+${exp.getPk().getCompanyCat().getId()}+',
                                                         '+${exp.getPk().getJobCat().getId()}+',\''+${exp.getPk().getInicio()}+'\')'"
-                                                                class="btn btn-danger btn-xs inline"><span class="fa fa-trash"></span> Eliminar</button>
+                                                                    class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Eliminar</button>
+                                                        </div>
                                                     </td>
                                                 </tr>
                                                 </tbody>
