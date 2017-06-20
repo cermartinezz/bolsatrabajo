@@ -29,7 +29,8 @@
                             <!-- Book Information Fields -->
                             <label for="institucion">Institucion</label>
                             <div class="field select-style">
-                                <select name="institucion" id="institucion" class="form-control">
+                                <select name="institucion" id="institucion" class="form-control" required>
+                                    <option value="">Seleccione una institucion</option>
                                     <option th:each="ins : ${institutions}" th:value="${ins.id}" th:text="${ins.institutionName}"></option>
                                 </select>
                             </div>
@@ -38,7 +39,8 @@
 
                             <label for="titles">Titulo Obtenido</label>
                             <div class="field select-style">
-                                <select name="titles" id="titles" class="form-control">
+                                <select name="titles" id="titles" class="form-control" required>
+                                    <option value="">Seleccione un titulo</option>
                                     <option th:each="title : ${titles}" th:value="${title.id}" th:text="${title.titulo}"></option>
                                 </select>
                             </div>
@@ -47,7 +49,8 @@
 
                             <div class="field input-style">
                                 <label> Año de Graduación*</label>
-                                <input type="text" name="inicio" placeholder="Año que se tituló" class="form-control" th:field="*{añoGraduacion}" required />
+                                <input type="text" name="inicio" placeholder="Año que se tituló" pattern="[2]{1}[0-9]{3}" title="Formato 2000"
+                                       class="form-control" th:field="*{añoGraduacion}" required />
                             </div>
 
                             <div class="spacer"></div>
