@@ -135,6 +135,18 @@ public class Candidate implements Serializable{
         return postulants;
     }
 
+    public Set<Postulant> extraerCandidatosPorEducacion(Set<Candidate> candidates, String state){
+        Set<Postulant> postulants = new HashSet<>();
+        for (Candidate candidate: candidates) {
+                String name = candidate.getPostulant().getStateOfEducation().name();
+                boolean iguales = Objects.equals(name, state);
+                if(iguales){
+                    postulants.add(candidate.getPostulant());
+                }
+        }
+        return postulants;
+    }
+
     public Set<Postulant> extraerCandidatosPorHabilidadEIdiomas(Set<Candidate> candidates, Integer skill_id, String code){
         Set<Postulant> postulants = new HashSet<>();
         for (Candidate candidate: candidates) {
@@ -145,6 +157,58 @@ public class Candidate implements Serializable{
                     boolean iguales_en_habilidad = id_skill == skill_id;
                     boolean iguales_en_idioma = Objects.equals(code_language, code);
                     if(iguales_en_habilidad && iguales_en_idioma){
+                        postulants.add(candidate.getPostulant());
+                    }
+                }
+            }
+        }
+        return postulants;
+    }
+
+    public Set<Postulant> extraerCandidatosPorHabilidadYEducacion(Set<Candidate> candidates, Integer skill_id, String educacion){
+        Set<Postulant> postulants = new HashSet<>();
+        for (Candidate candidate: candidates) {
+            for (PostulantSkill postulantSkill: candidate.getPostulant().getSkills()) {
+                int id = postulantSkill.getPrimaryKey().getSkill().getId();
+                String name = candidate.getPrimaryKey().getPostulant().getStateOfEducation().name();
+                boolean igual_en_skill = id == skill_id;
+                boolean igual_en_educacion = Objects.equals(name, educacion);
+                if(igual_en_skill && igual_en_educacion){
+                    postulants.add(candidate.getPostulant());
+                }
+            }
+        }
+        return postulants;
+    }
+
+    public Set<Postulant> extraerCandidatosPorIdiomaYEducacion(Set<Candidate> candidates, String lan_code, String educacion){
+        Set<Postulant> postulants = new HashSet<>();
+        for (Candidate candidate: candidates) {
+            for (PostulantLanguage postulantLanguage: candidate.getPostulant().getPostulantLanguages()) {
+                String code = postulantLanguage.getPrimaryKey().getLanguage().getCodigo();
+                String name = candidate.getPrimaryKey().getPostulant().getStateOfEducation().name();
+                boolean igual_en_idiomas = Objects.equals(code, lan_code);
+                boolean igual_en_educacion = Objects.equals(name, educacion);
+                if(igual_en_idiomas && igual_en_educacion){
+                    postulants.add(candidate.getPostulant());
+                }
+            }
+        }
+        return postulants;
+    }
+
+    public Set<Postulant> extraerCandidatosPorIdiomaYEducacionYHabildiad(Set<Candidate> candidates, String lan_code, String educacion,Integer skill_id){
+        Set<Postulant> postulants = new HashSet<>();
+        for (Candidate candidate: candidates) {
+            for (PostulantLanguage postulantLanguage: candidate.getPostulant().getPostulantLanguages()) {
+                for(PostulantSkill postulantSkill: candidate.getPostulant().getSkills()){
+                    String name = candidate.getPrimaryKey().getPostulant().getStateOfEducation().name();
+                    String code = postulantLanguage.getPrimaryKey().getLanguage().getCodigo();
+                    Integer id = postulantSkill.getPrimaryKey().getSkill().getId();
+                    boolean igual_en_idiomas = Objects.equals(code, lan_code);
+                    boolean igual_en_educacion = Objects.equals(name, educacion);
+                    boolean igual_en_habilidad = Objects.equals(id, skill_id);
+                    if(igual_en_idiomas && igual_en_educacion && igual_en_habilidad){
                         postulants.add(candidate.getPostulant());
                     }
                 }

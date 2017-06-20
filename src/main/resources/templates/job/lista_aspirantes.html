@@ -55,6 +55,23 @@
                                 </span>
                             </div>
 
+                            <div class="search_location">
+                                <span class="select-style">
+										<select class="form-control" name="location" id="education"
+                                                v-model="education">
+                                            <option value="" selected>Nivel Educacional</option>
+											<option value="BACHILLER">BACHILLER</option>
+											<option value="UNIVERSITARIO_1">1er año de universidad</option>
+                                            <option value="UNIVERSITARIO_2">2er año de universidad</option>
+											<option value="UNIVERSITARIO_3">3er año de universidad</option>
+											<option value="UNIVERSITARIO_4">4er año de universidad</option>
+											<option value="UNIVERSITARIO_5">5er año de universidad</option>
+											<option value="EGRESADO">EGRESADO</option>
+											<option value="GRADUADO">GRADUADO</option>
+										</select>
+                                </span>
+                            </div>
+
 
 
                             <div class="search_submit">
@@ -145,6 +162,7 @@
         data: {
             language_id: "",
             skills_id: "",
+            education: "",
             candidates: candidates,
             skills: skills,
         },
@@ -153,39 +171,116 @@
                 window.location.href = "/postulante/"+user+"/perfil";
             },
             onSubmit(){
-                if(this.skills_id !== "" && this.language_id !== ""){
+                if(this.skills_id !== "" && this.language_id !== "" && this.education === ""){ // habilidades e idiomas (ya)
                     axios.get("/job/candidatos/puesto/"+job_id+"/habilidad/"+this.skills_id+"/idioma/"+this.language_id)
                         .then(response => {
                             console.log(response);
                             this.candidates = response.data;
+                            showMessageTimer("Resultados",response.headers.message,"success",2500);
                         })
                         .catch(error => {
                             console.log(error.response);
+                            if(error.response.status >= 400 && error.response.status <= 499){
+                                showMessageTimer("Error",error.response.headers.message,"error",2500);
+                            }
                         })
                 }
-                if(this.skills_id !== ""){
+                if(this.skills_id !== "" && this.language_id === "" && this.education !== ""){ // habilidades y educacion (ya)
+                    axios.get("/job/candidatos/puesto/"+job_id+"/habilidad/"+this.skills_id+"/educacion/"+this.education)
+                        .then(response => {
+                            console.log(response);
+                            this.candidates = response.data;
+                            showMessageTimer("Resultados",response.headers.message,"success",2500);
+
+                        })
+                        .catch(error => {
+                            console.log(error.response);
+                            if(error.response.status >= 400 && error.response.status <= 499){
+                                showMessageTimer("Error",error.response.headers.message,"error",2500);
+                            }
+                        })
+                }
+                if(this.skills_id === "" && this.language_id !== "" && this.education !== ""){ // idioma y educacion (ya)
+                    axios.get("/job/candidatos/puesto/"+job_id+"/idioma/"+this.language_id+"/educacion/"+this.education)
+                        .then(response => {
+                            console.log(response);
+                            this.candidates = response.data;
+                            showMessageTimer("Resultados",response.headers.message,"success",2500);
+
+                        })
+                        .catch(error => {
+                            console.log(error.response);
+                            if(error.response.status >= 400 && error.response.status <= 499){
+                                showMessageTimer("Error",error.response.headers.message,"error",2500);
+                            }
+                        })
+                }
+                if(this.skills_id !== "" && this.language_id !== "" && this.education !== ""){ // idioma y educacion y habilidad
+                    axios.get("/job/candidatos/puesto/"+job_id+"/idioma/"+this.language_id+"/educacion/"+this.education+"/habilidad/"+this.skills_id)
+                        .then(response => {
+                            console.log(response);
+                            this.candidates = response.data;
+                            showMessageTimer("Resultados",response.headers.message,"success",2500);
+
+                        })
+                        .catch(error => {
+                            console.log(error.response);
+                            if(error.response.status >= 400 && error.response.status <= 499){
+                                showMessageTimer("Error",error.response.headers.message,"error",2500);
+                            }
+                        })
+                }
+                if(this.skills_id !== "" && this.language_id === "" && this.education === ""){ // solo habilidad (ya)
                     axios.get("/job/candidatos/puesto/"+job_id+"/habilidad/"+this.skills_id)
                         .then(response => {
                             console.log(response);
                             this.candidates = response.data;
+                            showMessageTimer("Resultados",response.headers.message,"success",2500);
+
                         })
                         .catch(error => {
                             console.log(error.response);
+                            if(error.response.status >= 400 && error.response.status <= 499){
+                                showMessageTimer("Error",error.response.headers.message,"error",2500);
+                            }
                         })
                 }
-                if(this.language_id !== ""){
+                if(this.language_id !== "" && this.skills_id === "" && this.education === ""){ // solo lenguaje (ya)
                     axios.get("/job/candidatos/puesto/"+job_id+"/lenguaje/"+this.language_id)
                         .then(response => {
                             console.log(response);
                             this.candidates = response.data;
+                            showMessageTimer("Resultados",response.headers.message,"success",2500);
+
                         })
                         .catch(error => {
                             console.log(error.response);
+                            if(error.response.status >= 400 && error.response.status <= 499){
+                                showMessageTimer("Error",error.response.headers.message,"error",2500);
+                            }
+                        })
+                }
+
+                if(this.education !== "" && this.skills_id === "" && this.language_id === ""){ // solo educacion (ya)
+                    axios.get("/job/candidatos/puesto/"+job_id+"/educacion/"+this.education)
+                        .then(response => {
+                            console.log(response);
+                            this.candidates = response.data;
+                            showMessageTimer("Resultados",response.headers.message,"success",2500);
+
+                        })
+                        .catch(error => {
+                            console.log(error.response);
+                            if(error.response.status >= 400 && error.response.status <= 499){
+                                showMessageTimer("Error",error.response.headers.message,"error",2500);
+                            }
                         })
                 }
             },
-            limpiar(){
-                this.language = "";
+            limpiar: function (event) {
+                if(event){
+                    window.location.href = "/puesto/"+job_id+"/aspirantes";
+                }
             }
         },
     })

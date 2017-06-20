@@ -5,8 +5,6 @@ import com.bolsaTrabajo.model.Job;
 import com.bolsaTrabajo.model.Postulant;
 import com.bolsaTrabajo.model.catalog.Department;
 import com.bolsaTrabajo.model.jobInfo.Candidate;
-import com.bolsaTrabajo.model.postulantInfo.PostulantLanguage;
-import com.bolsaTrabajo.model.postulantInfo.PostulantSkill;
 import com.bolsaTrabajo.service.CompanyService;
 import com.bolsaTrabajo.service.DepartmentService;
 import com.bolsaTrabajo.service.JobService;
@@ -20,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -186,7 +183,7 @@ public class JobRestController {
     }
 
     @GetMapping("/candidatos/puesto/{job_id}/habilidad/{id}")
-    public ResponseEntity filtrarPorIdioma(@PathVariable Integer job_id, @PathVariable Integer id){
+    public ResponseEntity filtrarPorHabilidad(@PathVariable Integer job_id, @PathVariable Integer id){
 
         Job job = jobService.findById(job_id);
         Set<Candidate> candidates = job.getCandidates();
@@ -203,13 +200,85 @@ public class JobRestController {
         return new ResponseEntity(postulants,this.headers,HttpStatus.OK);
     }
 
-    @GetMapping("/job/candidatos/puesto/{job_id}/habilidad/{skill_id}/idioma/{lan_id}")
-    public ResponseEntity filtrarPorIdioma(@PathVariable Integer job_id, @PathVariable Integer skill_id, @PathVariable String lan_id){
+    @GetMapping("/candidatos/puesto/{job_id}/educacion/{educacion}")
+    public ResponseEntity filtrarPorEducacion(@PathVariable Integer job_id, @PathVariable String educacion){
+
+        Job job = jobService.findById(job_id);
+        Set<Candidate> candidates = job.getCandidates();
+
+        Set<Postulant> postulants = new Candidate().extraerCandidatosPorEducacion(candidates, educacion);
+
+        if(postulants.size() <= 0){
+            this.headers.set("message","no se encontraron candidatos");
+            return new ResponseEntity(this.headers,HttpStatus.NOT_FOUND);
+        }
+
+        this.headers.set("message", "Se encontraron: "+ postulants.size() + " aspirantes");
+
+        return new ResponseEntity(postulants,this.headers,HttpStatus.OK);
+    }
+
+    @GetMapping("/candidatos/puesto/{job_id}/habilidad/{skill_id}/idioma/{lan_id}")
+    public ResponseEntity filtrarPorHabilidadesEIdiomas(@PathVariable Integer job_id, @PathVariable Integer skill_id, @PathVariable String lan_id){
 
         Job job = jobService.findById(job_id);
         Set<Candidate> candidates = job.getCandidates();
 
         Set<Postulant> postulants = new Candidate().extraerCandidatosPorHabilidadEIdiomas(candidates, skill_id,lan_id);
+
+        if(postulants.size() <= 0){
+            this.headers.set("message","no se encontraron candidatos");
+            return new ResponseEntity(this.headers,HttpStatus.NOT_FOUND);
+        }
+
+        this.headers.set("message", "Se encontraron: "+ postulants.size() + " aspirantes");
+
+        return new ResponseEntity(postulants,this.headers,HttpStatus.OK);
+    }
+
+    @GetMapping("/candidatos/puesto/{job_id}/habilidad/{skill_id}/educacion/{education}")
+    public ResponseEntity filtrarPorHabilidadYEducacion(@PathVariable Integer job_id, @PathVariable Integer skill_id, @PathVariable String education){
+
+        Job job = jobService.findById(job_id);
+        Set<Candidate> candidates = job.getCandidates();
+
+        Set<Postulant> postulants = new Candidate().extraerCandidatosPorHabilidadYEducacion(candidates, skill_id,education);
+
+        if(postulants.size() <= 0){
+            this.headers.set("message","no se encontraron candidatos");
+            return new ResponseEntity(this.headers,HttpStatus.NOT_FOUND);
+        }
+
+        this.headers.set("message", "Se encontraron: "+ postulants.size() + " aspirantes");
+
+        return new ResponseEntity(postulants,this.headers,HttpStatus.OK);
+    }
+
+    @GetMapping("/candidatos/puesto/{job_id}/idioma/{lang_id}/educacion/{education}")
+    public ResponseEntity filtrarPorIdiomaYEducacion(@PathVariable Integer job_id, @PathVariable String lang_id, @PathVariable String education){
+
+        Job job = jobService.findById(job_id);
+        Set<Candidate> candidates = job.getCandidates();
+
+        Set<Postulant> postulants = new Candidate().extraerCandidatosPorIdiomaYEducacion(candidates, lang_id,education);
+
+        if(postulants.size() <= 0){
+            this.headers.set("message","no se encontraron candidatos");
+            return new ResponseEntity(this.headers,HttpStatus.NOT_FOUND);
+        }
+
+        this.headers.set("message", "Se encontraron: "+ postulants.size() + " aspirantes");
+
+        return new ResponseEntity(postulants,this.headers,HttpStatus.OK);
+    }
+
+    @GetMapping("/candidatos/puesto/{job_id}/idioma/{lang_id}/educacion/{education}/habilidad/{skill_id}")
+    public ResponseEntity filtrarPorIdiomaYEducacionYHabilidad(@PathVariable Integer job_id, @PathVariable String lang_id, @PathVariable String education,@PathVariable Integer skill_id){
+
+        Job job = jobService.findById(job_id);
+        Set<Candidate> candidates = job.getCandidates();
+
+        Set<Postulant> postulants = new Candidate().extraerCandidatosPorIdiomaYEducacionYHabildiad(candidates, lang_id,education,skill_id);
 
         if(postulants.size() <= 0){
             this.headers.set("message","no se encontraron candidatos");

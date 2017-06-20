@@ -7,6 +7,7 @@ import com.bolsaTrabajo.model.Role;
 import com.bolsaTrabajo.model.catalog.*;
 import com.bolsaTrabajo.service.*;
 import com.bolsaTrabajo.util.Gender;
+import com.bolsaTrabajo.util.StateOfEducation;
 import org.apache.commons.lang3.text.WordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -116,12 +117,12 @@ public class BolsaTrabajoApplication implements CommandLineRunner {
 			createRoleIfNotFound("ADMIN", adminPermission);
 			createRoleIfNotFound("POSTULANTE", postulantPermission);
 			createRoleIfNotFound("EMPRESA", companyPermission);
-			createAdminIfNotFound("administrador");
-			createUserIfNotFound("cesarito");
-			createUserIfNotFound("merino");
-			createUserIfNotFound("marito");
-			createUserIfNotFound("luisito");
-			createUserIfNotFound("karina");
+			createAdminIfNotFound("administrador",1);
+			createUserIfNotFound("cesarito",2);
+			createUserIfNotFound("merino",3);
+			createUserIfNotFound("marito",4);
+			createUserIfNotFound("luisito",5);
+			createUserIfNotFound("karina",6);
 			createCompanyIfNotFound("applecito","Apple co","Steve Trabajos");
 			createCompanyIfNotFound("microsoft","Microsoft co","Bill Puertas");
 			createCompanyIfNotFound("amazon","Amazon co","Jeff Bezos");
@@ -290,15 +291,16 @@ public class BolsaTrabajoApplication implements CommandLineRunner {
 	}
 
 	@Transactional
-	private void createUserIfNotFound(String username) throws ParseException {
+	private void createUserIfNotFound(String username,Integer i) throws ParseException {
 		Postulant postulant = new Postulant();
 		postulant.setName(username);
 		postulant.setLastName(username);
 		postulant.setUsername(username);
 		postulant.setEmail(username+"@gmail.com");
 		postulant.setBirthday(Date.from(Instant.now()));
-		postulant.setNit("1234-123456-123-1");
-		postulant.setDui("12345678-1");
+        postulant.setStateOfEducation(this.stateOfEducation());
+        postulant.setNit("1234-123456-123-"+i);
+		postulant.setDui("12345678-"+i);
 		Gender gender = (Objects.equals(username, "karina")) ? Gender.Femenino : Gender.Masculino;
 		postulant.setGender(gender);
 		postulant.setPassword(bCryptPasswordEncoder.encode(username));
@@ -311,15 +313,15 @@ public class BolsaTrabajoApplication implements CommandLineRunner {
 	}
 
 	@Transactional
-	private void createAdminIfNotFound(String username) throws ParseException {
+	private void createAdminIfNotFound(String username,Integer i) throws ParseException {
 		Postulant postulant = new Postulant();
 		postulant.setName(username);
 		postulant.setLastName(username);
 		postulant.setUsername(username);
 		postulant.setEmail(username+"@gmail.com");
 		postulant.setBirthday(Date.from(Instant.now()));
-		postulant.setNit("1234-123456-123-1");
-		postulant.setDui("12345678-1");
+		postulant.setNit("1234-123456-123-"+i);
+		postulant.setDui("12345678-"+i);
 		postulant.setPassword(bCryptPasswordEncoder.encode("administrador"));
 		Gender gender = (Objects.equals(username, "karina")) ? Gender.Femenino : Gender.Masculino;
 		postulant.setGender(gender);
@@ -330,6 +332,39 @@ public class BolsaTrabajoApplication implements CommandLineRunner {
 		postulant.setRoles(roleCollection);
 		postulantService.save(postulant);
 	}
+
+	StateOfEducation stateOfEducation(){
+        Random random = new Random();
+        int i = random.nextInt(8) + 1;
+        StateOfEducation stateOfEducation = StateOfEducation.BACHILLER;
+        switch (i){
+            case 1:
+                stateOfEducation =  StateOfEducation.BACHILLER;
+                break;
+            case 2:
+                stateOfEducation =  StateOfEducation.EGRESADO;
+                break;
+            case 3:
+                stateOfEducation =  StateOfEducation.GRADUADO;
+                break;
+            case 4:
+                stateOfEducation =  StateOfEducation.UNIVERSITARIO_1;
+                break;
+            case 5:
+                stateOfEducation =  StateOfEducation.UNIVERSITARIO_2;
+                break;
+            case 6:
+                stateOfEducation =  StateOfEducation.UNIVERSITARIO_3;
+                break;
+            case 7:
+                stateOfEducation =  StateOfEducation.UNIVERSITARIO_4;
+                break;
+            case 8:
+                stateOfEducation =  StateOfEducation.UNIVERSITARIO_5;
+                break;
+        }
+        return stateOfEducation;
+    }
 
 	@Transactional
 	private void createCompanyIfNotFound(String username,String compañia,String representante) throws ParseException {
