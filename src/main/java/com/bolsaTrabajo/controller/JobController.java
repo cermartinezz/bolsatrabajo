@@ -3,13 +3,19 @@ package com.bolsaTrabajo.controller;
 
 import com.bolsaTrabajo.model.Company;
 import com.bolsaTrabajo.model.Job;
+import com.bolsaTrabajo.model.Postulant;
 import com.bolsaTrabajo.model.User;
 import com.bolsaTrabajo.model.catalog.Department;
+import com.bolsaTrabajo.model.catalog.Language;
+import com.bolsaTrabajo.model.catalog.Skill;
 import com.bolsaTrabajo.model.jobInfo.Candidate;
 import com.bolsaTrabajo.model.jobInfo.JobProfile;
+import com.bolsaTrabajo.model.postulantInfo.PostulantLanguage;
+import com.bolsaTrabajo.model.postulantInfo.PostulantSkill;
 import com.bolsaTrabajo.service.*;
 import com.bolsaTrabajo.util.Auth;
 import com.bolsaTrabajo.validator.CompanyValidator;
+import org.hibernate.event.spi.PostInsertEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +49,9 @@ public class JobController {
 
     @Autowired
     private JobProfileService jobProfileService;
+
+    @Autowired
+    private SkillService skillService;
 
 
     @Autowired
@@ -114,13 +123,26 @@ public class JobController {
 
     @RequestMapping(value = "/puesto/{id}/aspirantes",method = RequestMethod.GET)
     public String showAspirants(@PathVariable Long id, Model model){
-        model.addAttribute("user", Auth.auth());
+
+        List<Skill> skills = skillService.getAllSkills();
         Job job = jobService.findById(id);
         Set<Candidate> candidates = job.getCandidates();
-        //List<Candidate> postulantsForJob = candidateService.getPostulantForJob(job);
-        model.addAttribute("candidates",candidates);
+
+        List<Postulant> postulants = new ArrayList<>();
+        for (Candidate candidate : candidates) {
+            postulants.add(candidate.getPostulant());
+        }
+
+        model.addAttribute("user", Auth.auth());
+        model.addAttribute("candidates",postulants);
+        model.addAttribute("job_id", job.getId());
+        model.addAttribute("skills",skills);
         return "job/lista_aspirantes";
     }
+
+
+
+
 
 }
 

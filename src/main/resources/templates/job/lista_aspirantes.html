@@ -30,31 +30,31 @@
                                 <label for="location">I</label>
                                 <span class="select-style">
 										<select class="form-control" name="location" id="location"
-                                                v-model="language">
-                                            <option disabled value="" selected>Idioma</option>
+                                                v-model="language_id">
+                                            <option value="" selected>Idioma</option>
 											<option value="EN">Inglés</option>
 											<option value="IT">Italiano</option>
                                             <option value="DE">Alemán</option>
 											<option value="JA">Japonés</option>
 										</select>
-                            </span>
+                                </span>
                             </div>
 
-                            <div class="search_type">
-                                <label>Educación</label>
+                            <div class="search_location">
                                 <span class="select-style">
-										<select name="category" id="category" class="form-control"
-                                                v-model="level">
-                                                <option disabled value="" selected>Educación</option>
-											    <option value="A1">Basico</option>
-                                                <option value="A2">Elemental</option>
-                                                <option value="B1">Pre-Intermedio</option>
-                                                <option value="B2">Intermedio Superior</option>
-                                                <option value="C1">Avanzado</option>
-                                                <option value="C2">Superior</option>
-										</select>
-									</span>
+                                        <select class="form-control" id="skills_id"
+                                                v-model="skills_id">
+
+                                            <option value="">Habilidades</option>
+
+                                            <option v-for="skill in skills"
+                                                    :value="skill.id"
+                                                    v-text="skill.titulo">
+
+                                        </select>
+                                </span>
                             </div>
+
 
 
                             <div class="search_submit">
@@ -63,7 +63,7 @@
                             </div>
                             <div class="search_submit">
                                 <label>Submit</label>
-                                <button class="btn btn-block btn-primary" v-on:click="limpiar"><i class="fa fa-eraser"></i></button>
+                                <button class="btn btn-block btn-primary" @click="limpiar"><i class="fa fa-eraser"></i>Limpiar</button>
                             </div>
                         </div>
                     </form>
@@ -73,28 +73,28 @@
                             <div class="cta-txt">
                                 <div class="row">
                                     <div class="col-md-8">
-                                    <h3>{{aspirante.postulant.name}} {{aspirante.postulant.lastName}} </h3>
-                                    <p>Correo: {{aspirante.postulant.email}}</p>
-                                    <p>Teléfono: {{aspirante.postulant.phonenumber}}</p>
-                                    <p>Fecha de Nacimiento: {{aspirante.postulant.birthday}}</p>
+                                    <h3>{{aspirante.name}} {{aspirante.lastName}} </h3>
+                                    <p>Correo: {{aspirante.email}}</p>
+                                    <p>Teléfono: {{aspirante.phonenumber}}</p>
+                                    <p>Fecha de Nacimiento: {{aspirante.birthday}}</p>
 
                                     </div>
                                     <div class="cold-md-2">
-                                        <div v-if="aspirante.postulant.academicExperiences.length !=0">
+                                        <div v-if="aspirante.academicExperiences.length !=0">
                                             <h5>Educación:</h5>
                                             <ul>
                                                 <li></li>
                                             </ul>
                                         </div>
-                                        <div v-if="aspirante.postulant.postulantLanguages.length !=0">
+                                        <div v-if="aspirante.postulantLanguages.length !=0">
                                             <h5>Idiomas:</h5>
-                                            <ul v-for="idioma in aspirante.postulant.postulantLanguages">
+                                            <ul v-for="idioma in aspirante.postulantLanguages">
                                                 <li>{{idioma.language.nombre}} -> Nivel: {{idioma.languageLevel}}</li>
                                             </ul>
                                         </div>
-                                        <div v-if="aspirante.postulant.skills.length !=0">
+                                        <div v-if="aspirante.skills.length !=0">
                                             <h5>Habilidades:</h5>
-                                            <ul v-for="habilidad in aspirante.postulant.skills">
+                                            <ul v-for="habilidad in aspirante.skills">
                                                 <li>{{habilidad.skill.titulo}}</li>
                                             </ul>
                                         </div>
@@ -136,19 +136,57 @@
 <div th:include="fragmentos/scripts :: scripts" ></div>
 
 <script th:inline="javascript">let candidates = [[${candidates}]];</script>
+<script th:inline="javascript">let job_id = [[${job_id}]];</script>
+<script th:inline="javascript">let skills = [[${skills}]];</script>
 <script>
     new Vue({
         el: "#app",
         data: {
-            language: "",
-            level: "",
+            language_id: "",
+            skills_id: "",
             candidates: candidates,
+            skills: skills,
         },
         methods: {
             redirectPerfil(user){
                 window.location.href = "/postulante/"+user+"/perfil";
+            },
+            onSubmit(){
+                if(this.skills_id !== "" && this.language_id !== ""){
+                    axios.get("/job/candidatos/puesto/"+job_id+"/habilidad/"+this.skills_id+"/idioma/"+this.language_id)
+                        .then(response => {
+                            console.log(response);
+                            this.candidates = response.data;
+                        })
+                        .catch(error => {
+                            console.log(error.response);
+                        })
+                }
+                if(this.skills_id !== ""){
+                    axios.get("/job/candidatos/puesto/"+job_id+"/habilidad/"+this.skills_id)
+                        .then(response => {
+                            console.log(response);
+                            this.candidates = response.data;
+                        })
+                        .catch(error => {
+                            console.log(error.response);
+                        })
+                }
+                if(this.language_id !== ""){
+                    axios.get("/job/candidatos/puesto/"+job_id+"/lenguaje/"+this.language_id)
+                        .then(response => {
+                            console.log(response);
+                            this.candidates = response.data;
+                        })
+                        .catch(error => {
+                            console.log(error.response);
+                        })
+                }
+            },
+            limpiar(){
+                this.language = "";
             }
-        }
+        },
     })
 </script>
 </body>

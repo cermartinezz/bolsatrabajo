@@ -3,6 +3,8 @@ package com.bolsaTrabajo.model.jobInfo;
 import com.bolsaTrabajo.model.Job;
 import com.bolsaTrabajo.model.Postulant;
 import com.bolsaTrabajo.model.compositeKeys.CandidateId;
+import com.bolsaTrabajo.model.postulantInfo.PostulantLanguage;
+import com.bolsaTrabajo.model.postulantInfo.PostulantSkill;
 import com.bolsaTrabajo.service.CandidateService;
 import com.bolsaTrabajo.service.JobService;
 import com.bolsaTrabajo.service.PostulantService;
@@ -13,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.*;
 
 /**
  * Created by mvip on 06-14-17.
@@ -102,5 +105,51 @@ public class Candidate implements Serializable{
         postulant.getCandidates().add(newcandidate);
         postulantService.save(postulant);
         return  newcandidate;
+    }
+
+    public List<Postulant> extraerCandidatosPorLenguaje(Set<Candidate> candidates, String code){
+        List<Postulant> postulants = new ArrayList<>();
+        for (Candidate candidate: candidates) {
+            for (PostulantLanguage postulantLanguage: candidate.getPostulant().getPostulantLanguages()) {
+                String codigo = postulantLanguage.getPrimaryKey().getLanguage().getCodigo();
+                Boolean iguales = Objects.equals(codigo, code);
+                if(iguales){
+                    postulants.add(candidate.getPostulant());
+                }
+            }
+        }
+        return postulants;
+    }
+
+    public Set<Postulant> extraerCandidatosPorHabilidad(Set<Candidate> candidates, Integer skill_id){
+        Set<Postulant> postulants = new HashSet<>();
+        for (Candidate candidate: candidates) {
+            for (PostulantSkill postulantSkill: candidate.getPostulant().getSkills()) {
+                int id = postulantSkill.getPrimaryKey().getSkill().getId();
+                boolean iguales = id == skill_id;
+                if(iguales){
+                    postulants.add(candidate.getPostulant());
+                }
+            }
+        }
+        return postulants;
+    }
+
+    public Set<Postulant> extraerCandidatosPorHabilidadEIdiomas(Set<Candidate> candidates, Integer skill_id, String code){
+        Set<Postulant> postulants = new HashSet<>();
+        for (Candidate candidate: candidates) {
+            for (PostulantSkill postulantSkill: candidate.getPostulant().getSkills()) {
+                for(PostulantLanguage postulantLanguage: candidate.getPostulant().getPostulantLanguages()){
+                    int id_skill = postulantSkill.getPrimaryKey().getSkill().getId();
+                    String code_language = postulantLanguage.getPrimaryKey().getLanguage().getCodigo();
+                    boolean iguales_en_habilidad = id_skill == skill_id;
+                    boolean iguales_en_idioma = Objects.equals(code_language, code);
+                    if(iguales_en_habilidad && iguales_en_idioma){
+                        postulants.add(candidate.getPostulant());
+                    }
+                }
+            }
+        }
+        return postulants;
     }
 }
