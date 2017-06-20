@@ -4,6 +4,7 @@ import com.bolsaTrabajo.model.Postulant;
 import com.bolsaTrabajo.model.catalog.AcademicTitleCat;
 import com.bolsaTrabajo.model.catalog.Institution;
 import com.bolsaTrabajo.model.compositeKeys.AcademicExperienceID;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -18,12 +19,13 @@ import java.io.Serializable;
         @AssociationOverride(name = "pk.postulant",
                 joinColumns = @JoinColumn(name = "postulant_id")),
         @AssociationOverride(name = "pk.institution",
-                joinColumns = @JoinColumn(name = "institution_id")) })
+                joinColumns = @JoinColumn(name = "institution_id")),
+        @AssociationOverride(name = "pk.title",
+                joinColumns = @JoinColumn(name = "title_id"))})
 public class AcademicExperience implements Serializable {
 
     private AcademicExperienceID pk = new AcademicExperienceID();
-    private int añoGraduacion;
-    private AcademicTitleCat title;
+    private int graduacion;
 
     @EmbeddedId
     public AcademicExperienceID getPk() {
@@ -35,24 +37,24 @@ public class AcademicExperience implements Serializable {
     }
 
     public int getAñoGraduacion() {
-        return añoGraduacion;
+        return graduacion;
     }
 
     public void setAñoGraduacion(int añoGraduacion) {
-        this.añoGraduacion = añoGraduacion;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "title_id")
-    public AcademicTitleCat getTitle() {
-        return title;
-    }
-
-    public void setTitle(AcademicTitleCat title) {
-        this.title = title;
+        this.graduacion = añoGraduacion;
     }
 
     @Transient
+    public AcademicTitleCat getTitle() {
+        return getPk().getTitle();
+    }
+
+    public void setTitle(AcademicTitleCat title) {
+        getPk().setTitle(title);
+    }
+
+    @Transient
+    @JsonIgnore
     public Postulant getPostulant(){
         return getPk().getPostulant();
     }
@@ -64,6 +66,14 @@ public class AcademicExperience implements Serializable {
         return getPk().getInstitution();
     }
 
-    public void setInstitution(Institution ins){
-        getPk().setInstitution(ins);}
+    public void setInstitution(Institution ins){getPk().setInstitution(ins);}
+
+    @Column(name = "graduation")
+    public int getGraduacion() {
+        return graduacion;
+    }
+
+    public void setGraduacion(int graduacion) {
+        this.graduacion = graduacion;
+    }
 }

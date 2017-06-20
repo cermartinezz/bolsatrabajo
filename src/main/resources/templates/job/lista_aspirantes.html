@@ -90,21 +90,22 @@
                             <div class="cta-txt">
                                 <div class="row">
                                     <div class="col-md-8">
-                                        <h3>{{aspirante.name}} {{aspirante.lastName}} </h3>
-                                        <p>Correo: {{aspirante.email}}</p>
-                                        <p>Teléfono: {{aspirante.phonenumber}}</p>
-                                        <p>Fecha de Nacimiento: {{aspirante.birthday}}</p>
-                                        <p>{{aspirante.stateOfEducation}}</p>
+                                    <h3>{{aspirante.name}} {{aspirante.lastName}} </h3>
+                                    <p>Correo: {{aspirante.email}}</p>
+                                    <p>Teléfono: {{aspirante.phonenumber}}</p>
+                                        <p v-if="aspirante.stateOfEducation == 'BACHILLER'">Bachiller</p>
+                                        <p v-if="aspirante.stateOfEducation == 'UNIVERSITARIO_1'">Estudiante Universitario de 1° año</p>
+                                        <p v-if="aspirante.stateOfEducation == 'UNIVERSITARIO_2'">Estudiante Universitario de 2° año</p>
+                                        <p v-if="aspirante.stateOfEducation == 'UNIVERSITARIO_3'">Estudiante Universitario de 3° año</p>
+                                        <p v-if="aspirante.stateOfEducation == 'UNIVERSITARIO_4'">Estudiante Universitario de 4° año</p>
+                                        <p v-if="aspirante.stateOfEducation == 'UNIVERSITARIO_5'">Estudiante Universitario de 5° año</p>
+                                        <p v-if="aspirante.stateOfEducation == 'EGRESADO'">Egresado</p>
+                                        <p v-if="aspirante.stateOfEducation == 'GRADUADO'">Graduado</p>
 
                                     </div>
                                     <div class="cold-md-2">
-                                        <div v-if="aspirante.academicExperiences.length !=0">
-                                            <h5>Educación:</h5>
-                                            <ul>
-                                                <li></li>
-                                            </ul>
-                                        </div>
-                                        <div v-if="aspirante.postulantLanguages.length !=0">
+
+                                        <div v-if="aspirante.postulant.postulantLanguages.length !=0">
                                             <h5>Idiomas:</h5>
                                             <ul v-for="idioma in aspirante.postulantLanguages">
                                                 <li>{{idioma.language.nombre}} -> Nivel: {{idioma.languageLevel}}</li>

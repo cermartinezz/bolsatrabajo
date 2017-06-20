@@ -58,6 +58,12 @@ public class RoleController {
 
         //Estableciendo lista de permisos que no son parte del rol
         HashSet<Permission> permissionsCollection = new HashSet<>(permissionService.getAllPermissions());
+        List<Permission> rolePermissions = new ArrayList<>(role.getPermissions());
+
+        for (int i=0;i<=rolePermissions.size()-1;i++){
+            if (permissionsCollection.contains(rolePermissions.get(i)))
+                permissionsCollection.remove(rolePermissions.get(i));
+        }
 
         model.addObject("permisos",permissionsCollection);
         model.addObject("permiso",new Permission());

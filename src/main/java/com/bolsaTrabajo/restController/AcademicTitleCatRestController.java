@@ -12,7 +12,7 @@ import org.springframework.web.servlet.view.RedirectView;
  */
 
 @RestController
-@RequestMapping("/api/cat/titles")
+@RequestMapping("/api/titulos")
 public class AcademicTitleCatRestController {
 
     @Autowired
@@ -24,12 +24,12 @@ public class AcademicTitleCatRestController {
         AcademicTitleCat academicTitleCat1 = academicTitleCatService.getTitle(academicTitleCat.getTitulo());
         if (academicTitleCat1 != null){
             attributes.addFlashAttribute("message","Titulo "+ academicTitleCat1.getTitulo()+" ya existe");
-            return new RedirectView("/cat/titles/crear");
+            return new RedirectView("/cat/titulos/crear");
         }
 
         academicTitleCatService.saveTitle(academicTitleCat);
         attributes.addFlashAttribute("message","Registro se guardo con exito");
-        return new RedirectView("/cat/titles");
+        return new RedirectView("/cat/titulos");
     }
 
     @PutMapping(value = "/update/{id}")
@@ -37,19 +37,19 @@ public class AcademicTitleCatRestController {
         AcademicTitleCat t = academicTitleCatService.getTitle(academicTitleCat.getTitulo());
         if (t!=null){
             attributes.addFlashAttribute("message","Titulo "+ t.getTitulo()+" ya existe");
-            return new RedirectView("/cat/titles/editar/"+ academicTitleCat.getId());
+            return new RedirectView("/cat/titulos/editar/"+ academicTitleCat.getId());
         }
         t = academicTitleCatService.getTitle(academicTitleCat.getId());
         t.setTitulo(academicTitleCat.getTitulo());
         academicTitleCatService.saveTitle(t);
         attributes.addFlashAttribute("message","Registro modificado con exito");
-        return new RedirectView("/cat/titles");
+        return new RedirectView("/cat/titulos");
     }
 
     @DeleteMapping(value = "/delete/{id}")
     public RedirectView delete(AcademicTitleCat academicTitleCat, RedirectAttributes attributes){
         academicTitleCatService.deleteTitle(academicTitleCat);
         attributes.addFlashAttribute("message","Registro se elimino con exito");
-        return new RedirectView("/cat/titles");
+        return new RedirectView("/cat/titulos");
     }
 }

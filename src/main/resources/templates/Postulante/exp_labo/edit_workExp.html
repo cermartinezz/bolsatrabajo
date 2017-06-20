@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:v-on="http://www.w3.org/1999/xhtml">
+
+<head th:include="fragmentos/head :: head" th:remove="tag"/>
+    <title>Experiencia Laboral</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+<body>
+<div class="site-wrapper">
+    <header class="header header-menu-fullw">
+
+        <div th:include="fragmentos/top_bar :: top_bar(${user})" th:remove="tag"></div>
+
+        <div th:include="fragmentos/menu :: menu(${user})" th:remove="tag"></div>
+
+    </header>
+
+    <div class="main" role="main" id="app">
+
+        <div th:include="fragmentos/heading :: heading('Edita tu Experiencia Laboral')"></div>
+
+        <!-- Page Content -->
+        <section class="page-content">
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <form method="post" th:object="${workExp}" th:action="@{/api/postulant/ExpLabo/actualizar}" class="job-manager-form">
+
+                            <!-- Book Information Fields -->
+                            <label for="empresas">Empresa</label>
+                            <div class="field select-style">
+                                <select name="empresas" id="empresas" class="form-control">
+                                    <option th:each="com : ${companies}" th:value="${com.id}" th:text="${com.companyName}"
+                                            th:selected="${com.companyName == workExp.getCompanyCat().getCompanyName()}"></option>
+                                </select>
+                                <input type="hidden" name="empresa" th:value="${workExp.getCompanyCat().getId()}">
+                            </div>
+
+                            <div class="spacer"></div>
+
+                            <label for="jobs">Cargo</label>
+                            <div class="field select-style">
+                                <select name="jobs" id="jobs" class="form-control">
+                                    <option th:each="job : ${jobs}" th:value="${job.id}" th:text="${job.puesto}"
+                                            th:selected="${job.puesto == workExp.getJobCat().getPuesto()}"></option>
+                                </select>
+                                <input type="hidden" name="job" th:value="${workExp.getJobCat().getId()}">
+                            </div>
+
+                            <div class="spacer"></div>
+
+                            <div class="field input-style">
+                                <label> Inicio de labores*</label>
+                                <input type="date" name="inicio" class="form-control" th:value="${workExp.getInicio()}" required />
+                                <input type="hidden" name="begin" th:value="${workExp.getInicio()}"/>
+                            </div>
+
+                            <div class="spacer"></div>
+
+                            <div class="field input-style">
+                                <label> Finalización de labores*</label>
+                                <input type="date" th:field="*{fin}" name="fin" class="form-control" th:value="${workExp.getFin()}" required/>
+                            </div>
+
+                            <div class="spacer"></div>
+
+                            <p>
+                                <input type="submit" name="submit_publication" class="btn btn-primary" value="Agregar &rarr;" />
+                            </p>
+
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+        <!-- Page Content / End -->
+
+        <div th:include="fragmentos/footer :: footer"></div>
+    </div>
+</div>
+
+
+<div th:include="fragmentos/scripts :: scripts" ></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.0/axios.js" th:src="@{https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.0/axios.js}"></script>
+<script src="https://unpkg.com/vue" th:src="@{https://unpkg.com/vue}"></script>
+</body>
+</html>

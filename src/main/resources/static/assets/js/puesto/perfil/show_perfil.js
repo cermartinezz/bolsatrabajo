@@ -289,7 +289,7 @@ new Vue({
       }
     },
     mounted(){
-        axios.get("/api/jobs")
+        axios.get("/api/cargos")
             .then(response => {
                 this.jobs = response.data;
             });

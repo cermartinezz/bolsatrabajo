@@ -20,7 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 
 @Controller
-@RequestMapping("/cat/titles")
+@RequestMapping("/cat/titulos")
 public class AcademicTitleCatController {
 
     public static final String CREATE_TITLE = "titulos/create_title";

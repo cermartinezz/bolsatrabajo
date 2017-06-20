@@ -28,10 +28,6 @@
                                 <span th:text="${message}"></span>
                             </div>
 
-                            <div th:if="${usr.hasRole('ADMIN')}">
-                                <span th:text="${usr.getUsername()}"></span>
-                            </div>
-
                             <form th:action="@{/role}" th:object="${role}"
                                   method="post" class="form-horizontal">
 

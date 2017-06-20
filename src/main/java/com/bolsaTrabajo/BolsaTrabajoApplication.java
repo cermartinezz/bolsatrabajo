@@ -16,9 +16,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.transaction.Transactional;
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.*;
+
+import static com.bolsaTrabajo.util.Gender.Masculino;
 
 @SpringBootApplication
 public class BolsaTrabajoApplication implements CommandLineRunner {
@@ -34,8 +38,6 @@ public class BolsaTrabajoApplication implements CommandLineRunner {
 	RoleService roleService;
 	@Autowired
 	PostulantService postulantService;
-	@Autowired
-    CompanyService companyService;
 
 	@Autowired
 	private SkillService skillService;
@@ -48,6 +50,9 @@ public class BolsaTrabajoApplication implements CommandLineRunner {
 
 	@Autowired
 	private DepartmentService departmentService;
+
+	@Autowired
+	private CompanyService companyService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(BolsaTrabajoApplication.class, args);
@@ -327,8 +332,7 @@ public class BolsaTrabajoApplication implements CommandLineRunner {
 		postulant.setGender(gender);
 		postulant.setPasswordConfirm("adminsitrador");
 		postulant.setActive(1);
-		HashSet<Role> roleCollection = new HashSet<>();
-		roleCollection.add(roleService.findByName("ADMIN"));
+		HashSet<Role> roleCollection = new HashSet<>(roleService.getAllRoles());
 		postulant.setRoles(roleCollection);
 		postulantService.save(postulant);
 	}

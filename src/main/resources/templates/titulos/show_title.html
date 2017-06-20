@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head th:include="fragmentos/head :: head" th:remove="tag"/>
-<title>Bolsa Trabajo</title>
+<title>Titulo</title>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
 
 <body>
@@ -22,12 +22,11 @@
 
         <section class="page-content">
             <div class="container">
-                <div class="box">
-                    <div th:if="${message!=null}" class="alert alert-success alert-dismissable">
-                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        <span th:text="${message}"></span>
-                    </div>
+                <div th:if="${message!=null}" class="alert alert-success alert-dismissable">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <span th:text="${message}"></span>
                 </div>
+                <a href="/" th:href="@{/cat/titulos/crear}" class="btn btn-primary2">Nuevo</a>
 
                 <!--Agregar alert en caso fallo-->
 
@@ -44,14 +43,13 @@
                             <td th:text="${title.id}"></td>
                             <td th:text="${title.titulo}"></td>
                             <td>
-                                <div class="row">
-                                    <div class="span12 centered-text">
-                                        <a href="/" th:href="@{/cat/titles/editar/{id}(id=${title.id})}" class="btn btn-success inline">Editar</a>
-                                        <form th:action="@{'/api/cat/titles/delete/'+${title.id}}" th:method="DELETE" th:object="${title}" role="form"  class="btn inline">
-                                            <button type="submit" onclick="return confirm('Seguro que desea eliminar el Titulo?')" class="btn btn-primary">Eliminar</button>
-                                        </form>
-                                    </div>
-                                </div>
+                                <a th:href="@{/cat/titulos/editar/{id}(id=${title.id})}" style="text-decoration:none;">
+                                    <button class="btn btn-warning btn-xs"><span class="fa fa-pencil"></span> Editar</button>
+                                </a>
+                                <a style="text-decoration:none;">
+                                    <button th:onclick="'eliminarRegistro(\'' + ${title.id} + '\',\'api\/titulos\/delete\')'"
+                                            class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Eliminar</button>
+                                </a>
                             </td>
                         </tr>
                     </table>

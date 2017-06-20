@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragmentos/head :: head" th:remove="tag">
+    <meta charset="UTF-8">
+    <title>Permisos</title>
+</head>
+<body>
+<div class="site-wrapper" id="app">
+    <header class="header header-menu-fullw">
+        <div th:include="fragmentos/top_bar :: top_bar(${user})" th:remove="tag"></div>
+        <div th:include="fragmentos/menu :: menu(${user},${usr})" th:remove="tag"></div>
+    </header>
+
+
+    <div class="main" role="main">
+
+        <div th:include="fragmentos/heading :: heading('Exámenes')"></div>
+
+        <section class="page-content">
+            <div class="container">
+                <div class="box">
+                    <div class="row">
+                        <div class="col-md-8 col-md-offset-2">
+                            <h3>Gestion de Exámenes</h3>
+
+                            <div th:if="${messageSuccess!=null}" class="alert alert-success alert-dismissable">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <span th:text="${messageSuccess}"></span>
+                            </div>
+
+                            <div class="table-responsive">
+                                <menu>
+                                    <a th:href="@{/examenes/crear}" class="btn btn-success">Nuevo Examen</a>
+                                    <a th:href="@{/examenes/areas}" class="btn btn-info">Ver Areas</a>
+                                    <a th:href="@{/examenes/preguntas}" class="btn btn-info">Ver Preguntas</a>
+                                </menu>
+
+                                <dialog id="areas" style="width:50%;background-color:#F4FFEF;border:1px dotted black;">
+                                    <menu>
+                                        <a th:href="@{/examenes/areas/crear}" class="btn btn-success btn-xs">Nueva Area</a>
+                                    </menu>
+                                    <table class="table table-bordered table-stripe">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Id</th>
+                                            <th>Nombre</th>
+                                            <th></th>
+                                        </tr>
+                                        </thead>
+
+                                    </table>
+                                    <menu>
+                                        <button class="btn btn-xs" id="cancel" type="reset">Cancel</button>
+                                        <button class="btn btn-xs" type="submit">Confirm</button>
+                                    </menu>
+                                </dialog>
+                                <table class="table table-bordered table-stripe tablita">
+                                    <thead>
+                                    <tr>
+                                        <th>Titulo</th>
+                                        <th>Sub Area Nombre</th>
+                                        <th>Publicado</th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="e,iter : ${examenes}">
+                                        <td th:text="${e.titulo}"></td>
+                                        <td th:text="${e.subArea.nombre}"></td>
+                                        <td><span th:if="${e.publicado==0}">No</span><span th:if="${e.publicado==1}">Si</span></td>
+                                        <td>
+                                            <a th:href="@{/examenes/{id}(id=${e.id})}" style="text-decoration:none;">
+                                                <button class="btn btn-warning btn-xs"><span class="fa fa-pencil"></span> Editar</button>
+                                            </a>
+                                            <a style="text-decoration:none;">
+                                                <button th:onclick="'eliminarRegistro(\'' + ${e.id} + '\',\'exam\')'"
+                                                        class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Eliminar</button>
+                                            </a>
+                                            <a th:href="@{/examenes/cuestionario/{id}(id=${e.id})}" style="text-decoration:none;">
+                                                <button class="btn btn-primary2 btn-xs"><span class="fa fa-star"></span>Cuestionario</button>
+                                            </a>
+
+                                        </td>
+
+                                    </tr>
+                                    </tbody>
+                                    <tr th:if="${examenes.size()==0}"><td colspan="4"><span>No hay registros que mostrar</span></td></tr>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div th:include="fragmentos/footer :: footer"></div>
+    </div>
+</div>
+
+
+<div th:include="fragmentos/scripts :: scripts"></div>
+<script>
+  (function() {
+    var updateButton = document.getElementById('mostrarAreas');
+    var cancelButton = document.getElementById('cancel');
+    var areas = document.getElementById('areas');
+
+    // Update button opens a modal dialog
+    updateButton.addEventListener('click', function() {
+      areas.showModal();
+    });
+
+    // Form cancel button closes the dialog box
+    cancelButton.addEventListener('click', function() {
+      areas.close();
+    });
+
+  })();
+</script>
+</body>
+</html>

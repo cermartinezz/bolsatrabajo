@@ -76,6 +76,8 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     /**
      *Servicios, Validadores, etc
      */
+    @Bean
+    public AreaService areaService(){ return new AreaServiceImpl(); }
 
     @Bean
     public AcademicExperienceProfileService academicExperienceProfileService(){
@@ -106,6 +108,15 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     public AwardService awardService(){ return new AwardService();}
 
     @Bean
+    public ExamService examService(){return new ExamServiceImpl();}
+
+    @Bean
+    public ExamResultService examResultService(){ return new ExamResultServiceImpl();}
+
+    @Bean
+    public QuestionaryService questionaryService(){return new QuestionaryServiceImpl();}
+
+    @Bean
     public UserService userService(){
         return new UserServiceImpl();
     }
@@ -115,6 +126,9 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
     @Bean
     public JobService jobService(){return new JobServiceImpl();}
+
+    @Bean
+    public QuestionService questionService(){ return new QuestionServiceImpl();}
 
     @Bean
     public PostulantService postulantService(){
@@ -186,6 +200,9 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     }
 
     @Bean
+    public SubAreaService subAreaService(){return new SubAreaServiceImpl(); }
+
+    @Bean
     public CompanyCatService companyCatService(){ return new CompanyCatService(); }
 
     @Bean
@@ -198,6 +215,12 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     public SkillCategoryService skillCategoryService(){
         return new SkillCategoryServiceImpl();
     }
+
+    @Bean
+    public AcademicExperienceService academicExperienceService(){ return new AcademicExperienceService();}
+
+    @Bean
+    public WorkExperienceService workExperienceService(){ return new WorkExperienceService();}
 
     @Bean
     public SkillValidator skillValidator(){

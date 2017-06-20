@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragmentos/head :: head" th:remove="tag">
+    <meta charset="UTF-8">
+    <title>Permisos</title>
+</head>
+<body>
+<div class="site-wrapper" id="app">
+    <header class="header header-menu-fullw">
+        <div th:include="fragmentos/top_bar :: top_bar(${user})" th:remove="tag"></div>
+        <div th:include="fragmentos/menu :: menu(${user},${usr})" th:remove="tag"></div>
+    </header>
+
+
+    <div class="main" role="main">
+
+        <div th:include="fragmentos/heading :: heading('Sub Areas de Evaluación')"></div>
+
+        <section class="page-content">
+            <div class="container">
+                <div class="box">
+                    <div class="row">
+                        <div class="col-md-8 col-md-offset-2">
+                            <h3>Gestion de SubAreas de Evaluación</h3>
+
+                            <div th:if="${messageSuccess!=null}" class="alert alert-success alert-dismissable">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <span th:text="${messageSuccess}"></span>
+                            </div>
+
+                            <div class="table-responsive">
+
+                                <menu>
+                                    <a th:href="@{/examenes/subareas/crear}" class="btn btn-success">Nueva SubArea</a>
+                                    <a th:href="@{/examenes/preguntas}" class="btn btn-info">Ver Preguntas</a>
+                                </menu>
+
+                                <table class="table table-bordered table-stripe tablita">
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Nombre</th>
+                                        <th>Area</th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="sa,iter : ${subareas}">
+                                        <td th:text="${iter.count}"></td>
+                                        <td th:text="${sa.nombre}"></td>
+                                        <td th:text="${sa.area.nombre}"></td>
+                                        <td>
+                                            <a th:href="@{/examenes/subareas/{id}(id=${sa.id})}" style="text-decoration:none;">
+                                                <button class="btn btn-warning btn-xs"><span class="fa fa-pencil"></span> Editar</button>
+                                            </a>
+                                            <a style="text-decoration:none;">
+                                                <button th:onclick="'eliminarRegistro(\'' + ${sa.id} + '\',\'subarea\')'"
+                                                        class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Eliminar</button>
+                                            </a>
+
+                                        </td>
+                                    </tr>
+                                    <tr th:if="${subareas.size()==0}"><td colspan="4"><span>No hay registros que mostrar</span></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div th:include="fragmentos/footer :: footer"></div>
+    </div>
+</div>
+<div th:include="fragmentos/scripts :: scripts"></div>
+</body>
+</html>

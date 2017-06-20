@@ -1,6 +1,6 @@
 package com.bolsaTrabajo.service;
 
-import com.bolsaTrabajo.model.Award;
+import com.bolsaTrabajo.model.postulantInfo.Award;
 import com.bolsaTrabajo.repositories.AwardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 

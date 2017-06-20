@@ -4,9 +4,11 @@ import com.bolsaTrabajo.model.Postulant;
 import com.bolsaTrabajo.model.catalog.CompanyCat;
 import com.bolsaTrabajo.model.catalog.JobCat;
 import com.bolsaTrabajo.model.compositeKeys.WorkExperienceID;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Created by keepercito on 04-25-17.
@@ -18,13 +20,13 @@ import java.io.Serializable;
         @AssociationOverride(name = "pk.postulant",
                 joinColumns = @JoinColumn(name = "postulant_id")),
         @AssociationOverride(name = "pk.companyCat",
-                joinColumns = @JoinColumn(name = "company_cat_id")) })
+                joinColumns = @JoinColumn(name = "company_cat_id")),
+        @AssociationOverride(name = "pk.jobCat",
+                joinColumns = @JoinColumn(name = "job_id"))})
 public class WorkExperience implements Serializable{
 
     private WorkExperienceID pk = new WorkExperienceID();
-    private int inicio;
-    private int fin;
-    private JobCat jobCat;
+    private String fin;
 
     @EmbeddedId
     public WorkExperienceID getPk() {
@@ -36,6 +38,7 @@ public class WorkExperience implements Serializable{
     }
 
     @Transient
+    @JsonIgnore
     public CompanyCat getCompanyCat() {
         return getPk().getCompanyCat();
     }
@@ -45,6 +48,7 @@ public class WorkExperience implements Serializable{
     }
 
     @Transient
+    @JsonIgnore
     public Postulant getPostulant() {
         return getPk().getPostulant();
     }
@@ -53,31 +57,32 @@ public class WorkExperience implements Serializable{
         getPk().setPostulant(postulant);
     }
 
-    @Column(name = "start_at")
-    public int getInicio() {
-        return inicio;
+    @Transient
+    public String getInicio() {
+        return getPk().getInicio();
     }
 
-    public void setInicio(int inicio) {
-        this.inicio = inicio;
+    public void setInicio(String inicio) {
+        getPk().setInicio(inicio);
     }
 
     @Column(name = "finish_at")
-    public int getFin() {
+    public String getFin() {
         return fin;
     }
 
-    public void setFin(int fin) {
+    public void setFin(String fin) {
         this.fin = fin;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "job_id")
+
+    @Transient
+    @JsonIgnore
     public JobCat getJobCat() {
-        return jobCat;
+        return getPk().getJobCat();
     }
 
     public void setJobCat(JobCat jobCat) {
-        this.jobCat = jobCat;
+        getPk().setJobCat(jobCat);
     }
 }
