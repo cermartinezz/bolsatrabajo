@@ -201,3 +201,53 @@ function eliminarReg(id,ruta){
         })
     })
 }
+
+function eliminarRegExpLabo(id1,id2,id3){
+    swal({
+      title: 'Eliminar',
+      text: "Esta seguro que desea eliminar este elemento?",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Si, eliminar!',
+    }).then(function () {
+           axios.get("/api/postulant/ExpLabo/delete/"+id1+"/"+id2+"/"+id3)
+            .then(response => {
+                console.log(response);
+                })
+      swal(
+        'Borrado!',
+        'El registro ha sido eliminado.',
+        'success'
+      ).then(function () {
+            location.reload();
+        })
+    })
+}
+
+function eliminarRegExpAcad(id1,id2){
+    swal({
+      title: 'Eliminar',
+      text: "Esta seguro que desea eliminar este elemento?",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Si, eliminar!',
+    }).then(function () {
+           axios.get("/api/postulant/ExpAcad/delete/"+id1+"/"+id2)
+            .then(response => {
+                console.log(response);
+                })
+      swal(
+        'Borrado!',
+        'El registro ha sido eliminado.',
+        'success'
+      ).then(function () {
+            location.reload();
+        })
+    })
+}

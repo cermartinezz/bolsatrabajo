@@ -90,42 +90,48 @@
                                     <li class="job_listing">
                                         <a href="#">
 
-                                            <div class="position">
-                                                <h4>Universidad</h4>
+                                    <div class="row" id="expAc">
+                                        <div class="col-md-9">
+                                            <h4>Experiencia Academica</h4>
+                                        </div>
 
-                                            </div>
-                                            <div class="rating">
-                                                <div class="rating-stars">
-
-                                                </div>
-                                                <div class="reviews-num"></div>
-                                            </div>
-                                            <ul class="meta">
-                                                <li class="job-type">Carrera</li>
-                                                <li class="date">Fecha
-                                                </li>
-                                            </ul>
-                                        </a>
-                                    </li>
+                                        <div class="col-md-3">
+                                            <a th:href="@{'/postulante/'+ ${user.getName()} + '/ExpAcad/agregar'}" class="btn btn-sm btn-success">Agregar</a>
+                                        </div>
+                                    </div>
                                     <li class="job_listing">
-                                        <a href="#">
-
-                                            <div class="position">
-                                                <h4>Otro lado</h4>
-
-                                            </div>
-                                            <div class="rating">
-                                                <div class="rating-stars">
-
-                                                </div>
-                                                <div class="reviews-num"></div>
-                                            </div>
-                                            <ul class="meta">
-                                                <li class="job-type">Carrera</li>
-                                                <li class="date">Fecha
-                                                </li>
-                                            </ul>
-                                        </a>
+                                        <div id="expA" style="display:none" th:if="${postulantInfo.academicExperiences.size() !=0}" class="table-responsive">
+                                            <table class="job-manager-jobs table table-bordered table-stripe">
+                                                <thead>
+                                                <tr>
+                                                    <th>Titulo</th>
+                                                    <th>Institucion</th>
+                                                    <th>Año de Graduación</th>
+                                                    <th>Acciones</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr th:each="title : ${postulantInfo.academicExperiences}">
+                                                    <td th:text="${title.pk.getTitle().getTitulo()}"></td>
+                                                    <td th:text="${title.getInstitution().getInstitutionName()}"></td>
+                                                    <td th:text="${title.graduacion}"></td>
+                                                    <td>
+                                                        <form method="post" th:action="@{'/postulante/'+ ${user.getName()} + '/ExpAcad/editar'}">
+                                                            <input type="hidden" name="titulo" th:value="${title.pk.getTitle().getId()}">
+                                                            <input type="hidden" name="institucion" th:value="${title.getInstitution().getId()}">
+                                                            <button class="btn btn-warning btn-xs"><span class="fa fa-pencil"></span> Editar</button>
+                                                        </form>
+                                                        <button th:onclick="'eliminarRegistroExpAcad('+${title.pk.getTitle().getId()}+',
+                                                        '+${title.getInstitution().getId()}+')'"
+                                                                class="btn btn-danger btn-xs inline"><span class="fa fa-trash"></span> Eliminar</button>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div th:if="${postulantInfo.academicExperiences.size() == 0}" class="center_block">
+                                            <p><strong>NO HAY REGISTROS, DEBERIAS INGRESAR ALGUNAS EXPERIENCIAS LABORALES</strong></p>
+                                        </div>
                                     </li>
                                 </ul>
 
@@ -265,37 +271,50 @@
                                 <ul class="job_listings">
                                     <div class="spacer-lg"></div>
 
-                                    <div class="row">
+                                    <div class="row" id="exp">
                                         <div class="col-md-9">
                                             <h4>Experiencia Laboral</h4>
                                         </div>
 
                                         <div class="col-md-3">
-                                            <a th:href="@{'/postulante/'+ ${user.getName()} + '/workExp/agregar'}" class="btn btn-sm btn-success">Agregar</a>
+                                            <a href="#exp" class="btn btn-sm btn-info" onclick="if(document.getElementById('experiencia') .style.display=='none')
+                                            {document.getElementById('experiencia') .style.display=''}else{document.getElementById('experiencia') .style.display='none'}" th:hidden="${postulantInfo.workExperiences.size() == 0}">Ver detalle</a>
+                                            <a th:href="@{'/postulante/'+ ${user.getName()} + '/ExpLabo/agregar'}" class="btn btn-sm btn-success">Agregar</a>
                                         </div>
                                     </div>
-                                    <div>
-                                        <li class="job_listing">
-                                            <a href="#">
-
-                                                <div class="position">
-                                                    <h4>Trabajito 1</h4>
-
-                                                </div>
-                                                <div class="rating">
-                                                    <div class="rating-stars">
-
-                                                    </div>
-                                                    <div class="reviews-num"></div>
-                                                </div>
-                                                <ul class="meta">
-                                                    <li class="job-type">Código</li>
-                                                    <li class="date">Fecha
-                                                    </li>
-                                                </ul>
-                                            </a>
-                                        </li>
-                                    </div>
+                                    <li class="job_listing">
+                                        <div id="experiencia" style="display:none" th:if="${postulantInfo.workExperiences.size() !=0}" class="table-responsive">
+                                            <table class="job-manager-jobs table table-bordered table-stripe">
+                                                <thead>
+                                                <tr>
+                                                    <th>Empresa</th>
+                                                    <th>Cargo</th>
+                                                    <th>Acciones</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr th:each="exp : ${postulantInfo.workExperiences}">
+                                                    <td th:text="${exp.pk.getCompanyCat().getCompanyName()}"></td>
+                                                    <td th:text="${exp.getJobCat().getPuesto()}"></td>
+                                                    <td>
+                                                        <form method="post" th:action="@{'/postulante/'+ ${user.getName()} + '/ExpLabo/editar'}" class="in-line">
+                                                            <input type="hidden" name="inicio" th:value="${exp.getPk().getInicio()}">
+                                                            <input type="hidden" name="company" th:value="${exp.getPk().getCompanyCat().getId()}">
+                                                            <input type="hidden" name="job" th:value="${exp.getPk().getJobCat().getId()}">
+                                                            <button class="btn btn-warning btn-xs"><span class="fa fa-pencil"></span> Editar</button>
+                                                        </form>
+                                                        <button th:onclick="'eliminarRegistroExpLabo('+${exp.getPk().getCompanyCat().getId()}+',
+                                                        '+${exp.getPk().getJobCat().getId()}+',\''+${exp.getPk().getInicio()}+'\')'"
+                                                                class="btn btn-danger btn-xs inline"><span class="fa fa-trash"></span> Eliminar</button>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div th:if="${postulantInfo.workExperiences.size() == 0}" class="center_block">
+                                            <p><strong>NO HAY REGISTROS, DEBERIAS INGRESAR ALGUNAS EXPERIENCIAS LABORALES</strong></p>
+                                        </div>
+                                    </li>
                                 </ul>
 
                                 <ul class="job_listings">

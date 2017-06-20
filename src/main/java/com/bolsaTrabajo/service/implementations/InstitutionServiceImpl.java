@@ -3,6 +3,7 @@ package com.bolsaTrabajo.service.implementations;
 import com.bolsaTrabajo.model.catalog.Institution;
 import com.bolsaTrabajo.repositories.InstitutionRepository;
 import com.bolsaTrabajo.service.InstitutionService;
+import com.bolsaTrabajo.util.InstitutionType;
 import com.bolsaTrabajo.util.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class InstitutionServiceImpl implements InstitutionService {
     }
 
     @Override
-    public Optional<Institution> findInstitutionById(int id) {
+    public Institution findInstitutionById(int id) {
         return institutionRepository.findById(id);
     }
 
@@ -45,4 +46,10 @@ public class InstitutionServiceImpl implements InstitutionService {
     public void delete(Optional<Institution> institutionById) {
         institutionRepository.delete(institutionById.get());
     }
+
+    @Override
+    public List<Institution> getInstitutionsByType(InstitutionType type) {
+        return institutionRepository.findByInstitutionType(type);
+    }
+
 }

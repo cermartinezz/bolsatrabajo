@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:v-on="http://www.w3.org/1999/xhtml">
 
 <head th:include="fragmentos/head :: head" th:remove="tag"/>
     <title>Experiencia Academica</title>
@@ -10,13 +10,13 @@
 
         <div th:include="fragmentos/top_bar :: top_bar(${user})" th:remove="tag"></div>
 
-        <div th:include="fragmentos/menu :: menu(${user},${usr})" th:remove="tag"></div>
+        <div th:include="fragmentos/menu :: menu(${user})" th:remove="tag"></div>
 
     </header>
 
     <div class="main" role="main" id="app">
 
-        <div th:include="fragmentos/heading :: heading('Agrega tu Experiencia Academica')"></div>
+        <div th:include="fragmentos/heading :: heading('Edita tu Experiencia Academica')"></div>
 
         <!-- Page Content -->
         <section class="page-content">
@@ -24,14 +24,16 @@
 
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
-                        <form method="post" th:object="${acadExp}" th:action="@{/api/postulant/ExpAcad}" class="job-manager-form">
+                        <form method="post" th:object="${acadExp}" th:action="@{/api/postulant/ExpAcad/actualizar}" class="job-manager-form">
 
                             <!-- Book Information Fields -->
-                            <label for="institucion">Institucion</label>
+                            <label for="institution">Institucion</label>
                             <div class="field select-style">
-                                <select name="institucion" id="institucion" class="form-control">
-                                    <option th:each="ins : ${institutions}" th:value="${ins.id}" th:text="${ins.institutionName}"></option>
+                                <select name="institution" id="institution" class="form-control">
+                                    <option th:each="ins : ${institutions}" th:value="${ins.id}" th:text="${ins.institutionName}"
+                                    th:selected="${ins.institutionName == acadExp.getInstitution().getInstitutionName()}"></option>
                                 </select>
+                                <input type="hidden" name="institucion" th:value="${acadExp.getInstitution().getId()}">
                             </div>
 
                             <div class="spacer"></div>
@@ -39,15 +41,19 @@
                             <label for="titles">Titulo Obtenido</label>
                             <div class="field select-style">
                                 <select name="titles" id="titles" class="form-control">
-                                    <option th:each="title : ${titles}" th:value="${title.id}" th:text="${title.titulo}"></option>
+                                    <option th:each="title : ${titles}" th:value="${title.id}" th:text="${title.titulo}"
+                                    th:selected="${title.titulo == acadExp.getTitle().getTitulo()}"></option>
                                 </select>
+
+                                <input type="hidden" name="titulo" th:value="${acadExp.getTitle().getId()}">
                             </div>
 
                             <div class="spacer"></div>
 
                             <div class="field input-style">
                                 <label> Año de Graduación*</label>
-                                <input type="text" name="inicio" placeholder="Año que se tituló" class="form-control" th:field="*{añoGraduacion}" required />
+                                <input type="text" name="inicio" placeholder="Año que se tituló" class="form-control" th:field="*{añoGraduacion}"
+                                       th:value="acadExp.graduacion" required />
                             </div>
 
                             <div class="spacer"></div>

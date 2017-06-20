@@ -1,6 +1,7 @@
 package com.bolsaTrabajo.validator;
 
 import com.bolsaTrabajo.model.catalog.Certification;
+import com.bolsaTrabajo.model.catalog.Institution;
 import com.bolsaTrabajo.service.CertificationService;
 import com.bolsaTrabajo.service.InstitutionService;
 import com.bolsaTrabajo.util.StringUtils;
@@ -10,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
+
+import java.util.Optional;
 
 public class CertificationValidator implements Validator {
 

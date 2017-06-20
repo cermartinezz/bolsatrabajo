@@ -2,9 +2,10 @@ package com.bolsaTrabajo.model.catalog;
 
 import com.bolsaTrabajo.model.jobInfo.AcademicExperienceProfile;
 import com.bolsaTrabajo.model.postulantInfo.AcademicExperience;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Set;
 
 /**
@@ -15,7 +16,7 @@ import java.util.Set;
 @Table(name = "academic_titles")
 public class AcademicTitleCat {
 
-    private Long id;
+    private long id;
     private String titulo;
     private Set<AcademicExperience> academicExperienceSet;
     private Set<AcademicExperienceProfile> academicExperienceProfile;
@@ -43,8 +44,7 @@ public class AcademicTitleCat {
         this.titulo = titulo;
     }
 
-    @OneToMany(mappedBy = "title", fetch = FetchType.LAZY)
-    @JsonIgnore
+    @OneToMany(mappedBy = "pk.title", fetch = FetchType.LAZY)
     public Set<AcademicExperience> getAcademicExperienceSet() {
         return academicExperienceSet;
     }

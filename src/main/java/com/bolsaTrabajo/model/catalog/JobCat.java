@@ -56,7 +56,7 @@ public class JobCat implements Serializable{
         this.puesto = puesto;
     }
 
-    @OneToMany(mappedBy = "jobCat", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "pk.jobCat", cascade = CascadeType.ALL)
     public Set<WorkExperience> getWorkExperience() {
         return workExperience;
     }

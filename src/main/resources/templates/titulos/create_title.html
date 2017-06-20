@@ -3,7 +3,7 @@
 
 <head th:include="fragmentos/head :: head" th:remove="tag">
 </head>
-<title>Bolsa Trabajo</title>
+<title>Titulos</title>
 
 <body>
 <div class="site-wrapper" id="app">
@@ -18,21 +18,19 @@
 
     <div class="main" role="main">
 
-        <div th:include="fragmentos/heading :: heading('Ingresar Puesto')"></div>
+        <div th:include="fragmentos/heading :: heading('Ingresar Titulo')"></div>
 
         <section class="page-content">
             <div class="container">
-                <div class="box">
-                    <div th:if="${message!=null}" class="alert alert-danger alert-dismissable">
-                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        <span th:text="${message}"></span>
-                    </div>
+                <div th:if="${message!=null}" class="alert alert-danger alert-dismissable">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <span th:text="${message}"></span>
                 </div>
                 <div class="box">
                     <h3>Datos</h3>
                     <span th:utext="${successMessage}"></span>
                     <form th:object="${title}"
-                          method="POST" th:action="@{/api/cat/titles}"
+                          method="POST" th:action="@{/api/titulos}"
                           class="form-horizontal">
 
                         <div class="form-group">

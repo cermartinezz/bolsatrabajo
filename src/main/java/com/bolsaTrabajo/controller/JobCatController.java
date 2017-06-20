@@ -20,7 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 
 @Controller
-@RequestMapping("/cat/jobs")
+@RequestMapping("/cat/cargos")
 public class JobCatController {
 
     public static final String CREATE_JOB = "puestos/create_job";

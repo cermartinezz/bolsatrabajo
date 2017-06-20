@@ -1,7 +1,12 @@
 package com.bolsaTrabajo.restController;
 
 import com.bolsaTrabajo.model.*;
-import com.bolsaTrabajo.model.catalog.*;
+import com.bolsaTrabajo.model.catalog.AcademicTitleCat;
+import com.bolsaTrabajo.model.catalog.CompanyCat;
+import com.bolsaTrabajo.model.catalog.Institution;
+import com.bolsaTrabajo.model.catalog.JobCat;
+import com.bolsaTrabajo.model.compositeKeys.AcademicExperienceID;
+import com.bolsaTrabajo.model.compositeKeys.WorkExperienceID;
 import com.bolsaTrabajo.model.postulantInfo.AcademicExperience;
 import com.bolsaTrabajo.model.postulantInfo.PostulantLanguage;
 import com.bolsaTrabajo.model.postulantInfo.WorkExperience;
@@ -58,6 +63,12 @@ public class PostulantRestController {
     @Autowired
     private LanguageService languageService;
 
+
+    @Autowired
+    private WorkExperienceService workExperienceService;
+
+    @Autowired
+    private AcademicExperienceService academicExperienceService;
     private HttpHeaders headers;
 
     public PostulantRestController() {
@@ -161,30 +172,74 @@ public class PostulantRestController {
     }
 
 
-    @PostMapping(value = "/workExp")
+    @PostMapping(value = "/ExpLabo")
     public RedirectView storeWorkExp(WorkExperience experience, @RequestParam("empresas") long empresa,
-                                     @RequestParam("jobs") long job, RedirectAttributes attributes){
+                                     @RequestParam("jobs") long job, @RequestParam("inicio") String inicio,
+                                      RedirectAttributes attributes){
 
         Postulant p = postulantService.findByUsername(Auth.auth().getName());
         CompanyCat c = companyCatService.getCompany(empresa);
         JobCat j = jobCatService.getJob(job);
 
+        experience.getPk().setInicio(inicio);
         experience.setCompanyCat(c);
         experience.setPostulant(p);
         experience.setJobCat(j);
 
         p.getWorkExperiences().add(experience);
         postulantService.save(p);
-        //attributes.addFlashAttribute("message","Registro se guardo con exito");
+        attributes.addFlashAttribute("message","Registro se guardo con exito");
         return new RedirectView("/postulante/"+p.getUsername()+"/perfil");
     }
 
-    @PostMapping(value = "/acadExp")
+    @PostMapping(value = "/ExpLabo/actualizar")
+    public RedirectView updateWorkExp(WorkExperience experience, @RequestParam("empresas") long empresa,
+                                      @RequestParam("jobs") long job, @RequestParam("inicio") String inicio,
+                                      @RequestParam("job") long puesto, @RequestParam("empresa") long company,
+                                      @RequestParam("begin") String begin, RedirectAttributes attributes){
+
+        WorkExperienceID id = new WorkExperienceID();
+
+        id.setPostulant(postulantService.findByUsername(Auth.auth().getName()));
+        id.setCompanyCat(companyCatService.getCompany(company));
+        id.setJobCat(jobCatService.getJob(puesto));
+        id.setInicio(begin);
+
+        Postulant p = postulantService.findByUsername(Auth.auth().getName());
+        WorkExperience w = workExperienceService.getWorkExpById(id);
+        workExperienceService.deleteWorkExp(w);
+        p.getWorkExperiences().remove(w);
+        CompanyCat c = companyCatService.getCompany(empresa);
+        JobCat j = jobCatService.getJob(job);
+
+        experience.getPk().setInicio(inicio);
+        experience.setCompanyCat(c);
+        experience.setPostulant(p);
+        experience.setJobCat(j);
+
+        p.getWorkExperiences().add(experience);
+        postulantService.save(p);
+        attributes.addFlashAttribute("message","Registro se guardo con exito");
+        return new RedirectView("/postulante/"+p.getUsername()+"/perfil");
+    }
+
+    @GetMapping(value = "/ExpLabo/delete/{company}/{job}/{begin}")
+    public ResponseEntity deleteWorkExp(@PathVariable long company, @PathVariable long job, @PathVariable String begin){
+        WorkExperienceID id = new WorkExperienceID();
+        id.setPostulant(postulantService.findByUsername(Auth.auth().getName()));
+        id.setCompanyCat(companyCatService.getCompany(company));
+        id.setJobCat(jobCatService.getJob(job));
+        id.setInicio(begin);
+        workExperienceService.deleteWorkExp(workExperienceService.getWorkExpById(id));
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/ExpAcad")
     public RedirectView storeAcadExp(AcademicExperience experience, @RequestParam("institucion") int institucion,
                                      @RequestParam("titles") long title, RedirectAttributes attributes){
 
         Postulant p = postulantService.findByUsername(Auth.auth().getName());
-        Institution ins = institutionService.findInstitutionById(institucion).get();
+        Institution ins = institutionService.findInstitutionById(institucion);
         AcademicTitleCat acad = academicTitleCatService.getTitle(title);
 
         experience.setInstitution(ins);
@@ -193,8 +248,46 @@ public class PostulantRestController {
 
         p.getAcademicExperiences().add(experience);
         postulantService.save(p);
-        //attributes.addFlashAttribute("message","Registro se guardo con exito");
+        attributes.addFlashAttribute("message","Registro se guardo con exito");
         return new RedirectView("/postulante/"+p.getUsername()+"/perfil");
+    }
+
+    @PostMapping(value = "/ExpAcad/actualizar")
+    public RedirectView updateAcadExp(AcademicExperience experience, @RequestParam("institution") int institution,
+                                      @RequestParam("titles") long titles, @RequestParam("institucion") int institucion,
+                                      @RequestParam("titulo") long titulo, RedirectAttributes attributes){
+
+        AcademicExperienceID id = new AcademicExperienceID();
+
+        id.setPostulant(postulantService.findByUsername(Auth.auth().getName()));
+        id.setInstitution(institutionService.findInstitutionById(institucion));
+        id.setTitle(academicTitleCatService.getTitle(titulo));
+
+        Postulant p = postulantService.findByUsername(Auth.auth().getName());
+        AcademicExperience w = academicExperienceService.getAcadExpById(id);
+        academicExperienceService.deleteAcadExp(w);
+        p.getAcademicExperiences().remove(w);
+        Institution institution1 = institutionService.findInstitutionById(institution);
+        AcademicTitleCat acadTitle = academicTitleCatService.getTitle(titles);
+
+        experience.getPk().setTitle(acadTitle);
+        experience.getPk().setInstitution(institution1);
+        experience.setPostulant(p);
+
+        p.getAcademicExperiences().add(experience);
+        postulantService.save(p);
+        attributes.addFlashAttribute("message","Registro se guardo con exito");
+        return new RedirectView("/postulante/"+p.getUsername()+"/perfil");
+    }
+
+    @GetMapping(value = "/ExpAcad/delete/{titulo}/{institucion}")
+    public ResponseEntity deleteWorkExp(@PathVariable long titulo, @PathVariable int institucion){
+        AcademicExperienceID id = new AcademicExperienceID();
+        id.setPostulant(postulantService.findByUsername(Auth.auth().getName()));
+        id.setInstitution(institutionService.findInstitutionById(institucion));
+        id.setTitle(academicTitleCatService.getTitle(titulo));
+        academicExperienceService.deleteAcadExp(academicExperienceService.getAcadExpById(id));
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @GetMapping("/{username}/applications")
