@@ -2,8 +2,10 @@ package com.bolsaTrabajo.repositories;
 
 import com.bolsaTrabajo.model.Postulant;
 import com.bolsaTrabajo.model.postulantInfo.PostulantCertification;
+import com.bolsaTrabajo.util.StateOfEducation;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
 import java.util.Set;
 
 public interface PostulantRepository extends JpaRepository<Postulant,Integer> {
@@ -14,5 +16,6 @@ public interface PostulantRepository extends JpaRepository<Postulant,Integer> {
     Postulant findByPassport(String passport);
     Postulant findByNup(String nup);
     Postulant findById(Long id);
+    List<Postulant> findByStateOfEducation(String stateOfEducation);
     
 }

@@ -7,6 +7,7 @@ import com.bolsaTrabajo.repositories.PostulantLanguageRepository;
 import com.bolsaTrabajo.repositories.PostulantRepository;
 import com.bolsaTrabajo.repositories.UserRepository;
 import com.bolsaTrabajo.service.PostulantService;
+import com.bolsaTrabajo.util.StateOfEducation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -81,6 +82,11 @@ public class PostulantServiceImpl implements PostulantService {
     @Override
     public List<Postulant> getAll() {
         return postulantRepository.findAll();
+    }
+
+    @Override
+    public List<Postulant> getAllByAcademicState(String stateOfEducation) {
+        return postulantRepository.findByStateOfEducation(stateOfEducation);
     }
 
     @Override

@@ -10,6 +10,7 @@ import com.bolsaTrabajo.service.CompanyCatService;
 import com.bolsaTrabajo.service.PostulantService;
 import com.bolsaTrabajo.service.UserService;
 import com.bolsaTrabajo.util.Auth;
+import com.bolsaTrabajo.util.StateOfEducation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -18,10 +19,13 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.web.util.UriComponentsBuilder;
+import org.thymeleaf.expression.Sets;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by keepercito on 05-01-17.
@@ -63,6 +67,9 @@ public class PostulantRestController {
     @GetMapping("/getAll")
     public ResponseEntity<List<Postulant>> getAll(){
         List<Postulant> postulants = postulantService.getAll();
+        List<Postulant> post = new ArrayList<>();
+
+
         if(postulants == null || postulants.isEmpty()){
             return new ResponseEntity<List<Postulant>>(HttpStatus.NO_CONTENT);
         }
@@ -86,6 +93,33 @@ public class PostulantRestController {
         // En lugar de regresar el compuesto, regresa el hijo
         return new ResponseEntity<List<Postulant>>(postulants, HttpStatus.OK);
 
+    }
+
+    @GetMapping("/academicState/{state}")
+    public ResponseEntity<Set<Postulant>> getAllByAcademicState(@PathVariable String state){
+
+        List<Postulant> postulants = postulantService.getAll(); //Esta lista es la que se regresará
+
+        List<Postulant> filtrados = new ArrayList<>();
+
+        List<Postulant> postState = new ArrayList<>();
+
+        for (Postulant postulant : postulants){
+           if(postulant.getStateOfEducation() != null){
+               filtrados.add(postulant);
+               for (Postulant p : filtrados)
+                   if (p.getStateOfEducation().toString().equals(state)){
+                   postState.add(p);
+                   }
+           }
+        }
+
+        Set<Postulant> resultado = new HashSet<Postulant>(postState);
+
+        if(postulants == null || postulants.isEmpty()){
+            return new ResponseEntity<Set<Postulant>>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<Set<Postulant>>(resultado, HttpStatus.OK);
     }
 
     @GetMapping("/{username}")

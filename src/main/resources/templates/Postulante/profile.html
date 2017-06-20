@@ -66,6 +66,16 @@
                                                 <p><Strong>Fecha de nacimiento:</Strong> {{ dateName(postulante.birthday) }}</p>
                                                 <p><Strong>Genero:</Strong> {{postulante.gender}}</p>
                                                 <p><Strong>Nit:</Strong> {{postulante.nit}}</p>
+
+                                                <p v-if="postulante.stateOfEducation == 'BACHILLER'">Bachiller</p>
+                                                <p v-if="postulante.stateOfEducation == 'UNIVERSITARIO_1'">Estudiante Universitario de 1° año</p>
+                                                <p v-if="postulante.stateOfEducation == 'UNIVERSITARIO_2'">Estudiante Universitario de 2° año</p>
+                                                <p v-if="postulante.stateOfEducation == 'UNIVERSITARIO_3'">Estudiante Universitario de 3° año</p>
+                                                <p v-if="postulante.stateOfEducation == 'UNIVERSITARIO_4'">Estudiante Universitario de 4° año</p>
+                                                <p v-if="postulante.stateOfEducation == 'UNIVERSITARIO_5'">Estudiante Universitario de 5° año</p>
+                                                <p v-if="postulante.stateOfEducation == 'EGRESADO'">Egresado</p>
+                                                <p v-if="postulante.stateOfEducation == 'GRADUADO'">Graduado</p>
+
                                             </div>
                                         </div>
                                     </div>

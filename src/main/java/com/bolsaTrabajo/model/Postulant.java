@@ -3,6 +3,7 @@ package com.bolsaTrabajo.model;
 import com.bolsaTrabajo.model.jobInfo.Candidate;
 import com.bolsaTrabajo.model.postulantInfo.*;
 import com.bolsaTrabajo.util.Gender;
+import com.bolsaTrabajo.util.StateOfEducation;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -25,6 +26,8 @@ public class Postulant extends User{
     private String phonenumber;
     private String passport;
     private String nup;
+
+    private StateOfEducation  stateOfEducation;
 
     private Set<PostulantCertification> certifications;
     private Set<Recommendation> recommendations;
@@ -129,6 +132,17 @@ public class Postulant extends User{
     public void setCellphone(String cellphone) {
         this.cellphone = cellphone;
     }
+
+    @Enumerated(EnumType.STRING)
+    public StateOfEducation getStateOfEducation() {
+        return stateOfEducation;
+    }
+
+    public void setStateOfEducation(StateOfEducation stateOfEducation) {
+        this.stateOfEducation = stateOfEducation;
+    }
+
+
 
     /***********RELACIONES**************/
 
@@ -238,6 +252,7 @@ public class Postulant extends User{
                 ", phonenumber='" + phonenumber + '\'' +
                 ", passport='" + passport + '\'' +
                 ", nup='" + nup + '\'' +
+                ", stateOfEducation=" + stateOfEducation +
                 '}';
     }
 }

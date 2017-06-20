@@ -137,6 +137,29 @@
                                            placeholder="1111-1111" class="form-control" />
                                 </div>
 
+                                <div class="form-group">
+                                    <label>Estado académico:</label>
+
+                                    <select class="form-control" id="stateOfEducation"
+                                            v-model.number="stateOfEducation"
+                                            type="number" name="stateOfEducation"
+                                            required>
+
+                                        <option disabled value="">Seleccione su estado académico</option>
+
+                                        <option value="BACHILLER">Bachiller</option>
+                                        <option value="UNIVERSITARIO_1">Primer año de universidad</option>
+                                        <option value="UNIVERSITARIO_2">Segundo año de universidad</option>
+                                        <option value="UNIVERSITARIO_3">Tercer año de universidad</option>
+                                        <option value="UNIVERSITARIO_4">Cuarto año de universidad</option>
+                                        <option value="UNIVERSITARIO_5">Quinto año de universidad</option>
+                                        <option value="EGRESADO">Egresado</option>
+                                        <option value="GRADUADO">Graduado</option>
+
+                                    </select>
+
+                                </div>
+
                             </div>
                         </div>
                         <div class="form-group">
