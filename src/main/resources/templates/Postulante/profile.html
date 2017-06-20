@@ -86,28 +86,24 @@
                                 <ul class="job_listings">
                                     <div class="spacer-lg"></div>
 
-                                    <h4>Educación</h4>
-                                    <li class="job_listing">
-                                        <a href="#">
-
                                     <div class="row" id="expAc">
                                         <div class="col-md-9">
                                             <h4>Experiencia Academica</h4>
                                         </div>
-
                                         <div class="col-md-3">
                                             <a th:href="@{'/postulante/'+ ${user.getName()} + '/ExpAcad/agregar'}" class="btn btn-sm btn-success">Agregar</a>
                                         </div>
                                     </div>
+
                                     <li class="job_listing">
-                                        <div id="expA" style="display:none" th:if="${postulantInfo.academicExperiences.size() !=0}" class="table-responsive">
+                                        <div id="expA" th:if="${postulantInfo.academicExperiences.size() !=0}" class="table-responsive">
                                             <table class="job-manager-jobs table table-bordered table-stripe">
                                                 <thead>
                                                 <tr>
-                                                    <th>Titulo</th>
-                                                    <th>Institucion</th>
-                                                    <th>Año de Graduación</th>
-                                                    <th>Acciones</th>
+                                                    <th class="table-color-bonito">Titulo</th>
+                                                    <th class="table-color-bonito">Institucion</th>
+                                                    <th class="table-color-bonito">Año de Graduación</th>
+                                                    <th class="table-color-bonito">Acciones</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -129,8 +125,10 @@
                                                 </tbody>
                                             </table>
                                         </div>
+
                                         <div th:if="${postulantInfo.academicExperiences.size() == 0}" class="center_block">
-                                            <p><strong>NO HAY REGISTROS, DEBERIAS INGRESAR ALGUNAS EXPERIENCIAS LABORALES</strong></p>
+                                            <p th:if="${usr.hasRole('POSTULANTE')}"><strong>NO HAY REGISTROS, DEBERIAS INGRESAR ALGUNAS EXPERIENCIAS ACADEMICAS</strong></p>
+                                            <p th:if="${usr.hasRole('EMPRESA')}"><strong>ESTE ASPIRANTE NO HA AGREGADO NINGUNA EXPERIENCIA ACADEMICA</strong></p>
                                         </div>
                                     </li>
                                 </ul>
@@ -277,19 +275,17 @@
                                         </div>
 
                                         <div class="col-md-3">
-                                            <a href="#exp" class="btn btn-sm btn-info" onclick="if(document.getElementById('experiencia') .style.display=='none')
-                                            {document.getElementById('experiencia') .style.display=''}else{document.getElementById('experiencia') .style.display='none'}" th:hidden="${postulantInfo.workExperiences.size() == 0}">Ver detalle</a>
                                             <a th:href="@{'/postulante/'+ ${user.getName()} + '/ExpLabo/agregar'}" class="btn btn-sm btn-success">Agregar</a>
                                         </div>
                                     </div>
                                     <li class="job_listing">
-                                        <div id="experiencia" style="display:none" th:if="${postulantInfo.workExperiences.size() !=0}" class="table-responsive">
+                                        <div id="experiencia" th:if="${postulantInfo.workExperiences.size() !=0}" class="table-responsive">
                                             <table class="job-manager-jobs table table-bordered table-stripe">
                                                 <thead>
                                                 <tr>
-                                                    <th>Empresa</th>
-                                                    <th>Cargo</th>
-                                                    <th>Acciones</th>
+                                                    <th class="table-color-bonito">Empresa</th>
+                                                    <th class="table-color-bonito">Cargo</th>
+                                                    <th class="table-color-bonito">Acciones</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -332,7 +328,7 @@
                                     <li class="job_listing">
                                         <div  v-for="(recomendation, index) in recommendations">
                                             <div class="row">
-                                                <div class="col-md-2">
+                                                <div class="col-md-6">
                                                     <div class="icon-box">
                                                         <div class="icon">
                                                             <i class="fa fa-phone"></i>

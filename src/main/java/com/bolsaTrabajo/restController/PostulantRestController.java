@@ -1,10 +1,7 @@
 package com.bolsaTrabajo.restController;
 
 import com.bolsaTrabajo.model.*;
-import com.bolsaTrabajo.model.catalog.AcademicTitleCat;
-import com.bolsaTrabajo.model.catalog.CompanyCat;
-import com.bolsaTrabajo.model.catalog.Institution;
-import com.bolsaTrabajo.model.catalog.JobCat;
+import com.bolsaTrabajo.model.catalog.*;
 import com.bolsaTrabajo.model.compositeKeys.AcademicExperienceID;
 import com.bolsaTrabajo.model.compositeKeys.WorkExperienceID;
 import com.bolsaTrabajo.model.postulantInfo.AcademicExperience;

@@ -1,10 +1,10 @@
 package com.bolsaTrabajo;
 
-import com.bolsaTrabajo.model.*;
-import com.bolsaTrabajo.model.catalog.Language;
-import com.bolsaTrabajo.model.catalog.LanguageLevel;
-import com.bolsaTrabajo.model.catalog.Skill;
-import com.bolsaTrabajo.model.catalog.SkillCategory;
+import com.bolsaTrabajo.model.Company;
+import com.bolsaTrabajo.model.Permission;
+import com.bolsaTrabajo.model.Postulant;
+import com.bolsaTrabajo.model.Role;
+import com.bolsaTrabajo.model.catalog.*;
 import com.bolsaTrabajo.service.*;
 import com.bolsaTrabajo.util.Gender;
 import org.apache.commons.lang3.text.WordUtils;
@@ -49,6 +49,9 @@ public class BolsaTrabajoApplication implements CommandLineRunner {
 
 	@Autowired
 	private DepartmentService departmentService;
+
+	@Autowired
+	private CompanyService companyService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(BolsaTrabajoApplication.class, args);

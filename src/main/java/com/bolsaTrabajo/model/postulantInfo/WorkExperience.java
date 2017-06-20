@@ -38,6 +38,7 @@ public class WorkExperience implements Serializable{
     }
 
     @Transient
+    @JsonIgnore
     public CompanyCat getCompanyCat() {
         return getPk().getCompanyCat();
     }
@@ -76,6 +77,7 @@ public class WorkExperience implements Serializable{
 
 
     @Transient
+    @JsonIgnore
     public JobCat getJobCat() {
         return getPk().getJobCat();
     }

@@ -22,5 +22,5 @@ public interface InstitutionService {
 
     List<Institution> getInstitutionsByType(InstitutionType type);
 
-    void delete(Optional<Institution> institutionById);
+    void delete(Institution institutionById);
 }

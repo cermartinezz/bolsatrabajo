@@ -3,6 +3,7 @@ package com.bolsaTrabajo.model.compositeKeys;
 import com.bolsaTrabajo.model.catalog.CompanyCat;
 import com.bolsaTrabajo.model.Postulant;
 import com.bolsaTrabajo.model.catalog.JobCat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -34,6 +35,7 @@ public class WorkExperienceID implements Serializable{
     }
 
     @ManyToOne
+    @JsonIgnore
     public JobCat getJobCat() {
         return jobCat;
     }
@@ -52,6 +54,7 @@ public class WorkExperienceID implements Serializable{
     }
 
     @ManyToOne
+    @JsonIgnore
     public CompanyCat getCompanyCat() {
         return companyCat;
     }

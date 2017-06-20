@@ -43,8 +43,8 @@ public class InstitutionServiceImpl implements InstitutionService {
     }
 
     @Override
-    public void delete(Optional<Institution> institutionById) {
-        institutionRepository.delete(institutionById.get());
+    public void delete(Institution institutionById) {
+        institutionRepository.delete(institutionById);
     }
 
     @Override

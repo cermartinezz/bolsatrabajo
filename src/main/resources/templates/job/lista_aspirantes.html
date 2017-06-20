@@ -76,16 +76,18 @@
                                     <h3>{{aspirante.postulant.name}} {{aspirante.postulant.lastName}} </h3>
                                     <p>Correo: {{aspirante.postulant.email}}</p>
                                     <p>Teléfono: {{aspirante.postulant.phonenumber}}</p>
-                                    <p>{{aspirante.postulant.stateOfEducation}}</p>
+                                        <p v-if="aspirante.postulant.stateOfEducation == 'BACHILLER'">Bachiller</p>
+                                        <p v-if="aspirante.postulant.stateOfEducation == 'UNIVERSITARIO_1'">Estudiante Universitario de 1° año</p>
+                                        <p v-if="aspirante.postulant.stateOfEducation == 'UNIVERSITARIO_2'">Estudiante Universitario de 2° año</p>
+                                        <p v-if="aspirante.postulant.stateOfEducation == 'UNIVERSITARIO_3'">Estudiante Universitario de 3° año</p>
+                                        <p v-if="aspirante.postulant.stateOfEducation == 'UNIVERSITARIO_4'">Estudiante Universitario de 4° año</p>
+                                        <p v-if="aspirante.postulant.stateOfEducation == 'UNIVERSITARIO_5'">Estudiante Universitario de 5° año</p>
+                                        <p v-if="aspirante.postulant.stateOfEducation == 'EGRESADO'">Egresado</p>
+                                        <p v-if="aspirante.postulant.stateOfEducation == 'GRADUADO'">Graduado</p>
 
                                     </div>
                                     <div class="cold-md-2">
-                                        <div v-if="aspirante.postulant.academicExperiences.length !=0">
-                                            <h5>Educación:</h5>
-                                            <ul>
-                                                <li></li>
-                                            </ul>
-                                        </div>
+
                                         <div v-if="aspirante.postulant.postulantLanguages.length !=0">
                                             <h5>Idiomas:</h5>
                                             <ul v-for="idioma in aspirante.postulant.postulantLanguages">

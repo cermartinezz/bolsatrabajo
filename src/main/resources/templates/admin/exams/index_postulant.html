@@ -12,7 +12,7 @@
 <div class="site-wrapper" id="app">
     <header class="header header-menu-fullw">
         <div th:include="fragmentos/top_bar :: top_bar(${user})" th:remove="tag"></div>
-        <div th:include="fragmentos/menu :: menu(${user})" th:remove="tag"></div>
+        <div th:include="fragmentos/menu :: menu(${user},${usr})" th:remove="tag"></div>
     </header>
 
 
@@ -37,9 +37,9 @@
                                 <table class="table table-bordered table-stripe tablita">
                                     <thead>
                                     <tr>
-                                        <th>Titulo</th>
-                                        <th>Sub Area Nombre</th>
-                                        <th></th>
+                                        <th class="table-color-bonito">Titulo</th>
+                                        <th class="table-color-bonito">Sub Area Nombre</th>
+                                        <th class="table-color-bonito"></th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -66,9 +66,9 @@
                                 <table class="table table-bordered table-stripe tablita">
                                     <thead>
                                     <tr>
-                                        <th>Titulo</th>
-                                        <th>Sub Area Nombre</th>
-                                        <th></th>
+                                        <th class="table-color-bonito">Titulo</th>
+                                        <th class="table-color-bonito">Sub Area Nombre</th>
+                                        <th class="table-color-bonito"></th>
                                     </tr>
                                     </thead>
                                     <tbody>
