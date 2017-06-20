@@ -7,6 +7,6 @@ public interface JobProfileLanguageService {
 
     public void update();
 
-    public void delete();
+    public void delete(JobProfileLanguage jobProfileLanguage);
 
 }

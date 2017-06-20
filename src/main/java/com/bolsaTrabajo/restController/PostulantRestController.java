@@ -1,6 +1,6 @@
 package com.bolsaTrabajo.restController;
 
-import com.bolsaTrabajo.model.*;
+import com.bolsaTrabajo.model.Postulant;
 import com.bolsaTrabajo.model.catalog.*;
 import com.bolsaTrabajo.model.compositeKeys.AcademicExperienceID;
 import com.bolsaTrabajo.model.compositeKeys.WorkExperienceID;
@@ -8,11 +8,7 @@ import com.bolsaTrabajo.model.postulantInfo.AcademicExperience;
 import com.bolsaTrabajo.model.postulantInfo.PostulantLanguage;
 import com.bolsaTrabajo.model.postulantInfo.WorkExperience;
 import com.bolsaTrabajo.service.*;
-import com.bolsaTrabajo.service.CompanyCatService;
-import com.bolsaTrabajo.service.PostulantService;
-import com.bolsaTrabajo.service.UserService;
 import com.bolsaTrabajo.util.Auth;
-import com.bolsaTrabajo.util.StateOfEducation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -21,13 +17,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.web.util.UriComponentsBuilder;
-import org.thymeleaf.expression.Sets;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by keepercito on 05-01-17.
@@ -233,7 +226,8 @@ public class PostulantRestController {
 
     @PostMapping(value = "/ExpAcad")
     public RedirectView storeAcadExp(AcademicExperience experience, @RequestParam("institucion") int institucion,
-                                     @RequestParam("titles") long title, RedirectAttributes attributes){
+                                     @RequestParam("titles") long title, RedirectAttributes attributes,
+                                    HttpServletRequest request){
 
         Postulant p = postulantService.findByUsername(Auth.auth().getName());
         Institution ins = institutionService.findInstitutionById(institucion);
@@ -242,9 +236,19 @@ public class PostulantRestController {
         experience.setInstitution(ins);
         experience.setPostulant(p);
         experience.setTitle(acad);
-
+        int year = new Date().getYear();
+        if(experience.getAñoGraduacion() < year){
+            attributes.addFlashAttribute("message","La fecha de graduacion no puede ser mayor a este año");
+            return new RedirectView("/postulante/"+Auth.auth().getName()+"/ExpAcad/agregar");
+        }
         p.getAcademicExperiences().add(experience);
-        postulantService.save(p);
+        try{
+            postulantService.save(p);
+        }catch (Exception e){
+            attributes.addFlashAttribute("message","No se pudo crear, tu ya agregaste este registro");
+            return new RedirectView("/postulante/"+Auth.auth().getName()+"/ExpAcad/agregar");
+        }
+
         attributes.addFlashAttribute("message","Registro se guardo con exito");
         return new RedirectView("/postulante/"+p.getUsername()+"/perfil");
     }

@@ -33,6 +33,7 @@
                                                 v-model="language_id">
                                             <option value="" selected>Idioma</option>
 											<option value="EN">Inglés</option>
+                                            <option value="ES">Español</option>
 											<option value="IT">Italiano</option>
                                             <option value="DE">Alemán</option>
 											<option value="JA">Japonés</option>
@@ -105,7 +106,7 @@
                                     </div>
                                     <div class="cold-md-2">
 
-                                        <div v-if="aspirante.postulant.postulantLanguages.length !=0">
+                                        <div v-if="aspirante.postulantLanguages.length !=0">
                                             <h5>Idiomas:</h5>
                                             <ul v-for="idioma in aspirante.postulantLanguages">
                                                 <li>{{idioma.language.nombre}} -> Nivel: {{idioma.languageLevel}}</li>
@@ -121,7 +122,7 @@
                                 </div>
                             </div>
                             <div class="cta-btn-candidato">
-                                <a @click="redirectPerfil(aspirante.postulant.username)" class="btn btn-primary">Perfil</a>
+                                <a @click="redirectPerfil(aspirante.username)" class="btn btn-primary">Perfil</a>
                                 <br><br>
                             </div>
 

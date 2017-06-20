@@ -1,6 +1,10 @@
 package com.bolsaTrabajo.restController;
 
+import com.bolsaTrabajo.model.catalog.JobCat;
+import com.bolsaTrabajo.model.compositeKeys.WorkExperienceProfileId;
+import com.bolsaTrabajo.model.jobInfo.JobProfile;
 import com.bolsaTrabajo.model.jobInfo.WorkExperienceProfile;
+import com.bolsaTrabajo.service.JobCatService;
 import com.bolsaTrabajo.service.JobProfileService;
 import com.bolsaTrabajo.service.WorkExperienceProfileService;
 import com.bolsaTrabajo.util.StringUtils;
@@ -19,6 +23,9 @@ public class WorkExperienceProfileRestController {
 
     @Autowired
     private WorkExperienceProfileService workExperienceProfileService;
+
+    @Autowired
+    private JobCatService jobCatService;
 
     @Autowired
     WorkExperienceProfile workExperienceProfile;
@@ -49,8 +56,18 @@ public class WorkExperienceProfileRestController {
 
     }
 
-    @DeleteMapping("eliminar")
-    public void delete(){
+    @DeleteMapping("/cargo/{cargo_id}/eliminar")
+    public void delete(@PathVariable Integer id,@PathVariable long cargo_id){
+        JobCat job = jobCatService.getJob(cargo_id);
+        JobProfile profile = jobProfileService.findById(id);
 
+        WorkExperienceProfileId workExperienceProfileId = new WorkExperienceProfileId();
+        workExperienceProfileId.setJob(job);
+        workExperienceProfileId.setJobProfile(profile);
+
+        WorkExperienceProfile workExperienceProfile = new WorkExperienceProfile();
+        workExperienceProfile.setPrimaryKey(workExperienceProfileId);
+
+        workExperienceProfileService.delete(workExperienceProfile);
     }
 }

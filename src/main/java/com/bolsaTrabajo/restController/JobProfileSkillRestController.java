@@ -1,6 +1,12 @@
 package com.bolsaTrabajo.restController;
 
+import com.bolsaTrabajo.model.catalog.Skill;
+import com.bolsaTrabajo.model.compositeKeys.JobProfileSkillId;
+import com.bolsaTrabajo.model.jobInfo.JobProfile;
 import com.bolsaTrabajo.model.jobInfo.JobProfileSkill;
+import com.bolsaTrabajo.service.JobProfileService;
+import com.bolsaTrabajo.service.JobProfileSkillService;
+import com.bolsaTrabajo.service.SkillService;
 import com.bolsaTrabajo.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -14,6 +20,18 @@ public class JobProfileSkillRestController {
 
     @Autowired
     private JobProfileSkill jobProfileSkill;
+
+    @Autowired
+    private JobProfileSkillService jobProfileSkillService;
+
+    @Autowired
+    private JobProfileService jobProfile;
+
+    @Autowired
+    private JobProfileService jobProfileService;
+
+    @Autowired
+    private SkillService skillService;
 
     private HttpHeaders headers;
 
@@ -41,8 +59,19 @@ public class JobProfileSkillRestController {
 
     }
 
-    @DeleteMapping("/eliminar")
-    public void delete() {
+    @DeleteMapping("/{id_skill}/eliminar")
+    public void delete(@PathVariable Integer id, @PathVariable Integer id_skill) {
+        JobProfile pro = jobProfileService.findById(id);
+        Skill skill = skillService.findById(id_skill);
+
+        JobProfileSkillId jobProfileSkillId = new JobProfileSkillId();
+        jobProfileSkillId.setJobProfile(pro);
+        jobProfileSkillId.setSkill(skill);
+
+        JobProfileSkill jobProfileSkill = new JobProfileSkill();
+        jobProfileSkill.setPrimaryKey(jobProfileSkillId);
+
+        jobProfileSkillService.delete(jobProfileSkill);
 
     }
 }

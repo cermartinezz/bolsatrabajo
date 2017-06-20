@@ -1,6 +1,11 @@
 package com.bolsaTrabajo.restController;
 
+import com.bolsaTrabajo.model.catalog.Language;
+import com.bolsaTrabajo.model.catalog.LanguageLevel;
+import com.bolsaTrabajo.model.compositeKeys.JobProfileLanguageId;
+import com.bolsaTrabajo.model.jobInfo.JobProfile;
 import com.bolsaTrabajo.model.jobInfo.JobProfileLanguage;
+import com.bolsaTrabajo.service.*;
 import com.bolsaTrabajo.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -14,6 +19,16 @@ public class JobProfileLanguageRestController {
 
     @Autowired
     private JobProfileLanguage JobProfileLanguage;
+    @Autowired
+    private JobProfileLanguageService jobProfileLanguageService;
+    @Autowired
+    private LanguageLevelService languageLevelService;
+    @Autowired
+    private JobProfileService jobProfileService;
+    @Autowired
+    private LanguageService languageService;
+    @Autowired
+    private SkillService skillService;
 
     private HttpHeaders headers;
 
@@ -41,8 +56,20 @@ public class JobProfileLanguageRestController {
 
     }
 
-    @DeleteMapping("/eliminar")
-    public void delete() {
+    @DeleteMapping("/{id_lang}/nivel/{level_id}eliminar")
+    public void delete(@PathVariable Integer id,@PathVariable Integer id_lang,@PathVariable Integer level_id) {
+        Language lan = languageService.findById(id_lang);
+        LanguageLevel  lvl = languageLevelService.findById(level_id);
+        JobProfile profile = jobProfileService.findById(id);
 
+        JobProfileLanguageId jobProfileLanguageId = new JobProfileLanguageId();
+        jobProfileLanguageId.setJobProfile(profile);
+        jobProfileLanguageId.setLanguage(lan);
+        jobProfileLanguageId.setLanguageLevel(lvl);
+
+        JobProfileLanguage jobProfileLanguage = new JobProfileLanguage();
+        jobProfileLanguage.setPrimaryKey(jobProfileLanguageId);
+
+        jobProfileLanguageService.delete(jobProfileLanguage);
     }
 }

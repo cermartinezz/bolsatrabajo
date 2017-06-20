@@ -232,6 +232,33 @@ new Vue({
                     this.profile = response.data;
                     this.jobProfilesLanguages = this.profile.languages;
                 })
+        },
+        eliminarTitulo(titulo,index){
+            axios.delete("/api/perfil/"+this.id+"/titulo/"+titulo.academicTitle.id+"/eliminar")
+                .then(response  => {
+                    showMessageTimer("Eliminada","Se elimino correctamente","info",3000);
+                })
+        },
+        eliminarhabilidad(habilidad,index){
+            axios.delete("/api/perfil/"+this.id+"/hablidades/"+habilidad.skill.id+"/eliminar")
+                .then(response  => {
+                    showMessageTimer("Eliminada","Se elimino correctamente","info",3000);
+                    this.$delete(this.jobProfileSkills,index);
+                })
+        },
+        eliminarTrabajo(trabajo, index){
+            axios.delete("/api/perfil/"+this.id+"/cargo/"+trabajo.jobCat.id+"/eliminar")
+                .then(response  => {
+                    showMessageTimer("Eliminada","Se elimino correctamente","info",3000);
+                    this.$delete(this.workExperience,index);
+                })
+        },
+        eliminarIdioma(idioma,index){
+            axios.delete("/api/perfil/"+this.id+"/languajes/"+idioma.language.id+"/nivel/"+idioma.languageLevel.id+"eliminar")
+                .then(response  => {
+                    showMessageTimer("Eliminada","Se elimino correctamente","info",3000);
+                    this.$delete(this.jobProfilesLanguages,index);
+                })
         }
     },
     watch: {

@@ -21,8 +21,8 @@ public class  JobProfileLanguageServiceImpl implements JobProfileLanguageService
     }
 
     @Override
-    public void delete() {
-
+    public void delete(JobProfileLanguage jobProfileLanguage) {
+        jobProfileLanguageRepository.delete(jobProfileLanguage);
     }
 
 

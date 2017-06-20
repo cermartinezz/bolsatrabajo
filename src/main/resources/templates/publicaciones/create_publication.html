@@ -24,9 +24,8 @@
         <section class="page-content">
             <div class="container">
 
-                <div class="row">
-                    <div class="col-md-8 col-md-offset-2">
-
+                <div class="box">
+                    <div class="row">
                         <form  method="post" id="submit-pub-form" class="job-manager-form"
                                v-on:submit.prevent="onSubmit">
 
@@ -55,12 +54,7 @@
 
                             <fieldset class="fieldset-editorial">
                                 <label for="editorial">Editorial</label>
-                                <div class="field select-style">
-                                    <select name="editorial" id="editorial" class="form-control"  v-model="editorial">
-                                        <option value="Editorial1">Editorial 1</option>
-                                        <option value="Editorial2">Editorial 2</option>
-                                    </select>
-                                </div>
+                                <input type="text" id="editorial" class="form-control" placeholder="Ingrese editorial" v-model="editorial" />
                             </fieldset>
 
                             <div class="spacer"></div>

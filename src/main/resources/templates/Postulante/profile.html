@@ -91,13 +91,13 @@
                                             <h4>Experiencia Academica</h4>
                                         </div>
                                         <div class="col-md-3">
-                                            <a th:href="@{'/postulante/'+ ${user.getName()} + '/ExpAcad/agregar'}" class="btn btn-sm btn-success">Agregar</a>
+                                            <a th:if="${usr.hasRole('POSTULANTE')}" th:href="@{'/postulante/'+ ${user.getName()} + '/ExpAcad/agregar'}" class="btn btn-sm btn-success">Agregar</a>
                                         </div>
                                     </div>
 
                                     <li class="job_listing">
                                         <div id="expA" th:if="${postulantInfo.academicExperiences.size() !=0}" class="table-responsive">
-                                            <table class="job-manager-jobs table table-bordered table-stripe">
+                                            <table class=" table  table-stripe">
                                                 <thead>
                                                 <tr>
                                                     <th class="table-color-bonito">Titulo</th>
@@ -112,12 +112,12 @@
                                                     <td th:text="${title.getInstitution().getInstitutionName()}"></td>
                                                     <td th:text="${title.graduacion}"></td>
                                                     <td>
-                                                        <form method="post" th:action="@{'/postulante/'+ ${user.getName()} + '/ExpAcad/editar'}">
+                                                        <form th:if="${usr.hasRole('POSTULANTE')}" method="post" th:action="@{'/postulante/'+ ${user.getName()} + '/ExpAcad/editar'}">
                                                             <input type="hidden" name="titulo" th:value="${title.pk.getTitle().getId()}">
                                                             <input type="hidden" name="institucion" th:value="${title.getInstitution().getId()}">
                                                             <button class="btn btn-warning btn-xs"><span class="fa fa-pencil"></span> Editar</button>
                                                         </form>
-                                                        <button th:onclick="'eliminarRegistroExpAcad('+${title.pk.getTitle().getId()}+',
+                                                        <button th:if="${usr.hasRole('POSTULANTE')}" th:onclick="'eliminarRegistroExpAcad('+${title.pk.getTitle().getId()}+',
                                                         '+${title.getInstitution().getId()}+')'"
                                                                 class="btn btn-danger btn-xs inline"><span class="fa fa-trash"></span> Eliminar</button>
                                                     </td>
@@ -166,7 +166,7 @@
 
                                                         <td th:if="${usr.hasRole('POSTULANTE')}">
                                                             <button class="btn btn-warning btn-xs" @click="redirectCertificaciones(certification)">Editar</button>
-                                                            <button class="btn btn-danger btn-xs"
+                                                            <button  class="btn btn-danger btn-xs"
                                                                     @click="deleteCertificacion(index,certification)">Eliminar</button>
                                                         </td>
                                                     </tr>
@@ -275,12 +275,12 @@
                                         </div>
 
                                         <div class="col-md-3">
-                                            <a th:href="@{'/postulante/'+ ${user.getName()} + '/ExpLabo/agregar'}" class="btn btn-sm btn-success">Agregar</a>
+                                            <a th:if="${usr.hasRole('POSTULANTE')}" th:href="@{'/postulante/'+ ${user.getName()} + '/ExpLabo/agregar'}" class="btn btn-sm btn-success">Agregar</a>
                                         </div>
                                     </div>
                                     <li class="job_listing">
                                         <div id="experiencia" th:if="${postulantInfo.workExperiences.size() !=0}" class="table-responsive">
-                                            <table class="job-manager-jobs table table-bordered table-stripe">
+                                            <table class="table">
                                                 <thead>
                                                 <tr>
                                                     <th class="table-color-bonito">Empresa</th>
@@ -390,13 +390,13 @@
                                                         <td th:text="${award.getLugar()}"></td>
                                                         <td th:text="${award.getFecha()}"></td>
                                                         <td>
-                                                            <a th:href="@{/logros/{id}(id=${award.id})}" style="text-decoration:none;">
+                                                            <a th:if="${usr.hasRole('POSTULANTE')}" th:href="@{/logros/{id}(id=${award.id})}" style="text-decoration:none;">
                                                                 <button class="btn btn-warning btn-xs"><span class="fa fa-pencil"></span> Editar</button>
                                                             </a>
                                                         </td>
                                                         <td>
                                                             <a style="text-decoration:none;">
-                                                                <button th:onclick="'eliminarRegistro(\'' + ${award.id} + '\',\'award\')'"
+                                                                <button th:if="${usr.hasRole('POSTULANTE')}" th:onclick="'eliminarRegistro(\'' + ${award.id} + '\',\'award\')'"
                                                                         class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Eliminar</button>
                                                             </a>
                                                         </td>

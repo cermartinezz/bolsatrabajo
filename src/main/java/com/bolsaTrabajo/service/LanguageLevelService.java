@@ -14,4 +14,6 @@ public interface LanguageLevelService {
     public List<LanguageLevel> getAllLanguageLevels();
 
     public void store(LanguageLevel languageLevel);
+
+    LanguageLevel findById(int i);
 }

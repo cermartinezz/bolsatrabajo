@@ -142,9 +142,12 @@
                                 <div class="col-md-6">
                                     <div v-if="this.workExperience.length != 0" class="box box-no-border center ">
                                         <ul class="list-group full-width">
-                                            <li class="list-group-item" v-for="experience in workExperience">
-                                                <span><strong>Cargo: </strong>{{experience.jobCat.puesto}}</span>
-                                                <span><strong>Años de experiencia: </strong>{{experience.yearOfExperience}}</span>
+                                            <li class="list-group-item space_between" v-for="(experience,index) in workExperience" >
+                                                <div>
+                                                    <span><strong>Cargo: </strong>{{experience.jobCat.puesto}}</span>
+                                                    <span><strong>Años de experiencia: </strong>{{experience.yearOfExperience}}</span>
+                                                </div>
+                                                <span @click="eliminarTrabajo(experience,index)"><i class="fa fa-times-circle" aria-hidden="true"></i></span>
                                             </li>
                                         </ul>
                                     </div>
@@ -202,8 +205,9 @@
                                 <div class="col-md-6">
                                     <div v-if="this.academicExperience.length != 0" class="box box-no-border center ">
                                         <ul class="list-group full-width">
-                                            <li class="list-group-item" v-for="experience in academicExperience">
+                                            <li class="list-group-item space_between" v-for="(experience,index) in academicExperience">
                                                 <span style="text-transform: capitalize;"><strong>Titulo: </strong>{{experience.academicTitle.titulo}}</span>
+                                                <span @click="eliminarTitulo(experience,index)"><i class="fa fa-times-circle" aria-hidden="true"></i></span>
                                             </li>
                                         </ul>
                                     </div>
@@ -281,8 +285,9 @@
                                 <div class="col-md-6">
                                     <div v-if="this.jobProfileSkills.length != 0" class="box box-no-border center ">
                                         <ul class="list-group full-width">
-                                            <li class="list-group-item" v-for="skilss in jobProfileSkills">
+                                            <li class="list-group-item space_between" v-for="(skilss,index) in jobProfileSkills">
                                                 <span style="text-transform: capitalize"><strong>Titulo de habilidad: </strong>{{skilss.skill.titulo}}</span>
+                                                <span @click="eliminarhabilidad(skilss,index)"><i class="fa fa-times-circle" aria-hidden="true"></i></span>
                                             </li>
                                         </ul>
                                     </div>
@@ -344,9 +349,12 @@
                                 <div class="col-md-6">
                                     <div v-if="this.jobProfilesLanguages.length != 0" class="box box-no-border center ">
                                         <ul class="list-group full-width">
-                                            <li class="list-group-item" v-for="languaje in jobProfilesLanguages">
-                                                <span><strong>Idioma: </strong>{{languaje.language.nombre}}</span>
-                                                <span><strong>nivel: </strong>{{languaje.languageLevel.titulo}}</span>
+                                            <li class="list-group-item space_between" v-for="(languaje,index) in jobProfilesLanguages">
+                                                <div>
+                                                    <span><strong>Idioma: </strong>{{languaje.language.nombre}}</span>
+                                                    <span><strong>nivel: </strong>{{languaje.languageLevel.titulo}}</span>
+                                                </div>
+                                                <span @click="eliminarIdioma(languaje,index)"><i class="fa fa-times-circle" aria-hidden="true"></i></span>
                                             </li>
                                         </ul>
                                     </div>

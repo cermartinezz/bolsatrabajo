@@ -9,4 +9,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository("languageLevelRepository")
 public interface LanguageLevelRepository extends JpaRepository<LanguageLevel,Integer>{
+    LanguageLevel findById(int id);
 }

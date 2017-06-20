@@ -22,51 +22,48 @@
         <section class="page-content">
             <div class="container">
 
-                <div class="row">
-                    <div class="col-md-8 col-md-offset-2">
-                        <form method="post" th:object="${workExp}" th:action="@{/api/postulant/ExpLabo}" class="job-manager-form">
+                <div class="box">
+                    <form method="post" th:object="${workExp}" th:action="@{/api/postulant/ExpLabo}" class="job-manager-form">
 
-                            <!-- Book Information Fields -->
-                            <label for="empresas">Empresa</label>
-                            <div class="field select-style">
-                                <select name="empresas" id="empresas" class="form-control">
-                                    <option th:each="com : ${companies}" th:value="${com.id}" th:text="${com.companyName}"></option>
-                                </select>
-                            </div>
+                        <!-- Book Information Fields -->
+                        <label for="empresas">Empresa</label>
+                        <div class="field select-style">
+                            <select name="empresas" id="empresas" class="form-control">
+                                <option th:each="com : ${companies}" th:value="${com.id}" th:text="${com.companyName}"></option>
+                            </select>
+                        </div>
 
-                            <div class="spacer"></div>
+                        <div class="spacer"></div>
 
-                            <label for="jobs">Cargo</label>
-                            <div class="field select-style">
-                                <select name="jobs" id="jobs" class="form-control">
-                                    <option th:each="job : ${jobs}" th:value="${job.id}" th:text="${job.puesto}"></option>
-                                </select>
-                            </div>
+                        <label for="jobs">Cargo</label>
+                        <div class="field select-style">
+                            <select name="jobs" id="jobs" class="form-control">
+                                <option th:each="job : ${jobs}" th:value="${job.id}" th:text="${job.puesto}"></option>
+                            </select>
+                        </div>
 
-                            <div class="spacer"></div>
+                        <div class="spacer"></div>
 
-                            <div class="field input-style">
-                                <label> Inicio de labores*</label>
-                                <input type="date" name="inicio" class="form-control" required />
-                            </div>
+                        <div class="field input-style">
+                            <label> Inicio de labores*</label>
+                            <input type="date" name="inicio" class="form-control" required />
+                        </div>
 
-                            <div class="spacer"></div>
+                        <div class="spacer"></div>
 
-                            <div class="field input-style">
-                                <label> Finalización de labores*</label>
-                                <input type="date" th:field="*{fin}" name="fin" class="form-control" required />
-                            </div>
+                        <div class="field input-style">
+                            <label> Finalización de labores*</label>
+                            <input type="date" th:field="*{fin}" name="fin" class="form-control" required />
+                        </div>
 
-                            <div class="spacer"></div>
+                        <div class="spacer"></div>
 
-                            <p>
-                                <input type="submit" name="submit_publication" class="btn btn-primary" value="Agregar &rarr;" />
-                            </p>
+                        <p>
+                            <input type="submit" name="submit_publication" class="btn btn-primary" value="Agregar &rarr;" />
+                        </p>
 
-                        </form>
-                    </div>
+                    </form>
                 </div>
-
             </div>
         </section>
         <!-- Page Content / End -->

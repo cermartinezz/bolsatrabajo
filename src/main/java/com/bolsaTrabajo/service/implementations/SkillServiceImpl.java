@@ -14,8 +14,8 @@ public class SkillServiceImpl implements SkillService{
     private SkillRepository skillRepository;
 
     @Override
-    public void findById(int id) {
-        skillRepository.findById(id);
+    public Skill findById(int id) {
+       return skillRepository.findById(id);
     }
 
     @Override

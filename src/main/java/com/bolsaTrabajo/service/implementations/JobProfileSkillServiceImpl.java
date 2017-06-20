@@ -26,8 +26,8 @@ public class JobProfileSkillServiceImpl implements JobProfileSkillService {
     }
 
     @Override
-    public void delete() {
-
+    public void delete(JobProfileSkill jobProfileSkill) {
+        jobProfileSkillRepository.delete(jobProfileSkill);
     }
 
 

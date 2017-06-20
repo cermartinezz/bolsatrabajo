@@ -7,6 +7,6 @@ public interface JobProfileSkillService {
 
     public void update();
 
-    public void delete();
+    public void delete(JobProfileSkill jobProfileSkill);
 
 }

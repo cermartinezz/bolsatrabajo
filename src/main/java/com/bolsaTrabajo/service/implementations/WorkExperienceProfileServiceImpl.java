@@ -25,4 +25,9 @@ public class WorkExperienceProfileServiceImpl implements WorkExperienceProfileSe
                     workExperienceProfile.getJobCat().getPuesto()
             );
     }
+
+    @Override
+    public void delete(WorkExperienceProfile workExperienceProfile) {
+        workExperienceProfileRepository.delete(workExperienceProfile);
+    }
 }

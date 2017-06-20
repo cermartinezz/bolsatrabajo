@@ -21,46 +21,48 @@
         <!-- Page Content -->
         <section class="page-content">
             <div class="container">
+                <div th:if="${message!=null}" class="alert alert-danger alert-dismissable">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <span th:text="${message}"></span>
+                </div>
+                <div class="box">
+                    <form method="post" th:object="${acadExp}" th:action="@{/api/postulant/ExpAcad}" class="job-manager-form">
 
-                <div class="row">
-                    <div class="col-md-8 col-md-offset-2">
-                        <form method="post" th:object="${acadExp}" th:action="@{/api/postulant/ExpAcad}" class="job-manager-form">
+                        <!-- Book Information Fields -->
+                        <label for="institucion">Institucion</label>
+                        <div class="field select-style">
+                            <select name="institucion" id="institucion" class="form-control" required>
+                                <option value="">Seleccione una institucion</option>
+                                <option th:each="ins : ${institutions}" th:value="${ins.id}" th:text="${ins.institutionName}"></option>
+                            </select>
+                        </div>
 
-                            <!-- Book Information Fields -->
-                            <label for="institucion">Institucion</label>
-                            <div class="field select-style">
-                                <select name="institucion" id="institucion" class="form-control" required>
-                                    <option value="">Seleccione una institucion</option>
-                                    <option th:each="ins : ${institutions}" th:value="${ins.id}" th:text="${ins.institutionName}"></option>
-                                </select>
-                            </div>
+                        <div class="spacer"></div>
 
-                            <div class="spacer"></div>
+                        <label for="titles">Titulo Obtenido</label>
+                        <div class="field select-style">
+                            <select name="titles" id="titles" class="form-control" required>
+                                <option value="">Seleccione un titulo</option>
+                                <option th:each="title : ${titles}" th:value="${title.id}" th:text="${title.titulo}"></option>
+                            </select>
+                        </div>
 
-                            <label for="titles">Titulo Obtenido</label>
-                            <div class="field select-style">
-                                <select name="titles" id="titles" class="form-control" required>
-                                    <option value="">Seleccione un titulo</option>
-                                    <option th:each="title : ${titles}" th:value="${title.id}" th:text="${title.titulo}"></option>
-                                </select>
-                            </div>
+                        <div class="spacer"></div>
 
-                            <div class="spacer"></div>
+                        <div class="field input-style">
+                            <label> Año de Graduación*</label>
+                            <input type="text" name="inicio" placeholder="Año que se tituló" pattern="[2]{1}[0-9]{3}" title="Formato 2000"
+                                   class="form-control" th:field="*{añoGraduacion}" required />
+                        </div>
 
-                            <div class="field input-style">
-                                <label> Año de Graduación*</label>
-                                <input type="text" name="inicio" placeholder="Año que se tituló" pattern="[2]{1}[0-9]{3}" title="Formato 2000"
-                                       class="form-control" th:field="*{añoGraduacion}" required />
-                            </div>
+                        <div class="spacer"></div>
 
-                            <div class="spacer"></div>
+                        <p>
+                            <input type="submit" name="submit_publication" class="btn btn-primary" value="Agregar &rarr;" />
+                        </p>
 
-                            <p>
-                                <input type="submit" name="submit_publication" class="btn btn-primary" value="Agregar &rarr;" />
-                            </p>
+                    </form>
 
-                        </form>
-                    </div>
                 </div>
 
             </div>
