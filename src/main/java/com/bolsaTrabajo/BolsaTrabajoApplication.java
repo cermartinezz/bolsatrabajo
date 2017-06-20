@@ -339,7 +339,7 @@ public class BolsaTrabajoApplication implements CommandLineRunner {
 		company.setUsername(username);
 		company.setNombreC(compañia);
 		company.setRepreLegal(representante);
-		company.setInformacionC("Curabitur porta congue leo ornare luctus. Praesent iaculis posuere diam elementum pellentesque. Proin quis egestas ligula. Cras id auctor diam, nec maximus lectus. Curabitur sagittis, odio in dapibus maximus, nulla turpis malesuada nunc, vel sodales neque lacus vel diam. Morbi velit elit, feugiat vel velit vitae, ultrices ultricies nulla. Curabitur rhoncus consectetur magna, vitae mollis nunc convallis in. In quis purus vel libero vulputate consectetur.");
+		company.setInformacionC("Curabitur porta congue leo ornare luctus. Praesent iaculis posuere diam elementum pellentesque. Proin quis egestas ligula. Cras id auctor diam, nec maximus lectus. In quis purus vel libero vulputate consectetur.");
 		company.setNitC("1234-123456-123-1");
 		company.setTelefonoC("(503) 2257-7777");
 		company.setPassword(username);

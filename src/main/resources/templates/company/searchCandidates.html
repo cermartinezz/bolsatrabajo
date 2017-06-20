@@ -24,7 +24,7 @@
                 <h3 class="title-bordered">Busca a los postulantes que más se adecúen a tus necesidades</h3>
 
 
-                <h4 class="center">Filtrar por idioma</h4>
+                <h4 class="center">Escoja uno de los filtros</h4>
 
                 <form class="job_filters" th:object="${filter}" th:o method="get"
                       v-on:submit.prevent="onSubmit">
@@ -32,9 +32,9 @@
                     <div class="search_jobs center_block">
 
                         <div class="search_location">
-                            <label for="location">I</label>
+                            <label for="language">Idioma</label>
                             <span class="select-style">
-										<select class="form-control" name="location" id="location"
+										<select class="form-control" name="language" id="language"
                                                 v-model="language">
                                             <option disabled value="" selected>Idioma</option>
 											<option value="EN">Inglés</option>
@@ -46,17 +46,19 @@
                         </div>
 
                         <div class="search_type">
-                            <label>Educación</label>
+                            <label>Estado académico</label>
                             <span class="select-style">
 										<select name="category" id="category" class="form-control"
-                                                v-model="level">
-                                                <option disabled value="" selected>Educación</option>
-											    <option value="A1">Basico</option>
-                                                <option value="A2">Elemental</option>
-                                                <option value="B1">Pre-Intermedio</option>
-                                                <option value="B2">Intermedio Superior</option>
-                                                <option value="C1">Avanzado</option>
-                                                <option value="C2">Superior</option>
+                                                v-model.number="academicState">
+                                                <option disabled value="" selected>Estado académico</option>
+											    <option value="BACHILLER">Bachiller</option>
+                                        <option value="UNIVERSITARIO_1">Primer año de universidad</option>
+                                        <option value="UNIVERSITARIO_2">Segundo año de universidad</option>
+                                        <option value="UNIVERSITARIO_3">Tercer año de universidad</option>
+                                        <option value="UNIVERSITARIO_4">Cuarto año de universidad</option>
+                                        <option value="UNIVERSITARIO_5">Quinto año de universidad</option>
+                                        <option value="EGRESADO">Egresado</option>
+                                        <option value="GRADUADO">Graduado</option>
 										</select>
 									</span>
                         </div>
@@ -74,15 +76,21 @@
                 </form>
 
                 <div class="row" v-for="post in postulants">
-                    <div class="call-to-action" >
+                    <div class="call-to-action" v-if="post.name != 'administrador'">
                         <div class="cta-txt">
                             <div class="row">
                                 <div class="col-md-8">
                                     <h3>{{post.name}} {{post.lastName}} </h3>
                                     <p>Correo: {{post.email}}</p>
                                     <p>Teléfono: {{post.phonenumber}}</p>
-                                    <p>Fecha de Nacimiento: {{post.birthday}}</p>
-
+                                    <p v-if="post.stateOfEducation == 'BACHILLER'">Bachiller</p>
+                                    <p v-if="post.stateOfEducation == 'UNIVERSITARIO_1'">Estudiante Universitario de 1° año</p>
+                                    <p v-if="post.stateOfEducation == 'UNIVERSITARIO_2'">Estudiante Universitario de 2° año</p>
+                                    <p v-if="post.stateOfEducation == 'UNIVERSITARIO_3'">Estudiante Universitario de 3° año</p>
+                                    <p v-if="post.stateOfEducation == 'UNIVERSITARIO_4'">Estudiante Universitario de 4° año</p>
+                                    <p v-if="post.stateOfEducation == 'UNIVERSITARIO_5'">Estudiante Universitario de 5° año</p>
+                                    <p v-if="post.stateOfEducation == 'EGRESADO'">Egresado</p>
+                                    <p v-if="post.stateOfEducation == 'GRADUADO'">Graduado</p>
                                 </div>
                                 <div class="cold-md-2">
                                     <div v-if="post.academicExperiences.length !=0">
@@ -96,6 +104,12 @@
                                         <h5>Idiomas:</h5>
                                         <ul v-for="idioma in post.postulantLanguages">
                                             <li>{{idioma.language.nombre}} -> Nivel: {{idioma.languageLevel}}</li>
+                                        </ul>
+                                    </div>
+                                    <div v-if="post.skills !=0">
+                                        <h5>Habilidades:</h5>
+                                        <ul v-for="hab in post.skills">
+                                            <li>{{hab.skill.titulo}}</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -117,7 +131,7 @@
             <div v-if="postulants.length == 0" class="call-to-action centered">
                 <div class="spacer"></div>
                 <div class="cta-txt">
-                    <h2>No hay aspirantes</h2>
+                    <h2>No hay aspirantes con este filtro</h2>
                 </div>
 
                 <div class="spacer"></div>
@@ -137,7 +151,7 @@
         el: "#app",
         data: {
             language: "",
-            level: "",
+            academicState: "",
             postulants: []
         },
         methods: {
@@ -150,7 +164,18 @@
                         })
                         .catch(error => {
                             console.log(error);
-                            showMessageTimer("Error","No se encontraron puestos de trabajo que cumplan ambos filtros","error",5000);
+                            showMessageTimer("Error","No se encontraron postulantes con este idioma","error",5000);
+                        })
+                }
+                if(this.academicState.length != 0 ){
+                    axios.get('api/postulant/academicState/'+this.academicState)
+                        .then(response =>{
+                            console.log(response.data);
+                            this.postulants = response.data;
+                        })
+                        .catch(error => {
+                            console.log(error);
+                            showMessageTimer("Error","No se encontraron postulantes con este estado academico","error",5000);
                         })
                 }
 

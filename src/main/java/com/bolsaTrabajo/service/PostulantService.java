@@ -4,6 +4,7 @@ import com.bolsaTrabajo.model.Postulant;
 import com.bolsaTrabajo.model.catalog.Language;
 import com.bolsaTrabajo.model.postulantInfo.PostulantCertification;
 import com.bolsaTrabajo.model.postulantInfo.PostulantLanguage;
+import com.bolsaTrabajo.util.StateOfEducation;
 
 import java.util.List;
 
@@ -29,6 +30,8 @@ public interface PostulantService {
     void delete(Postulant postulant);
 
     List<Postulant> getAll();
+
+    List<Postulant> getAllByAcademicState(String stateOfEducation);
 
     List<PostulantLanguage> getPostulantForLanguage(Language language);
 }
