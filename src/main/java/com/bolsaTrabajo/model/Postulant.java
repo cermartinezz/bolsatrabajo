@@ -34,6 +34,7 @@ public class Postulant extends User{
     private Set<PostulantPublication> postulantPublications;
     private Set<PostulantLanguage> postulantLanguages;
     private Set<Candidate> candidates;
+    private Set<ExamResult> examResults;
 
     public Postulant() {super();}
 
@@ -233,6 +234,16 @@ public class Postulant extends User{
 
     public void setCandidates(Set<Candidate> candidates) {
         this.candidates = candidates;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "postulant", cascade = CascadeType.REMOVE)
+    @JsonIgnore
+    public Set<ExamResult> getExamResults() {
+        return examResults;
+    }
+
+    public void setExamResults(Set<ExamResult> examResults) {
+        this.examResults = examResults;
     }
 
     @Override

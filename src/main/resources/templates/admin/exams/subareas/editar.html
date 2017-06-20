@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragmentos/head :: head" th:remove="tag"></head>
+<title>Crear Area</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+
+<body>
+<div class="site-wrapper" id="app">
+    <header class="header header-menu-fullw">
+        <div th:include="fragmentos/top_bar :: top_bar(${user})" th:remove="tag"></div>
+        <div th:include="fragmentos/menu :: menu(${user})" th:remove="tag"></div>
+    </header>
+
+
+    <div class="main" role="main">
+
+        <div th:include="fragmentos/heading :: heading('Actualizar SubArea')"></div>
+
+        <section class="page-content" >
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3">
+                        <div class="box">
+                            <form th:action="@{'/subarea/' + ${subarea.id}}" th:object="${subarea}"
+                                  th:method="PUT" class="form">
+
+                                <input type="hidden"
+                                       th:name="${_csrf.parameterName}"
+                                       th:value="${_csrf.token}" />
+
+                                <div class="form-group">
+                                    <label>Area:</label>
+                                    <select class="form-control" th:field="*{area}" type="number" name="area" required>
+
+                                        <option disabled value="">Seleccione el area</option>
+
+                                        <option th:each="a : ${areas}"
+                                                th:value="${a.id}"
+                                                th:text="${a.nombre}"></option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Nombre:</label>
+                                    <input type="text" th:field="*{nombre}" name="nombre" pattern="[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+" placeholder="Nombre de la SubArea" class="form-control" required/>
+                                </div>
+
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary btn-block">Enviar</button>
+                                </div>
+                            </form>
+                            <div>
+                                <menu>
+                                    <a th:href="@{/examenes/subareas}"><button class="btn btn-success btn-xs">Lista de Sub Areas</button></a>
+                                </menu>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div th:include="fragmentos/footer :: footer"></div>
+    </div>
+</div>
+
+<div th:include="fragmentos/scripts :: scripts" ></div>
+
+</body>
+</html>

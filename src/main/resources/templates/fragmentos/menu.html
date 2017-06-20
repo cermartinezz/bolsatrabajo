@@ -30,7 +30,8 @@
                                 <ul>
                                     <li><a th:href="@{'/postulante/'+ ${u.getName()} + '/perfil'}">Mi Perfil</a></li>
                                     <li><a th:href="@{'/postulante/'+ ${u.getName()} + '/aplicaciones'}">Mis Aplicaciones</a></li>
-                                    <!--  <li><a href="#">Editar Perfil</a></li> -->
+                                    <li><a th:href="@{'/examenes/postulante'}">Realizar Examenes</a></li>
+
                                 </ul>
                             </li>
                             <li th:if="${user.hasRole('EMPRESA')}"><a href="#">Empresa</a>
@@ -58,10 +59,12 @@
                                     <li><a href="/usuarios">Usuarios</a></li>
                                     <li><a href="/roles">Roles</a></li>
                                     <li><a href="/permissions">Permisos</a></li>
+                                    <li><a href="/examenes">Examenes</a></li>
+                                    <li><a href="/examenes/areas">Examenes Areas</a></li>
+                                    <li><a href="/examenes/subareas">Examenes SubAreas</a></li>
+                                    <li><a href="/examenes/preguntas">Examenes Preguntas</a></li>
                                 </ul>
                             </li>
-
-
                         </ul>
                     </div>
                 </nav>

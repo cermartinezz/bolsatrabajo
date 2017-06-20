@@ -55,8 +55,8 @@
                         <form th:action="@{/role/permiso}"
                               th:method="PUT" class="form">
                             <div class="form-group">
-                                <label>Agregar un nuevo permiso: <span class="badge" th:text="${permisos.size()}"></span></label>
-                                <select class="form-control" type="number" name="permiso" required>
+                                <label>Agregar un nuevo permiso: <span class="badge badge-warning" th:text="${permisos.size()}"></span></label>
+                                <select class="form-control" type="number" name="permiso" th:disabled="${permisos.size()==0}" required>
 
                                     <option disabled value="">Seleccione el permiso</option>
 
@@ -74,7 +74,7 @@
                         </form>
                     </div>
                     </div>
-                    <h3>Permisos <span class="badge" th:text="${role.getPermissions().size()}"></span></h3>
+                    <h3>Permisos <span class="badge badge-warning" th:text="${role.getPermissions().size()}"></span></h3>
                     <div th:each="rp,iter : ${role.getPermissions()}" class="col-xs-6">
                         <ul class="list-group">
                             <li class="list-group-item"><span th:text="${rp.name}"></span>

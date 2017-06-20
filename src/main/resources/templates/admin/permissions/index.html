@@ -30,7 +30,9 @@
                             </div>
 
                             <div class="table-responsive">
-                                <a th:href="@{/permissions/crear}" class="btn btn-success">Nuevo</a>
+                                <menu>
+                                    <a th:href="@{/permissions/crear}" class="btn btn-success">Nuevo</a>
+                                </menu>
                                 <table class="table table-bordered table-stripe">
                                     <thead>
                                     <tr>
@@ -46,14 +48,14 @@
                                         <td th:text="${p.id}"></td>
                                         <td th:text="${p.name}"></td>
                                         <td>
-                                            <a th:href="@{/permissions/{id}(id=${p.id})}" class="btn btn-info">Editar</a>
+                                            <a th:href="@{/permissions/{id}(id=${p.id})}" class="btn btn-warning btn-xs">Editar</a>
 
                                             <form th:action="@{'/permission/' + ${p.id}}"
                                                   th:method="DELETE" class="btn">
 
                                                 <div >
                                                     <button type="submit"
-                                                            class="btn btn-danger btn-block"
+                                                            class="btn btn-danger btn-xs"
                                                             onclick="return confirm("Seguro que desea eliminar este registro?")">Eliminar</button>
                                                 </div>
 

@@ -1,10 +1,10 @@
 package com.bolsaTrabajo;
 
-import com.bolsaTrabajo.model.Company;
-import com.bolsaTrabajo.model.Permission;
-import com.bolsaTrabajo.model.Postulant;
-import com.bolsaTrabajo.model.Role;
-import com.bolsaTrabajo.model.catalog.*;
+import com.bolsaTrabajo.model.*;
+import com.bolsaTrabajo.model.catalog.Language;
+import com.bolsaTrabajo.model.catalog.LanguageLevel;
+import com.bolsaTrabajo.model.catalog.Skill;
+import com.bolsaTrabajo.model.catalog.SkillCategory;
 import com.bolsaTrabajo.service.*;
 import com.bolsaTrabajo.util.Gender;
 import org.apache.commons.lang3.text.WordUtils;
@@ -15,9 +15,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.transaction.Transactional;
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.*;
+
+import static com.bolsaTrabajo.util.Gender.Masculino;
 
 @SpringBootApplication
 public class BolsaTrabajoApplication implements CommandLineRunner {
@@ -33,8 +37,6 @@ public class BolsaTrabajoApplication implements CommandLineRunner {
 	RoleService roleService;
 	@Autowired
 	PostulantService postulantService;
-	@Autowired
-    CompanyService companyService;
 
 	@Autowired
 	private SkillService skillService;
@@ -325,8 +327,7 @@ public class BolsaTrabajoApplication implements CommandLineRunner {
 		postulant.setGender(gender);
 		postulant.setPasswordConfirm("adminsitrador");
 		postulant.setActive(1);
-		HashSet<Role> roleCollection = new HashSet<>();
-		roleCollection.add(roleService.findByName("ADMIN"));
+		HashSet<Role> roleCollection = new HashSet<>(roleService.getAllRoles());
 		postulant.setRoles(roleCollection);
 		postulantService.save(postulant);
 	}

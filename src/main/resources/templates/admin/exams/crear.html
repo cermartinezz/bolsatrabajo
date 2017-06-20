@@ -1,0 +1,97 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragmentos/head :: head" th:remove="tag"></head>
+<title>Crear Examenes</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+
+<body>
+<div class="site-wrapper" id="app">
+    <header class="header header-menu-fullw">
+        <div th:include="fragmentos/top_bar :: top_bar(${user})" th:remove="tag"></div>
+        <div th:include="fragmentos/menu :: menu(${user})" th:remove="tag"></div>
+    </header>
+
+
+    <div class="main" role="main">
+
+        <div th:include="fragmentos/heading :: heading('Crear Examen')"></div>
+
+        <section class="page-content" >
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3">
+                        <div class="box">
+
+                            <div th:if="${message!=null}" class="alert alert-danger alert-dismissable">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <span th:text="${message}"></span>
+                            </div>
+
+                            <form  th:action="@{/exam}" th:object="${examen}"
+                                  method="post" class="form-horizontal">
+
+                                <input type="hidden"
+                                       th:name="${_csrf.parameterName}"
+                                       th:value="${_csrf.token}" />
+
+                                <div class="form-group">
+                                    <label>Sub Area de Conocimiento:</label>
+                                    <select class="form-control" th:field="*{subArea}" type="number" name="subArea" th:disabled="${subareas.size()==0}" required>
+
+                                        <option disabled value="">Seleccione una:</option>
+
+                                        <option th:each="sa : ${subareas}"
+                                                th:value="${sa.id}"
+                                                th:text="${sa.nombre}"></option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Titulo de Examen:</label>
+                                    <input type="text" th:field="*{titulo}" name="titulo" pattern="[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ.?¿- ]+" placeholder="titulo" class="form-control" required/>
+                                </div>
+                                <div class="form-group">
+                                    <label>Instrucciones de Examen:</label>
+                                    <textarea th:field="*{instrucciones}" name="instrucciones" pattern="[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ.?¿- ]+" placeholder="instrucciones" class="form-control" required/>
+                                </div>
+                                <div class="form-group">
+                                    <label>Fecha de Examen:</label>
+                                    <input type="date" th:field="*{fecha}" name="fecha" class="form-control" id="date-input" required/>
+                                </div>
+
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary btn-block">Crear</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div th:include="fragmentos/footer :: footer"></div>
+    </div>
+</div>
+
+
+<div th:include="fragmentos/scripts :: scripts" ></div>
+<script>
+    $(function(){
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+    var yyyy = today.getFullYear();
+     if(dd<10){
+            dd='0'+dd
+        }
+        if(mm<10){
+            mm='0'+mm
+        }
+
+    today = yyyy+'-'+mm+'-'+dd;
+   $("#date-input").prop('max',today);
+});
+</script>
+
+</body>
+</html>

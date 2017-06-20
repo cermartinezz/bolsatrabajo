@@ -1,6 +1,7 @@
 //Esta entidad guardara los logros, premios, etc. del postulante
-package com.bolsaTrabajo.model;
+package com.bolsaTrabajo.model.postulantInfo;
 
+import com.bolsaTrabajo.model.Postulant;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.format.annotation.DateTimeFormat;
 

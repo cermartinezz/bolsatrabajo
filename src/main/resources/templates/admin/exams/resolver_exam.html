@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragmentos/head :: head" th:remove="tag">
+    <meta charset="UTF-8">
+    <title>Permisos</title>
+</head>
+<body>
+<div class="site-wrapper" id="app">
+    <header class="header header-menu-fullw">
+        <div th:include="fragmentos/top_bar :: top_bar(${user})" th:remove="tag"></div>
+        <div th:include="fragmentos/menu :: menu(${user})" th:remove="tag"></div>
+    </header>
+
+
+    <div class="main" role="main">
+
+        <div th:include="fragmentos/heading :: heading('Exámen de Evaluación')"></div>
+
+        <section class="page-content">
+            <div class="container">
+                <div class="box">
+                    <div th:if="${message!=null}" class="alert alert-danger alert-dismissable">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <span th:text="${message}"></span>
+                    </div>
+                    <div th:if="${messageSuccess!=null}" class="alert alert-success alert-dismissable">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <span th:text="${messageSuccess}"></span>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8 col-md-offset-2">
+                            <h3>Exámen - Cuestionario</h3>
+
+                            <div class="table-responsive">
+                                <table class="table table-condensed tablita">
+                                    <tr>
+                                        <td><h5>Titulo:</h5></td>
+                                        <td><p th:text="${examen.titulo}"></p></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h5>Instrucciones:</h5></td>
+                                        <td><p th:text="${examen.instrucciones}"></p></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h5>Sub Area:</h5></td>
+                                        <td><p th:text="${examen.subArea.nombre}"></p></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <h3>Preguntas: <!--<a class="btn btn-success btn-xs">Nueva Pregunta</a>--></h3>
+                            <table class="table tablita">
+                                <form th:action="@{'/examresult/'+ ${examen.id}}"
+                                      th:method="POST">
+                                <div th:each="c,iter : ${examen.getQuestionaries()}">
+                                    <tr>
+                                        <td style="background:#dee0e2;font-weight:bold;">Pregunta: <span th:text="${iter.count}"></span></td>
+                                        <td rowspan="3" style="background:#b8d1f9;text-align:left;">
+                                            <fieldset>
+                                                <legend th:text="${c.question.enunciado}"></legend>
+                                                <input type="radio" th:name="|repuesta${iter.index}|" th:value="${c.question.d1}" th:text="${c.question.d1}"/><span style="color:#000;"></span><br />
+                                                <input type="radio" th:name="|repuesta${iter.index}|" th:value="${c.question.d2}" th:text="${c.question.d2}"/><br />
+                                                <input type="radio" th:name="|repuesta${iter.index}|" th:value="${c.question.d3}" th:text="${c.question.d3}"/><br />
+                                                <input type="radio" th:name="|repuesta${iter.index}|" th:value="${c.question.d4}" th:text="${c.question.d4}"/><br />
+                                                <input type="hidden" th:name="|pregunta${iter.index}|" th:value="${c.id}"/>
+                                            </fieldset>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="background:#dee0e2;"><span></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="background:#dee0e2;">Puntua como: <span th:text="${c.question.peso}">peso</span></td>
+                                    </tr>
+
+                                    <tr><td></td></tr>
+                                </div>
+                                    <tr>
+                                        <td>
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-primary btn-block">Enviar Todo</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </form>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div th:include="fragmentos/footer :: footer"></div>
+    </div>
+</div>
+<div th:include="fragmentos/scripts :: scripts"></div>
+</body>
+</html>
